@@ -1,0 +1,16 @@
+{
+    "name": "ueb/site-maocheia",
+    "description": "",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Edinei J. Bauer",
+            "email": "edineibauer@gmail.com"
+        }
+    ],
+    "require": {
+        "ueb/dashboard": "^1.1",
+        "php": "^7.1",
+        "ext-json": "*"
+    }
+}
