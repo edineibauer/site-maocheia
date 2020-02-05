@@ -9,8 +9,6 @@
         }
     ],
     "require": {
-        "ueb/dashboard": "^1.1",
-        "php": "^7.1",
-        "ext-json": "*"
+        "ueb/dashboard": "^1.1"
     }
 }
