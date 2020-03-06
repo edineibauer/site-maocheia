@@ -1,4 +1,7 @@
 {
     "title": "{$sitename}",
-    "css": ["w3"]
+    "css": ["libs/bootstrap.min", "libs/materialdesignicons.min", "libs/owl.carousel.min"],
+    "js": ["libs/owl.carousel.min"],
+    "navbar": false,
+    "header": false
 }
