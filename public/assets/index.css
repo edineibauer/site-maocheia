@@ -7,6 +7,12 @@ body {
     margin-top: 20px;
 }
 
+#apresentacao {
+    max-width: 400px;
+    margin: auto;
+    float: initial;
+}
+
 #apresentacao .owl-dots {
     position: absolute;
     left: 0 !important;
@@ -80,4 +86,21 @@ body {
 
 #center-banner {
     margin-top: 44px;
+}
+
+@media (min-width: 600px) {
+    body {
+        background: #f9f9f9;
+    }
+    #apresentacao {
+        padding-bottom: 40px;
+        border: solid 1px #eee;
+        border-radius: 5px;
+        box-shadow: 2px 4px 13px -7px #5d5d5d;
+        position: fixed;
+        top: 40px;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+    }
 }
