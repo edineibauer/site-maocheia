@@ -1,0 +1,7 @@
+{
+    "title": "{$sitename}",
+    "css": ["libs/bootstrap.min", "libs/materialdesignicons.min", "libs/owl.carousel.min"],
+    "js": ["libs/owl.carousel.min", "libs/bootstrap.min", "libs/popper.min"],
+    "navbar": false,
+    "header": false
+}

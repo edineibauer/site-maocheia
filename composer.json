@@ -9,6 +9,7 @@
         }
     ],
     "require": {
-        "ueb/dashboard": "^1.1"
+        "ueb/dashboard": "^1.1",
+        "ueb/cep": "^1.0"
     }
 }

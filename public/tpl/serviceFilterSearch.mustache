@@ -1,0 +1,48 @@
+<section id="pesquisa">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="titulo">De que tipo de serviço você precisa?</div>
+            </div>
+        </div>
+        <div class="owl-carousel owl-theme" id="categorias">
+            {{#categorias}}
+                {{#ativo}}
+                    <div style="opacity: {{opacity}}" class="item serviceCategory{{#selected}} selecionado{{/selected}}" rel="{{id}}">
+                        <figure>
+                            <img src="{{imagem.0.urls.100}}" alt="{{nome}}">
+                        </figure>
+                        <h4 class="servico">{{nome}}</h4>
+                    </div>
+                {{/ativo}}
+            {{/categorias}}
+        </div>
+    </div>
+</section>
+<section id="profissionais">
+    <div class="container">
+        <h6 class="titulo">Profissionais</h6>
+    </div>
+    <div class="container">
+        <div class="owl-carousel carousel-filters button-group filters-button-group">
+            <!--<div class="item">
+                <button class="button is-checked" data-filter="*" style="padding: 8px 15px 3px;">
+                    <i class="material-icons" style="text-shadow: none;">tune</i>
+                </button>
+            </div>-->
+            <div class="item">
+                <button class="button" data-filter=".valor">Valor</button>
+            </div>
+            <div class="item">
+                <button class="button" data-filter=".distancia">Distância</button>
+            </div>
+            <div class="item">
+                <button class="button" data-filter=".avaliacao">Avaliação</button>
+            </div>
+            <div class="item">
+                <button class="button" data-filter=":not(.transition)">online</button>
+            </div>
+        </div>
+    </div>
+    <div id="services"></div>
+</section>
