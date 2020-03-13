@@ -1,3 +1,5 @@
+var popup, Popup;
+
 function openMapPopup(marker) {
     if (marker.type === 2) {
         getTemplates().then(tpl => {

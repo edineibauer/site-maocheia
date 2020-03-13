@@ -134,6 +134,10 @@ function changeSwipeToService(data) {
                 changeSwipeToSearch();
             }
         });
+
+        $("#imagem-perfil, h2.nome").off("click").on("click", function () {
+            $(".menu-swipe").addClass("openFull");
+        });
     });
 }
 

@@ -1,5 +1,3 @@
-var popup, Popup;
-
 /**
  * Returns the Popup class.
  *
@@ -164,7 +162,7 @@ function startSwipe() {
     swipe.open();
 }
 
-window.Swipe = class {
+var Swipe = class {
     constructor() {
         this.functionClose = "";
         this.functionOpen = "";
@@ -208,5 +206,5 @@ window.Swipe = class {
     }
 };
 
-const swipe = new Swipe();
+var swipe = new Swipe();
 swipe.setFunctionClose("closeMapPopup");
