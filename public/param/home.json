@@ -7,6 +7,6 @@
         "libs/jquery.touchSwipe",
         "home-swipe",
         "libs/map.worker", "home-map"],
-    "navbar": false,
+    "navbar": true,
     "header": false
 }

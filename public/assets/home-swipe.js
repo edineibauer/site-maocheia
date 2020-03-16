@@ -106,7 +106,7 @@ function swipeMenuEvent($menu) {
                         }
                         $menu.css({bottom: ''})
                     } else {
-                        $menu.css({bottom: 0})
+                        $menu.css({bottom: "50px"})
                     }
                 }
             }, swipeStatus: function (event, phase, direction, distance) {
@@ -123,18 +123,19 @@ function swipeMenuEvent($menu) {
 
                     if (direction === "up" || direction === "down") {
                         if (direction == 'up') {
+
                             let up = Math.abs(distance);
                             up = ($menu.hasClass("openFull") && up > 20 ? 20 : ($menu.hasClass("open") && up > 320 ? 320 : (up > 500 ? 500 : up)));
-                            $menu.css({bottom: up})
+                            $menu.css({bottom: up + 50})
                         } else {
-                            $menu.css({bottom: -Math.abs(distance)})
+                            $menu.css({bottom: -Math.abs(distance) + 50})
                         }
                     }
                 }
 
                 if ($menu.hasClass("moving") && (phase == 'end' || phase == 'cancel')) {
                     let bottom = parseInt($menu.css('bottom'));
-                    $menu.removeClass('moving close').addClass('open').css({bottom: 0});
+                    $menu.removeClass('moving close').addClass('open').css({bottom: "50px"});
 
                     if (direction == 'down') {
                         if (bottom < -100) {

@@ -1,0 +1,137 @@
+body {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+h6, h4 {
+    font-weight: 600;
+}
+
+#perfil i {
+    color: #8B8B8B;
+}
+
+#topo {
+    margin-bottom: 16px;
+    box-shadow: 0 2px 5px #00000029;
+    padding: 20px 0;
+    border-bottom: 1px solid #00000029;
+}
+
+#topo figure,
+#topo figure img {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+#perfil .borda-row {
+    border-bottom: 1px solid #E8E8E8;
+    margin-bottom: 6px;
+}
+
+#perfil .titulo-h6 {
+    color: #CECECE;
+    text-transform: uppercase;
+    opacity: 1;
+    font-size: 10px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}
+
+#perfil .informacao-div {
+    color: #303030;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    padding: 10px 0 16px 0;
+}
+
+#perfil .mdi {
+    font-size: 20px;
+    color: #8B8B8B;
+}
+
+.sair-app i {
+    float: left;
+    margin: -2px -4px 0 0;
+}
+
+#sair-aplicativo {
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    left: 0;
+}
+
+#sair-aplicativo .sair-app {
+    color: #FF1967;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 102px;
+}
+
+.avaliacao-perfil > ul > li > i {
+    font-size: 13px;
+}
+
+.avaliacao-perfil {
+    margin-top: -8px;
+}
+
+ul.horizontal-list > li {
+    float: left;
+    color: #FF1967;
+    font-size: 9px;
+}
+
+ul.horizontal-list > li:nth-last-child(1) {
+    font-weight: bold;
+    margin-left: 4px;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+@media (min-width: 374px) {
+    #menu .navbar a {
+        padding: 0 24px;
+    }
+}
+
+@media (min-width: 410px) {
+    #menu .navbar a {
+        padding: 6px 28px;
+    }
+}
+
+@media (min-width: 425px) {
+    #menu .navbar a {
+        padding: 6px 30px;
+    }
+}
+
+@media (min-width: 768px) {
+    #menu .navbar a {
+        padding: 6px 72px;
+    }
+
+    #menu {
+        padding: 4px 10px 4px 10px;
+    }
+}
+
+@media (min-width: 1024px) {
+    #menu .navbar a {
+        padding: 6px 102px;
+    }
+
+    #menu {
+        padding: 4px 10px 4px 10px;
+    }
+}

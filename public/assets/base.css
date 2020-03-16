@@ -3,3 +3,11 @@
     box-shadow: none!important;
     background: initial!important;
 }
+
+#core-header-nav-bottom {
+    z-index: 1100;
+}
+
+#core-menu-custom-bottom li.active i, #core-menu-custom-bottom li.active div {
+    color: #2D7AFF!important;
+}

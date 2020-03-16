@@ -26,5 +26,3 @@
         },100);
     }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOHzDqP5Obg3nqWwu-QwztEyhD8XENPGE&libraries=places,directions&callback=initAutocomplete&language=pt-br"
-        async defer></script>

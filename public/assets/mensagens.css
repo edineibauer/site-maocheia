@@ -1,0 +1,34 @@
+body {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.titulo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 90px;
+}
+
+.mdi-arrow-left {
+    font-size: 32px;
+    margin-left: -4px;
+}
+
+.mt-6 {
+    margin-top: 2px;
+}
+
+.texto {
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+#notificacao figure img {
+    max-width: 280px;
+}
+
+#mensagem {
+    display: none;
+}

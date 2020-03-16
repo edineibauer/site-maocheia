@@ -11,11 +11,20 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+.mensagens-card {
+    background: #ffffff;
+    color: #555555;
+    border-radius: 5px;
+    float: left;
+    width: 100%;
+    box-shadow: 1px 1px 11px -8px black;
+}
+
 #frame {
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 50px);
     min-height: 300px;
-    background: #E6EAEA;
+    background: #F1F0F5;
 }
 
 @media screen and (max-width: 360px) {
@@ -32,7 +41,7 @@ body {
     width: 40%;
     height: 100%;
     background: #2c3e50;
-    color: #f5f5f5;
+    color: #ffffff;
     overflow: hidden;
     position: relative;
 }
@@ -318,7 +327,7 @@ body {
     margin-bottom: 6px;
     background: #2D7AFF;
     border-radius: 3px;
-    color: #f5f5f5;
+    color: #ffffff;
     padding: 7px;
     width: calc(100% - 43px);
 }
@@ -351,7 +360,7 @@ body {
     width: calc(100% - 25px);
     border: none;
     background: #2D7AFF;
-    color: #f5f5f5;
+    color: #ffffff;
 }
 
 #frame #sidepanel #search input:focus {
@@ -360,19 +369,19 @@ body {
 }
 
 #frame #sidepanel #search input::-webkit-input-placeholder {
-    color: #f5f5f5;
+    color: #ffffff;
 }
 
 #frame #sidepanel #search input::-moz-placeholder {
-    color: #f5f5f5;
+    color: #ffffff;
 }
 
 #frame #sidepanel #search input:-ms-input-placeholder {
-    color: #f5f5f5;
+    color: #ffffff;
 }
 
 #frame #sidepanel #search input:-moz-placeholder {
-    color: #f5f5f5;
+    color: #ffffff;
 }
 
 #frame #sidepanel #contacts {
@@ -529,7 +538,7 @@ body {
     width: 50%;
     padding: 10px 0;
     background: #2D7AFF;
-    color: #f5f5f5;
+    color: #ffffff;
     cursor: pointer;
     font-size: 0.85em;
     font-family: "proxima-nova", "Source Sans Pro", sans-serif;
@@ -579,11 +588,16 @@ body {
     }
 }
 
+#frame .content::-webkit-scrollbar {
+    width: 0;
+}
+
 #frame .content {
     float: right;
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    height: calc(100% - 60px);
+    overflow-y: auto;
+    overflow-x: hidden;
     position: relative;
 }
 
@@ -599,7 +613,12 @@ body {
 #frame .content .contact-profile {
     width: 100%;
     height: 60px;
-    background: #f5f5f5;
+    background: #ffffff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 1px 1px 11px -8px black;
 }
 
 #frame .content .contact-profile img {
@@ -639,12 +658,12 @@ body {
 }
 
 #frame .content .messages {
-    height: auto;
-    min-height: calc(100% - 123px);
-    max-height: calc(100% - 123px);
+    box-sizing: border-box;
+    height: 100%;
     width: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
+    padding-top: 60px;
 }
 
 #frame .content .messages::-webkit-scrollbar {
@@ -680,7 +699,7 @@ body {
 
 #frame .content .messages ul li.replies p {
     background: #2D7AFF;
-    color: #f5f5f5;
+    color: #ffffff;
     float: right;
 }
 
@@ -690,7 +709,7 @@ body {
 }
 
 #frame .content .messages ul li.sent p {
-    background: #f5f5f5;
+    background: #ffffff;
 }
 
 #frame .content .messages ul li img {
@@ -721,16 +740,16 @@ body {
     }
 }
 
-#frame .content .message-input, #frame .content .message-input-buy {
+.message-input, .message-input-buy {
     position: absolute;
     bottom: 0;
     width: 100%;
     z-index: 99;
-    padding: 0 10px 5px;
+    padding: 5px 10px 10px;
     display: none;
 }
 
-#frame .content .message-input .wrap {
+.message-input .wrap {
     position: relative;
 }
 
@@ -765,22 +784,21 @@ body {
     font-weight: 600;
 }
 
-#frame .content .message-input .wrap input {
+.message-input .wrap input {
     font-family: "proxima-nova", "Source Sans Pro", sans-serif;
     float: left;
     border: none;
-    width: calc(100% - 65px);
+    width: calc(100% - 50px);
     padding: 11px 32px 10px 20px;
     font-size: 0.9em;
     border-radius: 40px;
-    margin-top: 4px;
 }
 
-#frame .content .message-input .wrap input:focus {
+.message-input .wrap input:focus {
     outline: none;
 }
 
-#frame .content .message-input .wrap .attachment {
+.message-input .wrap .attachment {
     position: absolute;
     right: 60px;
     z-index: 4;
@@ -792,34 +810,65 @@ body {
 }
 
 @media screen and (max-width: 735px) {
-    #frame .content .message-input .wrap .attachment {
+    .message-input .wrap .attachment {
         margin-top: 17px;
         right: 65px;
     }
 }
 
-#frame .content .message-input .wrap .attachment:hover {
+.message-input .wrap .attachment:hover {
     opacity: 1;
 }
 
-#frame .content .message-input .wrap button {
+.message-input .wrap button {
     float: right;
     border: none;
-    width: 50px;
-    padding: 12px 0;
+    width: 42px;
     cursor: pointer;
     background: #2D7AFF;
-    color: #f5f5f5;
+    color: #ffffff;
     border-radius: 50px;
-    height: 50px;
-    padding: 10px!important;
+    height: 42px;
+    padding: 6px!important;
 }
 
 
-#frame .content .message-input .wrap button:hover {
+.message-input .wrap button:hover {
     background: #2D7AFF;
 }
 
-#frame .content .message-input .wrap button:focus {
+.message-input .wrap button:focus {
     outline: none;
+}
+
+.nomessage, .message {
+    display: none;
+    height: 100%;
+}
+
+.nomessage .titulo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+
+.nomessage .mdi-arrow-left {
+    font-size: 32px;
+    margin-left: -4px;
+}
+
+.nomessage .mt-6 {
+    margin-top: 2px;
+}
+
+.nomessage .texto {
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.nomessage #notificacao figure img {
+    max-width: 280px;
 }

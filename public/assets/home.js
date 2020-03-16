@@ -1,4 +1,5 @@
 var
+    mapLoaded = typeof mapLoaded !== "undefined",
     filtrosProfissionais = {
         categoria: ""
     },
@@ -134,6 +135,7 @@ function changeSwipeToService(data) {
             if ($(".popup-container").length) {
                 closeFullPerfil();
             } else {
+                closeFullPerfilHistory();
                 changeSwipeToSearch();
             }
         });
@@ -152,11 +154,15 @@ function openFullPerfil() {
 }
 
 function closeFullPerfil() {
+    closeFullPerfilHistory();
+    $(".menu-swipe").removeClass("openFull");
+}
+
+function closeFullPerfilHistory() {
     history.state.param = {};
     let state = history.state;
     state.param = {};
     history.replaceState(state, null, HOME + state.route);
-    $(".menu-swipe").removeClass("openFull");
 }
 
 function changeSwipeToBuild() {
@@ -267,4 +273,11 @@ $(function () {
         swipe.open();
         $(".menu-swipe").addClass("openFull");
     });
+
+    if(!mapLoaded) {
+        mapLoaded = !0;
+        $.cachedScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyDOHzDqP5Obg3nqWwu-QwztEyhD8XENPGE&libraries=places,directions&callback=initAutocomplete&language=pt-br");
+    } else {
+        initAutocomplete();
+    }
 });

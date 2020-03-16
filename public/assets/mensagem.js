@@ -1,5 +1,4 @@
 var mensagem = [];
-$(".messages").animate({scrollTop: $(document).height()}, "fast");
 
 $("#profile-img").click(function () {
     $("#status-options").toggleClass("active");
@@ -34,8 +33,16 @@ $("#status-options ul li").click(function () {
     $("#status-options").removeClass("active");
 });
 
+function updateMessagesLoop() {
+    clearInterval(updateMessageLoop);
+    updateMessageLoop = null;
+    updateMessageLoop = setInterval(function () {
+        updateMessage();
+    }, 2000);
+}
+
 function newMessage(content, sendByClient) {
-    if($.trim(content).length) {
+    if ($.trim(content).length) {
         mensagem.mensagens.push({
             mensagem: loadMessage(content, sendByClient),
             enviada_pelo_cliente: USER.setor === "clientes" ? "1" : "0",
@@ -47,18 +54,21 @@ function newMessage(content, sendByClient) {
             columnStatus: {column: "", have: false, value: false}
         });
 
-        db.exeCreate("mensagens", mensagem).then(result => {
-            console.log(result);
+        $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, "fast");
+
+        clearInterval(updateMessageLoop);
+        db.exeCreate("mensagens", mensagem).then(() => {
+            //ativa novamente o update das mensagens
+            updateMessagesLoop();
         });
     }
 }
 
 function loadMessage(content, sendByClient) {
-    if($.trim(content).length) {
+    if ($.trim(content).length) {
         let type = (sendByClient && USER.setor === "clientes") || (!sendByClient && USER.setor === "profissional") ? "replies" : "sent";
         $('<li class="' + type + '"><p>' + content + '<small>' + moment().format("HH:mm") + '</small></p></li>').appendTo($('.messages ul'));
         $('.message-input input').val(null);
-        $(".messages").animate({scrollTop: $(document).height()}, "fast");
     }
 
     return content;
@@ -72,84 +82,188 @@ $('.submit').click(function () {
     sendMessage();
 });
 
-$(window).on('keydown', function (e) {
-    if (e.which == 13) {
-        sendMessage();
-        return false;
-    }
-});
+function updateMessage() {
+    dbRemote.syncDownload("mensagens").then(result => {
+        if (result !== 0) {
+            if (typeof FRONT.VARIAVEIS[0] !== "undefined") {
+                readMessage();
+            } else {
+                readAllMessages();
+            }
+        }
+    });
+}
 
-var contato = {};
-var sendRequestBuy = !1;
-$(function () {
-    if(USER.setor === "clientes") {
-        /**
-         * Lê o profissional
-         */
-        db.exeRead("profissional", parseInt(FRONT.VARIAVEIS[0])).then(perfil => {
-            contato = perfil;
-            let imagem = perfil.imagem_de_perfil !== null && typeof perfil.imagem_de_perfil !== "undefined" ? perfil.imagem_de_perfil[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
-            $("#perfil-info").html('<img src="' + imagem + '" alt=""/><p>' + perfil.nome + '</p>');
+function readMessage() {
+    if (USER.setor === "clientes") {
 
+        if (isEmpty(contato)) {
             /**
-             * Lê as mensagens do cliente com este profissional
+             * Lê o profissional
              */
-            db.exeRead("mensagens").then(m => {
-                for (let i in m) {
-                    if (parseInt(m[i].profissional) === contato.id) {
-                        mensagem = m[i];
-                        $(".message-input").css("display", "block");
+            db.exeRead("profissional", parseInt(FRONT.VARIAVEIS[0])).then(perfil => {
+                contato = perfil;
+                contato.imagemPerfil = perfil.imagem_de_perfil !== null && typeof perfil.imagem_de_perfil !== "undefined" ? perfil.imagem_de_perfil[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
+                $("#perfil-info").html('<img src="' + contato.imagemPerfil + '" alt=""/><p>' + contato.nome + '</p>');
+                $(".message-input").css("display", "block");
 
-                        for (let i in mensagem.mensagens)
-                            loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
+                /**
+                 * Lê as mensagens do cliente com este profissional
+                 */
 
-                        break;
+                db.exeRead("mensagens").then(m => {
+                    for (let i in m) {
+                        if (parseInt(m[i].profissional) === contato.id) {
+                            mensagem = m[i];
+                            $('.messages ul').html("");
+                            $(".message-input").css("display", "block");
+
+                            for (let i in mensagem.mensagens)
+                                loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
+
+                            lastMessageData = mensagem.mensagens[mensagem.mensagens.length - 1].data;
+                            $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, 0);
+
+                            break;
+                        }
                     }
-                }
-            })
-        });
-    } else if(USER.setor === "profissional") {
-        /**
-         * Lê o cliente
-         */
-        db.exeRead("clientes", parseInt(FRONT.VARIAVEIS[0])).then(perfil => {
-            contato = perfil;
-            let imagem = perfil.imagem !== null && typeof perfil.imagem !== "undefined" ? perfil.imagem[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
-            $("#perfil-info").html('<img src="' + imagem + '" alt=""/><p>' + contato.nome + '</p>');
-
+                })
+            });
+        } else {
             /**
              * Lê as mensagens do profissional com este cliente
              */
-            db.exeRead("mensagens").then(m => {
-                for (let i in m) {
-                    if (parseInt(m[i].cliente) === contato.id) {
-                        mensagem = m[i];
+            clearInterval(updateMessageLoop);
+            db.exeRead("mensagens", mensagem.id).then(m => {
+                mensagem = m;
 
-                        for (let i in mensagem.mensagens)
-                            loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
+                console.log(mensagem.mensagens);
+                for (let i in mensagem.mensagens) {
+                    if (mensagem.mensagens[i].data > lastMessageData)
+                        loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
+                }
 
-                        if(mensagem.aceitou === 0) {
-                            $(".message-input-buy").css("display", "block");
-                            $(".btn-buy").off("click").on("click", function() {
-                                if(!sendRequestBuy) {
-                                    sendRequestBuy = !0;
-                                    post("site-maocheia", "openMessage", {id: mensagem.id}, function (g) {
-                                        sendRequestBuy = !1;
-                                        if (g) {
-                                            $(".message-input").css("display", "block");
-                                            $(".message-input-buy").css("display", "none");
-                                        }
-                                    });
-                                }
-                            });
-                        } else {
-                            $(".message-input").css("display", "block");
+                lastMessageData = mensagem.mensagens[mensagem.mensagens.length - 1].data;
+                $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, "fast");
+                updateMessagesLoop();
+            })
+        }
+
+    } else if (USER.setor === "profissional") {
+        if (isEmpty(contato)) {
+
+            /**
+             * Lê o cliente
+             */
+            db.exeRead("clientes", parseInt(FRONT.VARIAVEIS[0])).then(perfil => {
+                contato = perfil;
+                contato.imagemPerfil = perfil.imagem !== null && typeof perfil.imagem !== "undefined" ? perfil.imagem[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
+                $("#perfil-info").html('<img src="' + contato.imagemPerfil + '" alt=""/><p>' + contato.nome + '</p>');
+
+                /**
+                 * Lê as mensagens do profissional com este cliente
+                 */
+                db.exeRead("mensagens").then(m => {
+                    for (let i in m) {
+                        if (parseInt(m[i].cliente) === contato.id) {
+                            mensagem = m[i];
+                            $('.messages ul').html("");
+
+                            for (let i in mensagem.mensagens)
+                                loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
+
+                            lastMessageData = mensagem.mensagens[mensagem.mensagens.length - 1].data;
+                            $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, 0);
+
+                            if (mensagem.aceitou === 0) {
+                                $(".message-input-buy").css("display", "block");
+                                $(".btn-buy").off("click").on("click", function () {
+                                    if (!sendRequestBuy) {
+                                        sendRequestBuy = !0;
+                                        post("site-maocheia", "openMessage", {id: mensagem.id}, function (g) {
+                                            sendRequestBuy = !1;
+                                            if (g) {
+                                                $(".message-input").css("display", "block");
+                                                $(".message-input-buy").css("display", "none");
+                                            }
+                                        });
+                                    }
+                                });
+                            } else {
+                                $(".message-input").css("display", "block");
+                            }
+
+                            break;
                         }
+                    }
+                })
+            });
+        } else {
+            /**
+             * Lê as mensagens do profissional com este cliente
+             */
+            clearInterval(updateMessageLoop);
+            db.exeRead("mensagens", mensagem.id).then(m => {
+                mensagem = m;
 
-                        break;
+                for (let i in mensagem.mensagens) {
+                    if (mensagem.mensagens[i].data > lastMessageData)
+                        loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
+                }
+
+                lastMessageData = mensagem.mensagens[mensagem.mensagens.length - 1].data;
+                $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, "fast");
+
+                updateMessagesLoop();
+            })
+        }
+    }
+}
+
+function readAllMessages() {
+    db.exeRead("mensagens").then(mensagens => {
+        if (!isEmpty(mensagens)) {
+            $(".nomessage").css("display", "block");
+            $("#nomessage").html("");
+            getTemplates().then(tpl => {
+                for (let i in mensagens) {
+                    mensagens[i].calendar = moment(mensagens[i].mensagens[mensagens[i].mensagens.length - 1].data).calendar().toLowerCase();
+                    mensagens[i].lastMessage = mensagens[i].mensagens[mensagens[i].mensagens.length - 1].mensagem;
+                    mensagens[i].chatId = USER.setor === "clientes" ? mensagens[i].profissional : mensagens[i].cliente;
+                    if (USER.setor === "profissional") {
+                        db.exeRead("clientes", parseInt(mensagens[i].cliente)).then(cliente => {
+                            mensagens[i].clienteData = cliente;
+                            mensagens[i].clienteData.imagem = isEmpty(mensagens[i].clienteData.imagem) ? HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg" : mensagens[i].clienteData.imagem[0].urls['100'];
+                            $("#nomessage").append(Mustache.render(tpl.cardMensagens, mensagens[i]));
+                        })
+                    } else if (USER.setor === "clientes") {
+                        db.exeRead("profissional", parseInt(mensagens[i].profissional)).then(profissional => {
+                            mensagens[i].clienteData = profissional;
+                            mensagens[i].clienteData.imagem = isEmpty(mensagens[i].clienteData.imagem) ? HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg" : mensagens[i].clienteData.imagem[0].urls['100'];
+                            $("#nomessage").append(Mustache.render(tpl.cardMensagens, mensagens[i]));
+                        })
                     }
                 }
-            })
-        });
+            });
+        }
+    });
+}
+
+var contato = {}, lastMessageData = null, sendRequestBuy = !1, updateMessageLoop;
+$(function () {
+    if (typeof FRONT.VARIAVEIS[0] !== "undefined") {
+        $(".message").css("display", "block");
+        readMessage();
+    } else {
+        readAllMessages();
     }
+
+    updateMessagesLoop();
+
+    $(window).on('keydown', function (e) {
+        if (e.which === 13) {
+            sendMessage();
+            return false;
+        }
+    });
 });

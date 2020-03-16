@@ -2,7 +2,7 @@
     "title": "{$sitename}",
     "css": ["libs/bootstrap.min"],
     "js": ["libs/bootstrap.min"],
-    "navbar": false,
+    "navbar": true,
     "header": false,
     "setor": ["clientes", "profissional"],
     "redirect": "login"
