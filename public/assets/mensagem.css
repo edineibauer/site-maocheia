@@ -749,6 +749,12 @@ body {
     display: none;
 }
 
+.message-input-buy{
+    padding: 10px;
+    border-top: solid 2px #ddd;
+    background: #ffffff;
+}
+
 .message-input .wrap {
     position: relative;
 }
