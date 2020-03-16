@@ -2,10 +2,11 @@ var
     filtrosProfissionais = {
         categoria: ""
     },
-    servicesOnMap = [];
+    servicesOnMap = [],
+    openService = {};
 
 function getProfissionalMustache(profissional) {
-    profissional.imagem_de_perfil = !isEmpty(profissional.imagem_de_perfil) ? profissional.imagem_de_perfil[0].url : HOME + VENDOR + "site-maocheia/public/assets/img/perfil.jpg";
+    profissional.imagem_de_perfil = !isEmpty(profissional.imagem_de_perfil) ? profissional.imagem_de_perfil[0].url : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
     profissional.imagem_de_fundo = !isEmpty(profissional.imagem_de_fundo) ? profissional.imagem_de_fundo[0].url : "";
     profissional.endereco = (!isEmpty(profissional.endereco) ? getLogradouroFromEndereco(profissional.endereco[0]) : "");
     profissional.avaliacao = !isEmpty(profissional.avaliacao) ? (profissional.avaliacao * .1) : 0;
@@ -32,12 +33,13 @@ function getProfissionalMustache(profissional) {
 }
 
 function changeSwipeToSearch() {
+    openService = {};
     if (!$(".menu-swipe").hasClass("serviceFilterSearch")) {
         $(".menu-swipe").addClass("serviceFilterSearch").removeClass("servicePerfil buildPerfil");
         closeMapPopup();
         dbLocal.exeRead("categorias").then(categorias => {
 
-            for(let c in categorias) {
+            for (let c in categorias) {
                 categorias[c].selected = (!isEmpty(filtrosProfissionais.categoria) && categorias[c].id === filtrosProfissionais.categoria);
                 categorias[c].opacity = (!isEmpty(filtrosProfissionais.categoria) ? .6 : 1);
             }
@@ -125,23 +127,40 @@ function getLogradouroFromEndereco(endereco) {
 }
 
 function changeSwipeToService(data) {
+    openService = data;
     $(".menu-swipe").addClass("servicePerfil").removeClass("serviceFilterSearch buildPerfil");
     $(".swipe-zone-body").htmlTemplate('servicePerfil', data).then(() => {
         $("#arrowback-perfil").off("click").on("click", function () {
-            if($(".popup-container").length) {
-                $(".menu-swipe").removeClass("openFull");
+            if ($(".popup-container").length) {
+                closeFullPerfil();
             } else {
                 changeSwipeToSearch();
             }
         });
 
         $("#imagem-perfil, h2.nome").off("click").on("click", function () {
-            $(".menu-swipe").addClass("openFull");
+            openFullPerfil();
         });
     });
 }
 
+function openFullPerfil() {
+    let state = history.state;
+    state.param = Object.assign(state.param || {}, {service: openService});
+    history.replaceState(state, null, HOME + state.route);
+    $(".menu-swipe").addClass("openFull");
+}
+
+function closeFullPerfil() {
+    history.state.param = {};
+    let state = history.state;
+    state.param = {};
+    history.replaceState(state, null, HOME + state.route);
+    $(".menu-swipe").removeClass("openFull");
+}
+
 function changeSwipeToBuild() {
+    openService = {};
     $(".menu-swipe").addClass("buildPerfil").removeClass("servicePerfil serviceFilterSearch");
 
 }
@@ -153,7 +172,7 @@ function toogleServicePerfil() {
     closeAllMapPopupExceptThis(this);
 
     if ($("#" + this.id).length) {
-        $(".menu-swipe").addClass("openFull");
+        openFullPerfil();
     } else {
         swipe.open();
         $("#procura").blur();
@@ -183,7 +202,7 @@ function updateMapService(data) {
     /**
      * Remove services from map
      */
-    if(!isEmpty(servicesOnMap)) {
+    if (!isEmpty(servicesOnMap)) {
         for (let m in servicesOnMap) {
             if (!data.some(el => el.id === servicesOnMap[m])) {
                 for (let e in markers) {
@@ -221,6 +240,7 @@ function updateListService(data) {
         $(".profissional").off("click").on("click", function () {
             db.exeRead("profissional", parseInt($(this).attr("rel"))).then(service => {
                 changeSwipeToService(getProfissionalMustache(service));
+                openFullPerfil();
             })
         });
     });

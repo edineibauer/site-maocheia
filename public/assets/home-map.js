@@ -28,6 +28,11 @@ function closeAllMapPopupExceptThis(marker) {
     })
 }
 
+function moveToLocation(lat, lng){
+    const center = new google.maps.LatLng(lat, lng);
+    map.panTo(center);
+}
+
 function addMarker(service, type, latitude, longitude) {
     let image = type === 1 ? "circulo" : "map-marker";
     let marker = new google.maps.Marker({
@@ -35,6 +40,7 @@ function addMarker(service, type, latitude, longitude) {
         map: map,
         draggable: !1,
         type: type,
+        scrollwheel: true,
         service: service,
         id: service.id || 0,
         icon: HOME + VENDOR + 'site-maocheia/public/assets/svg/' + image + '.svg',
@@ -144,11 +150,14 @@ function startMap() {
      * Minha posição atual
      */
     myMarker = addMarker({}, 1, latitude, longitude);
+    moveToLocation(latitude, longitude);
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-                if(position.coords.accuracy < 100)
+                if(position.coords.accuracy < 100) {
                     myMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                    moveToLocation(position.coords.latitude, position.coords.longitude);
+                }
             },
             function (error) { // callback de erro
                 toast('Erro ao obter localização!', 3000, "toast-warning");

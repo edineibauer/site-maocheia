@@ -1,0 +1,8 @@
+{
+    "title": "Cadastro {$sitename}",
+    "css": ["libs/bootstrap.min"],
+    "navbar": false,
+    "header": false,
+    "setor": ["0"],
+    "redirect": "dashboard"
+}

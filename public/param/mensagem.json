@@ -1,0 +1,9 @@
+{
+    "title": "{$sitename}",
+    "css": ["libs/bootstrap.min"],
+    "js": ["libs/bootstrap.min"],
+    "navbar": false,
+    "header": false,
+    "setor": ["clientes", "profissional"],
+    "redirect": "login"
+}

@@ -1,0 +1,7 @@
+{
+    "title": "Login {$sitename}",
+    "css": ["libs/bootstrap.min", "libs/materialdesignicons.min"],
+    "js": ["libs/bootstrap.min"],
+    "navbar": false,
+    "header": false
+}

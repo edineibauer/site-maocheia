@@ -121,7 +121,7 @@ function swipeMenuEvent($menu) {
 
                 if (phase == 'move') {
 
-                    if(direction === "up" || direction === "down") {
+                    if (direction === "up" || direction === "down") {
                         if (direction == 'up') {
                             let up = Math.abs(distance);
                             up = ($menu.hasClass("openFull") && up > 20 ? 20 : ($menu.hasClass("open") && up > 320 ? 320 : (up > 500 ? 500 : up)));
@@ -138,14 +138,25 @@ function swipeMenuEvent($menu) {
 
                     if (direction == 'down') {
                         if (bottom < -100) {
-                            if (bottom > -290 && $menu.hasClass("openFull"))
-                                $menu.removeClass("openFull");
-                            else
+                            if (bottom > -290 && $menu.hasClass("openFull")) {
+                                if ($menu.hasClass("servicePerfil"))
+                                    closeFullPerfil();
+                                else
+                                    $menu.removeClass("openFull");
+                            } else {
+                                if ($menu.hasClass("servicePerfil"))
+                                    closeFullPerfil();
+
                                 swipe.close($menu.attr("id"));
+                            }
                         }
                     } else {
-                        if (bottom > 150)
-                            $menu.addClass("openFull");
+                        if (bottom > 150) {
+                            if ($menu.hasClass("servicePerfil"))
+                                openFullPerfil();
+                            else
+                                $menu.addClass("openFull");
+                        }
                     }
                 }
             }
@@ -158,8 +169,13 @@ function swipeMenuEvent($menu) {
 }
 
 function startSwipe() {
-    changeSwipeToSearch();
-    swipe.open();
+    if (typeof history.state.param.service !== "undefined" && history.state.param.service !== null && !isEmpty(history.state.param.service)) {
+        changeSwipeToService(history.state.param.service);
+        openFullPerfil();
+    } else {
+        changeSwipeToSearch();
+        swipe.open();
+    }
 }
 
 var Swipe = class {

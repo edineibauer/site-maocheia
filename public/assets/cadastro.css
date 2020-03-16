@@ -1,0 +1,71 @@
+body{
+    font-family: 'Roboto', sans-serif !important;
+}
+#cadastro .titulo {
+    font-size: 26px;
+    font-weight: bold;
+    margin-top: 36px;
+    margin-bottom: 4px;
+}
+
+.mdi-arrow-left {
+    font-size: 32px;
+}
+
+#cadastro .btn-primary {
+    color: #fff;
+    background-color: #FF1967 !important;
+    border-color: #FF1967 !important;
+    width: 100% !important;
+    font-size: 20px !important;
+    text-transform: uppercase !important;
+    font-weight: 500 !important;
+    padding: 9px 0 !important;
+    margin-top: 20px;
+    box-shadow: 0 3px 6px #00000042;
+}
+#cadastro .conta{
+    font-size: 12px;
+    margin-top: 8px;
+    margin-bottom: 62px;
+    color: #CECECE;
+}
+#cadastro .conta a{
+    font-weight: bold;
+    color: #303030;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #FF1967;
+    border-color: #FF1967;
+}
+
+.form-group {
+    margin-top: 15px !important;
+    margin-bottom: -4px !important;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 0 !important;
+    color: #707070;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+}
+
+.form-control {
+    padding: .375rem .0rem !important;
+    font-size: 14px !important;
+    line-height: 1.5;
+    color: #000000 !important;
+    border: 1px solid #CECECE;
+    border-top: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-radius: 0 !important;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    font-weight: 500 !important;
+}
