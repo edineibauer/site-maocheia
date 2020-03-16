@@ -221,8 +221,8 @@ function readMessage() {
 
 function readAllMessages() {
     db.exeRead("mensagens").then(mensagens => {
+        $(".nomessage").css("display", "block");
         if (!isEmpty(mensagens)) {
-            $(".nomessage").css("display", "block");
             $("#nomessage").html("");
             getTemplates().then(tpl => {
                 for (let i in mensagens) {
@@ -244,6 +244,8 @@ function readAllMessages() {
                     }
                 }
             });
+        } else {
+
         }
     });
 }
