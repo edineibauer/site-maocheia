@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div>
-                            <h3 class="titulo">Mensagem</h3>
+                            <h3 class="titulo" style="font-weight: 700">Mensagem</h3>
                         </div>
                         <div id="nomessage">
                             <div class="texto">

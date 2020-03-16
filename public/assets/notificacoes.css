@@ -19,6 +19,15 @@ body {
     box-shadow: 1px 1px 11px -8px black;
 }
 
+.btn-notify {
+    border: none;
+    border-radius: 7px;
+    padding: 5px 10px;
+    margin-top: 22px;
+    color: white;
+    box-shadow: 1px 1px 11px -8px black;
+}
+
 .mdi-arrow-left {
     font-size: 32px;
     margin-left: -4px;
