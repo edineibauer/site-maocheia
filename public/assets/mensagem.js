@@ -42,6 +42,18 @@ function updateMessagesLoop() {
 
 function newMessage(content, sendByClient) {
     if ($.trim(content).length) {
+        if(isEmpty(mensagem)) {
+            let profissional = (USER.setor === "clientes" ? contato.id : USER.setorData.id);
+            let cliente = (USER.setor === "clientes" ? USER.setorData.id : contato.id);
+            mensagem = {
+                profissional: profissional,
+                cliente: cliente,
+                aceitou: 0,
+                pendente: 1,
+                mensagens: []
+            };
+        }
+
         mensagem.mensagens.push({
             mensagem: loadMessage(content, sendByClient),
             enviada_pelo_cliente: USER.setor === "clientes" ? "1" : "0",
@@ -55,6 +67,7 @@ function newMessage(content, sendByClient) {
 
         $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, "fast");
 
+        console.log(Object.assign({}, mensagem));
         clearInterval(updateMessageLoop);
         db.exeCreate("mensagens", mensagem).then(() => {
             //ativa novamente o update das mensagens
