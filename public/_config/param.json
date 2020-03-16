@@ -1,1 +1,11 @@
-{"title":"M\u00e3o Cheia","js":[],"css":[],"font":["roboto"],"icon":["material"]}
+{
+  "title": "mão cheia",
+  "js": [],
+  "css": ["base"],
+  "font": [
+    "roboto"
+  ],
+  "icon": [
+    "material"
+  ]
+}
