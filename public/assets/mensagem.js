@@ -151,7 +151,7 @@ function readMessage() {
 
                 console.log(mensagem.mensagens);
                 for (let i in mensagem.mensagens) {
-                    if (mensagem.mensagens[i].data > lastMessageData)
+                    if (mensagem.mensagens[i].data > lastMessageData && ((USER.setor === "clientes" && mensagem.mensagens[i].enviada_pelo_cliente === "0") || (USER.setor === "profissional" && mensagem.mensagens[i].enviada_pelo_cliente === "1")))
                         loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
                 }
 
@@ -219,7 +219,7 @@ function readMessage() {
                 mensagem = m;
 
                 for (let i in mensagem.mensagens) {
-                    if (mensagem.mensagens[i].data > lastMessageData)
+                    if (mensagem.mensagens[i].data > lastMessageData && ((USER.setor === "clientes" && mensagem.mensagens[i].enviada_pelo_cliente === "0") || (USER.setor === "profissional" && mensagem.mensagens[i].enviada_pelo_cliente === "1")))
                         loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
                 }
 
