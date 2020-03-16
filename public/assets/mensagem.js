@@ -28,7 +28,6 @@ $("#status-options ul li").click(function () {
     } else {
         $("#profile-img").removeClass();
     }
-    ;
 
     $("#status-options").removeClass("active");
 });
