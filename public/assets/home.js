@@ -129,6 +129,8 @@ function getLogradouroFromEndereco(endereco) {
 
 function changeSwipeToService(data) {
     openService = data;
+    data.haveAvaliacoes = !1;
+    data.avaliacoes = [];
     $(".menu-swipe").addClass("servicePerfil").removeClass("serviceFilterSearch buildPerfil");
     $(".swipe-zone-body").htmlTemplate('servicePerfil', data).then(() => {
         $("#arrowback-perfil").off("click").on("click", function () {
@@ -267,7 +269,32 @@ function readServices() {
     });
 }
 
+function initAutocomplete() {
+    setTimeout(function () {
+        startMap();
+    },100);
+}
+
+
+
 $(function () {
+    $("#core-content").addClass("hide");
+
+    /*if(!$("#core-content-map").length) {
+        getTemplates().then(tpl => {
+            $("#core-content").after(Mustache.render(tpl.homeMap));
+
+            if(!mapLoaded) {
+                mapLoaded = !0;
+                $.cachedScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyDOHzDqP5Obg3nqWwu-QwztEyhD8XENPGE&libraries=places,directions&callback=initAutocomplete&language=pt-br");
+            } else {
+                initAutocomplete();
+            }
+        });
+    } else {
+        $("#core-content-map").removeClass("hide");
+    }*/
+
     $("#procura").off("focus").on("focus", function () {
         changeSwipeToSearch();
         swipe.open();

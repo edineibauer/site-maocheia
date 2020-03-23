@@ -1,0 +1,44 @@
+#feedback .titulo {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 36px;
+}
+
+.mdi-arrow-left {
+    font-size: 32px;
+}
+
+#feedback .btn-primary {
+    color: #fff;
+    background-color: #2D7AFF !important;
+    border-color: #2D7AFF !important;
+    width: 100% !important;
+    font-size: 18px !important;
+    text-transform: uppercase !important;
+    font-weight: 500 !important;
+    padding: 9px 0px !important;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #2D7AFF;
+    border-color: #2D7AFF;
+}
+
+.form-control:focus {
+    outline: 0;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border-color: #ced4da !important;
+}
+
+.volta {
+    margin-top: 6px;
+    margin-left: -4px;
+}
+
+.volta a {
+    color: #212529;
+}

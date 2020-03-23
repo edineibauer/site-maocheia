@@ -1,0 +1,7 @@
+{
+    "title": "Feedback - {$sitename}",
+    "css": ["libs/bootstrap.min"],
+    "js": [],
+    "navbar": true,
+    "header": false
+}

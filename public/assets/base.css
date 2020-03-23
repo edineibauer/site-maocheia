@@ -11,3 +11,10 @@
 #core-menu-custom-bottom li.active i, #core-menu-custom-bottom li.active div {
     color: #2D7AFF!important;
 }
+
+.volta > i {
+    font-size: 35px;
+    padding: 15px 10px 10px;
+    margin-left: -15px;
+    color: #222222;
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "href": "home",
+    "class": "theme-text-aux",
+    "html": "<i class='material-icons left' style='margin-top: -5px'>home</i><div style='margin-top: -12px;color: gray;font-size: 10px;text-align: center;'>início</div>"
+  },
+  {
+    "href": "notificacoes",
+    "class": "theme-text-aux",
+    "html": "<i class='material-icons left' style='margin-top: -5px'>notifications</i><div style='margin-top: -12px;color: gray;font-size: 10px;text-align: center;'>notificações</div>"
+  },
+  {
+    "href": "mensagem",
+    "class": "theme-text-aux",
+    "html": "<i class='material-icons left' style='margin-top: -5px'>chat_bubble</i><div style='margin-top: -12px;color: gray;font-size: 10px;text-align: center;'>mensagens</div>"
+  },
+  {
+    "href": "perfil",
+    "class": "theme-text-aux",
+    "html": "<i class='material-icons left' style='margin-top: -5px'>person</i><div style='margin-top: -12px;color: gray;font-size: 10px;text-align: center;'>login</div>"
+  }
+]

@@ -106,52 +106,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-2">
-                        <div class="avaliacoes">
-                            <figure>
-                                <img src="{{home}}{{vendor}}site-maocheia/public/assets/img/perfil.jpg"
-                                     alt="">
-                            </figure>
-                        </div>
-                    </div>
-                    <div class="col-8">
-                        <div class="nomes">
-                            Dean Patton
-                        </div>
-                        <div class="data">
-                            2 de junho
-                        </div>
-                        <div class="estrelas">
-                            <div class="avaliacao-perfil">
-                                <ul class="horizontal-list">
-                                    <li><i class="material-icons">star</i></li>
-                                    <li><i class="material-icons">star</i></li>
-                                    <li><i class="material-icons">star</i></li>
-                                    <li><i class="material-icons">star</i></li>
-                                    <li><i class="material-icons">star</i></li>
-                                    <li> 5</li>
-                                </ul>
+
+                <div id="section-avaliacoes"></div>
+
+                {{#haveAvaliacoes}}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="todas-avaliacoes">
+                                <a href="avaliacoes/{{id}}" data-animation="forward">Ver todas as avaliações</a>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="texto">
-                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                            tempor invidunt ut labore
-                            et dolore magna aliquyam erat, sed diam voluptua. At vero eos et.
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="todas-avaliacoes">
-                            <a href="avaliacoes/{{id}}" data-animation="forward">Ver todas as avaliações</a>
-                        </div>
-                    </div>
-                </div>
+                {{/haveAvaliacoes}}
             </div>
         </div>
         <div class="row">

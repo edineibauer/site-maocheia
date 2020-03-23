@@ -1,0 +1,126 @@
+body {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+#perfil figure img {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+}
+
+.form-group {
+    margin-top: 10px !important;
+    margin-bottom: -4px !important;
+}
+
+#salvar {
+
+}
+
+#change-image {
+    float: left;
+    border: none;
+    border-radius: 4px;
+    background: #eee;
+    color: #777777;
+    font-size: 13px;
+    margin-top: 1px;
+    padding: 0 10px;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 0 !important;
+    color: #707070 !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+}
+
+.form-control {
+    padding: .375rem .0rem !important;
+    font-size: 14px !important;
+    line-height: 1.5;
+    color: #000000 !important;
+    border: 1px solid #CECECE;
+    border-top: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-radius: 0 !important;
+    margin-top: -7px !important;
+    font-weight: 500 !important;
+}
+
+#perfil .editar {
+    background-color: transparent;
+    border: none;
+    font-size: 12px;
+    font-weight: normal;
+    margin-top: 15px;
+}
+
+.mdi-arrow-left {
+    font-size: 32px;
+}
+
+#perfil .titulo {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.col-perfil {
+    margin-left: 12px;
+}
+
+#perfil .todas-avaliacoes {
+    margin-top: 10px;
+}
+
+#perfil.todas-avaliacoes a {
+    color: #FF1967;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+#perfil .estrelas .avaliacao-perfil {
+    margin-left: 0%;
+    margin-top: -20px;
+}
+
+#perfil .avaliacao-perfil {
+    margin-left: 0%;
+    margin-top: -16px;
+}
+
+ul.horizontal-list>li {
+    float: left;
+    color: #FF1967;
+    font-size: 9px;
+}
+
+ul.horizontal-list>li:nth-last-child(1) {
+    margin-left: 4px;
+    font-weight: bold;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#formProfissional {
+    margin-bottom: 50px;
+}
+
+.form-control:focus {
+    outline: 0;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border-color: #ced4da !important;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: #ffffff !important;
+    opacity: 1;
+}

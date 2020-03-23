@@ -3,5 +3,7 @@
     "css": ["libs/bootstrap.min"],
     "js": [],
     "navbar": true,
-    "header": false
+    "header": false,
+    "setor": "clientes",
+    "redirect": "login"
 }

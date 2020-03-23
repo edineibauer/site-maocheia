@@ -1,0 +1,6 @@
+{
+    "title": "Termo - {$sitename}",
+    "css": ["libs/bootstrap.min"],
+    "navbar": true,
+    "header": false
+}

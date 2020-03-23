@@ -1,0 +1,8 @@
+{
+  "title": "Dashboard",
+  "js": ["funcaoDashboard"],
+  "css": ["w3"],
+  "!setor": "0",
+  "setor": "admin",
+  "redirect": "home"
+}

@@ -19,10 +19,3 @@
     </div>
 
 </main>
-<script>
-    function initAutocomplete() {
-        setTimeout(function () {
-            startMap();
-        },100);
-    }
-</script>

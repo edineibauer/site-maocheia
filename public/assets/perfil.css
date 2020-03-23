@@ -73,6 +73,27 @@ h6, h4 {
     margin-top: 102px;
 }
 
+.saldo {
+    border-radius: 30px;
+    border: 0.5px solid #E5E5E5;
+    background-color: #F9F9F9;
+    margin-top: 20px;
+}
+
+.saldo .valor {
+    font-size: 12px;
+    margin-left: 6px;
+    margin-right: 8px;
+    margin-top: 3px;
+}
+
+.saldo .mais {
+    line-height: 2;
+    font-size: 12px;
+    border-left: 0.5px solid #E5E5E5;
+    padding-left: 5px;
+}
+
 .avaliacao-perfil > ul > li > i {
     font-size: 13px;
 }
