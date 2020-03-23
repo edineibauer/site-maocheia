@@ -2,6 +2,8 @@
     "title": "Login {$sitename}",
     "css": ["libs/bootstrap.min", "libs/materialdesignicons.min"],
     "js": ["libs/bootstrap.min"],
+    "setor": "0",
     "navbar": false,
-    "header": false
+    "header": false,
+    "redirect": "home"
 }

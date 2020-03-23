@@ -3,10 +3,13 @@ var
     filtrosProfissionais = {
         categoria: ""
     },
+    servicesOnMapUpdate = null,
+    services = [],
     servicesOnMap = [],
     openService = {};
 
 function getProfissionalMustache(profissional) {
+    profissional = Object.assign({}, profissional);
     profissional.imagem_de_perfil = !isEmpty(profissional.imagem_de_perfil) ? profissional.imagem_de_perfil[0].url : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
     profissional.imagem_de_fundo = !isEmpty(profissional.imagem_de_fundo) ? profissional.imagem_de_fundo[0].url : "";
     profissional.endereco = (!isEmpty(profissional.endereco) ? getLogradouroFromEndereco(profissional.endereco[0]) : "");
@@ -46,7 +49,7 @@ function changeSwipeToSearch() {
             }
 
             $(".swipe-zone-body").htmlTemplate('serviceFilterSearch', {categorias: categorias}).then(() => {
-                readServices();
+                readAllServices();
                 $(".serviceCategory").off("click").on("click", function () {
                     if ($(this).hasClass("selecionado")) {
                         filtrosProfissionais.categoria = "";
@@ -254,19 +257,86 @@ function updateListService(data) {
     });
 }
 
-function readServices() {
-    let km = getZoomToKm(map.getZoom());
+/**
+ * Lê todos os serviços em um raio de 200km
+ */
+function readAllServices() {
     let latlng = map.getCenter();
-    get("nearbyServices/" + latlng.lat() + "/" + latlng.lng() + "/" + km).then(result => {
-        let data = [];
-        for (let i in result)
-            data.push(getProfissionalMustache(result[i]));
+    get("nearbyServices/" + latlng.lat() + "/" + latlng.lng() + "/200").then(result => {
+        services = result;
 
-        data = profissionaisFiltrado(data);
-
-        updateListService(data);
-        updateMapService(data);
+        servicesOnMapUpdate = setInterval(function () {
+            updateRealPosition();
+        }, 3000);
     });
+}
+
+/**
+ * Busca atualizações das posições dos profissionais
+ */
+function updateRealPosition() {
+    let ids = [];
+    for(let i in services)
+        ids.push(services[i].id);
+
+    post("site-maocheia", "updateRealTimeServices", {ids: ids}, function (results) {
+        if(!isEmpty(results)) {
+            for (let i in services) {
+                services[i].latitude = results[services[i].id].latitude;
+                services[i].longitude = results[services[i].id].longitude;
+            }
+
+            readServices();
+        }
+    });
+}
+
+/**
+ * Busca a distância entre duas coordenadas
+ */
+function getLatLngDistance(lat, lng, lat2, lng2) {
+    return (6371 * Math.acos(Math.cos(degrees_to_radians(lat)) * Math.cos(degrees_to_radians(lat2)) * Math.cos(degrees_to_radians(lng) - degrees_to_radians(lng2)) + Math.sin(degrees_to_radians(lat)) * Math.sin(degrees_to_radians(lat2))));
+}
+
+function degrees_to_radians(degrees) {
+    return degrees * (Math.PI/180);
+}
+
+/**
+ * Atualiza lista e mapa com os serviços dentro da distância e dos filtros selecionados
+ */
+function readServices(repeat) {
+    let km = getZoomToKm(map.getZoom());
+    let minhaLatlng = map.getCenter();
+
+    /**
+     * Verfica os resultados que devem ser mostrados no mapa a partir da distancia do meu ponto
+     */
+    let data = [];
+    for(let i in services) {
+        let distancia = getLatLngDistance(services[i].latitude, services[i].longitude, minhaLatlng.lat(), minhaLatlng.lng());
+        if(distancia < km)
+            data.push(getProfissionalMustache(services[i]));
+    }
+
+    /**
+     * Aplica filtro aos resultados que serão mostrados no mapa
+     */
+    data = profissionaisFiltrado(data);
+
+    updateListService(data);
+    updateMapService(data);
+
+    /**
+     * Repete a requisição, pois pode ter o efeito de arraste na tela
+     * ao fim do efeito, 400 milesegundos em média, a posição central
+     * pode ser diferente da posição no disparo dessa função
+     */
+    if(typeof repeat === "undefined") {
+        setTimeout(function() {
+            readServices(1);
+        },400);
+    }
 }
 
 function initAutocomplete() {
