@@ -2,21 +2,21 @@
   {
     "href": "home",
     "class": "theme-text-aux",
-    "html": "<i class='material-icons left' style='padding-top: 7px;'>home</i><div style='margin-top: -12px;color: gray;font-size: 10px;text-align: center;'>início</div>"
+    "html": "<i class='material-icons left' style='padding-top: 7px;'>home</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>início</div>"
   },
   {
     "href": "notificacoes",
     "class": "theme-text-aux",
-    "html": "<i class='material-icons left' style='padding-top: 7px;'>notifications</i><div style='margin-top: -12px;color: gray;font-size: 10px;text-align: center;'>notificações</div>"
+    "html": "<i class='material-icons left' style='padding-top: 7px;'>notifications</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>notificações</div>"
   },
   {
     "href": "mensagem",
     "class": "theme-text-aux",
-    "html": "<i class='material-icons left' style='padding-top: 7px;'>chat_bubble</i><div style='margin-top: -12px;color: gray;font-size: 10px;text-align: center;'>mensagens</div>"
+    "html": "<i class='material-icons left' style='padding-top: 7px;'>chat_bubble</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>mensagens</div>"
   },
   {
     "href": "perfil",
     "class": "theme-text-aux",
-    "html": "<i class='material-icons left' style='padding-top: 7px;'>person</i><div style='margin-top: -12px;color: gray;font-size: 10px;text-align: center;'>perfil</div>"
+    "html": "<i class='material-icons left' style='padding-top: 7px;'>person</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>perfil</div>"
   }
 ]

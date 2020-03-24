@@ -374,11 +374,15 @@ $(function () {
         changeSwipeToSearch();
         $(".menu-swipe").removeClass("openFull");
         $(".swipe-zone-body").css("transform", "translateY(-160px)");
+        if($(".menu-swipe").hasClass("close"))
+            swipe.open();
 
     }).on("blur", "#procura", function () {
         setTimeout(function () {
             $(".swipe-zone-body").css("transform", "translateY(0)");
-        }, 200);
+            $(".menu-swipe").addClass("openFull");
+            $("#procura").val("");
+        }, 100);
 
     }).off("keyup", "#procura").on("keyup", "#procura", function () {
         let search = $(this).val().toLowerCase();
