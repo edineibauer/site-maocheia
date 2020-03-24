@@ -376,10 +376,13 @@ $(function () {
             swipe.open();
 
         $("#procura").one("blur", function () {
+            let search = $(this).val();
             setTimeout(function () {
                 $(".swipe-zone-body").removeClass("translateY");
-                $(".menu-swipe").addClass("openFull");
-                $("#procura").val("");
+                if(search.length) {
+                    $(".menu-swipe").addClass("openFull");
+                    $("#procura").val("");
+                }
             }, 100);
 
         }).off("keyup").on("keyup", function () {
