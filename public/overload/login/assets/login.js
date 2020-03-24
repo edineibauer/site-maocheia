@@ -20,7 +20,7 @@ function login() {
                         destino = getCookie("redirectOnLogin");
                         setCookie("redirectOnLogin", 1 ,-1);
                     }
-                    pageTransition(destino, "route", "forward", "#core-content");
+                    location.href = destino;
                 })
             }
         })
@@ -34,7 +34,7 @@ $(function () {
     });
 
     if (getCookie("token") !== "" && getCookie("token") !== "0")
-        pageTransition("dashboard", "route", "fade", "#core-content", null, null, !1);
+        location.href = HOME + "dashboard";
 
     $("#app").off("keyup", "#email, #senha").on("keyup", "#email, #senha", function (e) {
         if (e.which === 13)
