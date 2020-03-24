@@ -370,6 +370,11 @@ $(function () {
         $(".menu-swipe").removeClass("openFull");
     });
 
+    $("#app").off("click", ".swipe-line").on("click", ".swipe-line", function () {
+        if(!$(".menu-swipe").hasClass("openFull"))
+            $(".menu-swipe").addClass("openFull");
+    });
+
     if(!mapLoaded) {
         mapLoaded = !0;
         $.cachedScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyDOHzDqP5Obg3nqWwu-QwztEyhD8XENPGE&libraries=places,directions&callback=initAutocomplete&language=pt-br");

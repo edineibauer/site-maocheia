@@ -46,7 +46,7 @@ function addMarker(service, type, latitude, longitude) {
         icon: HOME + VENDOR + 'site-maocheia/public/assets/svg/' + image + '.svg',
         latitude: latitude,
         longitude: longitude,
-        animation: type === 1 ? null : google.maps.Animation.DROP
+        animation: type === 1 || 1===1 ? null : google.maps.Animation.DROP
     });
     if(type > 1)
         marker.addListener('click', toogleServicePerfil);
@@ -149,7 +149,7 @@ function startMap() {
         clearTimeout(mapMoveTrack);
         mapMoveTrack = setTimeout(function () {
             readServices();
-        }, 50);
+        }, 20);
     });
 
     /**
