@@ -364,26 +364,7 @@ function initAutocomplete() {
     },100);
 }
 
-
-
 $(function () {
-    $("#core-content").addClass("hide");
-
-    /*if(!$("#core-content-map").length) {
-        getTemplates().then(tpl => {
-            $("#core-content").after(Mustache.render(tpl.homeMap));
-
-            if(!mapLoaded) {
-                mapLoaded = !0;
-                $.cachedScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyDOHzDqP5Obg3nqWwu-QwztEyhD8XENPGE&libraries=places,directions&callback=initAutocomplete&language=pt-br");
-            } else {
-                initAutocomplete();
-            }
-        });
-    } else {
-        $("#core-content-map").removeClass("hide");
-    }*/
-
     $("#procura").off("focus").on("focus", function () {
         changeSwipeToSearch();
         $(".menu-swipe").removeClass("openFull");
