@@ -138,7 +138,7 @@ function swipeMenuEvent($menu) {
                     $menu.removeClass('moving close').addClass('open').css({bottom: "50px"});
 
                     if (direction == 'down') {
-                        if (bottom < -100) {
+                        if (bottom < 20) {
                             if (bottom > -290 && $menu.hasClass("openFull")) {
                                 if ($menu.hasClass("servicePerfil"))
                                     closeFullPerfil();
@@ -152,7 +152,7 @@ function swipeMenuEvent($menu) {
                             }
                         }
                     } else {
-                        if (bottom > 150) {
+                        if (bottom > 75) {
                             if ($menu.hasClass("servicePerfil"))
                                 openFullPerfil();
                             else

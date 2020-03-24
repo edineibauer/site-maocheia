@@ -40,6 +40,7 @@ function changeSwipeToSearch() {
     openService = {};
     if (!$(".menu-swipe").hasClass("serviceFilterSearch")) {
         $(".menu-swipe").addClass("serviceFilterSearch").removeClass("servicePerfil buildPerfil");
+        $(".swipe-zone-body").addClass("filter");
         closeMapPopup();
         dbLocal.exeRead("categorias").then(categorias => {
 
@@ -126,15 +127,12 @@ function changeSwipeToSearch() {
     }
 }
 
-function getLogradouroFromEndereco(endereco) {
-    return endereco.rua + " - " + endereco.bairro + ", " + endereco.cidade + " - " + endereco.estado + ", " + endereco.cep + ", " + endereco.pais;
-}
-
 function changeSwipeToService(data) {
     openService = data;
     data.haveAvaliacoes = !1;
     data.avaliacoes = [];
     $(".menu-swipe").addClass("servicePerfil").removeClass("serviceFilterSearch buildPerfil");
+    $(".swipe-zone-body").removeClass("filter");
     $(".swipe-zone-body").htmlTemplate('servicePerfil', data).then(() => {
         $("#arrowback-perfil").off("click").on("click", function () {
             if ($(".popup-container").length) {
@@ -149,6 +147,10 @@ function changeSwipeToService(data) {
             openFullPerfil();
         });
     });
+}
+
+function getLogradouroFromEndereco(endereco) {
+    return endereco.rua + " - " + endereco.bairro + ", " + endereco.cidade + " - " + endereco.estado + ", " + endereco.cep + ", " + endereco.pais;
 }
 
 function openFullPerfil() {
@@ -265,9 +267,10 @@ function readAllServices() {
     get("nearbyServices/" + latlng.lat() + "/" + latlng.lng() + "/200").then(result => {
         services = result;
 
+        readServices(1);
         servicesOnMapUpdate = setInterval(function () {
             updateRealPosition();
-        }, 3000);
+        }, 4000);
     });
 }
 
@@ -281,12 +284,28 @@ function updateRealPosition() {
 
     post("site-maocheia", "updateRealTimeServices", {ids: ids}, function (results) {
         if(!isEmpty(results)) {
+            let minhaLatlng = map.getCenter();
+
             for (let i in services) {
+                /**
+                 * Atualiza lat, e lng
+                 * Atualiza distancia também
+                 */
                 services[i].latitude = results[services[i].id].latitude;
                 services[i].longitude = results[services[i].id].longitude;
-            }
+                services[i].distancia = getLatLngDistance(services[i].latitude, services[i].longitude, minhaLatlng.lat(), minhaLatlng.lng());
 
-            readServices();
+                /**
+                 * Atualiza posição dos markers no mapa
+                 */
+                if(!isEmpty(markers)) {
+                    for (let e in markers) {
+                        if (markers[e].service.id == services[i].id)
+                            markers[e].setPosition(new google.maps.LatLng(parseFloat(services[i].latitude), parseFloat(services[i].longitude)));
+                    }
+                }
+
+            }
         }
     });
 }
@@ -367,8 +386,7 @@ $(function () {
 
     $("#procura").off("focus").on("focus", function () {
         changeSwipeToSearch();
-        swipe.open();
-        $(".menu-swipe").addClass("openFull");
+        $(".menu-swipe").removeClass("openFull");
     });
 
     if(!mapLoaded) {

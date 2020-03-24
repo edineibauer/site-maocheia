@@ -15,7 +15,7 @@
 
     <div class="menu-swipe close">
         <div class="swipe-line"></div>
-        <div class="swipe-zone-body"></div>
+        <div class="swipe-zone-body filter"></div>
     </div>
 
 </main>
