@@ -376,7 +376,9 @@ $(function () {
         $(".swipe-zone-body").css("transform", "translateY(-160px)");
 
     }).on("blur", "#procura", function () {
-        $(".swipe-zone-body").css("transform", "translateY(0)");
+        setTimeout(function () {
+            $(".swipe-zone-body").css("transform", "translateY(0)");
+        }, 200);
 
     }).off("keyup", "#procura").on("keyup", "#procura", function () {
         let search = $(this).val().toLowerCase();
@@ -397,6 +399,8 @@ $(function () {
             $("#services").htmlTemplate("resultSearch", {results: results.filter(s => s.nome.toLowerCase().indexOf(search) > -1)}, ['serviceCard', 'serviceCategoryCard']);
         });
 
+    }).off("click", ".serviceCategoryResult").on("click", ".serviceCategoryResult", function () {
+        $(".serviceCategory[rel='" + $(this).attr("rel") + "']").trigger("click");
     });
 
     if(!mapLoaded) {
