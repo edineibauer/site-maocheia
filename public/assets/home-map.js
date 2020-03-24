@@ -105,7 +105,7 @@ function getZoomToKm(zoom) {
     }
 }
 
-var myMarker, markers = [], map;
+var myMarker, markers = [], map, mapMoveTrack;
 function startMap() {
 
     /**
@@ -141,9 +141,15 @@ function startMap() {
         $("#procura").blur();
         changeSwipeToSearch();
     });
-    map.addListener('mouseup', function() {
+
+    map.addListener('mousedown', function() {
         $(".menu-swipe").removeClass("openFull");
-        readServices();
+    });
+    map.addListener('drag', function() {
+        clearTimeout(mapMoveTrack);
+        mapMoveTrack = setTimeout(function () {
+            readServices();
+        }, 50);
     });
 
     /**
