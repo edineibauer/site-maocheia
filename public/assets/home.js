@@ -246,17 +246,7 @@ function updateMapService(data) {
 }
 
 function updateListService(data) {
-    $("#services").htmlTemplate('serviceCards', {profissionais: data}, ["serviceCard"]).then(() => {
-        /**
-         * Funções na lista de cards de serviço
-         */
-        $(".profissional").off("click").on("click", function () {
-            db.exeRead("profissional", parseInt($(this).attr("rel"))).then(service => {
-                changeSwipeToService(getProfissionalMustache(service));
-                openFullPerfil();
-            })
-        });
-    });
+    $("#services").htmlTemplate('serviceCards', {profissionais: data}, ["serviceCard"]);
 }
 
 /**
@@ -367,19 +357,27 @@ function initAutocomplete() {
 $(function () {
 
     $("#app").off("click", ".swipe-line").on("click", ".swipe-line", function () {
-        if(!$(".menu-swipe").hasClass("openFull"))
+        if (!$(".menu-swipe").hasClass("openFull"))
             $(".menu-swipe").addClass("openFull");
 
+    }).off("click", ".profissional").on("click", ".profissional", function () {
+        for(let i in services) {
+            if(services[i].id === $(this).attr("rel")) {
+                changeSwipeToService(Object.assign({}, services[i]));
+                openFullPerfil();
+                break;
+            }
+        }
     }).off("focus", "#procura").on("focus", "#procura", function () {
         changeSwipeToSearch();
         $(".menu-swipe").removeClass("openFull");
-        $(".swipe-zone-body").css("transform", "translateY(-160px)");
+        $(".swipe-zone-body").addClass("translateY");
         if($(".menu-swipe").hasClass("close"))
             swipe.open();
 
         $("#procura").one("blur", function () {
             setTimeout(function () {
-                $(".swipe-zone-body").css("transform", "translateY(0)");
+                $(".swipe-zone-body").removeClass("translateY");
                 $(".menu-swipe").addClass("openFull");
                 $("#procura").val("");
             }, 100);

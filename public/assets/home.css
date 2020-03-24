@@ -22,8 +22,7 @@
 }
 
 #menu .navbar a .menu {
-    margin-top: -6px;
-;
+    margin-top: -6px;;
 }
 
 .navbar {
@@ -49,16 +48,16 @@
     color: #2D7AFF;
 }
 
-.serviceCategory.selecionado img{
+.serviceCategory.selecionado img {
     border: solid 3px #ff1967;
 }
 
-.serviceCategory.selecionado h4{
+.serviceCategory.selecionado h4 {
     color: #ff1967;
 }
 
 .serviceCategory.selecionado {
-    opacity: 1!important;
+    opacity: 1 !important;
 }
 
 /* Always set the map height explicitly to define the size of the div
@@ -67,6 +66,7 @@
 #map {
     height: 100%;
 }
+
 /* Optional: Makes the sample page fill the window. */
 
 body {
@@ -112,7 +112,7 @@ body {
 }
 
 .left-inner-addon input.form-control:focus {
-    background: #ffffff!important;
+    background: #ffffff !important;
 }
 
 #title {
@@ -137,11 +137,15 @@ body {
     overflow-x: hidden;
 }
 
-.swipe-zone-body.filter{
+.swipe-zone-body.translateY {
+    transform: translateY(-160px);
+}
+
+.swipe-zone-body.filter {
     z-index: 3;
 }
 
-#pesquisa{
+#pesquisa {
     overflow: hidden;
     margin-bottom: 15px;
     margin-top: 30px;
@@ -184,7 +188,7 @@ figure {
     margin-top: 8px;
 }
 
-#pesquisa .owl-stage-outer{
+#pesquisa .owl-stage-outer {
     overflow: unset;
 }
 
@@ -235,13 +239,13 @@ figure {
     font-weight: normal;
 }
 
-.cardList .avaliacao-perfil{
+.cardList .avaliacao-perfil {
     float: left;
     width: 100%;
     margin: 5px 0 0;
 }
 
-.cardList .distancia i{
+.cardList .distancia i {
     font-size: 13px;
     float: left
 }
@@ -269,10 +273,11 @@ figure {
     width: 59px;
     height: 59px;
 }
+
 /* ---- button ---- */
 
 .owl-item:focus, .button:focus {
-    outline:none!important;
+    outline: none !important;
 }
 
 .button {
@@ -322,6 +327,7 @@ figure {
 .button-group .button:last-child {
     border-radius: 0.5em 0.5em 0.5em 0.5em;
 }
+
 /* clear fix */
 
 .grid:after {
@@ -334,44 +340,46 @@ figure {
     width: 100% !important;
 }
 
-@media(min-width:374px) {
+@media (min-width: 374px) {
     #menu .navbar a {
         padding: 0px 24px;
     }
 }
 
-@media(min-width:410px) {
+@media (min-width: 410px) {
     #menu .navbar a {
         padding: 6px 28px;
     }
 }
 
-@media(min-width:425px) {
+@media (min-width: 425px) {
     #menu .navbar a {
         padding: 6px 30px;
     }
 }
 
-@media(min-width: 768px) {
+@media (min-width: 768px) {
     #menu .navbar a {
         padding: 6px 72px;
     }
+
     #menu {
         padding: 4px 10px 4px 10px;
     }
 }
 
-@media(min-width: 1024px) {
+@media (min-width: 1024px) {
     #menu .navbar a {
         padding: 6px 102px;
     }
+
     #menu {
         padding: 4px 10px 4px 10px;
     }
 }
 
 
-html, body{
+html, body {
     position: absolute;
     left: 0;
     top: 0;
@@ -379,7 +387,7 @@ html, body{
     height: 100%;
 }
 
-*{
+* {
     box-sizing: border-box;
     position: relative;
 }
@@ -437,18 +445,19 @@ html, body{
 .menu-swipe.open {
     margin-bottom: -350px;
 }
+
 .menu-swipe.open.serviceFilterSearch {
     margin-bottom: -385px;
 }
 
 .menu-swipe.openFull {
-    margin-bottom: -70px!important;
+    margin-bottom: -70px !important;
 }
 
 .menu-swipe.servicePerfil.openFull {
     height: calc(100% - 50px);
     border-radius: 0;
-    margin-bottom: 0!important;
+    margin-bottom: 0 !important;
 }
 
 .menu-swipe.moving, .menu-swipe.open.moving, .menu-swipe.openFull.moving {
@@ -462,7 +471,7 @@ html, body{
 
 .menu-swipe.close {
     transition: .3s all ease;
-    opacity: 1!important;
+    opacity: 1 !important;
 }
 
 .swipe-line {
@@ -475,6 +484,7 @@ html, body{
     width: 100%;
     height: 310px;
 }
+
 .swipe-line::before {
     content: '';
     top: 5px;
@@ -694,23 +704,23 @@ body {
 }
 
 .avaliacao-perfil .material-icons {
-    font-size: 13px!important;
+    font-size: 13px !important;
 }
 
 .avaliacao-perfil > ul.horizontal-list > li {
     float: left;
-    font-size: 11px!important;
+    font-size: 11px !important;
 }
 
-.avaliacao-perfil > ul.horizontal-list > li > i{
+.avaliacao-perfil > ul.horizontal-list > li > i {
     color: #bbbbbb;
 }
 
-.avaliacao-perfil > ul.horizontal-list > li > i.active{
+.avaliacao-perfil > ul.horizontal-list > li > i.active {
     color: #FF1967;
 }
 
-ul.horizontal-list>li:nth-last-child(1) {
+ul.horizontal-list > li:nth-last-child(1) {
     font-weight: bold;
     margin-left: 4px;
 }
@@ -744,6 +754,7 @@ ul {
     #perfil-cliente .avaliacao-perfil {
         margin-left: 47%;
     }
+
     #perfil-cliente .mapa iframe {
         width: 100%;
         height: 240px;
@@ -766,8 +777,9 @@ ul {
     font-family: sans-serif;
     overflow-y: auto;
     max-height: 60px;
-    box-shadow: 0 2px 10px 1px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.5);
 }
+
 /* The parent of the bubble. A zero-height div at the top of the tip. */
 .popup-bubble-anchor {
     /* Position the div a fixed distance above the tip. */
@@ -776,6 +788,7 @@ ul {
     bottom: /* TIP_HEIGHT= */ 8px;
     left: 0;
 }
+
 /* This element draws the tip. */
 .popup-bubble-anchor::after {
     content: "";
@@ -792,6 +805,7 @@ ul {
     border-right: 6px solid transparent;
     border-top: /* TIP_HEIGHT= */ 8px solid #2D7AFF;
 }
+
 /* JavaScript will position this div at the bottom of the popup tip. */
 .popup-container {
     cursor: auto;
