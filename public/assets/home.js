@@ -185,7 +185,7 @@ function toogleServicePerfil() {
     closeAllMapPopupExceptThis(this);
 
     if ($("#" + this.id).length) {
-        openFullPerfil();
+        changeSwipeToSearch();
     } else {
         swipe.open();
         $("#procura").blur();
@@ -377,34 +377,37 @@ $(function () {
         if($(".menu-swipe").hasClass("close"))
             swipe.open();
 
-    }).on("blur", "#procura", function () {
-        setTimeout(function () {
-            $(".swipe-zone-body").css("transform", "translateY(0)");
-            $(".menu-swipe").addClass("openFull");
-            $("#procura").val("");
-        }, 100);
+        $("#procura").one("blur", function () {
+            setTimeout(function () {
+                $(".swipe-zone-body").css("transform", "translateY(0)");
+                $(".menu-swipe").addClass("openFull");
+                $("#procura").val("");
+            }, 100);
 
-    }).off("keyup", "#procura").on("keyup", "#procura", function () {
-        let search = $(this).val().toLowerCase();
+        }).off("keyup").on("keyup", function () {
+            let search = $(this).val().toLowerCase();
 
-        let results = [];
-        for(let i in services) {
-            let service = getProfissionalMustache(services[i]);
-            service.isService = !0;
-            results.push(service);
-        }
-
-        dbLocal.exeRead("categorias").then(cat => {
-            for(let c in cat) {
-                cat[c].isService = !1;
-                results.push(cat[c]);
+            let results = [];
+            for(let i in services) {
+                let service = getProfissionalMustache(services[i]);
+                service.isService = !0;
+                results.push(service);
             }
 
-            $("#services").htmlTemplate("resultSearch", {results: results.filter(s => s.nome.toLowerCase().indexOf(search) > -1)}, ['serviceCard', 'serviceCategoryCard']);
-        });
+            dbLocal.exeRead("categorias").then(cat => {
+                for(let c in cat) {
+                    cat[c].isService = !1;
+                    results.push(cat[c]);
+                }
 
-    }).off("click", ".serviceCategoryResult").on("click", ".serviceCategoryResult", function () {
-        $(".serviceCategory[rel='" + $(this).attr("rel") + "']").trigger("click");
+                $("#services").htmlTemplate("resultSearch", {results: results.filter(s => s.nome.toLowerCase().indexOf(search) > -1)}, ['serviceCard', 'serviceCategoryCard']).then(() => {
+                    $(".serviceCategoryResult").one("click", function () {
+                        $(".serviceCategory[rel='" + $(this).attr("rel") + "']").trigger("click");
+                    });
+                })
+            });
+
+        })
     });
 
     if(!mapLoaded) {
