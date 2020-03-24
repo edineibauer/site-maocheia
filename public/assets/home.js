@@ -363,7 +363,7 @@ $(function () {
     }).off("click", ".profissional").on("click", ".profissional", function () {
         for(let i in services) {
             if(services[i].id === $(this).attr("rel")) {
-                changeSwipeToService(Object.assign({}, services[i]));
+                changeSwipeToService(getProfissionalMustache(services[i]));
                 openFullPerfil();
                 break;
             }
