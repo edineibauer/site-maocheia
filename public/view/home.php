@@ -4,7 +4,7 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-6 left-inner-addon">
                     <i class="material-icons">search</i>
-                    <input id="procura" class="form-control formulario" type="text"
+                    <input id="procura" class="form-control formulario" type="text" autocomplete="none"
                            placeholder="Pesquise um serviço">
                 </div>
             </div>
