@@ -258,6 +258,7 @@ function readAllServices() {
         services = result;
 
         readServices(1);
+        clearInterval(servicesOnMapUpdate);
         servicesOnMapUpdate = setInterval(function () {
             updateRealPosition();
         }, 4000);
@@ -268,6 +269,9 @@ function readAllServices() {
  * Busca atualizações das posições dos profissionais
  */
 function updateRealPosition() {
+    if(!navigator.onLine)
+        clearInterval(servicesOnMapUpdate);
+
     let ids = [];
     for(let i in services)
         ids.push(services[i].id);
