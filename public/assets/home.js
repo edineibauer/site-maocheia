@@ -246,7 +246,7 @@ function updateMapService(data) {
 }
 
 function updateListService(data) {
-    $("#services").htmlTemplate('serviceCards', {profissionais: data}).then(() => {
+    $("#services").htmlTemplate('serviceCards', {profissionais: data}, ["serviceCard"]).then(() => {
         /**
          * Funções na lista de cards de serviço
          */
@@ -365,14 +365,38 @@ function initAutocomplete() {
 }
 
 $(function () {
-    $("#procura").off("focus").on("focus", function () {
-        changeSwipeToSearch();
-        $(".menu-swipe").removeClass("openFull");
-    });
 
     $("#app").off("click", ".swipe-line").on("click", ".swipe-line", function () {
         if(!$(".menu-swipe").hasClass("openFull"))
             $(".menu-swipe").addClass("openFull");
+
+    }).off("focus", "#procura").on("focus", "#procura", function () {
+        changeSwipeToSearch();
+        $(".menu-swipe").removeClass("openFull");
+        $(".swipe-zone-body").css("transform", "translateY(-160px)");
+
+    }).on("blur", "#procura", function () {
+        $(".swipe-zone-body").css("transform", "translateY(0)");
+
+    }).off("keyup", "#procura").on("keyup", "#procura", function () {
+        let search = $(this).val().toLowerCase();
+
+        let results = [];
+        for(let i in services) {
+            let service = getProfissionalMustache(services[i]);
+            service.isService = !0;
+            results.push(service);
+        }
+
+        dbLocal.exeRead("categorias").then(cat => {
+            for(let c in cat) {
+                cat[c].isService = !1;
+                results.push(cat[c]);
+            }
+
+            $("#services").htmlTemplate("resultSearch", {results: results.filter(s => s.nome.toLowerCase().indexOf(search) > -1)}, ['serviceCard', 'serviceCategoryCard']);
+        });
+
     });
 
     if(!mapLoaded) {

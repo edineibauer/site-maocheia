@@ -1,0 +1,8 @@
+{{#results}}
+    {{#isService}}
+        {{> serviceCard}}
+    {{/isService}}
+    {{^isService}}
+        {{> serviceCategoryCard}}
+    {{/isService}}
+{{/results}}
