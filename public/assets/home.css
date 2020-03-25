@@ -446,7 +446,7 @@ body {
     box-shadow: 0 -3px 6px #00000029;
     position: fixed;
     bottom: 50px;
-    z-index: 999;
+    z-index: 2;
     margin-bottom: -535px;
     height: 560px;
     width: 100%;
