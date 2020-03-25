@@ -97,7 +97,7 @@ $('.submit').click(function () {
 function updateMessage() {
     dbRemote.syncDownload("mensagens").then(result => {
         if (result !== 0) {
-            if (typeof FRONT.VARIAVEIS[0] !== "undefined") {
+            if (messageId) {
                 readMessage();
             } else {
                 readAllMessages();
@@ -113,7 +113,7 @@ function readMessage() {
             /**
              * Lê o profissional
              */
-            db.exeRead("profissional", parseInt(FRONT.VARIAVEIS[0])).then(perfil => {
+            db.exeRead("profissional", messageId).then(perfil => {
                 contato = perfil;
                 contato.imagemPerfil = perfil.imagem_de_perfil !== null && typeof perfil.imagem_de_perfil !== "undefined" ? perfil.imagem_de_perfil[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
                 $("#perfil-info").html('<img src="' + contato.imagemPerfil + '" alt=""/><p>' + contato.nome + '</p>');
@@ -167,7 +167,7 @@ function readMessage() {
             /**
              * Lê o cliente
              */
-            db.exeRead("clientes", parseInt(FRONT.VARIAVEIS[0])).then(perfil => {
+            db.exeRead("clientes", messageId).then(perfil => {
                 contato = perfil;
                 contato.imagemPerfil = perfil.imagem !== null && typeof perfil.imagem !== "undefined" ? perfil.imagem[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
                 $("#perfil-info").html('<img src="' + contato.imagemPerfil + '" alt=""/><p>' + contato.nome + '</p>');
@@ -245,13 +245,14 @@ function readAllMessages() {
                     if (USER.setor === "profissional") {
                         db.exeRead("clientes", parseInt(mensagens[i].cliente)).then(cliente => {
                             mensagens[i].clienteData = cliente;
+                            console.log(mensagens[i]);
                             mensagens[i].clienteData.imagem = isEmpty(mensagens[i].clienteData.imagem) ? HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg" : mensagens[i].clienteData.imagem[0].urls['100'];
                             $("#nomessage").append(Mustache.render(tpl.cardMensagens, mensagens[i]));
                         })
                     } else if (USER.setor === "clientes") {
                         db.exeRead("profissional", parseInt(mensagens[i].profissional)).then(profissional => {
                             mensagens[i].clienteData = profissional;
-                            mensagens[i].clienteData.imagem = isEmpty(mensagens[i].clienteData.imagem) ? HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg" : mensagens[i].clienteData.imagem[0].urls['100'];
+                            mensagens[i].clienteData.imagem = isEmpty(mensagens[i].clienteData.imagem_de_perfil) ? HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg" : mensagens[i].clienteData.imagem_de_perfil[0].urls['100'];
                             $("#nomessage").append(Mustache.render(tpl.cardMensagens, mensagens[i]));
                         })
                     }
@@ -263,9 +264,14 @@ function readAllMessages() {
     });
 }
 
-var contato = {}, lastMessageData = null, sendRequestBuy = !1, updateMessageLoop;
+var contato = {}, lastMessageData = null, sendRequestBuy = !1, updateMessageLoop, messageId = null;
 $(function () {
-    if (typeof FRONT.VARIAVEIS[0] !== "undefined") {
+    let url = location.href.split("/");
+    url = url[url.length - 1];
+    if(url !== "mensagem" && !isNaN(url) && url > 0)
+        messageId = parseInt(url);
+
+    if (messageId) {
         $(".message").css("display", "block");
         readMessage();
     } else {

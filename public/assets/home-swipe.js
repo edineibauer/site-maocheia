@@ -170,6 +170,9 @@ function swipeMenuEvent($menu) {
 }
 
 function startSwipe() {
+    swipe = new Swipe();
+    swipe.setFunctionClose("closeMapPopup");
+
     if (typeof history.state.param.service !== "undefined" && history.state.param.service !== null && !isEmpty(history.state.param.service)) {
         changeSwipeToService(history.state.param.service);
         openFullPerfil();
@@ -221,7 +224,4 @@ var Swipe = class {
         if (typeof this.functionClose === "function")
             this.functionClose();
     }
-};
-
-var swipe = new Swipe();
-swipe.setFunctionClose("closeMapPopup");
+}, swipe;
