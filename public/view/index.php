@@ -1,5 +1,5 @@
 <div>
-    <section id="apresentacao">
+    <section id="apresentacao" class="hide">
         <div class="container">
             <div class="row justify-content-right">
                 <div class="col-12">

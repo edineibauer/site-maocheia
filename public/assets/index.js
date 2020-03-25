@@ -1,5 +1,6 @@
 $(function () {
     if(getCookie("tutorial") === "") {
+        $("#apresentacao").removeClass("hide");
         setCookie("tutorial", 1);
         $('#apresentacao .owl-carousel').owlCarousel({
             loop: false,
