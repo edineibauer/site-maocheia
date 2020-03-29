@@ -1,6 +1,6 @@
 [
   {
-    "href": "home",
+    "href": "index",
     "class": "theme-text-aux",
     "html": "<i class='material-icons left' style='padding-top: 7px;'>home</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>início</div>"
   },

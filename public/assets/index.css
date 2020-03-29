@@ -1,106 +1,832 @@
+#menu {
+    background: #FFFFFF;
+    box-shadow: 0 -5px 7px -3px rgba(00, 0, 0, 0.3);
+    bottom: 0;
+    position: fixed;
+    z-index: 999999;
+    width: 100%;
+    padding: 10px 0 10px 0;
+}
+
+#menu .navbar a {
+    text-align: center;
+    letter-spacing: 0;
+    font-size: 10px;
+    color: #C1C1C1;
+    font-weight: 300;
+    float: left;
+    display: block;
+    text-align: center;
+    padding: 0 18px;
+    text-decoration: none;
+}
+
+#menu .navbar a .menu {
+    margin-top: -6px;;
+}
+
+.navbar {
+    padding: 0px !important;
+}
+
+.navbar-brand {
+    margin-right: 0px !important;
+}
+
+#menu .navbar a .mdi {
+    font-size: 19px;
+}
+
+#menu .navbar a.active .mdi {
+    font-size: 20px;
+}
+
+#menu .navbar a.active,
+#menu .navbar a.active .mdi {
+    text-decoration: none;
+    border-bottom: 0;
+    color: #2D7AFF;
+}
+
+.serviceCategory.selecionado img {
+    border: solid 3px #ff1967;
+}
+
+.serviceCategory.selecionado h4 {
+    color: #ff1967;
+}
+
+.serviceCategory.selecionado {
+    opacity: 1 !important;
+}
+
+/* Always set the map height explicitly to define the size of the div
+   * element that contains the map. */
+
+#map {
+    height: 100%;
+}
+
+/* Optional: Makes the sample page fill the window. */
+
 body {
-    font-family: 'Roboto', sans-serif !important;
-    background: #ffffff;
-}
-
-#bt {
-    margin-top: 20px;
-}
-
-#apresentacao {
-    max-width: 400px;
-    margin: auto;
-    float: initial;
-}
-
-#apresentacao .owl-dots {
-    position: absolute;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: -30px !important;
-    z-index: 150 !important;
-    text-align: center !important;
-}
-
-#apresentacao .owl-dots .owl-dot {
-    margin: 0 4px !important;
-    padding: 4px 4px !important;
-    color: red !important;
-    font-size: 10px !important;
-    border-radius: 100% !important;
-    font-weight: 600 !important;
-    background-color: white !important;
-    border: 1px solid #2666FF !important;
-}
-
-#apresentacao .owl-dots .owl-dot.active {
-    background: #2666FF !important;
-}
-
-#apresentacao .btn-proximo {
-    box-shadow: 0px 2px 10px #00000033;
-    border-radius: 4px;
-    font-size: 22px;
-    font-weight: bold;
-    width: 96%;
-    margin-top: 42px;
     font-family: 'Roboto', sans-serif;
-    padding: 9px 0px 9px 0px;
 }
 
-#apresentacao .texto {
-    font-weight: normal;
+.navbar-brand {
+    margin-right: 0rem;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.formulario {
+    z-index: 50;
+    position: absolute;
+    top: 22px;
+    background-color: #fff;
+    font-size: 15px;
+    font-weight: 300;
+    text-overflow: ellipsis;
+    box-shadow: 0 3px 6px #00000029;
+    border-radius: 5px;
+}
+
+.left-inner-addon i {
+    position: absolute;
+    padding: 31px 11px;
+    pointer-events: none;
+    color: #000000;
+    z-index: 999;
+}
+
+.left-inner-addon input.form-control {
+    padding-left: 43px;
+    cursor: pointer;
+    width: 90% !important;
+    height: 42px;
+}
+
+.left-inner-addon input.form-control:focus {
+    background: #ffffff !important;
+}
+
+#title {
+    color: #fff;
+    background-color: #4d90fe;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 6px 12px;
+}
+
+#target {
+    width: 345px;
+}
+
+#services::-webkit-scrollbar {
+    width: 0;
+}
+
+#services {
+    height: 233px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.swipe-zone-body.translateY {
+    transform: translateY(-160px);
+}
+
+.swipe-zone-body.filter {
+    z-index: 3;
+}
+
+#pesquisa {
+    overflow: hidden;
+    margin-bottom: 15px;
+    margin-top: 30px;
+}
+
+figure {
+    margin: 0 0 5px;
+}
+
+#pesquisa figure {
+    width: 100%;
+    height: 75px;
+    margin: 0 0 5px;
+}
+
+#pesquisa .item {
+    width: 100%;
+    margin: 0 auto;
+}
+
+#pesquisa figure img {
+    width: 100%;
+    height: 75px;
+    box-shadow: 0 2px 5px #00000029;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+#pesquisa .servico {
+    font-size: 10px;
+    font-weight: 500;
+    color: #303030;
+}
+
+#pesquisa .titulo {
+    font-weight: 500;
     font-size: 14px;
-    text-align: center;
-    margin-bottom: 30px;
-    max-width: 210px;
-    min-width: 210px;
-    margin: 0 auto;
-    max-height: 66px;
-    min-height: 66px;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 8px;
+    margin-top: 8px;
 }
 
-#apresentacao figure {
-    margin: 0 auto;
-    max-width: 302px;
+#pesquisa .owl-stage-outer {
+    overflow: unset;
 }
 
-#apresentacao .tit {
-    text-align: center;
-    font-size: 17px;
+#profissionais .cardList {
+    background: #F1F0F5 0 0 no-repeat padding-box;
+    box-shadow: 0 2px 5px #00000029;
+    border-radius: 5px;
+    padding: 12px 0 12px 0;
+    margin-bottom: 12px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#profissionais .cardList figure,
+#profissionais .cardList figure img {
+    width: 59px;
+    height: 59px;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+
+#profissionais .cardList .nome {
     font-weight: bold;
-    margin-top: 25px;
+    font-size: 14px;
+    color: #303030;
+    margin-bottom: -2px;
+}
+
+#profissionais .cardList .profisao {
+    color: #989898;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+#profissionais .cardList .avalicao {
+    color: #FF1967;
+    font-weight: bold;
+    font-size: 9px;
+    margin-top: 1px;
+    margin-bottom: 2px;
+}
+
+#profissionais .cardList .distancia {
+    font-size: 11px;
+}
+
+#profissionais .cardList .distancia .distancias {
+    color: #CECECE;
+    font-weight: normal;
+}
+
+.cardList .avaliacao-perfil {
+    float: left;
+    width: 100%;
+    margin: 5px 0 0;
+}
+
+.cardList .distancia i {
+    font-size: 13px;
+    float: left
+}
+
+.cardList .point-draw-medium {
+    width: 7px;
+    height: 7px;
+    margin: 1px 0;
+}
+
+.cardList .distancia {
+    float: left;
+    width: 100%;
+    display: block;
+}
+
+#profissionais .titulo {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
     margin-bottom: 12px;
 }
 
-#apresentacao .pular a {
-    color: #9E9E9E;
+.perfil-foto {
+    width: 59px;
+    height: 59px;
+}
+
+/* ---- button ---- */
+
+.owl-item:focus, .button:focus {
+    outline: none !important;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 18px;
+    margin-bottom: 10px;
+    background: #F1F0F5;
+    border: none;
+    border-radius: 7px;
+    color: #999999;
+    font-family: sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.button:active,
+.button.is-checked {
+    background-color: #28F;
+}
+
+.button.is-checked {
+    color: white;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+/* ---- button-group ---- */
+
+.button-group:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.button-group .button {
+    float: left;
+    border-radius: 0;
+    margin-left: 0;
+    /* margin-right: 10px; */
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+}
+
+.button-group .button:first-child {
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+}
+
+.button-group .button:last-child {
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+}
+
+/* clear fix */
+
+.grid:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.grid {
+    width: 100% !important;
+}
+
+@media (min-width: 374px) {
+    #menu .navbar a {
+        padding: 0px 24px;
+    }
+}
+
+@media (min-width: 410px) {
+    #menu .navbar a {
+        padding: 6px 28px;
+    }
+}
+
+@media (min-width: 425px) {
+    #menu .navbar a {
+        padding: 6px 30px;
+    }
+}
+
+@media (min-width: 768px) {
+    #menu .navbar a {
+        padding: 6px 72px;
+    }
+
+    #menu {
+        padding: 4px 10px 4px 10px;
+    }
+}
+
+@media (min-width: 1024px) {
+    #menu .navbar a {
+        padding: 6px 102px;
+    }
+
+    #menu {
+        padding: 4px 10px 4px 10px;
+    }
+}
+
+
+html, body {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+* {
+    box-sizing: border-box;
+    position: relative;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #ddd;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+    background: #868686;
+}
+
+.busca {
+    z-index: 1;
+}
+
+body {
+    position: absolute!important;
+    top: 0!important;
+    left: 0!important;
+    opacity: 1!important;
+    height: calc(100vh - 50px)!important;
+    width: 100%!important;
+}
+
+#busca-topo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.mapas {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: calc(100vh - 50px);
+    z-index: 0;
+}
+
+.menu-swipe::-webkit-scrollbar {
+    width: 0;
+}
+
+.menu-swipe {
+    background-color: #fff;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    box-shadow: 0 -3px 6px #00000029;
+    position: fixed;
+    bottom: 50px;
+    z-index: 2;
+    margin-bottom: -535px;
+    height: 560px;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.menu-swipe.openFull {
+    overflow-y: auto;
+}
+
+.menu-swipe.open {
+    margin-bottom: -350px;
+}
+
+.menu-swipe.open.serviceFilterSearch {
+    margin-bottom: -385px;
+}
+
+.menu-swipe.openFull {
+    margin-bottom: -70px !important;
+}
+
+.menu-swipe.servicePerfil.openFull {
+    height: calc(100% - 50px);
+    border-radius: 0;
+    margin-bottom: 0 !important;
+}
+
+.menu-swipe.moving, .menu-swipe.open.moving, .menu-swipe.openFull.moving {
+    transition: none !important
+}
+
+.menu-swipe.open, .menu-swipe.openFull {
+    bottom: 50px;
+    transition: .3s all ease
+}
+
+.menu-swipe.close {
+    transition: .3s all ease;
+    opacity: 1 !important;
+}
+
+.swipe-line {
+    margin-top: -4px;
+    padding-top: 4px;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 310px;
+}
+
+.swipe-line::before {
+    content: '';
+    top: 5px;
+    width: 13%;
+    height: 5px;
+    text-align: center;
+    background-color: #00000054;
+    display: block;
+    position: relative;
+    margin: 4px auto 20px;
+    border-radius: 4px;
+    visibility: visible;
+}
+
+body {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.mdi-arrow-left {
+    font-size: 32px;
+}
+
+.profissional-subtitulo {
+    display: inline;
+}
+
+.point-draw {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #555555;
+    margin: 1px 3px;
+    display: inline-block;
+}
+
+.point-draw-medium {
+    width: 10px;
+    height: 10px;
+    margin: 0 -3px;
+    border-radius: 50%;
+    background: #555555;
+    display: inline-block;
+}
+
+.openFull #arrowback-perfil {
+    opacity: 1;
+}
+
+.openFull #background-perfil {
+    height: 190px;
+}
+
+.openFull #imagem-perfil-div {
+    margin-top: 90px;
+}
+
+#arrowback-perfil {
+    opacity: 0;
+    z-index: 3;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    transition: all ease .3s;
+    background: #55555542;
+    border-radius: 50px;
+    box-shadow: 2px 2px 14px -5px #000;
+    padding: 5px;
+}
+
+#background-perfil.hiden-background {
+    opacity: 0;
+}
+
+#background-perfil {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transition: all ease .3s;
+}
+
+#imagem-perfil-div {
+    display: block;
+    width: 100%;
+    float: left;
+    transition: all ease .3s;
+    padding-top: 26px;
+}
+
+#imagem-perfil {
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    box-shadow: 1px 3px 7px -6px black;
+    background-color: #ffffff;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: block;
+    margin: 10px auto 0;
+    float: initial;
+    transition: all ease .3s;
+}
+
+#card-service-imagem {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 1px 3px 7px -6px black;
+    background-color: #ffffff;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: block;
+    margin: 5px 0 0;
+    float: right;
+    transition: all ease .3s;
+}
+
+#perfil-cliente {
+    padding-bottom: 20px;
+}
+
+#perfil-cliente .nome {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 10px;
+    text-align: center;
+    color: #303030;
+    float: left;
+    width: 100%;
+}
+
+#perfil-cliente .pedido-concluido {
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 5px;
+}
+
+#perfil-cliente .avaliacoes figure img {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+}
+
+#perfil-cliente .avaliacao .titulo {
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 12px;
+    margin-bottom: 14px;
+}
+
+#perfil-cliente .titulo-endereco {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 17px;
+}
+
+#perfil-cliente .endereco {
+    font-size: 14px;
+    font-weight: normal;
+    margin-top: 1px;
+    margin-bottom: 8px;
+}
+
+#perfil-cliente .mapa iframe {
+    width: 100%;
+    height: 130px;
+    border-radius: 5px;
+}
+
+#perfil-cliente .nomes {
+    font-weight: bold;
     font-size: 14px;
 }
 
-#apresentacao .pular {
-    text-align: end;
-    margin-right: 16px;
-    margin-top: 25px;
+#perfil-cliente .data {
+    font-size: 10px;
+    font-weight: 500;
+    color: #CBCBCB;
+    margin-top: 2px;
+    margin-bottom: -13px;
 }
 
-#center-banner {
-    margin-top: 44px;
+#perfil-cliente .texto {
+    font-size: 12px;
+    margin-top: 2px;
 }
 
-@media (min-width: 600px) {
-    body {
-        background: #f9f9f9;
+#perfil-cliente .todas-avaliacoes {
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+#perfil-cliente .todas-avaliacoes a {
+    color: #FF1967;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+#perfil-cliente .estrelas .avaliacao-perfil {
+    margin-left: -2px;
+    margin-top: 15px;
+}
+
+#perfil-cliente .avaliacao-perfil {
+    margin-left: 40%;
+    margin-top: -24px;
+}
+
+.avaliacao-perfil .material-icons {
+    font-size: 13px !important;
+}
+
+.avaliacao-perfil > ul.horizontal-list > li {
+    float: left;
+    font-size: 11px !important;
+}
+
+.avaliacao-perfil > ul.horizontal-list > li > i {
+    color: #bbbbbb;
+}
+
+.avaliacao-perfil > ul.horizontal-list > li > i.active {
+    color: #FF1967;
+}
+
+ul.horizontal-list > li:nth-last-child(1) {
+    font-weight: bold;
+    margin-left: 4px;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.col-perfil {
+    margin-left: 24px;
+}
+
+@media only screen and (min-width: 425px) {
+    #perfil-cliente .avaliacao-perfil {
+        margin-left: 44%;
+        margin-top: -24px;
     }
-    #apresentacao {
-        padding-bottom: 40px;
-        border: solid 1px #eee;
+}
+
+@media only screen and (min-width: 768px) {
+    #perfil-cliente .mapa iframe {
+        width: 100%;
+        height: 194px;
         border-radius: 5px;
-        box-shadow: 2px 4px 13px -7px #5d5d5d;
-        position: fixed;
-        top: 40px;
-        left: 0;
-        right: 0;
-        background: #ffffff;
     }
+}
+
+@media only screen and (min-width: 1024px) {
+    #perfil-cliente .avaliacao-perfil {
+        margin-left: 47%;
+    }
+
+    #perfil-cliente .mapa iframe {
+        width: 100%;
+        height: 240px;
+        border-radius: 5px;
+    }
+}
+
+/* The popup bubble styling. */
+.popup-bubble {
+    /* Position the bubble centred-above its parent. */
+    position: absolute;
+    top: -60px;
+    left: 0;
+    transform: translate(-50%, -100%);
+    /* Style the bubble. */
+    background-color: #2D7AFF;
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+    font-family: sans-serif;
+    overflow-y: auto;
+    max-height: 60px;
+    box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.5);
+}
+
+/* The parent of the bubble. A zero-height div at the top of the tip. */
+.popup-bubble-anchor {
+    /* Position the div a fixed distance above the tip. */
+    position: absolute;
+    width: 100%;
+    bottom: /* TIP_HEIGHT= */ 8px;
+    left: 0;
+}
+
+/* This element draws the tip. */
+.popup-bubble-anchor::after {
+    content: "";
+    position: absolute;
+    top: -60px;
+    left: 0;
+    /* Center the tip horizontally. */
+    transform: translate(-50%, 0);
+    /* The tip is a https://css-tricks.com/snippets/css/css-triangle/ */
+    width: 0;
+    height: 0;
+    /* The tip is 8px high, and 12px wide. */
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: /* TIP_HEIGHT= */ 8px solid #2D7AFF;
+}
+
+/* JavaScript will position this div at the bottom of the popup tip. */
+.popup-container {
+    cursor: auto;
+    height: 0;
+    position: absolute;
+    /* The max width of the info window. */
+    width: 200px;
 }

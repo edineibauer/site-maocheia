@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <a class="figure" href="home" data-animation="forward">
+                <a class="figure" href="index" data-animation="forward">
                     <img src="<?= HOME . VENDOR ?>site-maocheia/public/assets/img/logo.png" alt="<?= SITENAME ?>"
                          title="<?= SITENAME ?>"/>
                 </a>
