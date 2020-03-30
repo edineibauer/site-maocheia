@@ -1,24 +1,26 @@
-function setProfissionalForm(profissional, setor) {
+function setProfissionalForm(profissional) {
     $("#nome").val(profissional.nome);
     $("#email").val(profissional.email);
     $("#cpf").val(profissional.cpf);
     $("#telefone").val(profissional.telefone);
-    $("#titulo").text(profissional.nome);
-
-    if(setor === "profissional") {
-        $("#setor-endereco").removeClass("hide");
-        var enderecos = JSON.parse(profissional.endereco);
-        $("#endereco").val(enderecos[0].rua);
-    }
 }
 
-$(function() {
-    setProfissionalForm(USER.setorData, USER.setor);
+$(function () {
+    setProfissionalForm(USER.setorData);
 
     setTimeout(function () {
         $(".form-control").removeAttr("disabled readonly");
-    },1000);
+    }, 1000);
 
-    $("#salvar").click(function() {
+    $("#salvar").click(function () {
+        let user = {
+            "nome": $("#nome").val(),
+            "email": $("#email").val(),
+            "cpf": $("#cpf").val(),
+            "telefone": $("#telefone").val(),
+            "senha": $("#senha").val()
+        };
+
+        console.log(user);
     });
 });

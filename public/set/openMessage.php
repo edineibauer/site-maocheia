@@ -17,12 +17,12 @@ if ($read->getResult()) {
 
         if ($mensagem['profissional'] == $_SESSION['userlogin']['setorData']['id']) {
 
-            $read->exeRead("profissional", "WHERE id = :pid && ativo = 1", "pid={$_SESSION['userlogin']['setorData']['id']}");
+            $read->exeRead("clientes", "WHERE id = :pid && ativo = 1", "pid={$_SESSION['userlogin']['setorData']['id']}");
             if ($read->getResult()) {
                 $prof = $read->getResult()[0];
                 if (!empty($prof['moedas']) && is_numeric($prof['moedas']) && $prof['moedas'] > 1) {
                     $up = new \Conn\Update();
-                    $up->exeUpdate("profissional", ["moedas" => ($prof['moedas'] - 1)], "WHERE id = :id", "id={$_SESSION['userlogin']['setorData']['id']}");
+                    $up->exeUpdate("clientes", ["moedas" => ($prof['moedas'] - 1)], "WHERE id = :id", "id={$_SESSION['userlogin']['setorData']['id']}");
                     $up->exeUpdate("mensagens", ["aceitou" => 1], "WHERE id = :id", "id={$id}");
                     $data['data'] = 1;
                 } else {

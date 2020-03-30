@@ -36,18 +36,10 @@
                             <input type="text" class="form-control cpf" id="cpf" readonly="readonly" disabled="disabled">
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="form-group col-12 col-lg-6 pt-2">
                             <label for="email">Email</label>
                             <input type="email" class="form-control email" id="email" readonly="readonly" disabled="disabled">
-                        </div>
-                        <div class="form-group col-12 col-lg-6 pt-2">
-                            <label for="sexo">Sexo</label>
-                            <select class="form-control" id="sexo">
-                                <option>Masculino</option>
-                                <option>Feminino</option>
-                            </select>
                         </div>
                     </div>
                     <div class="row">
@@ -55,19 +47,11 @@
                             <label for="telefone">Telefone</label>
                             <input type="text" class="form-control tel" id="telefone" readonly="readonly" disabled="disabled">
                         </div>
-                        <div class="form-group col-12 col-lg-6 pt-2">
-                            <label for="aniversario">Aniversário</label>
-                            <input type="date" class="form-control" id="aniversario" readonly="readonly" disabled="disabled">
-                        </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-12 col-lg-6 pt-2">
                             <label for="senha">Nova senha</label>
                             <input type="password" class="form-control" id="senha" readonly="readonly" disabled="disabled">
-                        </div>
-                        <div class="form-group col-12 col-lg-6 pt-2 hide" id="setor-endereco">
-                            <label for="endereco">Endereço</label>
-                            <input type="text" class="form-control" id="endereco" readonly="readonly" disabled="disabled">
                         </div>
                     </div>
                     <div class="col mt-4">

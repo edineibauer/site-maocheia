@@ -4,6 +4,6 @@
     "js": ["libs/bootstrap.min"],
     "navbar": true,
     "header": false,
-    "setor": ["clientes", "profissional"],
+    "setor": "clientes",
     "redirect": "login"
 }

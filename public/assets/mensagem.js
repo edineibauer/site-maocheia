@@ -1,4 +1,5 @@
-var mensagem = [];
+var mensagem = [], contato = {}, lastMessageData = null, sendRequestBuy = !1, updateMessageLoop, messageId = null,
+    isCliente = !0;
 
 $("#profile-img").click(function () {
     $("#status-options").toggleClass("active");
@@ -42,12 +43,10 @@ function updateMessagesLoop() {
 
 function newMessage(content, sendByClient) {
     if ($.trim(content).length) {
-        if(isEmpty(mensagem)) {
-            let profissional = (USER.setor === "clientes" ? contato.id : USER.setorData.id);
-            let cliente = (USER.setor === "clientes" ? USER.setorData.id : contato.id);
+        if (isEmpty(mensagem)) {
             mensagem = {
-                profissional: profissional,
-                cliente: cliente,
+                profissional: contato.id,
+                cliente: USER.setorData.id,
                 aceitou: 0,
                 pendente: 1,
                 mensagens: []
@@ -56,7 +55,7 @@ function newMessage(content, sendByClient) {
 
         mensagem.mensagens.push({
             mensagem: loadMessage(content, sendByClient),
-            enviada_pelo_cliente: USER.setor === "clientes" ? "1" : "0",
+            enviada_pelo_cliente: isCliente ? "1" : "0",
             data: moment().format("YYYY-MM-DD HH:mm:ss"),
             id: Date.now() + Math.floor((Math.random() * 1000) + 1),
             columnTituloExtend: '<small class="color-gray left opacity padding-tiny radius">mensagem</small><span style="padding: 1px 5px" class="left padding-right font-medium td-textarea">' + content + '</span>',
@@ -67,9 +66,10 @@ function newMessage(content, sendByClient) {
 
         $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, "fast");
 
-        console.log(Object.assign({}, mensagem));
         clearInterval(updateMessageLoop);
-        db.exeCreate("mensagens", mensagem).then(() => {
+        db.exeCreate("mensagens", mensagem).then(r => {
+            mensagem.id = parseInt(r.id);
+
             //ativa novamente o update das mensagens
             updateMessagesLoop();
         });
@@ -78,7 +78,7 @@ function newMessage(content, sendByClient) {
 
 function loadMessage(content, sendByClient) {
     if ($.trim(content).length) {
-        let type = (sendByClient && USER.setor === "clientes") || (!sendByClient && USER.setor === "profissional") ? "replies" : "sent";
+        let type = (sendByClient && isCliente) || (!sendByClient && !isCliente) ? "replies" : "sent";
         $('<li class="' + type + '"><p>' + content + '<small>' + moment().format("HH:mm") + '</small></p></li>').appendTo($('.messages ul'));
         $('.message-input input').val(null);
     }
@@ -87,7 +87,7 @@ function loadMessage(content, sendByClient) {
 }
 
 function sendMessage() {
-    newMessage($(".message-input input").val(), USER.setor === "clientes");
+    newMessage($(".message-input input").val(), isCliente);
     $("#message-text").focus();
 }
 
@@ -108,87 +108,49 @@ function updateMessage() {
 }
 
 function readMessage() {
-    if (USER.setor === "clientes") {
+    if (isEmpty(contato)) {
 
-        if (isEmpty(contato)) {
-            /**
-             * Lê o profissional
-             */
-            db.exeRead("profissional", messageId).then(perfil => {
-                contato = perfil;
-                contato.imagemPerfil = perfil.imagem_de_perfil !== null && typeof perfil.imagem_de_perfil !== "undefined" ? perfil.imagem_de_perfil[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
-                $("#perfil-info").html('<img src="' + contato.imagemPerfil + '" alt=""/><p>' + contato.nome + '</p>');
-                $(".message-input").css("display", "block");
+        /**
+         * Lê o cliente
+         */
+        db.exeRead("clientes", messageId).then(perfil => {
+            contato = perfil;
+            let isClienteContato = contato.perfil_profissional === null;
+            if (!isClienteContato)
+                contato.perfil_profissional = contato.perfil_profissional[0];
 
-                /**
-                 * Lê as mensagens do cliente com este profissional
-                 */
+            if (isClienteContato)
+                contato.imagemPerfil = perfil.imagem !== null && typeof perfil.imagem !== "undefined" ? perfil.imagem[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
+            else
+                contato.imagemPerfil = perfil.perfil_profissional.imagem_de_perfil !== null && typeof perfil.perfil_profissional.imagem_de_perfil !== "undefined" ? perfil.perfil_profissional.imagem_de_perfil[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
 
-                db.exeRead("mensagens").then(m => {
-                    for (let i in m) {
-                        if (parseInt(m[i].profissional) === contato.id) {
-                            mensagem = m[i];
-                            $('.messages ul').html("");
-                            $(".message-input").css("display", "block");
+            $("#perfil-info").html('<div class="imagem-perfil-mensagem" style="background-image: url(\'' + contato.imagemPerfil + '\')"></div><p>' + contato.nome + '</p>');
 
-                            for (let i in mensagem.mensagens)
-                                loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
-
-                            lastMessageData = mensagem.mensagens[mensagem.mensagens.length - 1].data;
-                            $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, 0);
-
-                            break;
-                        }
-                    }
-                })
-            });
-        } else {
             /**
              * Lê as mensagens do profissional com este cliente
              */
-            clearInterval(updateMessageLoop);
-            db.exeRead("mensagens", mensagem.id).then(m => {
-                mensagem = m;
-
-                console.log(mensagem.mensagens);
-                for (let i in mensagem.mensagens) {
-                    if (mensagem.mensagens[i].data > lastMessageData && ((USER.setor === "clientes" && mensagem.mensagens[i].enviada_pelo_cliente === "0") || (USER.setor === "profissional" && mensagem.mensagens[i].enviada_pelo_cliente === "1")))
-                        loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
-                }
-
-                lastMessageData = mensagem.mensagens[mensagem.mensagens.length - 1].data;
-                $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, "fast");
-                updateMessagesLoop();
-            })
-        }
-
-    } else if (USER.setor === "profissional") {
-        if (isEmpty(contato)) {
-
-            /**
-             * Lê o cliente
-             */
-            db.exeRead("clientes", messageId).then(perfil => {
-                contato = perfil;
-                contato.imagemPerfil = perfil.imagem !== null && typeof perfil.imagem !== "undefined" ? perfil.imagem[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
-                $("#perfil-info").html('<img src="' + contato.imagemPerfil + '" alt=""/><p>' + contato.nome + '</p>');
-
-                /**
-                 * Lê as mensagens do profissional com este cliente
-                 */
-                db.exeRead("mensagens").then(m => {
+            db.exeRead("mensagens").then(m => {
+                if (!isEmpty(m)) {
                     for (let i in m) {
-                        if (parseInt(m[i].cliente) === contato.id) {
+                        if ((!isClienteContato && parseInt(m[i].profissional) === contato.id && m[i].cliente === USER.setorData.id) || (parseInt(m[i].cliente) === contato.id && m[i].profissional === USER.setorData.id)) {
+                            isCliente = m[i].cliente === USER.setorData.id;
                             mensagem = m[i];
                             $('.messages ul').html("");
 
-                            for (let i in mensagem.mensagens)
-                                loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
+                            if (isCliente || mensagem.aceitou === 1) {
+                                for (let i in mensagem.mensagens)
+                                    loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
 
-                            lastMessageData = mensagem.mensagens[mensagem.mensagens.length - 1].data;
-                            $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, 0);
+                                lastMessageData = mensagem.mensagens[mensagem.mensagens.length - 1].data;
+                                $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, 0);
+                                $(".message-input").css("display", "block");
+                            }
 
-                            if (mensagem.aceitou === 0) {
+                            if (!isCliente && mensagem.aceitou === 0) {
+                                loadMessage(contato.nome + " entrou em contato com você! \n\nClique em responder abaixo", !0);
+                                lastMessageData = mensagem.mensagens[mensagem.mensagens.length - 1].data;
+                                $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, 0);
+
                                 $(".message-input-buy").css("display", "block");
                                 $(".btn-buy").off("click").on("click", function () {
                                     if (!sendRequestBuy) {
@@ -198,78 +160,94 @@ function readMessage() {
                                             if (g) {
                                                 $(".message-input").css("display", "block");
                                                 $(".message-input-buy").css("display", "none");
+                                                USER.setorData.moedas--;
+
+                                                $(".messages > ul > li.sent").remove();
+                                                for (let i in mensagem.mensagens)
+                                                    loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
+
+                                                lastMessageData = mensagem.mensagens[mensagem.mensagens.length - 1].data;
+                                                $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, 0);
                                             }
                                         });
                                     }
                                 });
-                            } else {
-                                $(".message-input").css("display", "block");
                             }
 
                             break;
+                        } else {
+                            $(".message-input").css("display", "block");
                         }
                     }
-                })
-            });
-        } else {
-            /**
-             * Lê as mensagens do profissional com este cliente
-             */
-            clearInterval(updateMessageLoop);
-            db.exeRead("mensagens", mensagem.id).then(m => {
-                mensagem = m;
-
-                for (let i in mensagem.mensagens) {
-                    if (mensagem.mensagens[i].data > lastMessageData && ((USER.setor === "clientes" && mensagem.mensagens[i].enviada_pelo_cliente === "0") || (USER.setor === "profissional" && mensagem.mensagens[i].enviada_pelo_cliente === "1")))
-                        loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
+                } else {
+                    $(".message-input").css("display", "block");
                 }
-
-                lastMessageData = mensagem.mensagens[mensagem.mensagens.length - 1].data;
-                $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, "fast");
-
-                updateMessagesLoop();
             })
-        }
+        });
+    } else {
+        /**
+         * Lê as mensagens do profissional com este cliente
+         */
+        clearInterval(updateMessageLoop);
+        db.exeRead("mensagens", mensagem.id).then(m => {
+            mensagem = m;
+
+            for (let i in mensagem.mensagens) {
+                if (mensagem.mensagens[i].data > lastMessageData && ((isCliente && mensagem.mensagens[i].enviada_pelo_cliente === "0") || (!isCliente && mensagem.mensagens[i].enviada_pelo_cliente === "1")))
+                    loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
+            }
+
+            lastMessageData = mensagem.mensagens[mensagem.mensagens.length - 1].data;
+            $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, "fast");
+
+            updateMessagesLoop();
+        })
     }
 }
 
 function readAllMessages() {
-    db.exeRead("mensagens").then(mensagens => {
+    let gets = [];
+
+    return db.exeRead("mensagens").then(mensagens => {
+        for(let i in mensagens)
+            mensagens[i].isProfissional = mensagens[i].profissional === USER.setorData.id;
+
         $(".nomessage").css("display", "block");
         if (!isEmpty(mensagens)) {
             $("#nomessage").html("");
+
             getTemplates().then(tpl => {
+
                 for (let i in mensagens) {
                     mensagens[i].calendar = moment(mensagens[i].mensagens[mensagens[i].mensagens.length - 1].data).calendar().toLowerCase();
-                    mensagens[i].lastMessage = mensagens[i].mensagens[mensagens[i].mensagens.length - 1].mensagem;
-                    mensagens[i].chatId = USER.setor === "clientes" ? mensagens[i].profissional : mensagens[i].cliente;
-                    if (USER.setor === "profissional") {
-                        db.exeRead("clientes", parseInt(mensagens[i].cliente)).then(cliente => {
+                    mensagens[i].lastMessage = (mensagens[i].mensagens.length > 0 && (mensagens[i].aceitou === 1 || !mensagens[i].isProfissional) ? mensagens[i].mensagens[mensagens[i].mensagens.length - 1].mensagem : "");
+                    mensagens[i].chatId = mensagens[i].isProfissional ? mensagens[i].cliente : mensagens[i].profissional;
+
+                    if (!mensagens[i].isProfissional) {
+                        db.exeRead("clientes", parseInt(mensagens[i].chatId)).then(cliente => {
                             mensagens[i].clienteData = cliente;
-                            console.log(mensagens[i]);
-                            mensagens[i].clienteData.imagem = isEmpty(mensagens[i].clienteData.imagem) ? HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg" : mensagens[i].clienteData.imagem[0].urls['100'];
+                            mensagens[i].clienteData.perfil_profissional = mensagens[i].clienteData.perfil_profissional[0];
+                            mensagens[i].clienteData.imagem = mensagens[i].clienteData.perfil_profissional.imagem_de_perfil !== null && typeof mensagens[i].clienteData.perfil_profissional.imagem_de_perfil !== "undefined" ? mensagens[i].clienteData.perfil_profissional.imagem_de_perfil[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
+
                             $("#nomessage").append(Mustache.render(tpl.cardMensagens, mensagens[i]));
                         })
-                    } else if (USER.setor === "clientes") {
-                        db.exeRead("profissional", parseInt(mensagens[i].profissional)).then(profissional => {
+                    } else {
+                        db.exeRead("clientes", parseInt(mensagens[i].chatId)).then(profissional => {
                             mensagens[i].clienteData = profissional;
-                            mensagens[i].clienteData.imagem = isEmpty(mensagens[i].clienteData.imagem_de_perfil) ? HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg" : mensagens[i].clienteData.imagem_de_perfil[0].urls['100'];
+                            mensagens[i].clienteData.imagem = mensagens[i].clienteData.imagem !== null && typeof mensagens[i].clienteData.imagem !== "undefined" ? mensagens[i].clienteData.imagem[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
                             $("#nomessage").append(Mustache.render(tpl.cardMensagens, mensagens[i]));
                         })
                     }
                 }
             });
-        } else {
-
         }
     });
 }
 
-var contato = {}, lastMessageData = null, sendRequestBuy = !1, updateMessageLoop, messageId = null;
 $(function () {
     let url = location.href.split("/");
     url = url[url.length - 1];
-    if(url !== "mensagem" && !isNaN(url) && url > 0)
+    if (url !== "mensagem" && !isNaN(url) && url > 0)
         messageId = parseInt(url);
 
     if (messageId) {

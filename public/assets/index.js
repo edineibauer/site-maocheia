@@ -9,38 +9,6 @@ if (typeof filtrosProfissionais === "undefined") {
         servicesOnMap = [],
         openService = {};
 
-    function getProfissionalMustache(profissional) {
-        profissional = Object.assign({}, profissional);
-        profissional.perfil_profissional.imagem_de_perfil = !isEmpty(profissional.perfil_profissional.imagem_de_perfil) ? profissional.perfil_profissional.imagem_de_perfil[0].url : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
-        profissional.perfil_profissional.imagem_de_fundo = !isEmpty(profissional.perfil_profissional.imagem_de_fundo) ? profissional.perfil_profissional.imagem_de_fundo[0].url : "";
-        // profissional.endereco = (!isEmpty(profissional.endereco) ? getLogradouroFromEndereco(profissional.endereco[0]) : "");
-        profissional.perfil_profissional.avaliacao = !isEmpty(profissional.perfil_profissional.avaliacao) ? parseFloat(parseInt(profissional.perfil_profissional.avaliacao) * .1).toFixed(1) : 0;
-        profissional.perfil_profissional.preco_justo = !isEmpty(profissional.perfil_profissional.preco_justo) ? profissional.perfil_profissional.preco_justo : 0;
-        profissional.perfil_profissional.avaliacao_star1 = profissional.perfil_profissional.avaliacao >= .2;
-        profissional.perfil_profissional.avaliacao_star2 = profissional.perfil_profissional.avaliacao >= 1.2;
-        profissional.perfil_profissional.avaliacao_star3 = profissional.perfil_profissional.avaliacao >= 2.2;
-        profissional.perfil_profissional.avaliacao_star4 = profissional.perfil_profissional.avaliacao >= 3.2;
-        profissional.perfil_profissional.avaliacao_star5 = profissional.perfil_profissional.avaliacao >= 4.2;
-        profissional.perfil_profissional.avaliacao_star1_half = profissional.perfil_profissional.avaliacao > .2 && profissional.perfil_profissional.avaliacao < .8;
-        profissional.perfil_profissional.avaliacao_star2_half = profissional.perfil_profissional.avaliacao > 1.2 && profissional.perfil_profissional.avaliacao < 1.8;
-        profissional.perfil_profissional.avaliacao_star3_half = profissional.perfil_profissional.avaliacao > 2.2 && profissional.perfil_profissional.avaliacao < 2.8;
-        profissional.perfil_profissional.avaliacao_star4_half = profissional.perfil_profissional.avaliacao > 3.2 && profissional.perfil_profissional.avaliacao < 3.8;
-        profissional.perfil_profissional.avaliacao_star5_half = profissional.perfil_profissional.avaliacao > 4.2 && profissional.perfil_profissional.avaliacao < 4.8;
-        profissional.perfil_profissional.preco_star1 = profissional.perfil_profissional.preco_justo >= 1;
-        profissional.perfil_profissional.preco_star2 = profissional.perfil_profissional.preco_justo >= 2;
-        profissional.perfil_profissional.preco_star3 = profissional.perfil_profissional.preco_justo >= 3;
-
-        dbLocal.exeRead("categorias", parseInt(profissional.perfil_profissional.categoria)).then(cat => {
-            profissional.perfil_profissional.categoriaNome = cat.nome;
-        });
-
-        profissional.distanciaKm = (profissional.distancia < 1 ? parseInt(profissional.distancia * 1000) + "m" : parseFloat(profissional.distancia).toFixed(1) + "KM");
-
-        console.log(profissional);
-
-        return profissional;
-    }
-
     function changeSwipeToSearch() {
         openService = {};
         if (!$(".menu-swipe").hasClass("serviceFilterSearch")) {

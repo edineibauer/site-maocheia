@@ -1,7 +1,7 @@
 .form-control:focus {
-    outline: none!important;
-    box-shadow: none!important;
-    background: initial!important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: initial !important;
 }
 
 #core-header-nav-bottom {
@@ -9,7 +9,7 @@
 }
 
 #core-menu-custom-bottom li.active i, #core-menu-custom-bottom li.active div {
-    color: #2D7AFF!important;
+    color: #2D7AFF !important;
 }
 
 .volta > i {
@@ -17,4 +17,38 @@
     padding: 15px 10px 10px;
     margin-left: -15px;
     color: #222222;
+}
+
+.avaliacao-perfil {
+    float: left;
+    width: auto;
+}
+
+.avaliacao-perfil .material-icons {
+    font-size: 13px !important;
+}
+
+.avaliacao-perfil > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.avaliacao-perfil > ul.horizontal-list > li {
+    float: left;
+    color: #FF1967;
+    font-size: 11px;
+}
+
+.avaliacao-perfil > ul.horizontal-list > li > i {
+    color: #bbbbbb;
+}
+
+.avaliacao-perfil > ul.horizontal-list > li > i.active {
+    color: #FF1967;
+}
+
+.avaliacao-perfil > ul.horizontal-list > li:nth-last-child(1) {
+    font-weight: bold;
+    margin-left: 4px;
 }

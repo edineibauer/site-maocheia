@@ -11,6 +11,17 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+.imagem-perfil-mensagem {
+    height: 40px;
+    width: 40px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    float: left;
+    margin: 10px 10px 0 0;
+    border-radius: 50px;
+}
+
 .mensagens-card {
     background: #ffffff;
     color: #555555;

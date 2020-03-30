@@ -8,6 +8,6 @@ if (!empty($ids)) {
     $sql->exeCommand("SELECT * FROM " . PRE . "coordenadas_profissional WHERE cliente IN (" . implode(',', $ids) . ")");
     if ($sql->getResult()) {
         foreach ($sql->getResult() as $item)
-            $data['data'][$item['id']] = $item;
+            $data['data'][$item['cliente']] = $item;
     }
 }
