@@ -6,7 +6,7 @@
                     <h3 class="titulo float-left">Notificações</h3>
                     <button class="float-right btn-notify" onclick="subscribeUser();">
                         <i class="material-icons float-left">notifications</i>
-                        <div class="float-left pl-2">avisar</div>
+                        <div class="float-left pl-2">me avise</div>
                     </button>
                 </div>
                 <div id="notificacoes"></div>

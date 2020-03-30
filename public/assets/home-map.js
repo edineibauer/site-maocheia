@@ -31,6 +31,7 @@ function closeAllMapPopupExceptThis(marker) {
 function moveToLocation(lat, lng){
     const center = new google.maps.LatLng(lat, lng);
     map.panTo(center);
+    readAllServices();
 }
 
 function addMarker(service, type, latitude, longitude) {

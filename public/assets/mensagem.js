@@ -88,6 +88,7 @@ function loadMessage(content, sendByClient) {
 
 function sendMessage() {
     newMessage($(".message-input input").val(), USER.setor === "clientes");
+    $("#message-text").focus();
 }
 
 $('.submit').click(function () {

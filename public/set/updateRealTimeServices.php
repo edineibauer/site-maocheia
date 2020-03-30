@@ -5,7 +5,7 @@ $data['data'] = [];
 
 if (!empty($ids)) {
     $sql = new \Conn\SqlCommand();
-    $sql->exeCommand("SELECT * FROM " . PRE . "coordenadas_profissional WHERE profissional IN (" . implode(',', $ids) . ")");
+    $sql->exeCommand("SELECT * FROM " . PRE . "coordenadas_profissional WHERE cliente IN (" . implode(',', $ids) . ")");
     if ($sql->getResult()) {
         foreach ($sql->getResult() as $item)
             $data['data'][$item['id']] = $item;

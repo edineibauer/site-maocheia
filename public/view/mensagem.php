@@ -37,7 +37,7 @@
     </div>
     <div class="message-input">
         <div class="wrap">
-            <input type="text" placeholder="Digite uma mensagem..."/>
+            <input type="text" id="message-text" placeholder="Digite uma mensagem..."/>
             <!--                <i class="material-icons" style="padding: 13px;">link</i>-->
             <button class="submit"><i class="material-icons" style="padding: 3px 5px;">send</i></button>
         </div>
