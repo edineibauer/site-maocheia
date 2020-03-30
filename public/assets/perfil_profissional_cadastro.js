@@ -96,11 +96,11 @@ $(function () {
             profissional.columnStatus = {column: "", have: "false", value: "false"};
             db.exeCreate("clientes", {id: USER.setorData.id, nome: USER.setorData.nome, perfil_profissional: [profissional]}).then(r => {
                 if(r.db_errorback === 0) {
-                    toast("Parabéns! Seu perfil foi criado!", 3000, "toast-success");
+                    toast("Parabéns! Perfil criado!", 3000, "toast-success");
                     USER.setorData.perfil_profissional = r.perfil_profissional;
                     setTimeout(function () {
                         pageTransition("perfil");
-                    }, 2500);
+                    }, 1800);
                 }
             });
         }
