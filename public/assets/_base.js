@@ -47,11 +47,11 @@ function getProfissionalStar(avaliacao) {
     avaliacao = parseInt(typeof avaliacao === "undefined" || isNaN(avaliacao) ? 0 : (avaliacao < 51 ? (avaliacao > 0 ? avaliacao : 0) : 50));
     let aval = {};
     aval.avaliacao = parseFloat(avaliacao * .1).toFixed(1);
-    aval.avaliacao_star1 = aval.avaliacao >= .2;
-    aval.avaliacao_star2 = aval.avaliacao >= 1.2;
-    aval.avaliacao_star3 = aval.avaliacao >= 2.2;
-    aval.avaliacao_star4 = aval.avaliacao >= 3.2;
-    aval.avaliacao_star5 = aval.avaliacao >= 4.2;
+    aval.avaliacao_star1 = aval.avaliacao > .2;
+    aval.avaliacao_star2 = aval.avaliacao > 1.2;
+    aval.avaliacao_star3 = aval.avaliacao > 2.2;
+    aval.avaliacao_star4 = aval.avaliacao > 3.2;
+    aval.avaliacao_star5 = aval.avaliacao > 4.2;
     aval.avaliacao_star1_half = aval.avaliacao > .2 && aval.avaliacao < .8;
     aval.avaliacao_star2_half = aval.avaliacao > 1.2 && aval.avaliacao < 1.8;
     aval.avaliacao_star3_half = aval.avaliacao > 2.2 && aval.avaliacao < 2.8;
