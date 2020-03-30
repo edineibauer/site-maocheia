@@ -1,5 +1,8 @@
 $(function() {
 
+    if(Notification.permission !== "default")
+        $(".btn-notify").remove();
+
     db.exeRead("notifications").then(notifications => {
         let myNotifications = [];
         if (!isEmpty(notifications)) {
