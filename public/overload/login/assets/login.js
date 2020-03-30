@@ -15,7 +15,7 @@ function login() {
                     toast(g, 3000, "toast-warning")
             } else {
                 setCookieUser(g).then(() => {
-                    let destino = "dashboard";
+                    let destino = "index";
                     if(getCookie("redirectOnLogin") !== ""){
                         destino = getCookie("redirectOnLogin");
                         setCookie("redirectOnLogin", 1 ,-1);

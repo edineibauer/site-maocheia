@@ -1,3 +1,5 @@
+var intervalPosition;
+
 function getProfissionalMustache(profissional) {
     profissional = Object.assign({}, profissional);
     profissional.perfil_profissional.imagem_de_perfil = !isEmpty(profissional.perfil_profissional.imagem_de_perfil) ? profissional.perfil_profissional.imagem_de_perfil[0].url : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
@@ -6,7 +8,7 @@ function getProfissionalMustache(profissional) {
     // profissional.endereco = (!isEmpty(profissional.endereco) ? getLogradouroFromEndereco(profissional.endereco[0]) : "");
 
     profissional.perfil_profissional = Object.assign(profissional.perfil_profissional, getProfissionalStar(profissional.avaliacao_profissional || 0));
-    profissional.perfil_profissional = Object.assign(profissional.perfil_profissional,  getProfissionalPreco(profissional.preco_justo || 0));
+    profissional.perfil_profissional = Object.assign(profissional.perfil_profissional, getProfissionalPreco(profissional.preco_justo || 0));
 
     profissional.perfil_profissional.haveAvaliacoes = !1;
     profissional.perfil_profissional.avaliacoes = [];
@@ -59,6 +61,21 @@ function getProfissionalStar(avaliacao) {
     return aval;
 }
 
+function setCoordenadas() {
+    if (!isEmpty(USER.setorData.perfil_profissional) && navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+                if (position.coords.accuracy < 100)
+                    post("site-maocheia", "set/coordenadas", {lat: position.coords.latitude, lng: position.coords.longitude});
+            },
+            function (error) {
+            }, {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            });
+    }
+}
+
 $(function ($) {
     $.fn.profissionalStar = function (avaliacao) {
         getTemplates().then(tpl => {
@@ -73,4 +90,9 @@ $(function ($) {
         });
         return this
     };
+
+    clearInterval(intervalPosition);
+    intervalPosition = setInterval(function () {
+        setCoordenadas();
+    }, 4000);
 });
