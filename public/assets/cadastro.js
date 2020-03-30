@@ -15,6 +15,7 @@ $(function() {
             senha: $('#senha').val(),
             ativo: 1
         }).then(result => {
+            console.log(result);
             loginFree = !0;
             if(typeof result.db_errorback !== "undefined" && result.db_errorback === 1) {
                 dbLocal.clear("clientes");
@@ -28,7 +29,7 @@ $(function() {
 
             } else if(result.db_errorback === 0) {
                 toast("Acessando...", 15000);
-                post('login', 'login', {email: result.email, pass: $('#senha').val()}, function (g) {
+                post('login', 'login', {email: result.nome, pass: $('#senha').val()}, function (g) {
                     if (typeof g === "string") {
                         navigator.vibrate(100);
                         if (g !== "no-network")

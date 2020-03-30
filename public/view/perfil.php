@@ -7,8 +7,7 @@
             <div class="col-8 col-lg-8" style="padding: 0;">
                 <div class="row">
                     <div class="col-7">
-                        <h4 class="mt-2"><?=$_SESSION['userlogin']['nome']?></h4>
-
+                        <h5 class="mt-2" style="max-height: 43px;line-height: 21px;overflow: hidden;" id="nome-user"><?=$_SESSION['userlogin']['nome']?></h5>
                         <div id="avaliacao-perfil-profissional"></div>
                         <div id="preco-perfil-profissional"></div>
                     </div>

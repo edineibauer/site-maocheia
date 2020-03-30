@@ -6,22 +6,25 @@
                 <i class="material-icons">arrow_back</i>
             </a>
         </div>
-        <div class="row  mt-2 no-gutters">
-            <div class="col-3">
-                <figure class="text-center">
-                    <img src="<?=(!empty($_SESSION['userlogin']['imagem']) ? $_SESSION['userlogin']['imagem']['urls']['100'] : HOME . VENDOR . "site-maocheia/public/assets/svg/account.svg")?>" alt="<?=$_SESSION['userlogin']['nome']?>" title="<?=$_SESSION['userlogin']['nome']?>">
-                </figure>
-            </div>
-            <div class="col-8 col-perfil">
-                <h2 id="titulo" class="titulo"></h2>
-                <button id="change-image">alterar imagem</button>
-            </div>
-        </div>
-        <div class="row mt-3">
+
+        <div class="row mt-3 mb-3">
             <div class="col-12">
                 <h6 style="font-weight: 600">Informações pessoais</h6>
             </div>
         </div>
+
+        <div class="row mb-3">
+            <div class="col-12">
+                <input class="carregar-foto" id="imagem_de_perfil" type="file">
+                <div class="Neon Neon-theme-dragdropbox">
+                    <label for="imagem_de_perfil" class="bordas" id="imagem_de_perfil_preview">
+                        <i class="material-icons">image</i>
+                    </label>
+                    <label for="imagem_de_perfil" id="change-image">alterar imagem</label>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12">
                 <div id="formProfissional">

@@ -13,6 +13,7 @@ $(function () {
         userImage = !isEmpty(USER.setorData.imagem) ? JSON.parse(USER.setorData.imagem)[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
     }
 
+    $("#nome-user").html(USER.setorData.nome);
     $("#perfil-image").css("background-image", "url('" + (profissional ? profissional.imagem_de_perfil[0].urls[100] : userImage) + "')");
 
     $(".sair-app").off("click").on("click", function() {
