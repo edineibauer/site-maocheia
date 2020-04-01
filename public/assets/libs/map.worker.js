@@ -6,7 +6,6 @@ function getMapTypes() {
         if (response.ok) {
           resolve(response.json());
         } else {
-          console.log('ok');
           reject(false);
         }
       })

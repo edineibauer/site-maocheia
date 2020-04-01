@@ -102,11 +102,34 @@ if (typeof filtrosProfissionais === "undefined") {
 
     function changeSwipeToService(data) {
         openService = data;
-        data.perfil_profissional.haveAvaliacoes = !1;
         data.perfil_profissional.avaliacoes = [];
         $(".menu-swipe").addClass("servicePerfil").removeClass("serviceFilterSearch buildPerfil");
         $(".swipe-zone-body").removeClass("filter");
         $(".swipe-zone-body").htmlTemplate('servicePerfil', data).then(() => {
+
+            /**
+             * Read avaliações
+             */
+            getJSON(HOME + "app/find/avaliacao/profissional/" + data.id).then(avaliacoes => {
+                let feedbacks = [];
+                if(!isEmpty(avaliacoes.avaliacao)) {
+                    for (let i in avaliacoes.avaliacao) {
+                        if(i > 4)
+                            break;
+                        avaliacoes.avaliacao[i].imagens = (!isEmpty(avaliacoes.avaliacao[i].imagens) ? JSON.parse(avaliacoes.avaliacao[i].imagens) : []);
+                        avaliacoes.avaliacao[i].data = moment(avaliacoes.avaliacao[i].data).calendar();
+                        feedbacks.push(avaliacoes.avaliacao[i]);
+                    }
+                    if(avaliacoes.avaliacao.length > 5)
+                        $("#section-avaliacoes-more").removeClass("hide");
+
+                    $("#section-avaliacoes-title").html("Avaliações");
+                }
+                console.log(feedbacks);
+
+                $("#section-avaliacoes").htmlTemplate('avaliacoes', {avaliacoes: feedbacks});
+            });
+
             $("#arrowback-perfil").off("click").on("click", function () {
                 if ($(".popup-container").length) {
                     closeFullPerfil();

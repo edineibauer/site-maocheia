@@ -28,14 +28,37 @@ function closeAllMapPopupExceptThis(marker) {
     })
 }
 
-function moveToLocation(lat, lng){
+function moveToLocation(lat, lng) {
     const center = new google.maps.LatLng(lat, lng);
     map.panTo(center);
     readAllServices();
 }
 
 function addMarker(service, type, latitude, longitude) {
-    let image = type === 1 ? "circulo" : "map-marker";
+    let image = null;
+
+    if (type === 1) {
+        image = {
+            url: HOME + VENDOR + 'site-maocheia/public/assets/svg/circulo.svg',
+            // This marker is 20 pixels wide by 32 pixels high.
+            size: new google.maps.Size(28, 28),
+            // The origin for this image is (0, 0).
+            origin: new google.maps.Point(0, 0),
+            // The anchor for this image is the base of the flagpole at (0, 32).
+            anchor: new google.maps.Point(0, 32)
+        };
+    } else {
+        image = {
+            url: HOME + VENDOR + 'site-maocheia/public/assets/svg/map-marker.svg',
+            // This marker is 20 pixels wide by 32 pixels high.
+            size: new google.maps.Size(35, 47),
+            // The origin for this image is (0, 0).
+            origin: new google.maps.Point(18, 10),
+            // The anchor for this image is the base of the flagpole at (0, 32).
+            anchor: new google.maps.Point(18, 60)
+        };
+    }
+
     let marker = new google.maps.Marker({
         position: {lat: latitude, lng: longitude},
         map: map,
@@ -44,12 +67,14 @@ function addMarker(service, type, latitude, longitude) {
         scrollwheel: true,
         service: service,
         id: service.id || 0,
-        icon: HOME + VENDOR + 'site-maocheia/public/assets/svg/' + image + '.svg',
+        icon: image,
+        width: 50,
+        height: 56,
         latitude: latitude,
         longitude: longitude,
-        animation: type === 1 || 1===1 ? null : google.maps.Animation.DROP
+        animation: type === 1 || 1 === 1 ? null : google.maps.Animation.DROP
     });
-    if(type > 1)
+    if (type > 1)
         marker.addListener('click', toogleServicePerfil);
 
     markers.push(marker);
@@ -107,6 +132,7 @@ function getZoomToKm(zoom) {
 }
 
 var myMarker, markers = [], map, mapMoveTrack;
+
 function startMap() {
 
     /**
@@ -121,32 +147,47 @@ function startMap() {
         zoom: 14,
         styles: [
             {
-                featureType: 'transit',
-                elementType: 'labels.icon',
-                stylers: [{visibility: 'off'}]
+                "elementType": "labels",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
             },
             {
-                featureType: 'poi',
-                stylers: [{visibility: 'off'}]
+                "featureType": "administrative.land_parcel",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative.neighborhood",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
             }
         ],
         disableDefaultUI: true
     });
 
-    map.addListener('zoom_changed', function() {
+    map.addListener('zoom_changed', function () {
         $("#procura").blur();
         $(".menu-swipe").removeClass("openFull");
         readServices();
     });
-    map.addListener('click', function() {
+    map.addListener('click', function () {
         $("#procura").blur();
         changeSwipeToSearch();
     });
 
-    map.addListener('mousedown', function() {
+    map.addListener('mousedown', function () {
         $(".menu-swipe").removeClass("openFull");
     });
-    map.addListener('drag', function() {
+    map.addListener('drag', function () {
         clearTimeout(mapMoveTrack);
         mapMoveTrack = setTimeout(function () {
             readServices();
@@ -161,7 +202,7 @@ function startMap() {
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-                if(position.coords.accuracy < 100) {
+                if (position.coords.accuracy < 100) {
                     myMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
                     moveToLocation(position.coords.latitude, position.coords.longitude);
                 }
@@ -169,7 +210,7 @@ function startMap() {
             function (error) { // callback de erro
                 toast('Erro ao obter localização!', 3000, "toast-warning");
                 console.log('Erro ao obter localização.', error);
-            },{
+            }, {
                 enableHighAccuracy: true,
                 timeout: 5000,
                 maximumAge: 0

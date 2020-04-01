@@ -98,32 +98,28 @@
             </div>
         </div>-->
         <div class="row">
+            <div class="col-12 mb-5">
+                <h5 class="titulo-endereco">Sobre</h5>
+                <div class="endereco">{{perfil_profissional.sobre}}</div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-12">
                 <div class="row">
                     <div class="col-12">
-                        <div class="avaliacao">
-                            <h6 class="titulo">Avaliação</h6>
-                        </div>
+                        <h5 class="titulo-endereco" id="section-avaliacoes-title">Nenhuma avaliação</h5>
                     </div>
                 </div>
 
                 <div id="section-avaliacoes"></div>
 
-                {{#perfil_profissional.haveAvaliacoes}}
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="todas-avaliacoes">
-                                <a href="avaliacoes/{{id}}" data-animation="forward">Ver todas as avaliações</a>
-                            </div>
+                <div class="row hide" id="section-avaliacoes-more">
+                    <div class="col-12">
+                        <div class="todas-avaliacoes">
+                            <a href="avaliacoes/{{id}}" data-animation="forward">Ver todas as avaliações</a>
                         </div>
                     </div>
-                {{/perfil_profissional.haveAvaliacoes}}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <h5 class="titulo-endereco">Sobre</h5>
-                <div class="endereco">{{perfil_profissional.sobre}}</div>
+                </div>
             </div>
         </div>
 
