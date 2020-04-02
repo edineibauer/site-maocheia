@@ -15,7 +15,6 @@ $(function() {
             senha: $('#senha').val(),
             ativo: 1
         }).then(result => {
-            console.log(result);
             loginFree = !0;
             if(typeof result.db_errorback !== "undefined" && result.db_errorback === 1) {
                 dbLocal.clear("clientes");
@@ -37,7 +36,7 @@ $(function() {
                     } else {
                         toast("Bem-vindo", 1500, "toast-success");
                         setCookieUser(g).then(() => {
-                            let destino = "dashboard";
+                            let destino = "index";
                             if(getCookie("redirectOnLogin") !== ""){
                                 destino = getCookie("redirectOnLogin");
                                 setCookie("redirectOnLogin", 1 ,-1);

@@ -29,7 +29,9 @@
                         </div>
                     </div>
 
-                    <div class="row justify-content-center mt-4">
+                    <?= (defined("GOOGLELOGINCLIENTID") && !empty(GOOGLELOGINCLIENTID) ? '<div class="g-signin2" data-onsuccess="onSignIn"></div><script src="https://apis.google.com/js/platform.js" async defer></script><meta name="google-signin-client_id" content="' . GOOGLELOGINCLIENTID . '">' : '')?>
+
+                    <div class="row justify-content-center mt-2">
                         <div class="form-group col-12 col-lg-6">
                             <button id="btn-tela-cadastro" class="btn btn-primary">Acessar</button>
                         </div>

@@ -74,3 +74,9 @@ label {
 .text-end {
     text-align: end;
 }
+
+span[id^=not_signed_]:before, span[id^=connected]:before {
+    content: 'Acessar';
+    padding-right: 100px;
+    padding-left: 7px;
+}
