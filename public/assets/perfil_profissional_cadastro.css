@@ -192,6 +192,34 @@ label {
     margin-bottom: 10px;
 }
 
+#galeria_preview_parent {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#galeria_preview_parent::-webkit-scrollbar {
+    height: 0;
+}
+
+#galeria_preview {
+    height: 100px;
+    width: max-content;
+}
+
+#galeria_preview > img {
+    max-height: 100%;
+    float: left;
+    width: auto;
+    padding: 2px;
+}
+
+label[for="galeria"] {
+    padding: 25px 30px 25px 25px;
+    font-size: 50px!important;
+    float: left;
+}
+
+
 .carregar-foto {
     z-index: 999;
     opacity: 0;

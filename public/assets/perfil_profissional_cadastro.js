@@ -1,4 +1,4 @@
-var imagem_de_perfil = [], imagem_de_fundo = [];
+var imagem_de_perfil = [], imagem_de_fundo = [], galeria = [];
 
 $(function () {
     dbLocal.exeRead("categorias").then(categorias => {
@@ -66,8 +66,36 @@ $(function () {
         }
     });
 
-    $("#scrollDown").off("click").on("click", function () {
-        window.scrollBy(0, 100);
+    $("#galeria").off("change").on("change", function (e) {
+        let $input = $(this);
+        if (typeof e.target.files[0] !== "undefined") {
+            for (let i in e.target.files) {
+                let file = e.target.files[i];
+                if(typeof file.name !== "undefined") {
+                    let name = file.name.split(".");
+                    name = name.join('-');
+                    let nome = replaceAll(replaceAll(name, '-', ' '), '_', ' ');
+                    name = slug(name);
+                    if (/^image\//.test(file.type)) {
+                        compressImage(file, 1920, 1080, webp("jpg"), function (resource) {
+                            var size = parseFloat(4 * Math.ceil(((resource.length - 'data:image/png;base64,'.length) / 3)) * 0.5624896334383812).toFixed(1);
+                            let mock = createMock(resource, nome, name, webp("jpg"), "image/" + webp("jpg"), size, !0);
+
+                            let fileUp = dataURLtoFile(mock.url, mock.name + "." + mock.type);
+                            let upload = new Upload(fileUp);
+                            upload.exeUpload(mock, $input, function (data) {
+                                if (data.url !== "") {
+                                    mock.url = data.url;
+                                    mock.image = data.image;
+                                    $("#galeria_preview").append("<img src='" + mock.url + "' alt='" + nome + "' />");
+                                }
+                            });
+                            galeria.push(mock);
+                        })
+                    }
+                }
+            }
+        }
     });
 
     $("#create-profissional").off("click").on("click", function () {
@@ -76,6 +104,7 @@ $(function () {
             "sobre": $("#sobre").val(),
             "imagem_de_perfil": imagem_de_perfil,
             "imagem_de_fundo": imagem_de_fundo,
+            "galeria": galeria,
             "ativo": !0,
         };
 

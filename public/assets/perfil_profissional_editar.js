@@ -115,10 +115,6 @@ $(function () {
         }
     });
 
-    $("#scrollDown").off("click").on("click", function () {
-        window.scrollBy(0, 100);
-    });
-
     $("#update-profissional").off("click").on("click", function () {
         let rel = $(this).attr("rel");
         let p = {
