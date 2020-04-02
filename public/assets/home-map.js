@@ -74,9 +74,10 @@ function addMarker(service, type, latitude, longitude) {
         longitude: longitude,
         animation: type === 1 || 1 === 1 ? null : google.maps.Animation.DROP
     });
-    if (type > 1)
+    if (type > 1) {
         marker.addListener('click', toogleServicePerfil);
-
+        markerCluster.addMarker(marker);
+    }
     markers.push(marker);
 
     return marker;
@@ -130,8 +131,7 @@ function getZoomToKm(zoom) {
             return 10;
     }
 }
-
-var myMarker, markers = [], map, mapMoveTrack;
+var myMarker, markers = [], markerCluster = null, map, mapMoveTrack;
 
 function startMap() {
 
@@ -172,6 +172,10 @@ function startMap() {
             }
         ],
         disableDefaultUI: true
+    });
+    markerCluster = new MarkerClusterer(map, [], {
+        gridSize: 20,
+        imagePath: HOME + VENDOR + 'site-maocheia/public/assets/maps/m'
     });
 
     map.addListener('zoom_changed', function () {
@@ -218,6 +222,5 @@ function startMap() {
     } else {
         console.log('Navegador não suporta Geolocalização!');
     }
-
     startSwipe();
 }

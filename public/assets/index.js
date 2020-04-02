@@ -125,7 +125,6 @@ if (typeof filtrosProfissionais === "undefined") {
 
                     $("#section-avaliacoes-title").html("Avaliações");
                 }
-                console.log(feedbacks);
 
                 $("#section-avaliacoes").htmlTemplate('avaliacoes', {avaliacoes: feedbacks});
             });
@@ -217,6 +216,7 @@ if (typeof filtrosProfissionais === "undefined") {
                 if (!data.some(el => el.id === servicesOnMap[m])) {
                     for (let e in markers) {
                         if (markers[e].id === servicesOnMap[m]) {
+                            markerCluster.removeMarker(markers[e]);
                             markers[e].setMap(null);
                             delete (markers[e]);
                             break;
@@ -227,11 +227,8 @@ if (typeof filtrosProfissionais === "undefined") {
         }
 
         for (let i = 0; i < data.length; i++) {
-            if (servicesOnMap.indexOf(data[i].id) === -1) {
-                // setTimeout(function () {
-                    addMarker(data[i], 2, parseFloat(data[i].latitude), parseFloat(data[i].longitude));
-                // }, i * Math.floor((Math.random() * 130) + 70));
-            }
+            if (servicesOnMap.indexOf(data[i].id) === -1)
+                addMarker(data[i], 2, parseFloat(data[i].latitude), parseFloat(data[i].longitude));
         }
 
         /**
@@ -293,8 +290,9 @@ if (typeof filtrosProfissionais === "undefined") {
                      */
                     if (!isEmpty(markers)) {
                         for (let e in markers) {
-                            if (markers[e].service.id == services[i].id)
+                            if (markers[e].service.id == services[i].id) {
                                 markers[e].setPosition(new google.maps.LatLng(parseFloat(services[i].latitude), parseFloat(services[i].longitude)));
+                            }
                         }
                     }
 
