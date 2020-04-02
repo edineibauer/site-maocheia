@@ -102,7 +102,6 @@ if (typeof filtrosProfissionais === "undefined") {
 
     function changeSwipeToService(data) {
         openService = data;
-        data.perfil_profissional.avaliacoes = [];
         $(".menu-swipe").addClass("servicePerfil").removeClass("serviceFilterSearch buildPerfil");
         $(".swipe-zone-body").removeClass("filter");
         $(".swipe-zone-body").htmlTemplate('servicePerfil', data).then(() => {
@@ -118,6 +117,7 @@ if (typeof filtrosProfissionais === "undefined") {
                             break;
                         avaliacoes.avaliacao[i].imagens = (!isEmpty(avaliacoes.avaliacao[i].imagens) ? JSON.parse(avaliacoes.avaliacao[i].imagens) : []);
                         avaliacoes.avaliacao[i].data = moment(avaliacoes.avaliacao[i].data).calendar();
+                        avaliacoes.avaliacao[i].star = getProfissionalStar(parseInt(avaliacoes.avaliacao[i].qualidade) * 10);
                         feedbacks.push(avaliacoes.avaliacao[i]);
                     }
                     if(avaliacoes.avaliacao.length > 5)
