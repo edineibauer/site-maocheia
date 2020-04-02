@@ -228,9 +228,9 @@ if (typeof filtrosProfissionais === "undefined") {
 
         for (let i = 0; i < data.length; i++) {
             if (servicesOnMap.indexOf(data[i].id) === -1) {
-                setTimeout(function () {
+                // setTimeout(function () {
                     addMarker(data[i], 2, parseFloat(data[i].latitude), parseFloat(data[i].longitude));
-                }, i * Math.floor((Math.random() * 130) + 70));
+                // }, i * Math.floor((Math.random() * 130) + 70));
             }
         }
 
