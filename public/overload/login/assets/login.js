@@ -33,7 +33,7 @@ function exeLogin(email, senha, recaptcha) {
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     getJSON(HOME + "app/find/clientes/email/" + profile.getEmail()).then(r => {
-        if(!isEmpty(r)) {
+        if(!isEmpty(r.clientes)) {
             exeLogin(profile.getEmail(), profile.getId());
         } else {
             db.exeCreate("clientes", {
