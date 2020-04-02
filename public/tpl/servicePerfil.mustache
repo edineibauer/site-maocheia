@@ -9,13 +9,15 @@
         <div class="row">
             <div class="col-12 text-center">
                 <div id="imagem-perfil-div">
-                    <div id="imagem-perfil" style="background-image: url('{{perfil_profissional.imagem_de_perfil}}')"></div>
+                    <div id="imagem-perfil"
+                         style="background-image: url('{{perfil_profissional.imagem_de_perfil}}')"></div>
                 </div>
                 <h2 class="nome">
                     {{nome}}
-                    <div class="point-draw-medium"></div>
+                    <div class="point-draw-medium" title="online"></div>
                 </h2>
-                <div class="avaliacao-perfil">
+
+                <div class="avaliacao-perfil avaliacao-card">
                     <ul class="horizontal-list">
                         <li>
                             <i class="material-icons{{#perfil_profissional.avaliacao_star1}} active{{/perfil_profissional.avaliacao_star1}}">{{#perfil_profissional.avaliacao_star1_half}}
@@ -46,21 +48,21 @@
             <div class="col-12">
                 <div class="pedido-concluido">
                     <div class="profissional-subtitulo">
-                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: -7px"
+                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: -8px"
                              xmlns:xlink="http://www.w3.org/1999/xlink"
                              fill="{{#perfil_profissional.preco_star1}}#FF1967{{/perfil_profissional.preco_star1}}{{^perfil_profissional.preco_star1}}#bbbbbb{{/perfil_profissional.preco_star1}}"
-                             version="1.1" width="11" height="11" viewBox="2 2 20 20">
+                             version="1.1" width="13" height="13" viewBox="2 2 20 20">
                             <path d="M7,15H9C9,16.08 10.37,17 12,17C13.63,17 15,16.08 15,15C15,13.9 13.96,13.5 11.76,12.97C9.64,12.44 7,11.78 7,9C7,7.21 8.47,5.69 10.5,5.18V3H13.5V5.18C15.53,5.69 17,7.21 17,9H15C15,7.92 13.63,7 12,7C10.37,7 9,7.92 9,9C9,10.1 10.04,10.5 12.24,11.03C14.36,11.56 17,12.22 17,15C17,16.79 15.53,18.31 13.5,18.82V21H10.5V18.82C8.47,18.31 7,16.79 7,15Z"/>
                         </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: -7px"
+                        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: -8px"
                              xmlns:xlink="http://www.w3.org/1999/xlink"
                              fill="{{#perfil_profissional.preco_star2}}#FF1967{{/perfil_profissional.preco_star2}}{{^perfil_profissional.preco_star2}}#bbbbbb{{/perfil_profissional.preco_star2}}"
-                             version="1.1" width="11" height="11" viewBox="2 2 20 20">
+                             version="1.1" width="13" height="13" viewBox="2 2 20 20">
                             <path d="M7,15H9C9,16.08 10.37,17 12,17C13.63,17 15,16.08 15,15C15,13.9 13.96,13.5 11.76,12.97C9.64,12.44 7,11.78 7,9C7,7.21 8.47,5.69 10.5,5.18V3H13.5V5.18C15.53,5.69 17,7.21 17,9H15C15,7.92 13.63,7 12,7C10.37,7 9,7.92 9,9C9,10.1 10.04,10.5 12.24,11.03C14.36,11.56 17,12.22 17,15C17,16.79 15.53,18.31 13.5,18.82V21H10.5V18.82C8.47,18.31 7,16.79 7,15Z"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                              fill="{{#perfil_profissional.preco_star3}}#FF1967{{/perfil_profissional.preco_star3}}{{^perfil_profissional.preco_star3}}#bbbbbb{{/perfil_profissional.preco_star3}}"
-                             version="1.1" width="11" height="11" viewBox="2 2 20 20">
+                             version="1.1" width="13" height="13" viewBox="2 2 20 20">
                             <path d="M7,15H9C9,16.08 10.37,17 12,17C13.63,17 15,16.08 15,15C15,13.9 13.96,13.5 11.76,12.97C9.64,12.44 7,11.78 7,9C7,7.21 8.47,5.69 10.5,5.18V3H13.5V5.18C15.53,5.69 17,7.21 17,9H15C15,7.92 13.63,7 12,7C10.37,7 9,7.92 9,9C9,10.1 10.04,10.5 12.24,11.03C14.36,11.56 17,12.22 17,15C17,16.79 15.53,18.31 13.5,18.82V21H10.5V18.82C8.47,18.31 7,16.79 7,15Z"/>
                         </svg>
                     </div>
@@ -98,9 +100,18 @@
             </div>
         </div>-->
         <div class="row">
-            <div class="col-12 mb-5">
+            <div class="col-12 mb-4">
                 <h5 class="titulo-endereco">Sobre</h5>
                 <div class="endereco">{{perfil_profissional.sobre}}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="galeria_preview_parent" class="mb-4">
+                <div id="galeria_preview">
+                    {{#perfil_profissional.galeria}}
+                        <img src='{{urls.300}}' alt='{{nome}}' />
+                    {{/perfil_profissional.galeria}}
+                </div>
             </div>
         </div>
         <div class="row">

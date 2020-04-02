@@ -120,16 +120,12 @@ function swipeMenuEvent($menu) {
                     $menu.addClass('moving');
 
                 if (phase == 'move') {
-
-                    if (direction === "up" || direction === "down") {
-                        if (direction == 'up') {
-
-                            let up = Math.abs(distance);
-                            up = ($menu.hasClass("openFull") && up > 20 ? 20 : ($menu.hasClass("open") && up > 320 ? 320 : (up > 500 ? 500 : up)));
-                            $menu.css({bottom: up + 50})
-                        } else {
-                            $menu.css({bottom: -Math.abs(distance) + 50})
-                        }
+                    if (direction == 'up') {
+                        let up = Math.abs(distance);
+                        up = ($menu.hasClass("openFull") && up > 20 ? 20 : ($menu.hasClass("open") && up > 320 ? 320 : (up > 500 ? 500 : up)));
+                        $menu.css({bottom: up + 50});
+                    } else if (direction === "down") {
+                        $menu.css({bottom: -Math.abs(distance) + 50})
                     }
                 }
 

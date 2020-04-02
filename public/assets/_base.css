@@ -19,36 +19,63 @@
     color: #222222;
 }
 
-.avaliacao-perfil {
+.avaliacao-card {
     float: left;
     width: auto;
 }
 
-.avaliacao-perfil .material-icons {
+.avaliacao-card .material-icons {
     font-size: 13px !important;
 }
 
-.avaliacao-perfil > ul {
+.avaliacao-card > ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.avaliacao-perfil > ul.horizontal-list > li {
+.avaliacao-card > ul.horizontal-list > li {
     float: left;
     color: #FF1967;
     font-size: 11px;
 }
 
-.avaliacao-perfil > ul.horizontal-list > li > i {
+.avaliacao-card > ul.horizontal-list > li > i {
     color: #bbbbbb;
 }
 
-.avaliacao-perfil > ul.horizontal-list > li > i.active {
+.avaliacao-card > ul.horizontal-list > li > i.active {
     color: #FF1967;
 }
 
-.avaliacao-perfil > ul.horizontal-list > li:nth-last-child(1) {
+.avaliacao-card > ul.horizontal-list > li:nth-last-child(1) {
     font-weight: bold;
     margin-left: 4px;
+}
+
+#galeria_preview_parent {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#galeria_preview_parent::-webkit-scrollbar {
+    height: 0;
+}
+
+#galeria_preview {
+    height: 150px;
+    width: max-content;
+}
+
+#galeria_preview > img {
+    max-height: 100%;
+    float: left;
+    width: auto;
+    padding: 2px;
+}
+#galeria_preview > img:first-of-type {
+    padding-left: 0;
+}
+#galeria_preview > img:last-of-type {
+    padding-right: 0;
 }

@@ -45,12 +45,26 @@
                     </div>
                 </div>
 
-                <div class="col">
-                    <i class="material-icons" id="scrollDown" style="font-size: 45px;text-align: center;width: 100%;margin-top: -7px;">keyboard_arrow_down</i>
+                <div class="form-group mb-3">
+                    <div class="input-group-prepend">
+                        <span>Galeria de imagens</span>
+                    </div>
+                    <div>
+                        <input class="carregar-foto" id="galeria" type="file" multiple>
+                        <div class="Neon Neon-theme-dragdropbox">
+                            <div class="bordas-galeria">
+                                <div id="galeria_preview_parent">
+                                    <div id="galeria_preview">
+                                        <label for="galeria" class="material-icons">image</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row justify-content-center">
-                    <div class="form-group col-12 col-lg-6">
+                    <div class="form-group col-12 col-lg-6 mb-4">
                         <button class="btn btn-primary" id="update-profissional">ATUALIZAR</button>
                     </div>
                 </div>

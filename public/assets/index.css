@@ -194,10 +194,8 @@ figure {
 
 #profissionais .cardList {
     background: #F1F0F5 0 0 no-repeat padding-box;
-    box-shadow: 0 2px 5px #00000029;
     border-radius: 5px;
     padding: 12px 0 12px 0;
-    margin-bottom: 12px;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -411,12 +409,12 @@ html, body {
 }
 
 body {
-    position: absolute!important;
-    top: 0!important;
-    left: 0!important;
-    opacity: 1!important;
-    height: calc(100vh - 50px)!important;
-    width: 100%!important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    opacity: 1 !important;
+    height: calc(100vh - 50px) !important;
+    width: 100% !important;
 }
 
 #busca-topo {
@@ -441,8 +439,8 @@ body {
 
 .menu-swipe {
     background-color: #fff;
-    border-top-right-radius: 30px;
-    border-top-left-radius: 30px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
     box-shadow: 0 -3px 6px #00000029;
     position: fixed;
     bottom: 50px;
@@ -458,8 +456,12 @@ body {
     overflow-y: auto;
 }
 
+.menu-swipe.openFull .swipe-line{
+    height: 130px
+}
+
 .menu-swipe.open {
-    margin-bottom: -350px;
+    margin-bottom: -340px;
 }
 
 .menu-swipe.open.serviceFilterSearch {
@@ -539,9 +541,8 @@ body {
 .point-draw-medium {
     width: 10px;
     height: 10px;
-    margin: 0 -3px;
     border-radius: 50%;
-    background: #555555;
+    background: #22E82F;
     display: inline-block;
 }
 
@@ -683,19 +684,41 @@ body {
 #perfil-cliente .nomes {
     font-weight: bold;
     font-size: 14px;
+    float: left;
+    width: 100%;
+    display: block;
+}
+
+#perfil-cliente .estrelas ul.horizontal-list>li:nth-last-child(1) {
+    margin-top: 2px;
+    line-height: 12px;
+}
+
+#perfil-cliente .avaliacao-perfil>ul.horizontal-list>li:nth-last-child(1) {
+    line-height: 12px;
+}
+
+#perfil-cliente .estrelas {
+    float: left;
+    width: 100%;
+    display: block;
+    margin-top: 4px;
 }
 
 #perfil-cliente .data {
     font-size: 10px;
-    font-weight: 500;
-    color: #CBCBCB;
+    font-weight: 300;
+    color: #aaaaaa;
     margin-top: 2px;
-    margin-bottom: -13px;
+    float: left;
+    width: 100%;
+    display: block;
 }
 
 #perfil-cliente .texto {
     font-size: 12px;
     margin-top: 2px;
+    font-weight: 400;
 }
 
 #perfil-cliente .todas-avaliacoes {
@@ -709,22 +732,17 @@ body {
     font-size: 14px;
 }
 
-#perfil-cliente .estrelas .avaliacao-perfil {
-    margin-left: -2px;
-    margin-top: 15px;
+#perfil-cliente .avaliacao-perfil {
+    margin-left: calc(50% - 50px);
+    margin-top: 2px;
 }
 
-#perfil-cliente ul.horizontal-list>li:nth-last-child(1) {
-    margin-top: 1px;
+#perfil-cliente .avaliacao-perfil > ul.horizontal-list > li:nth-last-child(1) {
+    margin-top: 5px;
 }
 
 #perfil-cliente .avaliacao-perfil .material-icons {
-    font-size: 16px!important;
-}
-
-#perfil-cliente .avaliacao-perfil {
-    margin-left: calc(50% - 50px);
-    margin-top: 8px;
+    font-size: 18px !important;
 }
 
 ul.horizontal-list > li:nth-last-child(1) {
@@ -739,7 +757,7 @@ ul {
 }
 
 .col-perfil {
-    margin-left: 24px;
+    margin-left: 15px;
 }
 
 @media only screen and (min-width: 768px) {
