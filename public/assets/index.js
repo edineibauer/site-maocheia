@@ -1,4 +1,3 @@
-console.log('exec');
 if (typeof filtrosProfissionais === "undefined") {
     var
         mapLoaded = typeof mapLoaded !== "undefined",
