@@ -16,14 +16,14 @@ function exeLogin(email, senha, recaptcha) {
                 if (g !== "no-network")
                     toast(g, 3000, "toast-warning")
             } else {
-                toast("Bem-vindo", 1500, "toast-success");
+                toast("Bem-vindo", 15000, "toast-success");
                 setCookieUser(g).then(() => {
                     let destino = "index";
                     if (getCookie("redirectOnLogin") !== "") {
                         destino = getCookie("redirectOnLogin");
                         setCookie("redirectOnLogin", 1, -1);
                     }
-                    pageTransition(destino, "route", "forward", "#core-content");
+                    location.href = destino;
                 })
             }
         });
