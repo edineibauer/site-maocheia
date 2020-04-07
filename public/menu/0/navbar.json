@@ -1,0 +1,12 @@
+[
+  {
+    "href": "index",
+    "class": "theme-text-aux",
+    "html": "<i class='material-icons left'>home</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>início</div>"
+  },
+  {
+    "href": "perfil",
+    "class": "theme-text-aux",
+    "html": "<i class='material-icons left'>person</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>fazer login</div>"
+  }
+]
