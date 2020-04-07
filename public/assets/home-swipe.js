@@ -70,6 +70,68 @@ function createPopupClass() {
 }
 
 /**
+ * swipeContent
+ * @param $menu
+ */
+function swipeContent($menu) {
+    if (window.innerWidth < 900) {
+        let height = $menu.height();
+        let $menuparent = $menu.closest(".menu-swipe-class");
+
+        $menu.swipe({
+            swipeStatus: function (event, phase, direction, distance) {
+                if (typeof event.targetTouches === "undefined")
+                    return;
+
+                if (event.targetTouches.length === 1 && !$(event.targetTouches[0].target).hasClass("form-control") && $(".form-control").is(":focus"))
+                    $(".form-control").blur();
+
+                if (phase == 'start')
+                    $menuparent.addClass('moving');
+
+                if (phase == 'move') {
+                    if (direction == 'up') {
+                        let up = Math.abs(distance);
+                        up = ($menuparent.hasClass("openFull") && up > 20 ? 20 : ($menuparent.hasClass("open") && up > 320 ? 320 : (up > 500 ? 500 : up)));
+                        $menuparent.css({bottom: up + 50});
+                    } else if (direction === "down") {
+                        $menuparent.css({bottom: -Math.abs(distance) + 50})
+                    }
+                }
+
+                if ($menuparent.hasClass("moving") && (phase == 'end' || phase == 'cancel')) {
+                    let bottom = parseInt($menuparent.css('bottom'));
+                    $menuparent.removeClass('moving close').addClass('open').css({bottom: "50px"});
+
+                    if (direction == 'down') {
+                        if (bottom < 20) {
+                            if (bottom > -290 && $menuparent.hasClass("openFull")) {
+                                if ($menuparent.hasClass("servicePerfil"))
+                                    closeFullPerfil();
+                                else
+                                    $menuparent.removeClass("openFull");
+                            } else {
+                                if ($menuparent.hasClass("servicePerfil"))
+                                    closeFullPerfil();
+
+                                swipe.close($menuparent.attr("id"));
+                            }
+                        }
+                    } else {
+                        if (bottom > 75) {
+                            if ($menuparent.hasClass("servicePerfil"))
+                                openFullPerfil();
+                            else
+                                $menuparent.addClass("openFull");
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
+
+/**
  * Controle do swipe move
  * @param $menu
  */
@@ -77,39 +139,7 @@ function swipeMenuEvent($menu) {
     if (window.innerWidth < 900) {
         let height = $menu.height();
         $menu.find(".swipe-line").swipe({
-            swipe: function (event, direction, distance, duration, fingerCount, fingerData, currentDirection) {
-                if (!$menu.hasClass('open') || typeof event.targetTouches === "undefined")
-                    return;
-
-                if ($(".form-control").is(":focus"))
-                    $(".form-control").blur();
-
-                if (direction == 'start')
-                    $menu.removeClass('close').addClass('moving');
-
-                if (direction == 'move') {
-                    if (direction == 'down') {
-                        $menu.css({bottom: -Math.abs(distance)})
-                    } else {
-                        if (direction == 'up') {
-                            $menu.css({bottom: Math.abs(distance)})
-                        }
-                    }
-                }
-                if ((direction == 'end' || direction == 'cancel')) {
-                    if (direction == 'down') {
-                        var bottomStatus = $menu.css('bottom').replace(/[^-\d\.]/g, '');
-                        if ((Math.abs(parseInt(bottomStatus))) > height / 2) {
-                            swipe.close($menu.attr("id"));
-                        } else {
-                            $menu.removeClass('moving close').addClass('open')
-                        }
-                        $menu.css({bottom: ''})
-                    } else {
-                        $menu.css({bottom: "50px"})
-                    }
-                }
-            }, swipeStatus: function (event, phase, direction, distance) {
+            swipeStatus: function (event, phase, direction, distance) {
                 if (typeof event.targetTouches === "undefined")
                     return;
 

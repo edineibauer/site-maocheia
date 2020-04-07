@@ -16,6 +16,10 @@
                 </div>
 
                 <a href="mensagem/{{id}}" data-animation="forward" class="btn theme" id="serviceMensagem">MENSAGEM</a>
+            </div>
+        </div>
+        <div class="row menu-swipe">
+            <div class="col-12">
 
                 <h2 class="nome">
                     {{nome}}
@@ -47,10 +51,7 @@
                         <li>{{perfil_profissional.avaliacao}}</li>
                     </ul>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
+
                 <div class="pedido-concluido">
                     <div class="profissional-subtitulo">
                         <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: -8px"
@@ -89,6 +90,12 @@
                     </div>
 
                 </div>
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <h5 class="titulo-endereco">Sobre</h5>
+                        <div class="endereco">{{perfil_profissional.sobre}}</div>
+                    </div>
+                </div>
             </div>
         </div>
         <!--<div class="row">
@@ -97,12 +104,6 @@
                 <div class="endereco">{{endereco}}</div>
             </div>
         </div>-->
-        <div class="row">
-            <div class="col-12 mb-4">
-                <h5 class="titulo-endereco">Sobre</h5>
-                <div class="endereco">{{perfil_profissional.sobre}}</div>
-            </div>
-        </div>
         <div class="row">
             <div id="galeria_preview_parent" class="mb-4">
                 <div id="galeria_preview">

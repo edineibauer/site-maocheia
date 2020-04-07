@@ -437,7 +437,7 @@ body {
     width: 0;
 }
 
-.menu-swipe {
+.menu-swipe-class {
     background-color: #fff;
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
@@ -452,37 +452,41 @@ body {
     overflow-y: hidden;
 }
 
-.menu-swipe.openFull {
+.menu-swipe-class.openFull {
     overflow-y: auto;
 }
 
-.menu-swipe.openFull .swipe-line {
+.menu-swipe-class.openFull .swipe-line {
     height: 130px
 }
 
-.menu-swipe.open {
+.menu-swipe-class.open {
     margin-bottom: -300px;
 }
 
-.menu-swipe.open.serviceFilterSearch {
+.menu-swipe-class.open.serviceFilterSearch {
     margin-bottom: -385px;
 }
 
-.menu-swipe.openFull {
+.menu-swipe-class.openFull {
     margin-bottom: -70px !important;
 }
 
-.menu-swipe.servicePerfil.openFull {
+.menu-swipe-class.servicePerfil.open > .swipe-line {
+    height: 95px;
+}
+
+.menu-swipe-class.servicePerfil.openFull {
     height: calc(100% - 50px);
     border-radius: 0;
     margin-bottom: 0 !important;
 }
 
-.menu-swipe.moving, .menu-swipe.open.moving, .menu-swipe.openFull.moving {
+.menu-swipe-class.moving, .menu-swipe-class.open.moving, .menu-swipe-class.openFull.moving {
     transition: none !important
 }
 
-.menu-swipe.open, .menu-swipe.openFull {
+.menu-swipe-class.open, .menu-swipe-class.openFull {
     bottom: 50px;
     transition: .3s all ease
 }
@@ -664,6 +668,8 @@ body {
     font-weight: 500;
     text-align: left;
     margin-top: 5px;
+    float: left;
+    width: 100%;
 }
 
 #perfil-cliente .avaliacoes figure img {

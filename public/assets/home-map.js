@@ -4,15 +4,65 @@ function openMapPopup(marker) {
     if (marker.type === 2) {
         getTemplates().then(tpl => {
             //open popup
-            Popup = createPopupClass();
-            popup = new Popup(new google.maps.LatLng(marker.latitude, marker.longitude), $(Mustache.render(tpl.marker, marker)).appendTo("body")[0]);
-            popup.setMap(map);
+            let bounds = new google.maps.LatLngBounds();
+            let latlng = new google.maps.LatLng(marker.latitude, marker.longitude);
+            let latlngMy = new google.maps.LatLng(myMarker.latitude, myMarker.longitude);
+
+            bounds.extend(latlng);
+            bounds.extend(latlngMy);
+            map.fitBounds(bounds, {top: 60, right: 50, left: 50, bottom: 200});
+
+            image = {
+                url: HOME + VENDOR + 'site-maocheia/public/assets/svg/map-marker-selected.svg',
+                // This marker is 20 pixels wide by 32 pixels high.
+                size: new google.maps.Size(35, 47),
+                // The origin for this image is (0, 0).
+                origin: new google.maps.Point(18, 10),
+                // The anchor for this image is the base of the flagpole at (0, 32).
+                anchor: new google.maps.Point(18, 60)
+            };
+
+            marker.setIcon(image);
+
+
+            /*var request = {
+                origin: latlngMy,
+                destination: latlng,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            var directionsDisplay = new google.maps.DirectionsRenderer();
+            directionsDisplay.setMap(map);
+            var directionsService = new google.maps.DirectionsService();
+            directionsService.route(request, function (response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                    directionsDisplay.setMap(map);
+                } else {
+                    alert("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) + " failed: " + status);
+                }
+            });*/
         });
     }
 }
 
 function closeMapPopup() {
-    $('.popup-bubble').parent().parent().remove();
+    // $('.popup-bubble').parent().parent().remove();
+    image = {
+        url: HOME + VENDOR + 'site-maocheia/public/assets/svg/map-marker.svg',
+        // This marker is 20 pixels wide by 32 pixels high.
+        size: new google.maps.Size(35, 47),
+        // The origin for this image is (0, 0).
+        origin: new google.maps.Point(18, 10),
+        // The anchor for this image is the base of the flagpole at (0, 32).
+        anchor: new google.maps.Point(18, 60)
+    };
+
+    for (let i in markers) {
+        if (markers[i].type > 1 && markers[i].icon.url === HOME + VENDOR + 'site-maocheia/public/assets/svg/map-marker-selected.svg')
+            markers[i].setIcon(image);
+    }
+
     $("#background-perfil").addClass("hiden-background");
     setTimeout(function () {
         changeSwipeToSearch();
@@ -131,6 +181,7 @@ function getZoomToKm(zoom) {
             return 10;
     }
 }
+
 var myMarker, markers = [], markerCluster = null, map, mapMoveTrack;
 
 function startMap() {

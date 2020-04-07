@@ -1,3 +1,4 @@
+console.log('exec');
 if (typeof filtrosProfissionais === "undefined") {
     var
         mapLoaded = typeof mapLoaded !== "undefined",
@@ -105,6 +106,7 @@ if (typeof filtrosProfissionais === "undefined") {
         $(".menu-swipe").addClass("servicePerfil").removeClass("serviceFilterSearch buildPerfil");
         $(".swipe-zone-body").removeClass("filter");
         $(".swipe-zone-body").htmlTemplate('servicePerfil', data).then(() => {
+            swipeContent($(".swipe-zone-body").find(".menu-swipe"));
 
             /**
              * Read avaliações
