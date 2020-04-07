@@ -140,7 +140,14 @@ if (typeof filtrosProfissionais === "undefined") {
             });
 
             $("#arrowback-perfil").off("click").on("click", function () {
-                if ($(".popup-container").length) {
+                let pass = !1;
+                for(let i in markers) {
+                    if(markers[i].icon.url === HOME + VENDOR + "site-maocheia/public/assets/svg/map-marker-selected.svg") {
+                        pass = !0;
+                        break;
+                    }
+                }
+                if (pass) {
                     closeFullPerfil();
                 } else {
                     closeFullPerfilHistory();
