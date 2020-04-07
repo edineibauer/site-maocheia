@@ -2,7 +2,9 @@
      version="1.1" width="24" height="24" viewBox="0 0 24 24">
     <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/>
 </svg>
-<div id="background-perfil" style="background-image: url('{{perfil_profissional.imagem_de_fundo}}')"></div>
+<div id="background-perfil-div">
+    <div id="background-perfil" style="background-image: url('{{perfil_profissional.imagem_de_fundo}}')"></div>
+</div>
 <section id="perfil-cliente">
 
     <div class="container">
@@ -12,6 +14,9 @@
                     <div id="imagem-perfil"
                          style="background-image: url('{{perfil_profissional.imagem_de_perfil}}')"></div>
                 </div>
+
+                <a href="mensagem/{{id}}" data-animation="forward" class="btn theme" id="serviceMensagem">mensagem</a>
+
                 <h2 class="nome">
                     {{nome}}
                     <div class="point-draw-medium" title="online"></div>
@@ -86,13 +91,6 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <a href="mensagem/{{id}}" data-animation="forward"
-                   style="margin: 15px auto; float: initial; display: block; width: 170px;"
-                   class="btn theme">mensagem</a>
-            </div>
-        </div>
         <!--<div class="row">
             <div class="col-12">
                 <h5 class="titulo-endereco">Endereço</h5>
@@ -109,7 +107,7 @@
             <div id="galeria_preview_parent" class="mb-4">
                 <div id="galeria_preview">
                     {{#perfil_profissional.galeria}}
-                        <img src='{{urls.medium}}' alt='{{nome}}' />
+                        <img src='{{urls.thumb}}' alt='{{nome}}' />
                     {{/perfil_profissional.galeria}}
                 </div>
             </div>

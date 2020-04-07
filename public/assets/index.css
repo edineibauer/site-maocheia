@@ -456,12 +456,12 @@ body {
     overflow-y: auto;
 }
 
-.menu-swipe.openFull .swipe-line{
+.menu-swipe.openFull .swipe-line {
     height: 130px
 }
 
 .menu-swipe.open {
-    margin-bottom: -340px;
+    margin-bottom: -300px;
 }
 
 .menu-swipe.open.serviceFilterSearch {
@@ -500,7 +500,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 310px;
+    height: 215px;
 }
 
 .swipe-line::before {
@@ -550,14 +550,6 @@ body {
     opacity: 1;
 }
 
-.openFull #background-perfil {
-    height: 190px;
-}
-
-.openFull #imagem-perfil-div {
-    margin-top: 90px;
-}
-
 #arrowback-perfil {
     opacity: 0;
     z-index: 3;
@@ -577,16 +569,42 @@ body {
     opacity: 0;
 }
 
+#background-perfil-div {
+    position: relative;
+    width: 100%;
+    float: left;
+    height: 120px;
+    margin-bottom: -120px;
+    background-color: #000000;
+    transition: all ease .3s;
+}
+
 #background-perfil {
+    opacity: .8;
     position: absolute;
     width: 100%;
     top: 0;
     left: 0;
-    height: 100px;
+    height: 120px;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     transition: all ease .3s;
+}
+
+.openFull #background-perfil, .openFull #background-perfil-div {
+    height: 190px;
+}
+
+#serviceMensagem {
+    margin: 15px auto;
+    width: 180px;
+    position: absolute;
+    right: 20px;
+    top: 80px;
+    padding: 10px;
+    font-size: 20px;
+    box-shadow: 1px 3px 7px -6px black;
 }
 
 #imagem-perfil-div {
@@ -594,7 +612,7 @@ body {
     width: 100%;
     float: left;
     transition: all ease .3s;
-    padding-top: 26px;
+    padding-top: 60px;
 }
 
 #imagem-perfil {
@@ -607,7 +625,7 @@ body {
     background-position: center center;
     background-repeat: no-repeat;
     display: block;
-    margin: 10px auto 0;
+    margin: 0;
     float: initial;
     transition: all ease .3s;
 }
@@ -632,11 +650,10 @@ body {
 }
 
 #perfil-cliente .nome {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
-    margin-bottom: 0;
-    margin-top: 10px;
-    text-align: center;
+    margin: 15px 0 0 4px;
+    text-align: left;
     color: #303030;
     float: left;
     width: 100%;
@@ -645,7 +662,7 @@ body {
 #perfil-cliente .pedido-concluido {
     font-size: 12px;
     font-weight: 500;
-    text-align: center;
+    text-align: left;
     margin-top: 5px;
 }
 
@@ -689,12 +706,12 @@ body {
     display: block;
 }
 
-#perfil-cliente .estrelas ul.horizontal-list>li:nth-last-child(1) {
+#perfil-cliente .estrelas ul.horizontal-list > li:nth-last-child(1) {
     margin-top: 2px;
     line-height: 12px;
 }
 
-#perfil-cliente .avaliacao-perfil>ul.horizontal-list>li:nth-last-child(1) {
+#perfil-cliente .avaliacao-perfil > ul.horizontal-list > li:nth-last-child(1) {
     line-height: 12px;
 }
 
@@ -733,8 +750,8 @@ body {
 }
 
 #perfil-cliente .avaliacao-perfil {
-    margin-left: calc(50% - 50px);
-    margin-top: 2px;
+    margin-left: 0;
+    margin-top: 4px;
 }
 
 #perfil-cliente .avaliacao-perfil > ul.horizontal-list > li:nth-last-child(1) {
