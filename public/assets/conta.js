@@ -5,7 +5,7 @@ function setProfissionalForm(profissional) {
     $("#email").val(profissional.email);
     $("#cpf").val(profissional.cpf);
     $("#telefone").val(profissional.telefone);
-    $("#imagem_de_perfil_preview").addClass("image").html("<img src='" + (!isEmpty(profissional.imagem) ? JSON.parse(profissional.imagem)[0].urls[100] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg") + "' alt='" + USER.nome + "' />");
+    $("#imagem_de_perfil_preview").addClass("image").html("<img src='" + (!isEmpty(profissional.imagem) ? JSON.parse(profissional.imagem)[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg") + "' alt='" + USER.nome + "' />");
     imagem_de_perfil = (!isEmpty(profissional.imagem) ? JSON.parse(profissional.imagem) : []);
 }
 

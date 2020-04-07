@@ -10,11 +10,11 @@ $(function () {
         $("#preco-perfil-profissional").profissionalPreco(USER.setorData.preco_justo);
     } else {
         $("#setor-profissional").htmlTemplate('perfilProfissionalOpen');
-        userImage = !isEmpty(USER.setorData.imagem) ? JSON.parse(USER.setorData.imagem)[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
+        userImage = !isEmpty(USER.setorData.imagem) ? JSON.parse(USER.setorData.imagem)[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
     }
 
     $("#nome-user").html(USER.setorData.nome);
-    $("#perfil-image").css("background-image", "url('" + (profissional ? profissional.imagem_de_perfil[0].urls[100] : userImage) + "')");
+    $("#perfil-image").css("background-image", "url('" + (profissional ? profissional.imagem_de_perfil[0].urls.thumb : userImage) + "')");
 
     $(".sair-app").off("click").on("click", function() {
         logoutDashboard();

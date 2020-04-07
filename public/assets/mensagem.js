@@ -120,9 +120,9 @@ function readMessage() {
                 contato.perfil_profissional = contato.perfil_profissional[0];
 
             if (isClienteContato)
-                contato.imagemPerfil = perfil.imagem !== null && typeof perfil.imagem !== "undefined" ? perfil.imagem[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
+                contato.imagemPerfil = perfil.imagem !== null && typeof perfil.imagem !== "undefined" ? perfil.imagem[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
             else
-                contato.imagemPerfil = perfil.perfil_profissional.imagem_de_perfil !== null && typeof perfil.perfil_profissional.imagem_de_perfil !== "undefined" ? perfil.perfil_profissional.imagem_de_perfil[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
+                contato.imagemPerfil = perfil.perfil_profissional.imagem_de_perfil !== null && typeof perfil.perfil_profissional.imagem_de_perfil !== "undefined" ? perfil.perfil_profissional.imagem_de_perfil[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
 
             $("#perfil-info").html('<div class="imagem-perfil-mensagem" style="background-image: url(\'' + contato.imagemPerfil + '\')"></div><p>' + contato.nome + '</p>');
 
@@ -227,14 +227,14 @@ function readAllMessages() {
                         db.exeRead("clientes", parseInt(mensagens[i].chatId)).then(cliente => {
                             mensagens[i].clienteData = cliente;
                             mensagens[i].clienteData.perfil_profissional = mensagens[i].clienteData.perfil_profissional[0];
-                            mensagens[i].clienteData.imagem = mensagens[i].clienteData.perfil_profissional.imagem_de_perfil !== null && typeof mensagens[i].clienteData.perfil_profissional.imagem_de_perfil !== "undefined" ? mensagens[i].clienteData.perfil_profissional.imagem_de_perfil[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
+                            mensagens[i].clienteData.imagem = mensagens[i].clienteData.perfil_profissional.imagem_de_perfil !== null && typeof mensagens[i].clienteData.perfil_profissional.imagem_de_perfil !== "undefined" ? mensagens[i].clienteData.perfil_profissional.imagem_de_perfil[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
 
                             $("#nomessage").append(Mustache.render(tpl.cardMensagens, mensagens[i]));
                         })
                     } else {
                         db.exeRead("clientes", parseInt(mensagens[i].chatId)).then(profissional => {
                             mensagens[i].clienteData = profissional;
-                            mensagens[i].clienteData.imagem = mensagens[i].clienteData.imagem !== null && typeof mensagens[i].clienteData.imagem !== "undefined" ? mensagens[i].clienteData.imagem[0].urls['100'] : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
+                            mensagens[i].clienteData.imagem = mensagens[i].clienteData.imagem !== null && typeof mensagens[i].clienteData.imagem !== "undefined" ? mensagens[i].clienteData.imagem[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
                             $("#nomessage").append(Mustache.render(tpl.cardMensagens, mensagens[i]));
                         })
                     }

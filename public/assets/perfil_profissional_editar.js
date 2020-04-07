@@ -16,12 +16,12 @@ $(function () {
     galeria = profissional.galeria || [];
 
     $("#sobre").val(profissional.sobre);
-    $("#imagem_de_perfil_preview").addClass("image").html("<img src='" + profissional.imagem_de_perfil[0].urls[100] + "' alt='" + USER.nome + "' />");
-    $("#imagem_de_fundo_preview").addClass("image").html("<img src='" + profissional.imagem_de_fundo[0].urls[300] + "' alt='" + USER.nome + "' />");
+    $("#imagem_de_perfil_preview").addClass("image").html("<img src='" + profissional.imagem_de_perfil[0].urls.thumb + "' alt='" + USER.nome + "' />");
+    $("#imagem_de_fundo_preview").addClass("image").html("<img src='" + profissional.imagem_de_fundo[0].urls.medium + "' alt='" + USER.nome + "' />");
 
     if (!isEmpty(profissional.galeria)) {
         for (let i in profissional.galeria) {
-            $("#galeria_preview").append("<img src='" + profissional.galeria[i].urls[300] + "' alt='" + USER.nome + "' />");
+            $("#galeria_preview").append("<img src='" + profissional.galeria[i].urls.medium + "' alt='" + USER.nome + "' />");
         }
     }
 
