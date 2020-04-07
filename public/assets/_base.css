@@ -73,9 +73,11 @@
     width: auto;
     padding: 2px;
 }
+
 #galeria_preview > img:first-of-type {
     padding-left: 0;
 }
+
 #galeria_preview > img:last-of-type {
     padding-right: 0;
 }
