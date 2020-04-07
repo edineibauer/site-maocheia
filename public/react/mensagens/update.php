@@ -11,7 +11,7 @@ $destinatario = ($mensagem['enviada_pelo_cliente'] ? $dados['profissional'] : $d
 $read->exeRead("clientes", "WHERE id=:id", "id={$remetente}");
 if ($read->getResult()) {
     $remetente = $read->getResult()[0];
-    $remetente['imagem'] = !empty($remetente['imagem']) ? json_decode($remetente['imagem'], !0)[0]['urls'][100] : "";
+    $remetente['imagem'] = !empty($remetente['imagem']) ? json_decode($remetente['imagem'], !0)[0]['urls']['thumb'] : "";
 
     $read->exeRead("clientes", "WHERE id =:p", "p={$destinatario}");
     if ($read->getResult()) {

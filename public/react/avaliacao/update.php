@@ -32,7 +32,7 @@ if (empty($dados['nome_do_cliente']))
     $updates["nome_do_cliente"] = $cliente['nome'];
 
 if (empty($dados['imagem_do_cliente']))
-    $updates["imagem_do_cliente"] = (!empty($cliente['imagem']) ? json_decode($cliente['imagem'], !0)[0]['urls']['100'] : HOME . VENDOR . "site-maocheia/public/assets/svg/account.svg");
+    $updates["imagem_do_cliente"] = (!empty($cliente['imagem']) ? json_decode($cliente['imagem'], !0)[0]['urls']['thumb'] : HOME . VENDOR . "site-maocheia/public/assets/svg/account.svg");
 
 if(!empty($updates))
     $up->exeUpdate("avaliacao", $updates, "WHERE id =:id", "id={$dados['id']}");
