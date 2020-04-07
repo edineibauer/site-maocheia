@@ -161,9 +161,9 @@ if (typeof filtrosProfissionais === "undefined") {
         });
     }
 
-    function getLogradouroFromEndereco(endereco) {
+    /*function getLogradouroFromEndereco(endereco) {
         return endereco.rua + " - " + endereco.bairro + ", " + endereco.cidade + " - " + endereco.estado + ", " + endereco.cep + ", " + endereco.pais;
-    }
+    }*/
 
     function openFullPerfil() {
         let state = history.state;
@@ -184,11 +184,10 @@ if (typeof filtrosProfissionais === "undefined") {
         history.replaceState(state, null, HOME + state.route);
     }
 
-    function changeSwipeToBuild() {
+    /*function changeSwipeToBuild() {
         openService = {};
         $(".menu-swipe").addClass("buildPerfil").removeClass("servicePerfil serviceFilterSearch");
-
-    }
+    }*/
 
     /**
      * Mostra o card do prestador de serviço ao clicar no marker
