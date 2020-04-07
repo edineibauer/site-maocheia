@@ -1,5 +1,40 @@
 var imagem_de_perfil = [], imagem_de_fundo = [], galeria = [], profissional = null;
 
+
+
+function compressImage(file, MAX_WIDTH, MAX_HEIGHT, format, response) {
+    var img = document.createElement("img");
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        if (e.target.error != null) {
+            console.error("File could not be read! Code " + e.target.error.code);
+            response("")
+        } else {
+            img.src = e.target.result;
+            img.onload = function () {
+                let canvas = document.createElement("canvas");
+                let ctx = canvas.getContext("2d");
+                let width = img.width;
+                let height = img.height;
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH
+                    }
+                } else if (height > MAX_HEIGHT) {
+                    width *= MAX_HEIGHT / height;
+                    height = MAX_HEIGHT
+                }
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(img, 0, 0, width, height);
+                response(canvas.toDataURL("image/" + format))
+            }
+        }
+    };
+    reader.readAsDataURL(file)
+}
+
 $(function () {
     profissional = JSON.parse(USER.setorData.perfil_profissional)[0];
     profissional.categoria = parseInt(profissional.categoria);
@@ -34,9 +69,9 @@ $(function () {
             let nome = replaceAll(replaceAll(name, '-', ' '), '_', ' ');
             name = slug(name);
             if (/^image\//.test(file.type)) {
-                compressImage(file, 1920, 1080, webp("jpg"), function (resource) {
+                compressImage(file, 1920, 1080, "jpg", function (resource) {
                     var size = parseFloat(4 * Math.ceil(((resource.length - 'data:image/png;base64,'.length) / 3)) * 0.5624896334383812).toFixed(1);
-                    let mock = createMock(resource, nome, name, webp("jpg"), "image/" + webp("jpg"), size, !0);
+                    let mock = createMock(resource, nome, name, "jpg", "image/" + "jpg", size, !0);
 
                     let fileUp = dataURLtoFile(mock.url, mock.name + "." + mock.type);
                     let upload = new Upload(fileUp);
@@ -63,9 +98,9 @@ $(function () {
             let nome = replaceAll(replaceAll(name, '-', ' '), '_', ' ');
             name = slug(name);
             if (/^image\//.test(file.type)) {
-                compressImage(file, 1920, 1080, webp("jpg"), function (resource) {
+                compressImage(file, 1920, 1080, "jpg", function (resource) {
                     var size = parseFloat(4 * Math.ceil(((resource.length - 'data:image/png;base64,'.length) / 3)) * 0.5624896334383812).toFixed(1);
-                    let mock = createMock(resource, nome, name, webp("jpg"), "image/" + webp("jpg"), size, !0);
+                    let mock = createMock(resource, nome, name, "jpg", "image/" + "jpg", size, !0);
 
                     let fileUp = dataURLtoFile(mock.url, mock.name + "." + mock.type);
                     let upload = new Upload(fileUp);
@@ -94,9 +129,9 @@ $(function () {
                     let nome = replaceAll(replaceAll(name, '-', ' '), '_', ' ');
                     name = slug(name);
                     if (/^image\//.test(file.type)) {
-                        compressImage(file, 1920, 1080, webp("jpg"), function (resource) {
+                        compressImage(file, 1920, 1080, "jpg", function (resource) {
                             var size = parseFloat(4 * Math.ceil(((resource.length - 'data:image/png;base64,'.length) / 3)) * 0.5624896334383812).toFixed(1);
-                            let mock = createMock(resource, nome, name, webp("jpg"), "image/" + webp("jpg"), size, !0);
+                            let mock = createMock(resource, nome, name, "jpg", "image/" + "jpg", size, !0);
 
                             let fileUp = dataURLtoFile(mock.url, mock.name + "." + mock.type);
                             let upload = new Upload(fileUp);
