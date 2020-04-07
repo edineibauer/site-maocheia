@@ -107,6 +107,15 @@ if (typeof filtrosProfissionais === "undefined") {
         $(".swipe-zone-body").htmlTemplate('servicePerfil', data).then(() => {
             swipeContent($(".swipe-zone-body").find(".menu-swipe"));
 
+            $(".menu-swipe-class").off("scroll").on("scroll", function (e) {
+                let $this = $(this);
+                if($this.scrollTop() === 0 || !$this.hasClass("openFull"))
+                    $this.find(".menu-swipe").swipe("enable");
+                else
+                    $this.find(".menu-swipe").swipe("disable");
+
+            });
+
             /**
              * Read avaliações
              */

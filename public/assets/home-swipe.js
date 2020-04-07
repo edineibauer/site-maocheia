@@ -75,7 +75,6 @@ function createPopupClass() {
  */
 function swipeContent($menu) {
     if (window.innerWidth < 900) {
-        let height = $menu.height();
         let $menuparent = $menu.closest(".menu-swipe-class");
 
         $menu.swipe({
@@ -91,6 +90,14 @@ function swipeContent($menu) {
 
                 if (phase == 'move') {
                     if (direction == 'up') {
+
+                        if($menuparent.scrollTop() === 0 && $menuparent.hasClass("openFull")) {
+                            $menu.swipe("disable");
+                            setTimeout(function () {
+                                $menuparent.removeClass("moving").css({bottom: 50});
+                            },1);
+                        }
+
                         let up = Math.abs(distance);
                         up = ($menuparent.hasClass("openFull") && up > 20 ? 20 : ($menuparent.hasClass("open") && up > 320 ? 320 : (up > 500 ? 500 : up)));
                         $menuparent.css({bottom: up + 50});
@@ -137,7 +144,6 @@ function swipeContent($menu) {
  */
 function swipeMenuEvent($menu) {
     if (window.innerWidth < 900) {
-        let height = $menu.height();
         $menu.find(".swipe-line").swipe({
             swipeStatus: function (event, phase, direction, distance) {
                 if (typeof event.targetTouches === "undefined")
