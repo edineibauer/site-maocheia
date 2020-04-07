@@ -195,7 +195,15 @@ if (typeof filtrosProfissionais === "undefined") {
     function toogleServicePerfil() {
         closeAllMapPopupExceptThis(this);
 
-        if ($("#" + this.id).length) {
+        let pass = !1;
+        for(let i in markers) {
+            if(markers[i].icon.url === HOME + VENDOR + "site-maocheia/public/assets/svg/map-marker-selected.svg") {
+                pass = !0;
+                break;
+            }
+        }
+
+        if (pass) {
             changeSwipeToSearch();
         } else {
             swipe.open();
