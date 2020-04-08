@@ -63,7 +63,7 @@ if (typeof filtrosProfissionais === "undefined") {
                         nav: false,
                         responsive: {
                             0: {
-                                items: 4.4,
+                                items: 5,
                                 startPosition: 0
                             },
                             600: {

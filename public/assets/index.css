@@ -165,7 +165,7 @@ figure {
     margin: auto;
     object-fit: cover;
     opacity: .6;
-    transition: all ease-in .25s;
+    transition: all ease-in .15s;
 }
 
 #pesquisa .servico {
