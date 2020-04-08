@@ -19,7 +19,6 @@ if (typeof filtrosProfissionais === "undefined") {
 
                 for (let c in categorias) {
                     categorias[c].selected = (!isEmpty(filtrosProfissionais.categoria) && categorias[c].id === filtrosProfissionais.categoria);
-                    categorias[c].opacity = (!isEmpty(filtrosProfissionais.categoria) ? .6 : 1);
                 }
 
                 $(".swipe-zone-body").htmlTemplate('serviceFilterSearch', {categorias: categorias}).then(() => {
@@ -27,10 +26,10 @@ if (typeof filtrosProfissionais === "undefined") {
                     $(".serviceCategory").off("click").on("click", function () {
                         if ($(this).hasClass("selecionado")) {
                             filtrosProfissionais.categoria = "";
-                            $(".serviceCategory").removeClass("selecionado").css("opacity", 1);
+                            $(".serviceCategory").removeClass("selecionado");
                         } else {
                             filtrosProfissionais.categoria = parseInt($(this).attr('rel'));
-                            $(".serviceCategory").removeClass("selecionado").css("opacity", .6);
+                            $(".serviceCategory").removeClass("selecionado");
                             $(this).addClass("selecionado");
                         }
                         readServices();
@@ -64,7 +63,7 @@ if (typeof filtrosProfissionais === "undefined") {
                         nav: false,
                         responsive: {
                             0: {
-                                items: 4,
+                                items: 4.4,
                                 startPosition: 0
                             },
                             600: {

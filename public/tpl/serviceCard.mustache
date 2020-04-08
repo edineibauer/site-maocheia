@@ -9,12 +9,16 @@
                 <div class="col-9" style="padding: 0 10px">
                     <div>
                         <h6 class="nome">
-                            {{nome}}
-                            <div class="point-draw-medium"></div>
+                            <div class="float-left">{{nome}}</div>
+                            <div class="point-draw-medium float-left"></div>
+                            <div class="profissional-subtitulo service-category-style float-left">
+                                <img src="{{perfil_profissional.categoriaImage}}" width="10" height="10" title="{{perfil_profissional.categoriaNome}}" alt="imagem da categoria {{perfil_profissional.categoriaNome}}" />
+                                {{perfil_profissional.categoriaNome}}
+                            </div>
                         </h6>
                     </div>
-                    <div class="profisao">
-                        <div class="profissional-subtitulo">
+                    <div class="profisao mt-1 cardListAval">
+                        <div class="profissional-subtitulo float-left">
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: -5px"
                                  xmlns:xlink="http://www.w3.org/1999/xlink"
                                  fill="{{#perfil_profissional.preco_star1}}#FF1967{{/perfil_profissional.preco_star1}}{{^perfil_profissional.preco_star1}}#bbbbbb{{/perfil_profissional.preco_star1}}"
@@ -35,47 +39,42 @@
                             </svg>
                         </div>
 
-                        <div class="profissional-subtitulo">
+                        <div class="profissional-subtitulo float-left" style="margin-top: 1px">
                             <div class="point-draw"></div>
                         </div>
-
-                        <div class="profissional-subtitulo">
-                            {{perfil_profissional.categoriaNome}}
+                        <div class="avaliacao-card">
+                            <ul class="horizontal-list">
+                                <li>
+                                    <i class="material-icons{{#perfil_profissional.avaliacao_star1}} active{{/perfil_profissional.avaliacao_star1}}">{{#perfil_profissional.avaliacao_star1_half}}
+                                        star_half{{/perfil_profissional.avaliacao_star1_half}}{{^perfil_profissional.avaliacao_star1_half}}
+                                        star{{/perfil_profissional.avaliacao_star1_half}}</i>
+                                </li>
+                                <li>
+                                    <i class="material-icons{{#perfil_profissional.avaliacao_star2}} active{{/perfil_profissional.avaliacao_star2}}">{{#perfil_profissional.avaliacao_star2_half}}
+                                        star_half{{/perfil_profissional.avaliacao_star2_half}}{{^perfil_profissional.avaliacao_star2_half}}
+                                        star{{/perfil_profissional.avaliacao_star2_half}}</i>
+                                </li>
+                                <li>
+                                    <i class="material-icons{{#perfil_profissional.avaliacao_star3}} active{{/perfil_profissional.avaliacao_star3}}">{{#perfil_profissional.avaliacao_star3_half}}
+                                        star_half{{/perfil_profissional.avaliacao_star3_half}}{{^perfil_profissional.avaliacao_star3_half}}
+                                        star{{/perfil_profissional.avaliacao_star3_half}}</i>
+                                </li>
+                                <li>
+                                    <i class="material-icons{{#perfil_profissional.avaliacao_star4}} active{{/perfil_profissional.avaliacao_star4}}">{{#perfil_profissional.avaliacao_star4_half}}
+                                        star_half{{/perfil_profissional.avaliacao_star4_half}}{{^perfil_profissional.avaliacao_star4_half}}
+                                        star{{/perfil_profissional.avaliacao_star4_half}}</i>
+                                </li>
+                                <li>
+                                    <i class="material-icons{{#perfil_profissional.avaliacao_star5}} active{{/perfil_profissional.avaliacao_star5}}">{{#perfil_profissional.avaliacao_star5_half}}
+                                        star_half{{/perfil_profissional.avaliacao_star5_half}}{{^perfil_profissional.avaliacao_star5_half}}
+                                        star{{/perfil_profissional.avaliacao_star5_half}}</i>
+                                </li>
+                                <li>{{perfil_profissional.avaliacao}}</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="avaliacao-card">
-                        <ul class="horizontal-list">
-                            <li>
-                                <i class="material-icons{{#perfil_profissional.avaliacao_star1}} active{{/perfil_profissional.avaliacao_star1}}">{{#perfil_profissional.avaliacao_star1_half}}
-                                    star_half{{/perfil_profissional.avaliacao_star1_half}}{{^perfil_profissional.avaliacao_star1_half}}
-                                    star{{/perfil_profissional.avaliacao_star1_half}}</i>
-                            </li>
-                            <li>
-                                <i class="material-icons{{#perfil_profissional.avaliacao_star2}} active{{/perfil_profissional.avaliacao_star2}}">{{#perfil_profissional.avaliacao_star2_half}}
-                                    star_half{{/perfil_profissional.avaliacao_star2_half}}{{^perfil_profissional.avaliacao_star2_half}}
-                                    star{{/perfil_profissional.avaliacao_star2_half}}</i>
-                            </li>
-                            <li>
-                                <i class="material-icons{{#perfil_profissional.avaliacao_star3}} active{{/perfil_profissional.avaliacao_star3}}">{{#perfil_profissional.avaliacao_star3_half}}
-                                    star_half{{/perfil_profissional.avaliacao_star3_half}}{{^perfil_profissional.avaliacao_star3_half}}
-                                    star{{/perfil_profissional.avaliacao_star3_half}}</i>
-                            </li>
-                            <li>
-                                <i class="material-icons{{#perfil_profissional.avaliacao_star4}} active{{/perfil_profissional.avaliacao_star4}}">{{#perfil_profissional.avaliacao_star4_half}}
-                                    star_half{{/perfil_profissional.avaliacao_star4_half}}{{^perfil_profissional.avaliacao_star4_half}}
-                                    star{{/perfil_profissional.avaliacao_star4_half}}</i>
-                            </li>
-                            <li>
-                                <i class="material-icons{{#perfil_profissional.avaliacao_star5}} active{{/perfil_profissional.avaliacao_star5}}">{{#perfil_profissional.avaliacao_star5_half}}
-                                    star_half{{/perfil_profissional.avaliacao_star5_half}}{{^perfil_profissional.avaliacao_star5_half}}
-                                    star{{/perfil_profissional.avaliacao_star5_half}}</i>
-                            </li>
-                            <li>{{perfil_profissional.avaliacao}}</li>
-                        </ul>
-                    </div>
                     <div class="distancia">
-                        <i class="material-icons">place</i><span
-                            class="distancias">{{distanciaKm}} de distência</span>
+                        <span class="distancias">{{distanciaKm}} de distência</span>
                     </div>
                 </div>
             </div>

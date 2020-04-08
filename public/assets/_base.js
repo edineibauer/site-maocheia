@@ -15,6 +15,7 @@ function getProfissionalMustache(profissional) {
 
     dbLocal.exeRead("categorias", parseInt(profissional.perfil_profissional.categoria)).then(cat => {
         profissional.perfil_profissional.categoriaNome = cat.nome;
+        profissional.perfil_profissional.categoriaImage = (!isEmpty(cat.imagem) ? cat.imagem[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg");
     });
 
     profissional.distanciaKm = (profissional.distancia < 1 ? parseInt(profissional.distancia * 1000) + "m" : parseFloat(profissional.distancia).toFixed(1) + "KM");
