@@ -81,7 +81,6 @@ function closeAllMapPopupExceptThis(marker) {
 function moveToLocation(lat, lng) {
     const center = new google.maps.LatLng(lat, lng);
     map.panTo(center);
-    readAllServices();
 }
 
 function addMarker(service, type, latitude, longitude) {
@@ -225,7 +224,7 @@ function startMap() {
         disableDefaultUI: true
     });
     markerCluster = new MarkerClusterer(map, [], {
-        gridSize: 20,
+        gridSize: 10,
         imagePath: HOME + VENDOR + 'site-maocheia/public/assets/maps/m'
     });
 
@@ -256,22 +255,33 @@ function startMap() {
     moveToLocation(latitude, longitude);
 
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-                if (position.coords.accuracy < 100) {
-                    myMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-                    moveToLocation(position.coords.latitude, position.coords.longitude);
-                }
-            },
-            function (error) { // callback de erro
-                toast('Erro ao obter localização!', 3000, "toast-warning");
-                console.log('Erro ao obter localização.', error);
-            }, {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
-            });
+        navigator.permissions.query({ name: 'geolocation' }).then(permissionGeo => {
+            switch (permissionGeo.state) {
+                case "granted":
+                    navigator.geolocation.getCurrentPosition(position => {
+                            if (position.coords.accuracy < 100) {
+                                myMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                                moveToLocation(position.coords.latitude, position.coords.longitude);
+                                readAllServices();
+                            }
+                        },
+                        error => {
+                        }, {
+                            enableHighAccuracy: true,
+                            timeout: 5000,
+                            maximumAge: 0
+                        });
+                    break;
+                case "prompt":
+                    //exibe popup pedindo permissão para pegar localização
+                default:
+                    //não aceitou mostrar a localização
+                    readAllServices();
+            }
+        });
     } else {
-        console.log('Navegador não suporta Geolocalização!');
+        readAllServices();
+        toast("Seu endereço precisa ser informado manualmente, pois o aparelho não tem suporte para localização.", 3000, "toast-warning");
     }
     startSwipe();
 }

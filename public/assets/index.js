@@ -270,9 +270,9 @@ if (typeof filtrosProfissionais === "undefined") {
      * Lê todos os serviços em um raio de 200km
      */
     function readAllServices() {
-        services = [];
         let latlng = map.getCenter();
         get("nearbyServices/" + latlng.lat() + "/" + latlng.lng() + "/200").then(result => {
+            services = [];
             for(let i in result)
                 services.push(getProfissionalMustache(result[i]));
 
