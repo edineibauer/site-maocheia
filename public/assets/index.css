@@ -485,6 +485,14 @@ body {
     margin-bottom: -70px !important;
 }
 
+.menu-swipe-class.open.serviceFilterSearch.anonimo {
+    margin-bottom: -475px;
+}
+
+.menu-swipe-class.anonimo.open {
+    margin-bottom: -350px;
+}
+
 .menu-swipe-class.servicePerfil.open > .swipe-line {
     height: 95px;
 }
@@ -493,6 +501,11 @@ body {
     height: calc(100% - 50px);
     border-radius: 0;
     margin-bottom: 0 !important;
+}
+
+.menu-swipe-class.servicePerfil.anonimo.openFull {
+    margin-bottom: -50px !important;
+    height: 100%;
 }
 
 .menu-swipe-class.moving, .menu-swipe-class.open.moving, .menu-swipe-class.openFull.moving {

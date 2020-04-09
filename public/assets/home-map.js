@@ -14,12 +14,9 @@ function openMapPopup(marker) {
 
             image = {
                 url: HOME + VENDOR + 'site-maocheia/public/assets/svg/map-marker-selected.svg',
-                // This marker is 20 pixels wide by 32 pixels high.
                 size: new google.maps.Size(35, 47),
-                // The origin for this image is (0, 0).
                 origin: new google.maps.Point(18, 10),
-                // The anchor for this image is the base of the flagpole at (0, 32).
-                anchor: new google.maps.Point(18, 60)
+                anchor: new google.maps.Point(18, 24)
             };
 
             marker.setIcon(image);
@@ -47,20 +44,19 @@ function openMapPopup(marker) {
 }
 
 function closeMapPopup() {
-    // $('.popup-bubble').parent().parent().remove();
     image = {
         url: HOME + VENDOR + 'site-maocheia/public/assets/svg/map-marker.svg',
-        // This marker is 20 pixels wide by 32 pixels high.
-        size: new google.maps.Size(35, 47),
-        // The origin for this image is (0, 0).
-        origin: new google.maps.Point(18, 10),
-        // The anchor for this image is the base of the flagpole at (0, 32).
-        anchor: new google.maps.Point(18, 60)
+        scaledSize: new google.maps.Size(28, 28),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(14, 14)
     };
 
     for (let i in markers) {
-        if (markers[i].type > 1 && markers[i].icon.url === HOME + VENDOR + 'site-maocheia/public/assets/svg/map-marker-selected.svg')
-            markers[i].setIcon(image);
+        if (markers[i].type > 1) {
+            image.url = markers[i].service.perfil_profissional.categoriaImage;
+            if (markers[i].icon.url === HOME + VENDOR + 'site-maocheia/public/assets/svg/map-marker-selected.svg')
+                markers[i].setIcon(image);
+        }
     }
 
     $("#background-perfil").addClass("hiden-background");
@@ -89,22 +85,16 @@ function addMarker(service, type, latitude, longitude) {
     if (type === 1) {
         image = {
             url: HOME + VENDOR + 'site-maocheia/public/assets/svg/circulo.svg',
-            // This marker is 20 pixels wide by 32 pixels high.
             size: new google.maps.Size(28, 28),
-            // The origin for this image is (0, 0).
             origin: new google.maps.Point(0, 0),
-            // The anchor for this image is the base of the flagpole at (0, 32).
-            anchor: new google.maps.Point(0, 32)
+            anchor: new google.maps.Point(14, 14)
         };
     } else {
         image = {
-            url: HOME + VENDOR + 'site-maocheia/public/assets/svg/map-marker.svg',
-            // This marker is 20 pixels wide by 32 pixels high.
-            size: new google.maps.Size(35, 47),
-            // The origin for this image is (0, 0).
-            origin: new google.maps.Point(18, 10),
-            // The anchor for this image is the base of the flagpole at (0, 32).
-            anchor: new google.maps.Point(18, 60)
+            url: service.perfil_profissional.categoriaImage,
+            scaledSize: new google.maps.Size(28, 28),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(14, 14)
         };
     }
 
@@ -255,7 +245,7 @@ function startMap() {
     moveToLocation(latitude, longitude);
 
     if (navigator.geolocation) {
-        navigator.permissions.query({ name: 'geolocation' }).then(permissionGeo => {
+        navigator.permissions.query({name: 'geolocation'}).then(permissionGeo => {
             switch (permissionGeo.state) {
                 case "granted":
                     navigator.geolocation.getCurrentPosition(position => {
@@ -273,7 +263,7 @@ function startMap() {
                         });
                     break;
                 case "prompt":
-                    //exibe popup pedindo permissão para pegar localização
+                //exibe popup pedindo permissão para pegar localização
                 default:
                     //não aceitou mostrar a localização
                     readAllServices();

@@ -17,9 +17,11 @@ if (typeof filtrosProfissionais === "undefined") {
             closeMapPopup();
             dbLocal.exeRead("categorias").then(categorias => {
 
-                for (let c in categorias) {
+                for (let c in categorias)
                     categorias[c].selected = (!isEmpty(filtrosProfissionais.categoria) && categorias[c].id === filtrosProfissionais.categoria);
-                }
+
+                if(USER.setor === 0)
+                    $(".menu-swipe-class").addClass("anonimo");
 
                 $(".swipe-zone-body").htmlTemplate('serviceFilterSearch', {categorias: categorias}).then(() => {
                     updateListService(services);
@@ -108,7 +110,7 @@ if (typeof filtrosProfissionais === "undefined") {
 
             $(".menu-swipe-class").off("scroll").on("scroll", function (e) {
                 let $this = $(this);
-                if($this.scrollTop() === 0 || !$this.hasClass("openFull"))
+                if ($this.scrollTop() === 0 || !$this.hasClass("openFull"))
                     $this.find(".menu-swipe").swipe("enable");
                 else
                     $this.find(".menu-swipe").swipe("disable");
@@ -120,16 +122,16 @@ if (typeof filtrosProfissionais === "undefined") {
              */
             getJSON(HOME + "app/find/avaliacao/profissional/" + data.id).then(avaliacoes => {
                 let feedbacks = [];
-                if(!isEmpty(avaliacoes.avaliacao)) {
+                if (!isEmpty(avaliacoes.avaliacao)) {
                     for (let i in avaliacoes.avaliacao) {
-                        if(i > 4)
+                        if (i > 4)
                             break;
                         avaliacoes.avaliacao[i].imagens = (!isEmpty(avaliacoes.avaliacao[i].imagens) ? JSON.parse(avaliacoes.avaliacao[i].imagens) : []);
                         avaliacoes.avaliacao[i].data = moment(avaliacoes.avaliacao[i].data).calendar();
                         avaliacoes.avaliacao[i].star = getProfissionalStar(parseInt(avaliacoes.avaliacao[i].qualidade) * 10);
                         feedbacks.push(avaliacoes.avaliacao[i]);
                     }
-                    if(avaliacoes.avaliacao.length > 5)
+                    if (avaliacoes.avaliacao.length > 5)
                         $("#section-avaliacoes-more").removeClass("hide");
 
                     $("#section-avaliacoes-title").html("Avaliações");
@@ -140,8 +142,8 @@ if (typeof filtrosProfissionais === "undefined") {
 
             $("#arrowback-perfil").off("click").on("click", function () {
                 let pass = !1;
-                for(let i in markers) {
-                    if(markers[i].icon.url === HOME + VENDOR + "site-maocheia/public/assets/svg/map-marker-selected.svg") {
+                for (let i in markers) {
+                    if (markers[i].icon.url === HOME + VENDOR + "site-maocheia/public/assets/svg/map-marker-selected.svg") {
                         pass = !0;
                         break;
                     }
@@ -195,8 +197,8 @@ if (typeof filtrosProfissionais === "undefined") {
         closeAllMapPopupExceptThis(this);
 
         let pass = !1;
-        for(let i in markers) {
-            if(markers[i].icon.url === HOME + VENDOR + "site-maocheia/public/assets/svg/map-marker-selected.svg") {
+        for (let i in markers) {
+            if (markers[i].icon.url === HOME + VENDOR + "site-maocheia/public/assets/svg/map-marker-selected.svg") {
                 pass = !0;
                 break;
             }
@@ -272,15 +274,18 @@ if (typeof filtrosProfissionais === "undefined") {
     function readAllServices() {
         let latlng = map.getCenter();
         get("nearbyServices/" + latlng.lat() + "/" + latlng.lng() + "/200").then(result => {
-            services = [];
-            for(let i in result)
-                services.push(getProfissionalMustache(result[i]));
 
-            readServices();
-            clearInterval(servicesOnMapUpdate);
-            servicesOnMapUpdate = setInterval(function () {
-                updateRealPosition();
-            }, 4000);
+            dbLocal.exeRead("categorias").then(categories => {
+                services = [];
+                for (let i in result) {
+                    services.push(getProfissionalMustache(result[i], categories.find(s => s.id == result[i].perfil_profissional.categoria)));
+                }
+                readServices();
+                clearInterval(servicesOnMapUpdate);
+                servicesOnMapUpdate = setInterval(function () {
+                    updateRealPosition();
+                }, 4000);
+            });
         });
     }
 
@@ -361,15 +366,6 @@ if (typeof filtrosProfissionais === "undefined") {
         updateMapService(data);
     }
 
-    function copyMapToBackground() {
-        let $clone = $("#core-content").clone().attr("id", "core-map").removeClass("r-network r-403 mb-50").addClass("r-index");
-        $("#core-content").html("");
-        $("body").append($clone);
-        $("a").one("click", function () {
-            $("#core-map").css("display", "none");
-        });
-    }
-
     function backToMap() {
         $("#core-content").html("");
         $("#core-map").css("display", "block");
@@ -379,7 +375,6 @@ if (typeof filtrosProfissionais === "undefined") {
     }
 
     function initAutocomplete() {
-        // copyMapToBackground();
         startMap();
     }
 }

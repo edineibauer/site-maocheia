@@ -1,6 +1,6 @@
 var intervalPosition;
 
-function getProfissionalMustache(profissional) {
+function getProfissionalMustache(profissional, cat) {
     profissional = Object.assign({}, profissional);
     profissional.perfil_profissional.imagem_de_perfil = !isEmpty(profissional.perfil_profissional.imagem_de_perfil) ? profissional.perfil_profissional.imagem_de_perfil[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
     profissional.perfil_profissional.imagem_de_fundo = !isEmpty(profissional.perfil_profissional.imagem_de_fundo) ? profissional.perfil_profissional.imagem_de_fundo[0].urls.medium : "";
@@ -13,10 +13,8 @@ function getProfissionalMustache(profissional) {
     profissional.perfil_profissional.haveAvaliacoes = !1;
     profissional.perfil_profissional.avaliacoes = [];
 
-    dbLocal.exeRead("categorias", parseInt(profissional.perfil_profissional.categoria)).then(cat => {
-        profissional.perfil_profissional.categoriaNome = cat.nome;
-        profissional.perfil_profissional.categoriaImage = (!isEmpty(cat.imagem) ? cat.imagem[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg");
-    });
+    profissional.perfil_profissional.categoriaNome = cat.nome;
+    profissional.perfil_profissional.categoriaImage = (!isEmpty(cat.imagem) ? cat.imagem[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg");
 
     profissional.distanciaKm = (profissional.distancia < 1 ? parseInt(profissional.distancia * 1000) + "m" : parseFloat(profissional.distancia).toFixed(1) + "KM");
 
