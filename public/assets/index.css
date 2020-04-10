@@ -48,17 +48,6 @@
     color: #2D7AFF;
 }
 
-.serviceCategory.selecionado img {
-    border-radius: 7px;
-    padding: 5px;
-    background: #efefef;
-    filter: grayscale(1);
-}
-
-.serviceCategory.selecionado h4 {
-    color: #ff5e95 !important;
-}
-
 /* Always set the map height explicitly to define the size of the div
    * element that contains the map. */
 
@@ -160,11 +149,29 @@ figure {
 }
 
 #pesquisa figure img {
-    width: 28px;
-    height: 28px;
-    margin: auto;
+    border-radius: 5px;
+}
+
+#pesquisa figure {
+    width: 42px;
+    height: 42px;
+    margin: 0 auto 3px;
+    border-radius: 5px;
     object-fit: cover;
     transition: all ease-in .15s;
+    padding: 7px;
+}
+
+.serviceCategory.selecionado img {
+    filter: grayscale(1) brightness(0) invert(1)
+}
+
+.serviceCategory.selecionado figure {
+    background: #2d7aff;
+}
+
+.serviceCategory.selecionado h4 {
+    color: #2d7aff !important;
 }
 
 #pesquisa .servico {
@@ -238,6 +245,7 @@ figure {
 .service-category-style > img {
     margin-left: 5px;
 }
+
 .service-category-style {
     font-size: 11px;
     font-weight: 400;
@@ -477,7 +485,7 @@ body {
 }
 
 .menu-swipe-class.open.serviceFilterSearch {
-    margin-bottom: -435px;
+    margin-bottom: -425px;
 }
 
 .menu-swipe-class.openFull {
@@ -510,13 +518,13 @@ body {
     filter: grayscale(0);
 }
 
-#mapa-home .gm-style img[src$='i=service']{
+#mapa-home .gm-style img[src$='i=service'] {
     filter: grayscale(0);
     background: #ffffff;
-    padding: 3px!important;
-    margin: 2px!important;
-    height: 26px!important;
-    width: 26px!important;
+    padding: 3px !important;
+    margin: 2px !important;
+    height: 26px !important;
+    width: 26px !important;
     border-radius: 35px;
     box-shadow: 1px 1px 7px -3px #000;
 }
@@ -524,13 +532,13 @@ body {
 #mapa-home .gm-style img[src$='i=serviceSelected'] {
     filter: grayscale(0);
     background: #fff;
-    padding: 3px!important;
-    margin: 2px!important;
-    height: 27px!important;
-    width: 27px!important;
+    padding: 3px !important;
+    margin: 2px !important;
+    height: 27px !important;
+    width: 27px !important;
     border-radius: 35px;
     box-shadow: 1px 1px 7px -4px #000;
-    border: solid 1px #2196f3!important;
+    border: solid 1px #2196f3 !important;
 }
 
 .menu-swipe-class.servicePerfil.anonimo.openFull {
