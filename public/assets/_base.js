@@ -62,16 +62,23 @@ function getProfissionalStar(avaliacao) {
 
 function setCoordenadas() {
     if (!isEmpty(USER.setorData.perfil_profissional) && navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-                if (position.coords.accuracy < 100)
-                    post("site-maocheia", "set/coordenadas", {lat: position.coords.latitude, lng: position.coords.longitude});
-            },
-            function (error) {
-            }, {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
-            });
+        navigator.permissions.query({name: 'geolocation'}).then(permissionGeo => {
+            if (permissionGeo.state === "granted") {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                        if (position.coords.accuracy < 100)
+                            post("site-maocheia", "set/coordenadas", {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude
+                            });
+                    },
+                    function (error) {
+                    }, {
+                        enableHighAccuracy: true,
+                        timeout: 5000,
+                        maximumAge: 0
+                    });
+            }
+        });
     }
 }
 

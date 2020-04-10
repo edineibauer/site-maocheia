@@ -10,5 +10,6 @@ if(!$read->getResult() && !empty($endereco[0]['latitude']) && !empty($endereco[0
         "profissional" => $dados['id'],
         "latitude" => $endereco[0]['latitude'],
         "longitude" => $endereco[0]['longitude'],
+        "data_de_atualizacao" => date("Y-m-d H:i:s")
     ]);
 }

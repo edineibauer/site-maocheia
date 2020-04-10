@@ -8,9 +8,9 @@ if(!empty($_SESSION['userlogin']['setorData']['id']) && !empty($lat) && !empty($
     $read->exeRead("coordenadas_profissional", "WHERE cliente = :c", "c={$_SESSION['userlogin']['setorData']['id']}");
     if ($read->getResult()) {
         $up = new \Conn\Update();
-        $up->exeUpdate("coordenadas_profissional", ["latitude" => $lat, "longitude" => $lng], "WHERE cliente = :c", "c={$_SESSION['userlogin']['setorData']['id']}");
+        $up->exeUpdate("coordenadas_profissional", ["latitude" => $lat, "longitude" => $lng, "data_de_atualizacao" => date("Y-m-d H:i:s")], "WHERE cliente = :c", "c={$_SESSION['userlogin']['setorData']['id']}");
     } else {
         $create = new \Conn\Create();
-        $create->exeCreate("coordenadas_profissional", ["latitude" => $lat, "longitude" => $lng, "cliente" => $_SESSION['userlogin']['setorData']['id']]);
+        $create->exeCreate("coordenadas_profissional", ["latitude" => $lat, "longitude" => $lng, "data_de_atualizacao" => date("Y-m-d H:i:s"), "cliente" => $_SESSION['userlogin']['setorData']['id']]);
     }
 }

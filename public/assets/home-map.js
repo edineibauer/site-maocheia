@@ -113,11 +113,12 @@ function addMarker(service, type, latitude, longitude) {
         longitude: longitude,
         animation: type === 1 || 1 === 1 ? null : google.maps.Animation.DROP
     });
+
     if (type > 1) {
         marker.addListener('click', toogleServicePerfil);
         markerCluster.addMarker(marker);
+        markers.push(marker);
     }
-    markers.push(marker);
 
     return marker;
 }
@@ -184,7 +185,7 @@ function startMap() {
 
     map = new google.maps.Map(document.getElementById('mapa-home'), {
         center: myLatLng,
-        zoom: 14,
+        zoom: 13,
         styles: [
             {
                 "elementType": "labels",
@@ -231,11 +232,12 @@ function startMap() {
     map.addListener('mousedown', function () {
         $(".menu-swipe").removeClass("openFull");
     });
+
     map.addListener('drag', function () {
         clearTimeout(mapMoveTrack);
         mapMoveTrack = setTimeout(function () {
             readServices();
-        }, 20);
+        }, 200);
     });
 
     /**
