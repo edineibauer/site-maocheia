@@ -12,15 +12,13 @@ function openMapPopup(marker) {
             bounds.extend(latlngMy);
             map.fitBounds(bounds, {top: 60, right: 50, left: 50, bottom: 200});
 
-            image = {
-                url: HOME + VENDOR + 'site-maocheia/public/assets/svg/map-marker-selected.svg',
-                size: new google.maps.Size(35, 47),
-                origin: new google.maps.Point(18, 10),
-                anchor: new google.maps.Point(18, 24)
-            };
-
-            marker.setIcon(image);
-
+            marker.setAnimation(4);
+            marker.setIcon({
+                url: marker.service.perfil_profissional.categoriaImage + "?i=serviceSelected",
+                scaledSize: new google.maps.Size(32, 32),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(16, 16)
+            });
 
             /*var request = {
                 origin: latlngMy,
@@ -44,18 +42,15 @@ function openMapPopup(marker) {
 }
 
 function closeMapPopup() {
-    image = {
-        url: HOME + VENDOR + 'site-maocheia/public/assets/svg/map-marker.svg',
-        scaledSize: new google.maps.Size(28, 28),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(14, 14)
-    };
-
     for (let i in markers) {
         if (markers[i].type > 1) {
-            image.url = markers[i].service.perfil_profissional.categoriaImage;
-            if (markers[i].icon.url === HOME + VENDOR + 'site-maocheia/public/assets/svg/map-marker-selected.svg')
-                markers[i].setIcon(image);
+            if (/serviceSelected$/.test(markers[i].icon.url))
+                markers[i].setIcon({
+                    url: markers[i].service.perfil_profissional.categoriaImage + "?i=service",
+                    scaledSize: new google.maps.Size(32, 32),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(16, 16)
+                });
         }
     }
 
@@ -84,17 +79,17 @@ function addMarker(service, type, latitude, longitude) {
 
     if (type === 1) {
         image = {
-            url: HOME + VENDOR + 'site-maocheia/public/assets/svg/circulo.svg',
+            url: HOME + VENDOR + 'site-maocheia/public/assets/svg/circulo.svg?i=ignore',
             size: new google.maps.Size(28, 28),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(14, 14)
         };
     } else {
         image = {
-            url: service.perfil_profissional.categoriaImage,
-            scaledSize: new google.maps.Size(28, 28),
+            url: service.perfil_profissional.categoriaImage + "?i=service",
+            scaledSize: new google.maps.Size(32, 32),
             origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(14, 14)
+            anchor: new google.maps.Point(16, 16)
         };
     }
 

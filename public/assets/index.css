@@ -49,10 +49,10 @@
 }
 
 .serviceCategory.selecionado img {
-    background: #00e698;
     border-radius: 7px;
     padding: 5px;
-    filter: invert(1);
+    background: #efefef;
+    filter: grayscale(1);
 }
 
 .serviceCategory.selecionado h4 {
@@ -160,11 +160,10 @@ figure {
 }
 
 #pesquisa figure img {
-    width: 45px;
-    height: 45px;
+    width: 28px;
+    height: 28px;
     margin: auto;
     object-fit: cover;
-    opacity: .6;
     transition: all ease-in .15s;
 }
 
@@ -478,7 +477,7 @@ body {
 }
 
 .menu-swipe-class.open.serviceFilterSearch {
-    margin-bottom: -425px;
+    margin-bottom: -435px;
 }
 
 .menu-swipe-class.openFull {
@@ -501,6 +500,37 @@ body {
     height: calc(100% - 50px);
     border-radius: 0;
     margin-bottom: 0 !important;
+}
+
+#mapa-home .gm-style img {
+    filter: grayscale(.6);
+}
+
+#mapa-home .gm-style img[src$='i=ignore'] {
+    filter: grayscale(0);
+}
+
+#mapa-home .gm-style img[src$='i=service']{
+    filter: grayscale(0);
+    background: #ffffff;
+    padding: 3px!important;
+    margin: 2px!important;
+    height: 26px!important;
+    width: 26px!important;
+    border-radius: 35px;
+    box-shadow: 1px 1px 7px -3px #000;
+}
+
+#mapa-home .gm-style img[src$='i=serviceSelected'] {
+    filter: grayscale(0);
+    background: #fff;
+    padding: 3px!important;
+    margin: 2px!important;
+    height: 27px!important;
+    width: 27px!important;
+    border-radius: 35px;
+    box-shadow: 1px 1px 7px -4px #000;
+    border: solid 1px #2196f3!important;
 }
 
 .menu-swipe-class.servicePerfil.anonimo.openFull {

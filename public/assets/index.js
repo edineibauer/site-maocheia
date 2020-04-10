@@ -5,6 +5,7 @@ var
     },
     servicesOnMapUpdate = null,
     services = [],
+    servicesFiltered = [],
     openService = {};
 
 function changeSwipeToSearch() {
@@ -33,6 +34,7 @@ function changeSwipeToSearch() {
                         $(this).addClass("selecionado");
                     }
                     readServices();
+                    setAllServicesOnMap(servicesFiltered);
                 });
 
                 // init Isotope
@@ -141,7 +143,7 @@ function changeSwipeToService(data) {
         $("#arrowback-perfil").off("click").on("click", function () {
             let pass = !1;
             for (let i in markers) {
-                if (markers[i].icon.url === HOME + VENDOR + "site-maocheia/public/assets/svg/map-marker-selected.svg") {
+                if (/serviceSelected$/.test(markers[i].icon.url)) {
                     pass = !0;
                     break;
                 }
@@ -196,7 +198,7 @@ function toogleServicePerfil() {
 
     let pass = !1;
     for (let i in markers) {
-        if (markers[i].icon.url === HOME + VENDOR + "site-maocheia/public/assets/svg/map-marker-selected.svg") {
+        if (/serviceSelected$/.test(markers[i].icon.url)) {
             pass = !0;
             break;
         }
@@ -229,7 +231,7 @@ function profissionaisFiltrado(data) {
     return list;
 }
 
-function setAllServicesOnMap() {
+function setAllServicesOnMap(data) {
     /**
      * Remove all markers and clusters
      */
@@ -239,11 +241,13 @@ function setAllServicesOnMap() {
         delete (markers[e]);
     }
 
+    data = data || services;
+
     /**
      * Add all data to map as markers
      */
-    for (let i = 0; i < services.length; i++)
-        addMarker(services[i], 2, parseFloat(services[i].latitude), parseFloat(services[i].longitude));
+    for (let i = 0; i < data.length; i++)
+        addMarker(data[i], 2, parseFloat(data[i].latitude), parseFloat(data[i].longitude));
 }
 
 function updateListService(data) {
@@ -347,17 +351,16 @@ function readServices() {
      */
     let data = [];
     for (let i in services) {
-        let distancia = getLatLngDistance(services[i].latitude, services[i].longitude, minhaLatlng.lat(), minhaLatlng.lng());
-        if (distancia < km)
+        // let distancia = getLatLngDistance(services[i].latitude, services[i].longitude, minhaLatlng.lat(), minhaLatlng.lng());
+        // if (distancia < km)
             data.push(services[i]);
     }
 
     /**
      * Aplica filtro aos resultados que serão mostrados no mapa
      */
-    data = profissionaisFiltrado(data);
-
-    updateListService(data);
+    servicesFiltered = profissionaisFiltrado(data);
+    updateListService(servicesFiltered);
 }
 
 function initAutocomplete() {
