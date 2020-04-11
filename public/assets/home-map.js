@@ -249,8 +249,8 @@ function startMap() {
                             if (position.coords.accuracy < 100) {
                                 myMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
                                 moveToLocation(position.coords.latitude, position.coords.longitude);
-                                readAllServices();
                             }
+                            readAllServices();
                         },
                         error => {
                         }, {
