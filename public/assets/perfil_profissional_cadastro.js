@@ -146,7 +146,7 @@ function createMock(resource, nome, name, extensao, type, size, isImage) {
 }
 
 $(function () {
-    dbLocal.exeRead("categorias").then(categorias => {
+    db.exeRead("categorias").then(categorias => {
         $("#categoria").html("<option disabled='disabled' selected='selected' value=''>Selecione...</option>");
         for (let i in categorias) {
             $("#categoria").append("<option value='" + categorias[i].id + "'>" + categorias[i].nome + "</option>");

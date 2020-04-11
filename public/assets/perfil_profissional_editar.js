@@ -149,7 +149,7 @@ function dataURLtoFile(dataurl, filename) {
 $(function () {
     profissional = JSON.parse(USER.setorData.perfil_profissional)[0];
     profissional.categoria = parseInt(profissional.categoria);
-    dbLocal.exeRead("categorias").then(categorias => {
+    db.exeRead("categorias").then(categorias => {
         $("#categoria").html("");
         if (!isEmpty(categorias)) {
             for (let i in categorias)

@@ -518,7 +518,7 @@ body {
     filter: grayscale(0);
 }
 
-#mapa-home .gm-style img[src$='i=service'] {
+#mapa-home .gm-style img[src$='i=service'], #mapa-home .gm-style img[src$='i=serviceOnline'] {
     filter: grayscale(0);
     background: #ffffff;
     padding: 3px !important;
@@ -527,6 +527,10 @@ body {
     width: 26px !important;
     border-radius: 35px;
     box-shadow: 1px 1px 7px -3px #000;
+}
+
+#mapa-home .gm-style img[src$='i=serviceOnline'] {
+    border: solid 1px #22e82f!important;
 }
 
 #mapa-home .gm-style img[src$='i=serviceSelected'] {
@@ -610,8 +614,12 @@ body {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #22E82F;
+    background: #dddddd;
     display: inline-block;
+}
+
+.point-draw-medium.online {
+    background: #22E82F;
 }
 
 .openFull #arrowback-perfil {

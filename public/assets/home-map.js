@@ -46,7 +46,7 @@ function closeMapPopup() {
         if (markers[i].type > 1) {
             if (/serviceSelected$/.test(markers[i].icon.url))
                 markers[i].setIcon({
-                    url: markers[i].service.perfil_profissional.categoriaImage + "?i=service",
+                    url: markers[i].service.perfil_profissional.categoriaImage + "?i=service" + (markers[i].service.perfil_profissional.online ? "Online" : ""),
                     scaledSize: new google.maps.Size(32, 32),
                     origin: new google.maps.Point(0, 0),
                     anchor: new google.maps.Point(16, 16)
@@ -86,7 +86,7 @@ function addMarker(service, type, latitude, longitude) {
         };
     } else {
         image = {
-            url: service.perfil_profissional.categoriaImage + "?i=service",
+            url: service.perfil_profissional.categoriaImage + "?i=service" + (service.perfil_profissional.online ? "Online" : ""),
             scaledSize: new google.maps.Size(32, 32),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(16, 16)

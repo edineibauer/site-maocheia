@@ -14,7 +14,7 @@ function changeSwipeToSearch() {
         $(".menu-swipe").addClass("serviceFilterSearch").removeClass("servicePerfil buildPerfil");
         $(".swipe-zone-body").addClass("filter");
         closeMapPopup();
-        dbLocal.exeRead("categorias").then(categorias => {
+        db.exeRead("categorias").then(categorias => {
 
             for (let c in categorias)
                 categorias[c].selected = (!isEmpty(filtrosProfissionais.categoria) && categorias[c].id === filtrosProfissionais.categoria);
@@ -261,7 +261,7 @@ function readAllServices() {
     let latlng = map.getCenter();
     get("nearbyServices/" + latlng.lat() + "/" + latlng.lng() + "/200").then(result => {
 
-        dbLocal.exeRead("categorias").then(categories => {
+        db.exeRead("categorias").then(categories => {
             services = [];
             for (let i in result) {
                 services.push(getProfissionalMustache(result[i], categories.find(s => s.id == result[i].perfil_profissional.categoria)));
@@ -343,8 +343,8 @@ function degrees_to_radians(degrees) {
  * Atualiza lista e mapa com os serviços dentro da distância e dos filtros selecionados
  */
 function readServices() {
-    let km = getZoomToKm(map.getZoom());
-    let minhaLatlng = map.getCenter();
+    // let km = getZoomToKm(map.getZoom());
+    // let minhaLatlng = map.getCenter();
 
     /**
      * Verfica os resultados que devem ser mostrados no mapa a partir da distancia do meu ponto
@@ -415,7 +415,7 @@ $(function () {
                 results.push(service);
             }
 
-            dbLocal.exeRead("categorias").then(cat => {
+            db.exeRead("categorias").then(cat => {
                 for (let c in cat) {
                     cat[c].isService = !1;
                     results.push(cat[c]);

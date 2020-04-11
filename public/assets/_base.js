@@ -13,6 +13,11 @@ function getProfissionalMustache(profissional, cat) {
     profissional.perfil_profissional.haveAvaliacoes = !1;
     profissional.perfil_profissional.avaliacoes = [];
 
+    let hora = moment().format("H:m");
+    let week = moment().weekday();
+    week = (week === 0 ? "domingo" : (week === 1 ? "segunda" : (week === 2 ? "terca" : (week === 3 ? "quarta" : (week === 4 ? "quinta" : (week === 5 ? "sexta" : "sabado"))))));
+    profissional.perfil_profissional.online = profissional.perfil_profissional.inicio < hora && profissional.perfil_profissional.termino > hora && profissional.perfil_profissional.dias.indexOf(week) > -1;
+
     profissional.perfil_profissional.categoriaNome = cat.nome;
     profissional.perfil_profissional.categoriaImage = (!isEmpty(cat.imagem) ? cat.imagem[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg");
 
