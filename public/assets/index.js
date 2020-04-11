@@ -257,9 +257,9 @@ function updateListService(data) {
 /**
  * Lê todos os serviços em um raio de 200km
  */
-function readAllServices() {
+function readAllServices(localizationAnonimo) {
     let latlng = map.getCenter();
-    get("nearbyServices/" + latlng.lat() + "/" + latlng.lng() + "/200").then(result => {
+    get("nearbyServices/" + latlng.lat() + "/" + latlng.lng() + "/" + (typeof localizationAnonimo !== "undefined" ? 2000 : 200)).then(result => {
 
         db.exeRead("categorias").then(categories => {
             services = [];

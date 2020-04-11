@@ -249,8 +249,10 @@ function startMap() {
                             if (position.coords.accuracy < 100) {
                                 myMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
                                 moveToLocation(position.coords.latitude, position.coords.longitude);
+                                readAllServices();
+                            } else {
+                                readAllServices(1);
                             }
-                            readAllServices();
                         },
                         error => {
                         }, {
@@ -263,11 +265,11 @@ function startMap() {
                 //exibe popup pedindo permissão para pegar localização
                 default:
                     //não aceitou mostrar a localização
-                    readAllServices();
+                    readAllServices(1);
             }
         });
     } else {
-        readAllServices();
+        readAllServices(1);
         toast("Seu endereço precisa ser informado manualmente, pois o aparelho não tem suporte para localização.", 3000, "toast-warning");
     }
     startSwipe();
