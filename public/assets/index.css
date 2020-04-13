@@ -510,6 +510,45 @@ body {
     margin-bottom: 0 !important;
 }
 
+#location-btn {
+    position: absolute;
+    z-index: 999;
+    top: 22px;
+    left: 0;
+    background: #ffffff;
+    box-shadow: 0 3px 6px #00000029;
+    border-radius: 5px;
+    height: 42px;
+    padding: 6px 10px;
+}
+
+#location-box{
+    position: absolute;
+    top: 70px;
+    left: 0;
+    transform: translateY(-50px);
+    opacity: 0;
+    transition: all ease .25s;
+}
+
+#location-box.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#location-box-intern{
+    background: #ffffff;
+    box-shadow: 0 3px 6px #00000029;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.btn-location-intern {
+    width: 220px;
+    margin: auto;
+    float: initial
+}
+
 #mapa-home .gm-style img {
     filter: grayscale(.6);
 }

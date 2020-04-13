@@ -296,8 +296,8 @@ function updateRealPosition() {
                  * atualiza posição no mapa e distância da minha posição
                  */
                 for (let i in results) {
-                    for(let s in services) {
-                        if(services[s].id === results[i].cliente) {
+                    for (let s in services) {
+                        if (services[s].id === results[i].cliente) {
                             /**
                              * Atualiza lat, e lng
                              * Atualiza distancia também
@@ -311,8 +311,8 @@ function updateRealPosition() {
                              * Atualiza posição dos markers no mapa
                              */
                             if (!isEmpty(markers)) {
-                                for(let m in markers) {
-                                    if(markers[m].id === services[s].id) {
+                                for (let m in markers) {
+                                    if (markers[m].id === services[s].id) {
                                         markers[m].setPosition(new google.maps.LatLng(parseFloat(services[s].latitude), parseFloat(services[s].longitude)));
                                         break;
                                     }
@@ -329,17 +329,6 @@ function updateRealPosition() {
 }
 
 /**
- * Busca a distância entre duas coordenadas
- */
-function getLatLngDistance(lat, lng, lat2, lng2) {
-    return (6371 * Math.acos(Math.cos(degrees_to_radians(lat)) * Math.cos(degrees_to_radians(lat2)) * Math.cos(degrees_to_radians(lng) - degrees_to_radians(lng2)) + Math.sin(degrees_to_radians(lat)) * Math.sin(degrees_to_radians(lat2))));
-}
-
-function degrees_to_radians(degrees) {
-    return degrees * (Math.PI / 180);
-}
-
-/**
  * Atualiza lista e mapa com os serviços dentro da distância e dos filtros selecionados
  */
 function readServices() {
@@ -353,7 +342,7 @@ function readServices() {
     for (let i in services) {
         // let distancia = getLatLngDistance(services[i].latitude, services[i].longitude, minhaLatlng.lat(), minhaLatlng.lng());
         // if (distancia < km)
-            data.push(services[i]);
+        data.push(services[i]);
     }
 
     /**
@@ -379,6 +368,52 @@ $(function () {
     $("body").off("click", ".swipe-line").on("click", ".swipe-line", function () {
         if (!$(".menu-swipe").hasClass("openFull"))
             $(".menu-swipe").addClass("openFull");
+
+    }).off("click", "#location-btn").on("click", "#location-btn", function () {
+        let $loc = $("#location-box");
+        if ($loc.hasClass("d-none")) {
+            if (!$loc.hasClass("active")) {
+                $loc.removeClass("d-none");
+                setTimeout(function () {
+                    $loc.addClass("active");
+                }, 10);
+            }
+        } else if ($loc.hasClass("active")) {
+            $loc.removeClass("active");
+            setTimeout(function () {
+                $loc.addClass("d-none");
+            }, 250);
+        }
+    }).off("click", "#my-location-btn").on("click", "#my-location-btn", function () {
+        $("#location-btn").trigger("click");
+        if (navigator.geolocation) {
+            navigator.permissions.query({name: 'geolocation'}).then(permissionGeo => {
+                switch (permissionGeo.state) {
+                    case "granted":
+                    case "prompt":
+                        navigator.geolocation.getCurrentPosition(position => {
+                                myMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                                moveToLocation(position.coords.latitude, position.coords.longitude);
+                                readAllServices();
+                            },
+                            () => {
+                                toast("Erro ao obter localização", 2000, "toast-warning");
+                                readAllServices(1);
+                            }, {
+                                enableHighAccuracy: true,
+                                timeout: 5000,
+                                maximumAge: 0
+                            });
+                        break;
+                    //exibe popup pedindo permissão para pegar localização
+                    default:
+                        //não aceitou mostrar a localização
+                        toast("desinstale o app ou limpe os dados para poder localizar o GPS", 5000, "toast-warning");
+                }
+            });
+        } else {
+            toast("dispositivo sem suporte", 1500, "toast-warning");
+        }
 
     }).off("click", ".profissional").on("click", ".profissional", function () {
         for (let i in services) {

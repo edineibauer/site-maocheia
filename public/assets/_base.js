@@ -21,7 +21,14 @@ function getProfissionalMustache(profissional, cat) {
     profissional.perfil_profissional.categoriaNome = cat.nome;
     profissional.perfil_profissional.categoriaImage = (!isEmpty(cat.imagem) ? cat.imagem[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg");
 
-    profissional.distanciaKm = (profissional.distancia < 1 ? parseInt(profissional.distancia * 1000) + "m" : parseFloat(profissional.distancia).toFixed(1) + "KM");
+    if(typeof map !== "undefined") {
+        let minhaLatlng = map.getCenter();
+        profissional.distancia = getLatLngDistance(profissional.latitude, profissional.longitude, minhaLatlng.lat(), minhaLatlng.lng());
+        profissional.distanciaKm = (profissional.distancia < 1 ? parseInt(profissional.distancia * 1000) + "m" : (profissional.distancia > 20 ? parseInt(profissional.distancia) : parseFloat(profissional.distancia).toFixed(1)) + " km").replace(".", ',');
+    } else {
+        profissional.distancia = "~";
+        profissional.distanciaKm = "~"
+    }
 
     return profissional;
 }
@@ -85,6 +92,17 @@ function setCoordenadas() {
             }
         });
     }
+}
+
+/**
+ * Busca a distância entre duas coordenadas
+ */
+function getLatLngDistance(lat, lng, lat2, lng2) {
+    return (6371 * Math.acos(Math.cos(degrees_to_radians(lat)) * Math.cos(degrees_to_radians(lat2)) * Math.cos(degrees_to_radians(lng) - degrees_to_radians(lng2)) + Math.sin(degrees_to_radians(lat)) * Math.sin(degrees_to_radians(lat2))));
+}
+
+function degrees_to_radians(degrees) {
+    return degrees * (Math.PI / 180);
 }
 
 $(function ($) {

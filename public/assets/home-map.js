@@ -70,6 +70,8 @@ function closeAllMapPopupExceptThis(marker) {
 }
 
 function moveToLocation(lat, lng) {
+    myMarker.latitude = lat;
+    myMarker.longitude = lng;
     const center = new google.maps.LatLng(lat, lng);
     map.panTo(center);
 }
@@ -174,8 +176,8 @@ function startMap() {
     /**
      * Minha posição
      */
-    let latitude = -28.698626;
-    let longitude = -49.403945;
+    let latitude = -28.679831;
+    let longitude = -49.350881;
     let myLatLng = {lat: latitude, lng: longitude};
 
     map = new google.maps.Map(document.getElementById('mapa-home'), {
@@ -246,23 +248,20 @@ function startMap() {
             switch (permissionGeo.state) {
                 case "granted":
                     navigator.geolocation.getCurrentPosition(position => {
-                            if (position.coords.accuracy < 100) {
-                                myMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-                                moveToLocation(position.coords.latitude, position.coords.longitude);
-                                readAllServices();
-                            } else {
-                                readAllServices(1);
-                            }
+                            myMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                            moveToLocation(position.coords.latitude, position.coords.longitude);
+                            readAllServices();
+                            console.log(myMarker);
                         },
-                        error => {
+                        () => {
+                            toast("Erro ao obter localização", 2000, "toast-warning");
+                            readAllServices(1);
                         }, {
                             enableHighAccuracy: true,
                             timeout: 5000,
                             maximumAge: 0
                         });
                     break;
-                case "prompt":
-                //exibe popup pedindo permissão para pegar localização
                 default:
                     //não aceitou mostrar a localização
                     readAllServices(1);
