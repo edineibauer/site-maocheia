@@ -6,6 +6,11 @@ function touchUp($el, distancia, classe, funcao) {
         startUp: 0,
         maxDown: 0,
         minBound: 70,
+        moviment: -1,
+        lastMoviment: {
+            up: -1,
+            left: -1
+        },
         allow: {
             up: !0,
             down: !0,
@@ -19,6 +24,11 @@ function touchUp($el, distancia, classe, funcao) {
         elPosition.startLeft = touches.pageX;
         elPosition.startUp = touches.pageY;
         elPosition.maxDown = window.innerHeight - elPosition.minBound - elPosition.startUp;
+        elPosition.moviment = -1;
+        elPosition.lastMoviment = {
+            up: -1,
+            left: -1
+        };
 
         $el.addClass('touching');
     }, false);
@@ -28,25 +38,33 @@ function touchUp($el, distancia, classe, funcao) {
 
         let touches = evt.changedTouches[0];
 
-        if (elPosition.allow.up) {
-            let up = touches.pageY - elPosition.startUp;
+        if (elPosition.lastMoviment.up === -1) {
+            elPosition.lastMoviment.up = touches.pageY;
+            elPosition.lastMoviment.left = touches.pageX;
+        } else if (elPosition.moviment === -1) {
+            elPosition.moviment = (elPosition.lastMoviment.up === touches.pageY ? 'left' : 'up');
+        } else {
 
-            if($el.hasClass(classe) && up < -10)
-                up = -10;
-            else if(!$el.hasClass(classe) && up > 10)
-                up = 10;
+            if (elPosition.moviment === 'up' && elPosition.allow.up) {
+                let up = touches.pageY - elPosition.startUp;
 
-            if(up < 0 && up < ((elPosition.startUp - elPosition.minBound) * -1))
-                up = (elPosition.startUp - elPosition.minBound) * -1;
-            else if(up > 0 && up > elPosition.maxDown)
-                up = elPosition.maxDown;
+                if ($el.hasClass(classe) && up < -10)
+                    up = -10;
+                else if (!$el.hasClass(classe) && up > 10)
+                    up = 10;
 
-            $el.css("transform", "translateY(" + up + "px)");
-        }
+                if (up < 0 && up < ((elPosition.startUp - elPosition.minBound) * -1))
+                    up = (elPosition.startUp - elPosition.minBound) * -1;
+                else if (up > 0 && up > elPosition.maxDown)
+                    up = elPosition.maxDown;
 
-        if (elPosition.allow.left) {
-            let left = touches.pageX - elPosition.startLeft;
-            $el.css("transform", "translateX(" + left + "px)");
+                $el.css("transform", "translateY(" + up + "px)");
+            }
+
+            if (elPosition.moviment === 'left' && elPosition.allow.left) {
+                let left = touches.pageX - elPosition.startLeft;
+                $el.css("transform", "translateX(" + left + "px)");
+            }
         }
     }, false);
 
@@ -54,15 +72,15 @@ function touchUp($el, distancia, classe, funcao) {
         $el.removeClass('touching').css({transform: "translate(0, 0)", transition: "all ease .2s"});
         let touches = evt.changedTouches[0];
 
-        if (elPosition.allow.up) {
+        if (elPosition.moviment === 'up' && elPosition.allow.up) {
             let up = elPosition.startUp - touches.pageY;
 
             if (distancia < up && !$el.hasClass(classe)) {
                 $el.addClass(classe);
-                if(typeof funcao === "function")
+                if (typeof funcao === "function")
                     funcao();
 
-            } else if ((distancia*-1) > up && $el.hasClass(classe)) {
+            } else if ((distancia * -1) > up && $el.hasClass(classe)) {
                 $el.removeClass(classe);
             }
         }
