@@ -10,7 +10,7 @@ function openMapPopup(marker) {
 
             bounds.extend(latlng);
             bounds.extend(latlngMy);
-            map.fitBounds(bounds, {top: 60, right: 50, left: 50, bottom: 200});
+            map.fitBounds(bounds, {top: 60, right: 50, left: 50, bottom: 230});
 
             marker.setAnimation(4);
             marker.setIcon({
@@ -251,7 +251,6 @@ function startMap() {
                             myMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
                             moveToLocation(position.coords.latitude, position.coords.longitude);
                             readAllServices();
-                            console.log(myMarker);
                         },
                         () => {
                             toast("Erro ao obter localização", 2000, "toast-warning");

@@ -106,8 +106,6 @@ function changeSwipeToService(data) {
     $(".menu-swipe").addClass("servicePerfil").removeClass("serviceFilterSearch buildPerfil");
     $(".swipe-zone-body").removeClass("filter");
     $(".swipe-zone-body").htmlTemplate('servicePerfil', data).then(() => {
-        swipeContent($(".swipe-zone-body").find(".menu-swipe"));
-
         $(".menu-swipe-class").off("scroll").on("scroll", function (e) {
             let $this = $(this);
             if ($this.scrollTop() === 0 || !$this.hasClass("openFull"))
@@ -207,7 +205,7 @@ function toogleServicePerfil() {
     if (pass) {
         changeSwipeToSearch();
     } else {
-        swipe.open();
+        $(".menu-swipe-class").addClass("open").removeClass("openFull close");
         $("#procura").blur();
         let myService = services.filter(s => s.id === this.id);
         changeSwipeToService(myService[0]);
@@ -428,7 +426,7 @@ $(function () {
         $(".menu-swipe").removeClass("openFull");
         $(".swipe-zone-body").addClass("translateY");
         if ($(".menu-swipe").hasClass("close"))
-            swipe.open();
+            $(".menu-swipe-class").addClass("open").removeClass("openFull close");
 
         $("#procura").one("blur", function () {
             let search = $(this).val();

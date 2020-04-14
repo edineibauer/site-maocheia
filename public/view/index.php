@@ -37,7 +37,7 @@
 
     <section id="mapa-home" class="mapas"></section>
 
-    <div class="menu-swipe menu-swipe-class close">
+    <div class="menu-swipe menu-swipe-class open">
         <div class="swipe-line"></div>
         <div class="swipe-zone-body filter"></div>
     </div>

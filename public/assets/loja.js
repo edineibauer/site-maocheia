@@ -69,8 +69,6 @@ $(document).ready(function() {
             type: 'GET',
             url: urlFinal,
             success: function(data) {
-                console.log(data);
-                console.log(data.estabelecimentos.sobre);
                 const [estabelecimentos] = data.estabelecimentos
                 setProfissionalForm(estabelecimentos);
                 setCarrregado();

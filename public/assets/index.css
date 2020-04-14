@@ -504,6 +504,10 @@ body {
     height: 95px;
 }
 
+.touching {
+    transition: none!important;
+}
+
 .menu-swipe-class.servicePerfil.openFull {
     height: calc(100% - 50px);
     border-radius: 0;
@@ -520,6 +524,7 @@ body {
     border-radius: 5px;
     height: 42px;
     padding: 6px 10px;
+    border: 1px solid #ced4da;
 }
 
 #location-box{
