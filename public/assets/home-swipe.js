@@ -1,4 +1,4 @@
-function touchUp($el, classOrigem, classDestino, activationDistance) {
+function touchUp($el, distancia, classe, funcao) {
     let el = $el[0];
 
     let elPosition = {
@@ -9,36 +9,37 @@ function touchUp($el, classOrigem, classDestino, activationDistance) {
             "down": !0,
             "left": !1,
             "right": !1
-        },
-        "position": $el.css("position"),
-        "positionLeft": $el.css("left"),
-        "positionTop": $el.css("top"),
-        "top": 0,
-        "left": 0
+        }
     };
 
-    el.addEventListener("touchmove", evt => {
-        let touches = evt.changedTouches[0];
-
-        if (elPosition.allow.up) {
-            let up = touches.pageY - elPosition.startUp;
-            $el.css("transform", "translateY(" + up + "px)");
-        }
-        if (elPosition.allow.left) {
-            let left = touches.pageX - elPosition.startLeft;
-            $el.css("transform", "translateX(" + left + "px)");
-        }
-    }, false);
     el.addEventListener("touchstart", (evt) => {
         evt.preventDefault();
 
         let touches = evt.changedTouches[0];
         elPosition.startLeft = touches.pageX;
         elPosition.startUp = touches.pageY;
-        elPosition.top = $el.offset().top;
-        elPosition.left = $el.offset().left;
 
         $el.addClass('touching');
+    }, false);
+
+    el.addEventListener("touchmove", evt => {
+        let touches = evt.changedTouches[0];
+
+        if (elPosition.allow.up) {
+            let up = touches.pageY - elPosition.startUp;
+
+            if($el.hasClass(classe) && up < -10)
+                up = -10;
+            else if(!$el.hasClass(classe) && up > 10)
+                up = 10;
+
+            $el.css("transform", "translateY(" + up + "px)");
+        }
+
+        if (elPosition.allow.left) {
+            let left = touches.pageX - elPosition.startLeft;
+            $el.css("transform", "translateX(" + left + "px)");
+        }
     }, false);
 
     el.addEventListener("touchend", evt => {
@@ -47,10 +48,16 @@ function touchUp($el, classOrigem, classDestino, activationDistance) {
 
         if (elPosition.allow.up) {
             let up = elPosition.startUp - touches.pageY;
-            if (activationDistance < up && $el.hasClass(classOrigem) && !$el.hasClass(classDestino))
-                $el.addClass(classDestino).removeClass(classOrigem);
-            else if (activationDistance > up && $el.hasClass(classDestino) && !$el.hasClass(classOrigem))
-                $el.addClass(classOrigem).removeClass(classDestino);
+
+            console.log(distancia, up);
+            if (distancia < up && !$el.hasClass(classe)) {
+                $el.addClass(classe);
+                if(typeof funcao === "function")
+                    funcao();
+
+            } else if ((distancia*-1) > up && $el.hasClass(classe)) {
+                $el.removeClass(classe);
+            }
         }
     }, false);
 
@@ -64,20 +71,14 @@ function touchUp($el, classOrigem, classDestino, activationDistance) {
 }
 
 $(function ($) {
-    $.fn.touchUp = function (classOrigem, classDestino, actionDistance) {
-        touchUp(this, classOrigem, classDestino, actionDistance);
+    $.fn.touchUp = function (distancia, classe, funcao) {
+        touchUp(this, distancia, classe, funcao);
         return this;
     };
 });
 
 function startSwipe() {
-    if (window.innerWidth < 900)
-        $(".menu-swipe-class").touchUp("open", "openFull", 100);
+    $(".menu-swipe-class").touchUp(100, "openFull");
 
-    if (typeof history.state.param.service !== "undefined" && history.state.param.service !== null && !isEmpty(history.state.param.service)) {
-        changeSwipeToService(history.state.param.service);
-        openFullPerfil();
-    } else {
-        changeSwipeToSearch();
-    }
+    changeSwipeToSearch();
 }
