@@ -15,8 +15,6 @@ function touchUp($el, distancia, classe, funcao) {
     };
 
     el.addEventListener("touchstart", (evt) => {
-        evt.preventDefault();
-
         let touches = evt.changedTouches[0];
         elPosition.startLeft = touches.pageX;
         elPosition.startUp = touches.pageY;
@@ -26,6 +24,8 @@ function touchUp($el, distancia, classe, funcao) {
     }, false);
 
     el.addEventListener("touchmove", evt => {
+        evt.preventDefault();
+
         let touches = evt.changedTouches[0];
 
         if (elPosition.allow.up) {
