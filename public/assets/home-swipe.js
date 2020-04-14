@@ -2,13 +2,15 @@ function touchUp($el, distancia, classe, funcao) {
     let el = $el[0];
 
     let elPosition = {
-        "startLeft": 0,
-        "startUp": 0,
-        "allow": {
-            "up": !0,
-            "down": !0,
-            "left": !1,
-            "right": !1
+        startLeft: 0,
+        startUp: 0,
+        maxDown: 0,
+        minBound: 70,
+        allow: {
+            up: !0,
+            down: !0,
+            left: !1,
+            right: !1
         }
     };
 
@@ -18,6 +20,7 @@ function touchUp($el, distancia, classe, funcao) {
         let touches = evt.changedTouches[0];
         elPosition.startLeft = touches.pageX;
         elPosition.startUp = touches.pageY;
+        elPosition.maxDown = window.innerHeight - elPosition.minBound - elPosition.startUp;
 
         $el.addClass('touching');
     }, false);
@@ -32,6 +35,11 @@ function touchUp($el, distancia, classe, funcao) {
                 up = -10;
             else if(!$el.hasClass(classe) && up > 10)
                 up = 10;
+
+            if(up < 0 && up < ((elPosition.startUp - elPosition.minBound) * -1))
+                up = (elPosition.startUp - elPosition.minBound) * -1;
+            else if(up > 0 && up > elPosition.maxDown)
+                up = elPosition.maxDown;
 
             $el.css("transform", "translateY(" + up + "px)");
         }
@@ -49,7 +57,6 @@ function touchUp($el, distancia, classe, funcao) {
         if (elPosition.allow.up) {
             let up = elPosition.startUp - touches.pageY;
 
-            console.log(distancia, up);
             if (distancia < up && !$el.hasClass(classe)) {
                 $el.addClass(classe);
                 if(typeof funcao === "function")
