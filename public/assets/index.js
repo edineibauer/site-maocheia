@@ -10,8 +10,12 @@ var
 
 function changeSwipeToSearch() {
     openService = {};
-    if (!$(".menu-swipe").hasClass("serviceFilterSearch")) {
-        $(".menu-swipe").addClass("serviceFilterSearch").removeClass("servicePerfil buildPerfil");
+    let $menu = $(".menu-swipe-class");
+    if (!$menu.hasClass("serviceFilterSearch")) {
+        $menu.addClass("serviceFilterSearch").removeClass("servicePerfil buildPerfil");
+
+        touchElements.menu.setDistanciaTarget(87).setDistanciaStart(window.innerHeight - 130);
+
         $(".swipe-zone-body").addClass("filter");
         closeMapPopup();
         db.exeRead("categorias").then(categorias => {
@@ -103,17 +107,11 @@ function changeSwipeToSearch() {
 
 function changeSwipeToService(data) {
     openService = data;
-    $(".menu-swipe").addClass("servicePerfil").removeClass("serviceFilterSearch buildPerfil");
-    $(".swipe-zone-body").removeClass("filter");
-    $(".swipe-zone-body").htmlTemplate('servicePerfil', data).then(() => {
-        $(".menu-swipe-class").off("scroll").on("scroll", function (e) {
-            let $this = $(this);
-            if ($this.scrollTop() === 0 || !$this.hasClass("touchOpen"))
-                $this.find(".menu-swipe").swipe("enable");
-            else
-                $this.find(".menu-swipe").swipe("disable");
+    $(".menu-swipe-class").addClass("servicePerfil").removeClass("serviceFilterSearch buildPerfil");
 
-        });
+    touchElements.menu.setDistanciaTarget(0).setDistanciaStart(window.innerHeight - 260);
+
+    $(".swipe-zone-body").removeClass("filter").htmlTemplate('servicePerfil', data).then(() => {
 
         /**
          * Read avaliações
@@ -147,9 +145,8 @@ function changeSwipeToService(data) {
                 }
             }
             if (pass) {
-                closeFullPerfil();
+                touchElements.menu.moveToStart();
             } else {
-                closeFullPerfilHistory();
                 changeSwipeToSearch();
             }
         });
@@ -169,18 +166,6 @@ function touchOpenPerfil() {
     state.param = Object.assign(state.param || {}, {service: openService});
     history.replaceState(state, null, HOME + state.route);
     $(".menu-swipe").addClass("touchOpen");
-}
-
-function closeFullPerfil() {
-    closeFullPerfilHistory();
-    $(".menu-swipe").removeClass("touchOpen");
-}
-
-function closeFullPerfilHistory() {
-    history.state.param = {};
-    let state = history.state;
-    state.param = {};
-    history.replaceState(state, null, HOME + state.route);
 }
 
 /*function changeSwipeToBuild() {
