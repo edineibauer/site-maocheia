@@ -14,7 +14,7 @@ function changeSwipeToSearch() {
     if (!$menu.hasClass("serviceFilterSearch")) {
         $menu.addClass("serviceFilterSearch").removeClass("servicePerfil buildPerfil");
 
-        touchElements.menu.setDistanciaTarget(87).setDistanciaStart(window.innerHeight - 130);
+        touchElements.menu.setDistanciaTarget(87).setDistanciaStart(window.innerHeight - 130 - ($(".menu-swipe-class").hasClass("anonimo") ? 0 : 50));
 
         $(".swipe-zone-body").addClass("filter");
         closeMapPopup();
@@ -109,7 +109,7 @@ function changeSwipeToService(data) {
     openService = data;
     $(".menu-swipe-class").addClass("servicePerfil").removeClass("serviceFilterSearch buildPerfil");
 
-    touchElements.menu.setDistanciaTarget(0).setDistanciaStart(window.innerHeight - 260);
+    touchElements.menu.setDistanciaTarget(0).setDistanciaStart(window.innerHeight - 260 - ($(".menu-swipe-class").hasClass("anonimo") ? 0 : 50));
 
     $(".swipe-zone-body").removeClass("filter").htmlTemplate('servicePerfil', data).then(() => {
 
