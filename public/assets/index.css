@@ -504,8 +504,12 @@ body {
     height: 95px;
 }
 
+.touchElement {
+    transition: transform ease .2s!important;
+}
+
 .touching {
-    transition: none!important;
+    transition: transform 0s!important;
 }
 
 .menu-swipe-class.servicePerfil.openFull {
@@ -600,7 +604,7 @@ body {
 
 .menu-swipe-class.open, .menu-swipe-class.openFull {
     bottom: 50px;
-    transition: .3s all ease
+    transition: bottom ease .2s;
 }
 
 .menu-swipe.close {

@@ -1,5 +1,6 @@
-function touchUp($el, distancia, classe, funcao) {
+function touchUp($el, distancia, distanciaAlvo, funcao) {
     let el = $el[0];
+    distanciaAlvo*=-1;
 
     let elPosition = {
         startLeft: 0,
@@ -7,6 +8,8 @@ function touchUp($el, distancia, classe, funcao) {
         maxDown: 0,
         minBound: 70,
         moviment: -1,
+        translateYStart: null,
+        translateY: 0,
         lastMoviment: {
             up: -1,
             left: -1
@@ -25,12 +28,17 @@ function touchUp($el, distancia, classe, funcao) {
         elPosition.startUp = touches.pageY;
         elPosition.maxDown = window.innerHeight - elPosition.minBound - elPosition.startUp;
         elPosition.moviment = -1;
+        elPosition.translateY = $el.css("transform");
+        elPosition.translateY = elPosition.translateY === "none" ? 0 : parseInt(elPosition.translateY.replace("matrix(1, 0, 0, 1, 0, ", "").replace(")", ""));
+        if(elPosition.translateYStart === null)
+            elPosition.translateYStart = elPosition.translateY;
+
         elPosition.lastMoviment = {
             up: -1,
             left: -1
         };
 
-        $el.addClass('touching');
+        $el.addClass('touchElement touching');
     }, false);
 
     el.addEventListener("touchmove", evt => {
@@ -48,9 +56,9 @@ function touchUp($el, distancia, classe, funcao) {
             if (elPosition.moviment === 'up' && elPosition.allow.up) {
                 let up = touches.pageY - elPosition.startUp;
 
-                if ($el.hasClass(classe) && up < -10)
+                if ($el.hasClass("touchOpen") && up < -10)
                     up = -10;
-                else if (!$el.hasClass(classe) && up > 10)
+                else if (!$el.hasClass("touchOpen") && up > 10)
                     up = 10;
 
                 if (up < 0 && up < ((elPosition.startUp - elPosition.minBound) * -1))
@@ -58,7 +66,7 @@ function touchUp($el, distancia, classe, funcao) {
                 else if (up > 0 && up > elPosition.maxDown)
                     up = elPosition.maxDown;
 
-                $el.css("transform", "translateY(" + up + "px)");
+                $el.css("transform", "translateY(" + (elPosition.translateY + up) + "px)");
             }
 
             if (elPosition.moviment === 'left' && elPosition.allow.left) {
@@ -69,20 +77,30 @@ function touchUp($el, distancia, classe, funcao) {
     }, false);
 
     el.addEventListener("touchend", evt => {
-        $el.removeClass('touching').css({transform: "translate(0, 0)", transition: "all ease .2s"});
         let touches = evt.changedTouches[0];
 
         if (elPosition.moviment === 'up' && elPosition.allow.up) {
             let up = elPosition.startUp - touches.pageY;
 
-            if (distancia < up && !$el.hasClass(classe)) {
-                $el.addClass(classe);
-                if (typeof funcao === "function")
-                    funcao();
+            if (!$el.hasClass("touchOpen")) {
 
-            } else if ((distancia * -1) > up && $el.hasClass(classe)) {
-                $el.removeClass(classe);
+                if(distancia < up) {
+                    $el.removeClass("touching").addClass("touchOpen").css({transform: "translateY(" + distanciaAlvo + "px)"});
+                    if (typeof funcao === "function")
+                        funcao();
+                } else {
+                    $el.removeClass("touching").css({transform: "translateY(" + elPosition.translateYStart + "px)"});
+                }
+
+            } else {
+
+                if((distancia * -1) > up)
+                    $el.removeClass("touching touchOpen").css({transform: "translateY(" + elPosition.translateYStart + "px)"});
+                else
+                    $el.removeClass("touching").css({transform: "translateY(" + distanciaAlvo + "px)"});
             }
+        } else {
+            $el.removeClass('touching').css({transform: "translateY(" + elPosition.translateY + "px)"});
         }
     }, false);
 
@@ -103,7 +121,7 @@ $(function ($) {
 });
 
 function startSwipe() {
-    $(".menu-swipe-class").touchUp(100, "openFull");
+    $(".menu-swipe-class").touchUp(100, 450);
 
     changeSwipeToSearch();
 }
