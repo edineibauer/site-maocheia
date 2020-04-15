@@ -218,7 +218,7 @@ function startMap() {
 
     map.addListener('zoom_changed', function () {
         $("#procura").blur();
-        $(".menu-swipe").removeClass("openFull");
+        $(".menu-swipe").removeClass("touchOpen");
         readServices();
     });
     map.addListener('click', function () {
@@ -227,7 +227,7 @@ function startMap() {
     });
 
     map.addListener('mousedown', function () {
-        $(".menu-swipe").removeClass("openFull");
+        $(".menu-swipe").removeClass("touchOpen");
     });
 
     map.addListener('drag', function () {

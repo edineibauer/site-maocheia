@@ -108,7 +108,7 @@ function changeSwipeToService(data) {
     $(".swipe-zone-body").htmlTemplate('servicePerfil', data).then(() => {
         $(".menu-swipe-class").off("scroll").on("scroll", function (e) {
             let $this = $(this);
-            if ($this.scrollTop() === 0 || !$this.hasClass("openFull"))
+            if ($this.scrollTop() === 0 || !$this.hasClass("touchOpen"))
                 $this.find(".menu-swipe").swipe("enable");
             else
                 $this.find(".menu-swipe").swipe("disable");
@@ -155,7 +155,7 @@ function changeSwipeToService(data) {
         });
 
         $("#imagem-perfil, h2.nome").off("click").on("click", function () {
-            openFullPerfil();
+            touchOpenPerfil();
         });
     });
 }
@@ -164,16 +164,16 @@ function changeSwipeToService(data) {
     return endereco.rua + " - " + endereco.bairro + ", " + endereco.cidade + " - " + endereco.estado + ", " + endereco.cep + ", " + endereco.pais;
 }*/
 
-function openFullPerfil() {
+function touchOpenPerfil() {
     let state = history.state;
     state.param = Object.assign(state.param || {}, {service: openService});
     history.replaceState(state, null, HOME + state.route);
-    $(".menu-swipe").addClass("openFull");
+    $(".menu-swipe").addClass("touchOpen");
 }
 
 function closeFullPerfil() {
     closeFullPerfilHistory();
-    $(".menu-swipe").removeClass("openFull");
+    $(".menu-swipe").removeClass("touchOpen");
 }
 
 function closeFullPerfilHistory() {
@@ -205,7 +205,7 @@ function toogleServicePerfil() {
     if (pass) {
         changeSwipeToSearch();
     } else {
-        $(".menu-swipe-class").addClass("open").removeClass("openFull close");
+        $(".menu-swipe-class").addClass("open").removeClass("touchOpen close");
         $("#procura").blur();
         let myService = services.filter(s => s.id === this.id);
         changeSwipeToService(myService[0]);
@@ -364,8 +364,8 @@ $(function () {
         initAutocomplete();
 
     $("body").off("click", ".swipe-line").on("click", ".swipe-line", function () {
-        if (!$(".menu-swipe").hasClass("openFull"))
-            $(".menu-swipe").addClass("openFull");
+        if (!$(".menu-swipe").hasClass("touchOpen"))
+            $(".menu-swipe").addClass("touchOpen");
 
     }).off("click", "#location-btn").on("click", "#location-btn", function () {
         let $loc = $("#location-box");
@@ -417,23 +417,23 @@ $(function () {
         for (let i in services) {
             if (services[i].id === $(this).attr("rel")) {
                 changeSwipeToService(services[i]);
-                openFullPerfil();
+                touchOpenPerfil();
                 break;
             }
         }
     }).off("focus", "#procura").on("focus", "#procura", function () {
         changeSwipeToSearch();
-        $(".menu-swipe").removeClass("openFull");
+        $(".menu-swipe").removeClass("touchOpen");
         $(".swipe-zone-body").addClass("translateY");
         if ($(".menu-swipe").hasClass("close"))
-            $(".menu-swipe-class").addClass("open").removeClass("openFull close");
+            $(".menu-swipe-class").addClass("open").removeClass("touchOpen close");
 
         $("#procura").one("blur", function () {
             let search = $(this).val();
             setTimeout(function () {
                 $(".swipe-zone-body").removeClass("translateY");
                 if (search.length) {
-                    $(".menu-swipe").addClass("openFull");
+                    $(".menu-swipe").addClass("touchOpen");
                     $("#procura").val("");
                 }
             }, 100);

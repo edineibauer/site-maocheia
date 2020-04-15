@@ -8,6 +8,7 @@ function touchUp($el, distancia, distanciaAlvo, funcao) {
         maxDown: 0,
         minBound: 70,
         moviment: -1,
+        distanciaAlvo: distanciaAlvo,
         translateYStart: null,
         translateY: 0,
         lastMoviment: {
@@ -30,8 +31,10 @@ function touchUp($el, distancia, distanciaAlvo, funcao) {
         elPosition.moviment = -1;
         elPosition.translateY = $el.css("transform");
         elPosition.translateY = elPosition.translateY === "none" ? 0 : parseInt(elPosition.translateY.replace("matrix(1, 0, 0, 1, 0, ", "").replace(")", ""));
-        if(elPosition.translateYStart === null)
+        if(elPosition.translateYStart === null) {
             elPosition.translateYStart = elPosition.translateY;
+            elPosition.distanciaAlvo += elPosition.translateYStart;
+        }
 
         elPosition.lastMoviment = {
             up: -1,
@@ -85,7 +88,7 @@ function touchUp($el, distancia, distanciaAlvo, funcao) {
             if (!$el.hasClass("touchOpen")) {
 
                 if(distancia < up) {
-                    $el.removeClass("touching").addClass("touchOpen").css({transform: "translateY(" + distanciaAlvo + "px)"});
+                    $el.removeClass("touching").addClass("touchOpen").css({transform: "translateY(" + elPosition.distanciaAlvo + "px)"});
                     if (typeof funcao === "function")
                         funcao();
                 } else {
@@ -97,7 +100,7 @@ function touchUp($el, distancia, distanciaAlvo, funcao) {
                 if((distancia * -1) > up)
                     $el.removeClass("touching touchOpen").css({transform: "translateY(" + elPosition.translateYStart + "px)"});
                 else
-                    $el.removeClass("touching").css({transform: "translateY(" + distanciaAlvo + "px)"});
+                    $el.removeClass("touching").css({transform: "translateY(" + elPosition.distanciaAlvo + "px)"});
             }
         } else {
             $el.removeClass('touching').css({transform: "translateY(" + elPosition.translateY + "px)"});

@@ -458,50 +458,39 @@ body {
 }
 
 .menu-swipe-class {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    transform: translateY(calc(100vh - 130px));
+    height: 100vh;
+    width: 100%;
     background-color: #fff;
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
     box-shadow: 0 -3px 6px #00000029;
-    position: fixed;
-    bottom: 50px;
-    z-index: 2;
-    margin-bottom: -535px;
-    height: 560px;
-    width: 100%;
     overflow-x: hidden;
     overflow-y: hidden;
 }
 
-.menu-swipe-class.openFull {
+.menu-swipe-class.touchOpen {
     overflow-y: auto;
 }
 
-.menu-swipe-class.openFull .swipe-line {
+.menu-swipe-class.touchOpen .swipe-line {
     height: 130px
-}
-
-.menu-swipe-class.open {
-    margin-bottom: -300px;
-}
-
-.menu-swipe-class.open.serviceFilterSearch {
-    margin-bottom: -425px;
-}
-
-.menu-swipe-class.openFull {
-    margin-bottom: -70px !important;
-}
-
-.menu-swipe-class.open.serviceFilterSearch.anonimo {
-    margin-bottom: -475px;
-}
-
-.menu-swipe-class.anonimo.open {
-    margin-bottom: -350px;
 }
 
 .menu-swipe-class.servicePerfil.open > .swipe-line {
     height: 95px;
+}
+
+/**
+    Swipe on Service
+ */
+.menu-swipe-class.servicePerfil.touchOpen {
+    transform: translateY(0)!important;
+    border-radius: 0;
 }
 
 .touchElement {
@@ -510,12 +499,6 @@ body {
 
 .touching {
     transition: transform 0s!important;
-}
-
-.menu-swipe-class.servicePerfil.openFull {
-    height: calc(100% - 50px);
-    border-radius: 0;
-    margin-bottom: 0 !important;
 }
 
 #location-btn {
@@ -593,18 +576,8 @@ body {
     border: solid 1px #2196f3 !important;
 }
 
-.menu-swipe-class.servicePerfil.anonimo.openFull {
-    margin-bottom: -50px !important;
+.menu-swipe-class.servicePerfil.anonimo.touchOpen {
     height: 100%;
-}
-
-.menu-swipe-class.moving, .menu-swipe-class.open.moving, .menu-swipe-class.openFull.moving {
-    transition: none !important
-}
-
-.menu-swipe-class.open, .menu-swipe-class.openFull {
-    bottom: 50px;
-    transition: bottom ease .2s;
 }
 
 .menu-swipe.close {
@@ -670,7 +643,7 @@ body {
     background: #22E82F;
 }
 
-.openFull #arrowback-perfil {
+.touchOpen #arrowback-perfil {
     opacity: 1;
 }
 
@@ -716,7 +689,7 @@ body {
     transition: all ease .3s;
 }
 
-.openFull #background-perfil, .openFull #background-perfil-div {
+.touchOpen #background-perfil, .touchOpen #background-perfil-div {
     height: 190px;
 }
 
