@@ -1,13 +1,7 @@
 {
     "title": "{$sitename}",
     "css": ["libs/bootstrap.min", "libs/materialdesignicons.min", "libs/owl.carousel.min"],
-    "js": ["libs/popper.min", "libs/bootstrap.min", "libs/isotope.pkgd.min", "libs/owl.carousel.min", "libs/markerclustererplus.min",
-        "libs/jquery-ui.min",
-        "libs/jquery.ui.touch-punch.min",
-        "libs/jquery.touchSwipe",
-        "home-swipe",
-        "libs/map.worker", "home-map"],
+    "js": ["libs/owl.carousel.min"],
     "navbar": false,
-    "header": false,
-    "cache": true
+    "header": false
 }

@@ -1,5 +1,4 @@
 var
-    mapLoaded = typeof mapLoaded !== "undefined",
     filtrosProfissionais = {
         categoria: ""
     },

@@ -73,7 +73,7 @@ function getProfissionalStar(avaliacao) {
 }
 
 function setCoordenadas() {
-    if (!isEmpty(USER.setorData.perfil_profissional) && navigator.geolocation) {
+    if (!isEmpty(USER.setorData?.perfil_profissional) && navigator.geolocation) {
         navigator.permissions.query({name: 'geolocation'}).then(permissionGeo => {
             if (permissionGeo.state === "granted") {
                 navigator.geolocation.getCurrentPosition(function (position) {
