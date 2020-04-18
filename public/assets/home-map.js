@@ -69,11 +69,20 @@ function closeAllMapPopupExceptThis(marker) {
     })
 }
 
+function resetMap() {
+    map.setZoom(13);
+    centerMap();
+}
+
+function centerMap() {
+    const center = new google.maps.LatLng(myMarker.latitude, myMarker.longitude);
+    map.panTo(center);
+}
+
 function moveToLocation(lat, lng) {
     myMarker.latitude = lat;
     myMarker.longitude = lng;
-    const center = new google.maps.LatLng(lat, lng);
-    map.panTo(center);
+    centerMap();
 }
 
 function addMarker(service, type, latitude, longitude) {
@@ -218,7 +227,7 @@ function startMap() {
 
     map.addListener('zoom_changed', function () {
         $("#procura").blur();
-        $(".menu-swipe").removeClass("touchOpen");
+        touchElements.menu.moveToStart();
         readServices();
     });
     map.addListener('click', function () {
@@ -227,7 +236,7 @@ function startMap() {
     });
 
     map.addListener('mousedown', function () {
-        $(".menu-swipe").removeClass("touchOpen");
+        touchElements.menu.moveToStart();
         if($("#location-box").hasClass("active"))
             $("#location-btn").trigger("click");
     });

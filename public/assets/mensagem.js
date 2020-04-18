@@ -124,7 +124,7 @@ function readMessage() {
             else
                 contato.imagemPerfil = perfil.perfil_profissional.imagem_de_perfil !== null && typeof perfil.perfil_profissional.imagem_de_perfil !== "undefined" ? perfil.perfil_profissional.imagem_de_perfil[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
 
-            $("#perfil-info").html('<div class="imagem-perfil-mensagem" style="background-image: url(\'' + contato.imagemPerfil + '\')"></div><p>' + contato.nome + '</p>');
+            $("#perfil-info").html('<div class="imagem-perfil-mensagem imagem-perfil-in-mensagem" style="background-image: url(\'' + contato.imagemPerfil + '\')"></div><p>' + contato.nome + '</p>');
 
             /**
              * Lê as mensagens do profissional com este cliente

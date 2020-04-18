@@ -125,12 +125,17 @@ body {
     overflow-x: hidden;
 }
 
+.hideFilter {
+    transform: translateY(-113px);
+}
+
 #service-perfil-body {
     margin-bottom: 30px;
 }
 
-.swipe-zone-body.filter {
+.swipe-zone-body {
     z-index: 3;
+    transition: transform ease .15s;
 }
 
 #pesquisa {
@@ -598,14 +603,14 @@ body {
 
 .swipe-line::before {
     content: '';
-    top: 3px;
+    top: 4px;
     width: 13%;
     height: 5px;
     text-align: center;
     background-color: #d6d6d6b3;
     display: block;
     position: relative;
-    margin: 4px auto 20px;
+    margin: 4px auto 15px;
     border-radius: 4px;
     visibility: visible;
 }
@@ -729,7 +734,7 @@ body {
     height: 60px;
     border-radius: 8px;
     box-shadow: 1px 3px 7px -6px black;
-    background-color: #ffffff;
+    background-color: #f3f3f3;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;

@@ -21,6 +21,11 @@ body {
     border-radius: 50px;
 }
 
+.imagem-perfil-in-mensagem {
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
 .mensagens-card {
     background: #ffffff;
     color: #555555;

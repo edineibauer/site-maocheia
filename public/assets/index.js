@@ -14,6 +14,7 @@ function changeSwipeToSearch() {
     if (!$menu.hasClass("serviceFilterSearch")) {
         $menu.addClass("serviceFilterSearch").removeClass("servicePerfil buildPerfil");
 
+        resetMap();
         touchElements.menu.setDistanciaTarget(87).setDistanciaStart(window.innerHeight - 130 - (USER.setor === 0 ? 0 : 50));
 
         $(".swipe-zone-body").addClass("filter");
@@ -231,7 +232,7 @@ function setAllServicesOnMap(data) {
 }
 
 function updateListService(data) {
-    $("#services").htmlTemplate('serviceCards', {profissionais: data.concat(data).concat(data)}, ["serviceCard"]);
+    $("#services").htmlTemplate('serviceCards', {profissionais: data}, ["serviceCard"]);
 }
 
 /**
@@ -350,6 +351,13 @@ $(function () {
             $(".menu-swipe").addClass("touchOpen");
 
     }).off("click", "#location-btn").on("click", "#location-btn", function () {
+
+        /**
+         * Set default menu
+         */
+        touchElements.menu.moveToStart();
+        changeSwipeToSearch();
+
         let $loc = $("#location-box");
         if ($loc.hasClass("d-none")) {
             if (!$loc.hasClass("active")) {
@@ -407,9 +415,13 @@ $(function () {
         changeSwipeToSearch();
         touchElements.menu.moveToTarget();
 
+        $(".swipe-zone-body").addClass("hideFilter");
+        $(".titulo-result").html("Resultados da pesquisa");
         $("#procura").one("blur", function () {
             let search = $(this).val();
             setTimeout(function () {
+                $(".swipe-zone-body").removeClass("hideFilter");
+                $(".titulo-result").html("Profissionais");
                 if (search.length) {
                     $(".menu-swipe").addClass("touchOpen");
                     $("#procura").val("");
