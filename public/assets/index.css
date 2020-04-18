@@ -121,8 +121,13 @@ body {
 
 #services {
     max-height: calc(100vh - 303px);
+    min-height: 200px;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.hideFilter #services {
+    max-height: calc(100vh - 160px);
 }
 
 .hideFilter {
