@@ -1,4 +1,4 @@
-function touchVertical($el, distancia, distanciaAlvo, funcao) {
+function touchVertical($el, distanciaAlvo, distancia, funcao, ignoreQueryElements) {
     $el.addClass('touchElement');
     let el = $el[0],
         elPosition = {
@@ -8,6 +8,8 @@ function touchVertical($el, distancia, distanciaAlvo, funcao) {
             maxDown: 0,
             minBound: 70,
             moviment: -1,
+            tracking: !1,
+            ignoreQueryElements: ignoreQueryElements || [],
             translateY: $el.css("transform") === "none" ? 0 : parseInt($el.css("transform").replace("matrix(1, 0, 0, 1, 0, ", "").replace(")", "")),
             translateYStart: null,
             distanciaAlvo: distanciaAlvo,
@@ -22,15 +24,19 @@ function touchVertical($el, distancia, distanciaAlvo, funcao) {
             },
             setDistanciaStart: d => {
                 elPosition.translateYStart = d;
-                if(!elPosition.$el.hasClass("touchOpen"))
+                if (!elPosition.$el.hasClass("touchOpen"))
                     touchElements.menu.moveToStart();
                 return elPosition;
             },
             setDistanciaTarget: d => {
                 elPosition.distanciaAlvo = d;
-                if(elPosition.$el.hasClass("touchOpen"))
+                if (elPosition.$el.hasClass("touchOpen"))
                     touchElements.menu.moveToTarget();
                 return elPosition;
+            },
+            stopMove: () => {
+                elPosition.tracking = !1;
+                return elPosition.$el.removeClass('touching');
             },
             moveToStart: () => {
                 elPosition.moviment = -1;
@@ -38,7 +44,7 @@ function touchVertical($el, distancia, distanciaAlvo, funcao) {
                     elPosition.translateYStart = elPosition.translateY;
                     elPosition.distanciaAlvo += elPosition.translateYStart;
                 }
-                elPosition.$el.removeClass("touching touchOpen").css({transform: "translateY(" + elPosition.translateYStart + "px)"});
+                elPosition.stopMove().removeClass("touchOpen").css({transform: "translateY(" + elPosition.translateYStart + "px)"});
                 return elPosition;
             },
             moveToTarget: () => {
@@ -47,7 +53,7 @@ function touchVertical($el, distancia, distanciaAlvo, funcao) {
                     elPosition.translateYStart = elPosition.translateY;
                     elPosition.distanciaAlvo += elPosition.translateYStart;
                 }
-                elPosition.$el.removeClass("touching").addClass("touchOpen").css({transform: "translateY(" + elPosition.distanciaAlvo + "px)"});
+                elPosition.stopMove().addClass("touchOpen").css({transform: "translateY(" + elPosition.distanciaAlvo + "px)"});
                 return elPosition;
             },
             setFuncao: f => {
@@ -57,7 +63,32 @@ function touchVertical($el, distancia, distanciaAlvo, funcao) {
         };
 
     el.addEventListener("touchstart", (evt) => {
+
+        let ignore = !1;
+        let $target = $(evt.target);
+        for (let i in elPosition.ignoreQueryElements) {
+            if ($target.closest(elPosition.ignoreQueryElements[i]).length) {
+                ignore = !0;
+                break;
+
+            } else if (/^#/.test(elPosition.ignoreQueryElements[i])) {
+                if ($target.attr("id") === elPosition.ignoreQueryElements[i].replace("#", "")) {
+                    ignore = !0;
+                    break;
+                }
+            } else if (/^\./.test(elPosition.ignoreQueryElements[i])) {
+                if ($target.hasClass(elPosition.ignoreQueryElements[i].replace(".", ""))) {
+                    ignore = !0;
+                    break;
+                }
+            }
+        }
+
+        if (ignore)
+            return;
+
         let touches = evt.changedTouches[0];
+        elPosition.tracking = !0;
         elPosition.startLeft = touches.pageX;
         elPosition.startUp = touches.pageY;
         elPosition.maxDown = window.innerHeight - elPosition.minBound - elPosition.startUp;
@@ -78,69 +109,73 @@ function touchVertical($el, distancia, distanciaAlvo, funcao) {
     }, false);
 
     el.addEventListener("touchmove", evt => {
-        evt.preventDefault();
+        if (elPosition.tracking) {
+            evt.preventDefault();
 
-        let touches = evt.changedTouches[0];
+            let touches = evt.changedTouches[0];
 
-        if (elPosition.lastMoviment.up === -1) {
-            elPosition.lastMoviment.up = touches.pageY;
-            elPosition.lastMoviment.left = touches.pageX;
-        } else if (elPosition.moviment === -1) {
-            elPosition.moviment = (elPosition.lastMoviment.up === touches.pageY ? 'left' : 'up');
-        } else {
+            if (elPosition.lastMoviment.up === -1) {
+                elPosition.lastMoviment.up = touches.pageY;
+                elPosition.lastMoviment.left = touches.pageX;
+            } else if (elPosition.moviment === -1) {
+                elPosition.moviment = (elPosition.lastMoviment.up === touches.pageY ? 'left' : 'up');
+            } else {
 
-            if (elPosition.moviment === 'up') {
-                let up = touches.pageY - elPosition.startUp;
+                if (elPosition.moviment === 'up') {
+                    let up = touches.pageY - elPosition.startUp;
 
-                if (elPosition.$el.hasClass("touchOpen") && up < -10)
-                    up = -10;
-                else if (!elPosition.$el.hasClass("touchOpen") && up > 10)
-                    up = 10;
+                    if (elPosition.$el.hasClass("touchOpen") && up < -10)
+                        up = -10;
+                    else if (!elPosition.$el.hasClass("touchOpen") && up > 10)
+                        up = 10;
 
-                if (up < 0 && up < ((elPosition.startUp - elPosition.minBound) * -1))
-                    up = (elPosition.startUp - elPosition.minBound) * -1;
-                else if (up > 0 && up > elPosition.maxDown)
-                    up = elPosition.maxDown;
+                    if (up < 0 && up < ((elPosition.startUp - elPosition.minBound) * -1))
+                        up = (elPosition.startUp - elPosition.minBound) * -1;
+                    else if (up > 0 && up > elPosition.maxDown)
+                        up = elPosition.maxDown;
 
-                elPosition.$el.css("transform", "translateY(" + (elPosition.translateY + up) + "px)");
+                    elPosition.$el.css("transform", "translateY(" + (elPosition.translateY + up) + "px)");
+                }
             }
         }
     }, false);
 
     el.addEventListener("touchend", evt => {
-        let touches = evt.changedTouches[0];
+        if (elPosition.tracking) {
+            let touches = evt.changedTouches[0];
 
-        if (elPosition.moviment === 'up') {
-            let up = elPosition.startUp - touches.pageY;
+            if (elPosition.moviment === 'up') {
+                let up = elPosition.startUp - touches.pageY;
 
-            if (!elPosition.$el.hasClass("touchOpen")) {
+                if (!elPosition.$el.hasClass("touchOpen")) {
 
-                if (distancia < up) {
-                    elPosition.moveToTarget();
-                    if (typeof elPosition.funcao === "function")
-                        elPosition.funcao();
+                    if (distancia < up) {
+                        elPosition.moveToTarget();
+                        if (typeof elPosition.funcao === "function")
+                            elPosition.funcao();
+                    } else {
+                        elPosition.stopMove().css({transform: "translateY(" + elPosition.translateY + "px)"});
+                    }
+
                 } else {
-                    elPosition.$el.removeClass("touching").css({transform: "translateY(" + elPosition.translateY + "px)"});
+
+                    if ((distancia * -1) > up)
+                        elPosition.moveToStart();
+                    else
+                        elPosition.stopMove().css({transform: "translateY(" + elPosition.translateY + "px)"});
                 }
-
             } else {
-
-                if ((distancia * -1) > up)
-                    elPosition.moveToStart();
-                else
-                    elPosition.$el.removeClass("touching").css({transform: "translateY(" + elPosition.translateY + "px)"});
+                elPosition.stopMove().css({transform: "translateY(" + elPosition.translateY + "px)"});
             }
-        } else {
-            elPosition.$el.removeClass('touching').css({transform: "translateY(" + elPosition.translateY + "px)"});
         }
     }, false);
 
     el.addEventListener("touchcancel", () => {
-        elPosition.$el.removeClass('touching');
+        elPosition.stopMove();
     }, false);
 
     el.addEventListener("touchleave", () => {
-        elPosition.$el.removeClass('touching');
+        elPosition.stopMove();
     }, false);
 
     return elPosition;
@@ -148,14 +183,13 @@ function touchVertical($el, distancia, distanciaAlvo, funcao) {
 
 var touchElements = {};
 $(function ($) {
-    $.fn.touchVertical = function (apelido, distancia, classe, funcao) {
-        touchElements[apelido] = touchVertical(this, distancia, classe, funcao);
+    $.fn.touchVertical = function (apelido, position, swipeDistance, funcao, ignoreQueryElements) {
+        touchElements[apelido] = touchVertical(this, position, swipeDistance, funcao, ignoreQueryElements);
         return this;
     };
 });
 
 function startSwipe() {
-    $(".menu-swipe-class").touchVertical("menu", 100, -450);
-
+    $(".menu-swipe-class").touchVertical("menu", -450, 100, null, ["#services", "#service-perfil-body"]);
     changeSwipeToSearch();
 }

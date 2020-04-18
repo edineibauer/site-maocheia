@@ -120,13 +120,13 @@ body {
 }
 
 #services {
-    height: 233px;
+    max-height: calc(100vh - 303px);
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-.swipe-zone-body.translateY {
-    transform: translateY(-160px);
+#service-perfil-body {
+    margin-bottom: 30px;
 }
 
 .swipe-zone-body.filter {
@@ -510,7 +510,7 @@ body {
     box-shadow: 0 3px 6px #00000029;
     border-radius: 5px;
     height: 42px;
-    padding: 6px 10px;
+    padding: 8px 10px;
     border: 1px solid #ced4da;
 }
 
@@ -542,7 +542,7 @@ body {
 }
 
 #mapa-home .gm-style img {
-    filter: grayscale(.6);
+    filter: grayscale(.4);
 }
 
 #mapa-home .gm-style img[src$='i=ignore'] {
@@ -650,15 +650,12 @@ body {
 #arrowback-perfil {
     opacity: 0;
     z-index: 3;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 5px;
+    left: 5px;
     transition: all ease .3s;
-    background: #55555542;
-    border-radius: 50px;
-    box-shadow: 2px 2px 14px -5px #000;
     padding: 5px;
 }
 

@@ -1,13 +1,13 @@
-<a href="mensagem/{{chatId}}" data-animation="forward" class="col mb-2 pt-3 pb-2 mensagens-card">
-    <div class="float-left imagem-perfil-mensagem" style="margin-top: 0;margin-bottom: 8px;background-image: url('{{clienteData.imagem}}')"></div>
-    <div class="float-left" style="width: calc(100% - 50px)">
+<a href="mensagem/{{chatId}}" data-animation="forward" class="col mb-2 pb-2 mensagens-card">
+    <div class="float-left imagem-perfil-mensagem" style="background-image: url('{{clienteData.imagem}}')"></div>
+    <div class="float-left message-card-body">
         <h6 class="float-left col mb-0">
-            <div class="float-left mr-2">
+            <div class="col p-0 float-left message-card-name">
                 {{clienteData.nome}}
             </div>
-            <div class="float-left" style="padding: 4px 0;font-size: 11px; color: #999999">{{calendar}}</div>
+            <small class="col p-0 float-left message-card-date">{{calendar}}</small>
         </h6>
-        <div class="col" style="font-size: 13px">
+        <div class="col float-left message-card-message">
             {{lastMessage}}
         </div>
     </div>

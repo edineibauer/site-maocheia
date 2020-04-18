@@ -228,6 +228,8 @@ function startMap() {
 
     map.addListener('mousedown', function () {
         $(".menu-swipe").removeClass("touchOpen");
+        if($("#location-box").hasClass("active"))
+            $("#location-btn").trigger("click");
     });
 
     map.addListener('drag', function () {

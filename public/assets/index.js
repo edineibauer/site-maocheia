@@ -14,7 +14,7 @@ function changeSwipeToSearch() {
     if (!$menu.hasClass("serviceFilterSearch")) {
         $menu.addClass("serviceFilterSearch").removeClass("servicePerfil buildPerfil");
 
-        touchElements.menu.setDistanciaTarget(87).setDistanciaStart(window.innerHeight - 130 - ($(".menu-swipe-class").hasClass("anonimo") ? 0 : 50));
+        touchElements.menu.setDistanciaTarget(87).setDistanciaStart(window.innerHeight - 130 - (USER.setor === 0 ? 0 : 50));
 
         $(".swipe-zone-body").addClass("filter");
         closeMapPopup();
@@ -22,9 +22,6 @@ function changeSwipeToSearch() {
 
             for (let c in categorias)
                 categorias[c].selected = (!isEmpty(filtrosProfissionais.categoria) && categorias[c].id === filtrosProfissionais.categoria);
-
-            if (USER.setor === 0)
-                $(".menu-swipe-class").addClass("anonimo");
 
             $(".swipe-zone-body").htmlTemplate('serviceFilterSearch', {categorias: categorias}).then(() => {
                 updateListService(services);
@@ -109,7 +106,7 @@ function changeSwipeToService(data) {
     openService = data;
     $(".menu-swipe-class").addClass("servicePerfil").removeClass("serviceFilterSearch buildPerfil");
 
-    touchElements.menu.setDistanciaTarget(0).setDistanciaStart(window.innerHeight - 260 - ($(".menu-swipe-class").hasClass("anonimo") ? 0 : 50));
+    touchElements.menu.setDistanciaTarget(0).setDistanciaStart(window.innerHeight - 260 - (USER.setor === 0 ? 0 : 50));
 
     $(".swipe-zone-body").removeClass("filter").htmlTemplate('servicePerfil', data).then(() => {
 
@@ -234,7 +231,7 @@ function setAllServicesOnMap(data) {
 }
 
 function updateListService(data) {
-    $("#services").htmlTemplate('serviceCards', {profissionais: data}, ["serviceCard"]);
+    $("#services").htmlTemplate('serviceCards', {profissionais: data.concat(data).concat(data)}, ["serviceCard"]);
 }
 
 /**
@@ -408,15 +405,11 @@ $(function () {
         }
     }).off("focus", "#procura").on("focus", "#procura", function () {
         changeSwipeToSearch();
-        $(".menu-swipe").removeClass("touchOpen");
-        $(".swipe-zone-body").addClass("translateY");
-        if ($(".menu-swipe").hasClass("close"))
-            $(".menu-swipe-class").addClass("open").removeClass("touchOpen close");
+        touchElements.menu.moveToTarget();
 
         $("#procura").one("blur", function () {
             let search = $(this).val();
             setTimeout(function () {
-                $(".swipe-zone-body").removeClass("translateY");
                 if (search.length) {
                     $(".menu-swipe").addClass("touchOpen");
                     $("#procura").val("");
