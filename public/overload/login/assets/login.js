@@ -1,4 +1,4 @@
-var loginFree = !0, loginGooglePrevent = !0;
+var loginFree = !0;
 
 function login() {
     exeLogin($("#email").val(), $("#senha").val(), $("#g-recaptcha-response").val());
@@ -30,29 +30,33 @@ function exeLogin(email, senha, recaptcha) {
     }
 }
 
+var loadUserGoogle = 0;
 function onSignIn(googleUser) {
-    if(loginGooglePrevent) {
-        loginGooglePrevent = !1;
-        return;
+    if(loadUserGoogle > 0) {
+        if(loginFree)
+            toast("Carregando...", 15000, "toast-success");
+        var profile = googleUser.getBasicProfile();
+        getJSON(HOME + "app/find/clientes/email/" + profile.getEmail()).then(r => {
+            if (!isEmpty(r.clientes)) {
+                exeLogin(profile.getEmail(), profile.getId())
+            } else {
+                db.exeCreate("clientes", {
+                    nome: profile.getName(),
+                    email: profile.getEmail(),
+                    imagem_url: profile.getImageUrl(),
+                    senha: profile.getId(),
+                    ativo: 1
+                }).then(result => {
+                    if (result.db_errorback === 0)
+                        exeLogin(result.email, profile.getId())
+                })
+            }
+        });
+    } else {
+        if(typeof gapi !== "undefined")
+            gapi.auth2.getAuthInstance().signOut();
     }
-
-    var profile = googleUser.getBasicProfile();
-    getJSON(HOME + "app/find/clientes/email/" + profile.getEmail()).then(r => {
-        if(!isEmpty(r.clientes)) {
-            exeLogin(profile.getEmail(), profile.getId());
-        } else {
-            db.exeCreate("clientes", {
-                nome: profile.getName(),
-                email: profile.getEmail(),
-                imagem_url: profile.getImageUrl(),
-                senha: profile.getId(),
-                ativo: 1
-            }).then(result => {
-                if(result.db_errorback === 0)
-                    exeLogin(result.email, profile.getId());
-            });
-        }
-    });
+    loadUserGoogle++;
 }
 
 $(function () {
