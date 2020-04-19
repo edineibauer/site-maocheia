@@ -19,4 +19,8 @@ $(function () {
     $(".sair-app").off("click").on("click", function() {
         logoutDashboard();
     });
+
+    $(".update-btn").one("click", function () {
+        location.reload();
+    });
 });

@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div class="bloco">
+        <!--<div class="bloco">
             <div class="row">
                 <div class="col-12">
                     <h5 class="subtitulo">Notificações</h5>
@@ -99,12 +99,27 @@
                     <hr>
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <div class="bloco">
             <div class="row">
                 <div class="col-12">
                     <h5 class="subtitulo">Suporte</h5>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="opcao">
+                                <a href="termos">
+                                    Termo de uso
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                 </div>
             </div>
 

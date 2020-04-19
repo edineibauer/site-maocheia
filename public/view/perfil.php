@@ -51,14 +51,14 @@
                 <i class="material-icons">more_horiz</i>
             </div>
         </a>
-        <a href="termos" class="row borda-row">
+        <div class="row borda-row update-btn">
             <div class="col-8 col-lg-8">
-                <div class="informacao-div">Termo de uso</div>
+                <div class="informacao-div">Atualizar</div>
             </div>
             <div class="col-4 col-lg-4 mt-2 text-right">
-                <i class="material-icons">insert_drive_file</i>
+                <i class="material-icons">refresh</i>
             </div>
-        </a>
+        </div>
     </div>
 </section>
 <section id="sair-aplicativo">
