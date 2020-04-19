@@ -33,8 +33,6 @@ function exeLogin(email, senha, recaptcha) {
 var loadUserGoogle = 0;
 function onSignIn(googleUser) {
     if(loadUserGoogle > 0) {
-        if(loginFree)
-            toast("Carregando...", 15000, "toast-success");
         var profile = googleUser.getBasicProfile();
         getJSON(HOME + "app/find/clientes/email/" + profile.getEmail()).then(r => {
             if (!isEmpty(r.clientes)) {
