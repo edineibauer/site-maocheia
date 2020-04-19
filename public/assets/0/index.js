@@ -30,9 +30,15 @@ function exeLogin(email, senha, recaptcha) {
     }
 }
 
-var loadUserGoogle = 0;
+if(!sessionStorage.googleLogin)
+    sessionStorage.googleLogin = "0";
+
 function onSignIn(googleUser) {
-    if(loadUserGoogle > 0) {
+    if(sessionStorage.googleLogin === "0") {
+        sessionStorage.googleLogin = 1;
+        gapi.auth2.getAuthInstance().signOut();
+
+    } else {
         var profile = googleUser.getBasicProfile();
         getJSON(HOME + "app/find/clientes/email/" + profile.getEmail()).then(r => {
             if (!isEmpty(r.clientes)) {
@@ -50,11 +56,7 @@ function onSignIn(googleUser) {
                 })
             }
         });
-    } else {
-        if(typeof gapi !== "undefined")
-            gapi.auth2.getAuthInstance().signOut();
     }
-    loadUserGoogle++;
 }
 
 $(function () {
