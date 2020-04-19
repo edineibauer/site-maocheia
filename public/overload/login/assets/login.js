@@ -1,4 +1,4 @@
-var loginFree = !0;
+var loginFree = !0, loginGooglePrevent = !0;
 
 function login() {
     exeLogin($("#email").val(), $("#senha").val(), $("#g-recaptcha-response").val());
@@ -31,6 +31,11 @@ function exeLogin(email, senha, recaptcha) {
 }
 
 function onSignIn(googleUser) {
+    if(loginGooglePrevent) {
+        loginGooglePrevent = !1;
+        return;
+    }
+
     var profile = googleUser.getBasicProfile();
     getJSON(HOME + "app/find/clientes/email/" + profile.getEmail()).then(r => {
         if(!isEmpty(r.clientes)) {
