@@ -1,3 +1,8 @@
+body {
+    /* Disables pull-to-refresh but allows overscroll glow effects. */
+    overscroll-behavior-y: contain;
+}
+
 .form-control:focus {
     outline: none !important;
     box-shadow: none !important;
