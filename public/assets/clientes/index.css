@@ -598,7 +598,7 @@ body {
 .swipe-line {
     margin-top: -4px;
     padding-top: 4px;
-    z-index: 2;
+    z-index: 12;
     position: absolute;
     top: 0;
     left: 0;
