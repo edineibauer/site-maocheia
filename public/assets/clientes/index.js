@@ -138,7 +138,7 @@ function changeSwipeToService(data) {
     openService = data;
     $(".menu-swipe-class").addClass("servicePerfil").removeClass("serviceFilterSearch buildPerfil");
 
-    touchElements.menu.setDistanciaTarget(0).setDistanciaStart(window.innerHeight - 260 - (USER.setor === 0 ? 0 : 50));
+    touchElements.menu.setDistanciaTarget(0).setDistanciaStart(window.innerHeight - 255 - (USER.setor === 0 ? 0 : 50));
 
     $(".swipe-zone-body").removeClass("filter").htmlTemplate('servicePerfil', data).then(() => {
 
@@ -446,7 +446,6 @@ $(function () {
         }
     }).off("focus", "#procura").on("focus", "#procura", function () {
         changeSwipeToSearch();
-        touchElements.menu.moveToTarget();
 
         $(".swipe-zone-body").addClass("hideFilter");
         $(".titulo-result").html("Resultados da pesquisa");
@@ -458,6 +457,9 @@ $(function () {
         $(".serviceCategory").removeClass("selecionado");
         filtrosProfissionais.subcategoria = [];
         filtrosProfissionais.categoria = "";
+        touchElements.menu.setDistanciaStart(window.innerHeight - 130 - (USER.setor === 0 ? 0 : 50));
+
+        touchElements.menu.moveToTarget();
 
         $("#procura").one("blur", function () {
             let search = $(this).val();
