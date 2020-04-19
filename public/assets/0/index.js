@@ -8,7 +8,6 @@ function exeLogin(email, senha, recaptcha) {
     if (loginFree) {
         $("#login").loading();
         loginFree = !1;
-        toast("Acessando...", 15000);
         post('login', 'login', {email: email, pass: senha, recaptcha: recaptcha}, function (g) {
             if (typeof g === "string") {
                 loginFree = !0;
@@ -16,7 +15,7 @@ function exeLogin(email, senha, recaptcha) {
                 if (g !== "no-network")
                     toast(g, 3000, "toast-warning")
             } else {
-                toast("Bem-vindo", 15000, "toast-success");
+                toast("Bem-vindo ao " + SITENAME, 15000, "toast-success");
                 setCookieUser(g).then(() => {
                     let destino = "index";
                     if (getCookie("redirectOnLogin") !== "") {
@@ -30,12 +29,9 @@ function exeLogin(email, senha, recaptcha) {
     }
 }
 
-if(!sessionStorage.googleLogin)
-    sessionStorage.googleLogin = "0";
-
+var googleLogin = 0;
 function onSignIn(googleUser) {
-    if(sessionStorage.googleLogin === "0") {
-        sessionStorage.googleLogin = 1;
+    if(googleLogin === 0) {
         gapi.auth2.getAuthInstance().signOut();
 
     } else {
@@ -103,5 +99,8 @@ $(function () {
     $("#app").off("keyup", "#email, #senha").on("keyup", "#email, #senha", function (e) {
         if (e.which === 13)
             login()
-    })
+
+    }).on("click", ".abcRioButtonContentWrapper", function() {
+        googleLogin = 1;
+    });
 });
