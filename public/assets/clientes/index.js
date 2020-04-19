@@ -1,11 +1,44 @@
 var
     filtrosProfissionais = {
-        categoria: ""
+        categoria: "",
+        subcategoria: []
     },
     servicesOnMapUpdate = null,
     services = [],
     servicesFiltered = [],
     openService = {};
+
+function readSubCategoriesMenu(categoria, selected) {
+    db.exeRead("categorias_sub").then(cat => {
+        let sub = cat.filter(c => c.categoria == categoria);
+        $("#subcategorias").htmlTemplate('subcategoriasMenu', {subcategorias: sub}).then(() => {
+            if ($("#subcategorias").hasClass("owl-loaded"))
+                $("#subcategorias").trigger('destroy.owl.carousel');
+
+            $('#subcategorias').owlCarousel({
+                loop: false,
+                margin: 10,
+                dots: false,
+                nav: false,
+                responsive: {
+                    0: {
+                        items: 4,
+                        startPosition: 0
+                    }
+                }
+            });
+
+            if (isNumberPositive(selected)) {
+                $(".serviceAtuacao[rel='" + selected + "']").trigger("click");
+            } else if(typeof selected === "object" && selected !== null && selected.constructor === Array) {
+                for(let i in selected) {
+                    if (isNumberPositive(selected[i]))
+                        $(".serviceAtuacao[rel='" + selected[i] + "']").trigger("click");
+                }
+            }
+        });
+    });
+}
 
 function changeSwipeToSearch() {
     openService = {};
@@ -23,28 +56,25 @@ function changeSwipeToSearch() {
             for (let c in categorias)
                 categorias[c].selected = (!isEmpty(filtrosProfissionais.categoria) && categorias[c].id === filtrosProfissionais.categoria);
 
-            $(".swipe-zone-body").htmlTemplate('serviceFilterSearch', {categorias: categorias}).then(() => {
+            $(".swipe-zone-body").htmlTemplate('serviceFilterSearch', {
+                categorias: categorias
+            }).then(() => {
                 updateListService(services);
-                $(".serviceCategory").off("click").on("click", function () {
-                    if ($(this).hasClass("selecionado")) {
-                        filtrosProfissionais.categoria = "";
-                        $(".serviceCategory").removeClass("selecionado");
-                    } else {
-                        filtrosProfissionais.categoria = parseInt($(this).attr('rel'));
-                        $(".serviceCategory").removeClass("selecionado");
-                        $(this).addClass("selecionado");
-                    }
-                    readServices();
-                    setAllServicesOnMap(servicesFiltered);
-                });
 
+                if(isNumberPositive(filtrosProfissionais.categoria) && filtrosProfissionais.subcategoria.length) {
+                    readSubCategoriesMenu(filtrosProfissionais.categoria, filtrosProfissionais.subcategoria);
+                    $("#subcategorias, #profissionais").removeClass("hideCategorie");
+                    touchElements.menu.setDistanciaStart(window.innerHeight - 188 - (USER.setor === 0 ? 0 : 50));
+                }
+
+                /*
                 // init Isotope
+                // filter functions
                 var $grid = $('.row .grid').isotope({
                     itemSelector: '.profissional',
                     layoutMode: 'fitRows'
                 });
 
-                // filter functions
                 $('.filters-button-group').on('click', 'button', function () {
                     var filterValue = $(this).attr('data-filter');
                     $grid.isotope({filter: filterValue});
@@ -58,8 +88,9 @@ function changeSwipeToSearch() {
                         $(this).addClass('is-checked');
                     });
                 });
+                */
 
-                $('#pesquisa .owl-carousel').owlCarousel({
+                $('#categorias').owlCarousel({
                     loop: false,
                     margin: 10,
                     dots: false,
@@ -68,17 +99,18 @@ function changeSwipeToSearch() {
                         0: {
                             items: 5,
                             startPosition: 0
-                        },
+                        }
+                        /*,
                         600: {
                             items: 6
                         },
                         1000: {
                             items: 10
-                        }
+                        }*/
                     }
                 });
 
-                $('.owl-carousel.carousel-filters').owlCarousel({
+                /*$('.owl-carousel.carousel-filters').owlCarousel({
                     loop: false,
                     margin: 4,
                     dots: false,
@@ -96,7 +128,7 @@ function changeSwipeToSearch() {
                             items: 10
                         }
                     }
-                });
+                });*/
             });
         });
     }
@@ -145,6 +177,7 @@ function changeSwipeToService(data) {
                 touchElements.menu.moveToStart();
             } else {
                 changeSwipeToSearch();
+                touchElements.menu.moveToTarget();
             }
         });
 
@@ -162,7 +195,7 @@ function touchOpenPerfil() {
     let state = history.state;
     state.param = Object.assign(state.param || {}, {service: openService});
     history.replaceState(state, null, HOME + state.route);
-    $(".menu-swipe").addClass("touchOpen");
+    touchElements.menu.moveToTarget();
 }
 
 /*function changeSwipeToBuild() {
@@ -200,7 +233,10 @@ function profissionaisFiltrado(data) {
     for (let i in data) {
         let pass = !0;
         for (let c in filtrosProfissionais) {
+
             if (c === "categoria" && !isEmpty(filtrosProfissionais[c]) && filtrosProfissionais[c] !== parseInt(data[i].perfil_profissional.categoria))
+                pass = !1;
+            else if (c === "subcategoria" && !isEmpty(filtrosProfissionais[c]) && (isEmpty(data[i].perfil_profissional.subcategorias) || filtrosProfissionais[c].length !== filtrosProfissionais[c].filter(element => data[i].perfil_profissional.subcategorias.includes(element)).length))
                 pass = !1;
         }
 
@@ -242,19 +278,21 @@ function readAllServices(localizationAnonimo) {
     get("nearbyServices/" + latlng.lat() + "/" + latlng.lng() + "/" + (typeof localizationAnonimo !== "undefined" ? 2000 : 200)).then(result => {
 
         db.exeRead("categorias").then(categories => {
-            services = [];
-            for (let i in result) {
-                services.push(getProfissionalMustache(result[i], categories.find(s => s.id == result[i].perfil_profissional.categoria)));
-            }
-            readServices();
-            setAllServicesOnMap();
+            db.exeRead("categorias_sub").then(subcategorias => {
+                services = [];
+                for (let i in result)
+                    services.push(getProfissionalMustache(result[i], categories.find(s => s.id == result[i].perfil_profissional.categoria), subcategorias));
 
-            if (navigator.onLine && USER.setor !== 0) {
-                clearInterval(servicesOnMapUpdate);
-                servicesOnMapUpdate = setInterval(function () {
-                    updateRealPosition();
-                }, 4000);
-            }
+                readServices();
+                setAllServicesOnMap();
+
+                if (navigator.onLine && USER.setor !== 0) {
+                    clearInterval(servicesOnMapUpdate);
+                    servicesOnMapUpdate = setInterval(function () {
+                        updateRealPosition();
+                    }, 4000);
+                }
+            });
         });
     });
 }
@@ -345,11 +383,7 @@ $(function () {
     else
         initAutocomplete();
 
-    $("body").off("click", ".swipe-line").on("click", ".swipe-line", function () {
-        if (!$(".menu-swipe").hasClass("touchOpen"))
-            $(".menu-swipe").addClass("touchOpen");
-
-    }).off("click", "#location-btn").on("click", "#location-btn", function () {
+    $("body").off("click", "#location-btn").on("click", "#location-btn", function () {
 
         /**
          * Set default menu
@@ -416,40 +450,114 @@ $(function () {
 
         $(".swipe-zone-body").addClass("hideFilter");
         $(".titulo-result").html("Resultados da pesquisa");
+
+        /**
+         * Reseta categorias e subcategorias seleção
+         */
+        $("#subcategorias, #profissionais").addClass("hideCategorie");
+        $(".serviceCategory").removeClass("selecionado");
+        filtrosProfissionais.subcategoria = [];
+        filtrosProfissionais.categoria = "";
+
         $("#procura").one("blur", function () {
             let search = $(this).val();
             setTimeout(function () {
                 $(".swipe-zone-body").removeClass("hideFilter");
                 $(".titulo-result").html("Profissionais");
                 if (search.length) {
-                    $(".menu-swipe").addClass("touchOpen");
                     $("#procura").val("");
                 }
             }, 100);
 
-        }).off("keyup").on("keyup", function () {
+        }).off("keyup").on("keyup", function (e) {
             let search = $(this).val().toLowerCase();
 
-            let results = [];
-            for (let i in services) {
-                let service = services[i];
-                service.isService = !0;
-                results.push(service);
-            }
+            if(e.keyCode === 13) {
+                $("#services").find(".cardList").first().trigger("click");
+                $("#procura").trigger("blur");
+            } else {
 
-            db.exeRead("categorias").then(cat => {
-                for (let c in cat) {
-                    cat[c].isService = !1;
-                    results.push(cat[c]);
+                let results = [];
+                for (let i in services) {
+                    let service = services[i];
+                    service.isService = !0;
+                    service.isSubCategory = !1;
+                    results.push(service);
                 }
 
-                $("#services").htmlTemplate("resultSearch", {results: results.filter(s => s.nome.toLowerCase().indexOf(search) > -1)}, ['serviceCard', 'serviceCategoryCard']).then(() => {
-                    $(".serviceCategoryResult").one("click", function () {
-                        $(".serviceCategory[rel='" + $(this).attr("rel") + "']").trigger("click");
+                db.exeRead("categorias").then(cat => {
+                    for (let c in cat) {
+                        cat[c].isService = !1;
+                        cat[c].isSubCategory = !1;
+                        results.push(cat[c]);
+                    }
+
+                    db.exeRead("categorias_sub").then(subCat => {
+                        for (let c in subCat) {
+                            subCat[c].isService = !1;
+                            subCat[c].isSubCategory = !0;
+                            results.push(subCat[c]);
+                        }
+
+                        $("#services").htmlTemplate("resultSearch", {results: results.filter(s => s.nome.toLowerCase().indexOf(search) > -1)}, ['serviceCard', 'serviceCategoryCard']);
                     });
-                })
-            });
+                });
+            }
 
         })
+    }).off("click", ".serviceAtuacao").on("click", ".serviceAtuacao", function () {
+
+        /**
+         * Click on subcategory
+         */
+        let id = $(this).attr('rel');
+        if ($(this).hasClass("selecionado")) {
+            filtrosProfissionais.subcategoria = removeItemArray(filtrosProfissionais.subcategoria, id);
+            $(this).removeClass("selecionado");
+        } else {
+            if(filtrosProfissionais.subcategoria.indexOf(id) === -1)
+                filtrosProfissionais.subcategoria.push(id);
+
+            $(this).addClass("selecionado");
+        }
+        readServices();
+        setAllServicesOnMap(servicesFiltered);
+
+    }).off("click", ".serviceProfissao").on("click", ".serviceProfissao", function () {
+        selectCategory($(this).attr('rel'));
+
+    }).off("click", ".serviceCategoryResult").on("click", ".serviceCategoryResult", function () {
+        selectCategory($(this).attr('rel'), 999999999);
+
+    }).off("click", ".serviceSubCategoryResult").on("click", ".serviceSubCategoryResult", function () {
+        let id = $(this).attr("rel");
+        db.exeRead("categorias_sub", id).then(sub => {
+            selectCategory(sub.categoria, id);
+        });
     });
 });
+
+function selectCategory(category, subcategory) {
+    category = parseInt(category);
+    filtrosProfissionais.subcategoria = [];
+    if (filtrosProfissionais.categoria === category) {
+        if(!isNumberPositive(subcategory)) {
+            touchElements.menu.setDistanciaStart(window.innerHeight - 130 - (USER.setor === 0 ? 0 : 50));
+            filtrosProfissionais.categoria = "";
+            $(".serviceProfissao").removeClass("selecionado");
+            $("#subcategorias, #profissionais").addClass("hideCategorie");
+        }
+    } else {
+        touchElements.menu.setDistanciaStart(window.innerHeight - 188 - (USER.setor === 0 ? 0 : 50));
+        filtrosProfissionais.categoria = category;
+        $(".serviceProfissao").removeClass("selecionado");
+        $(".serviceProfissao[rel='" + category + "']").addClass("selecionado");
+        $("#subcategorias, #profissionais").removeClass("hideCategorie");
+    }
+
+    readSubCategoriesMenu(filtrosProfissionais.categoria, subcategory);
+    setTimeout(function () {
+        readServices();
+        setAllServicesOnMap(servicesFiltered);
+    }, 150);
+}

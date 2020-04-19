@@ -7,7 +7,6 @@ var Upload = function (file) {
 var checkUploadStoped = {};
 var ajaxUploadProgress = {};
 Upload.prototype.exeUpload = function (mock, $input, funcao) {
-    var that = this;
     var formData = new FormData();
     formData.append("lib", "entity");
     formData.append("file", "up/source");
@@ -146,6 +145,19 @@ function dataURLtoFile(dataurl, filename) {
     return new File([u8arr], filename, {type: mime})
 }
 
+function readSubCategories(categoria, subcategorias) {
+    db.exeRead("categorias_sub").then(cat => {
+        let sub = [];
+        for(let i in cat) {
+            if(cat[i].categoria == categoria) {
+                cat[i].checked = subcategorias.indexOf(cat[i].id.toString()) > -1;
+                sub.push(cat[i]);
+            }
+        }
+        $("#subcategorias").htmlTemplate('subcategorias', {categorias: sub});
+    });
+}
+
 $(function () {
     profissional = JSON.parse(USER.setorData.perfil_profissional)[0];
     profissional.categoria = parseInt(profissional.categoria);
@@ -155,6 +167,11 @@ $(function () {
             for (let i in categorias)
                 $("#categoria").append("<option value='" + categorias[i].id + "'" + (profissional.categoria === categorias[i].id ? " selected='selected'" : "") + ">" + categorias[i].nome + "</option>");
         }
+
+        readSubCategories(profissional.categoria, profissional.subcategorias || []);
+        $("#categoria").off("change").on("change", function() {
+            readSubCategories($(this).val(), []);
+        });
     });
 
     imagem_de_perfil = profissional.imagem_de_perfil;
@@ -263,8 +280,15 @@ $(function () {
 
     $("#update-profissional").off("click").on("click", function () {
         let rel = $(this).attr("rel");
+
+        let subcategorias = [];
+        $(".subcategorias:checked").each(function(i, e) {
+            subcategorias.push($(e).attr("id"));
+        });
+
         let p = {
             "categoria": $("#categoria").val(),
+            "subcategorias": subcategorias,
             "sobre": $("#sobre").val(),
             "imagem_de_perfil": imagem_de_perfil,
             "imagem_de_fundo": imagem_de_fundo,

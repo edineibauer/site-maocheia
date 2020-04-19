@@ -218,11 +218,9 @@ function readAllMessages() {
 
             getTemplates().then(tpl => {
                 for (let i in mensagens) {
-                    console.log(mensagens[i].mensagens[mensagens[i].mensagens.length - 1].data);
                     mensagens[i].calendar = moment(mensagens[i].mensagens[mensagens[i].mensagens.length - 1].data).calendar().toLowerCase();
                     mensagens[i].lastMessage = (mensagens[i].mensagens.length > 0 && (mensagens[i].aceitou === 1 || !mensagens[i].isProfissional) ? mensagens[i].mensagens[mensagens[i].mensagens.length - 1].mensagem : "");
                     mensagens[i].chatId = mensagens[i].isProfissional ? mensagens[i].cliente : mensagens[i].profissional;
-                    console.log(mensagens[i].calendar);
 
                     if (!mensagens[i].isProfissional) {
                         db.exeRead("clientes", parseInt(mensagens[i].chatId)).then(cliente => {

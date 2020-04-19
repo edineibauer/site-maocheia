@@ -70,7 +70,7 @@ function closeAllMapPopupExceptThis(marker) {
 }
 
 function resetMap() {
-    map.setZoom(13);
+    map.setZoom(12);
     centerMap();
 }
 
@@ -191,7 +191,7 @@ function startMap() {
 
     map = new google.maps.Map(document.getElementById('mapa-home'), {
         center: myLatLng,
-        zoom: 13,
+        zoom: 12,
         styles: [
             {
                 "elementType": "labels",

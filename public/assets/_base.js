@@ -1,6 +1,6 @@
 var intervalPosition;
 
-function getProfissionalMustache(profissional, cat) {
+function getProfissionalMustache(profissional, cat, subcategorias) {
     profissional = Object.assign({}, profissional);
     profissional.perfil_profissional.imagem_de_perfil = !isEmpty(profissional.perfil_profissional.imagem_de_perfil) ? profissional.perfil_profissional.imagem_de_perfil[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
     profissional.perfil_profissional.imagem_de_fundo = !isEmpty(profissional.perfil_profissional.imagem_de_fundo) ? profissional.perfil_profissional.imagem_de_fundo[0].urls.medium : "";
@@ -20,6 +20,16 @@ function getProfissionalMustache(profissional, cat) {
 
     profissional.perfil_profissional.categoriaNome = cat.nome;
     profissional.perfil_profissional.categoriaImage = (!isEmpty(cat.imagem) ? cat.imagem[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg");
+
+    profissional.perfil_profissional.subcategoriasData = [];
+    if(!isEmpty(profissional.perfil_profissional.subcategorias)) {
+        profissional.perfil_profissional.haveSubcategorias = !0;
+        for (let i in profissional.perfil_profissional.subcategorias)
+            profissional.perfil_profissional.subcategoriasData.push(subcategorias.filter(sb => sb.id === parseInt(profissional.perfil_profissional.subcategorias[i]))[0]);
+
+    } else {
+        profissional.perfil_profissional.haveSubcategorias = !1;
+    }
 
     if(typeof map !== "undefined") {
         let minhaLatlng = map.getCenter();

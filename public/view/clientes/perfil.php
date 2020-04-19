@@ -33,7 +33,7 @@
         <a href="conta" class="row borda-row">
             <div class="col-8 col-lg-8">
                 <div class="titulo-h6">Configurações da conta</div>
-                <div class="informacao-div">Informações pessoais</div>
+                <div class="informacao-div">Perfil pessoal</div>
             </div>
             <div class="col-4 col-lg-4 mt-3 text-right">
                 <i class="material-icons">person</i>

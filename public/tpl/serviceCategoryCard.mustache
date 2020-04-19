@@ -1,6 +1,6 @@
 <div class="row" style="padding: 1px 15px;">
     <div class="col-12">
-        <div class="col-12 serviceCategoryResult cardList" rel="{{id}}">
+        <div class="col-12 {{#isSubCategory}} serviceSubCategoryResult{{/isSubCategory}}{{^isSubCategory}} serviceCategoryResult{{/isSubCategory}} cardList" rel="{{id}}">
             <div class="row">
                 <div class="col-3" style="padding: 0">
                     <div id="card-service-imagem"

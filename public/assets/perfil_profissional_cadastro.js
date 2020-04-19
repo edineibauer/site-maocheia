@@ -6,7 +6,6 @@ var Upload = function (file) {
 var checkUploadStoped = {};
 var ajaxUploadProgress = {};
 Upload.prototype.exeUpload = function (mock, $input, funcao) {
-    var that = this;
     var formData = new FormData();
     formData.append("lib", "entity");
     formData.append("file", "up/source");
@@ -145,12 +144,28 @@ function createMock(resource, nome, name, extensao, type, size, isImage) {
     }
 }
 
+function readSubCategories(categoria, subcategorias) {
+    db.exeRead("categorias_sub").then(cat => {
+        let sub = [];
+        for(let i in cat) {
+            if(cat[i].categoria == categoria) {
+                cat[i].checked = subcategorias.indexOf(cat[i].id.toString()) > -1;
+                sub.push(cat[i]);
+            }
+        }
+        $("#subcategorias").htmlTemplate('subcategorias', {categorias: sub});
+    });
+}
+
 $(function () {
     db.exeRead("categorias").then(categorias => {
         $("#categoria").html("<option disabled='disabled' selected='selected' value=''>Selecione...</option>");
-        for (let i in categorias) {
+        for (let i in categorias)
             $("#categoria").append("<option value='" + categorias[i].id + "'>" + categorias[i].nome + "</option>");
-        }
+
+        $("#categoria").off("change").on("change", function() {
+            readSubCategories($(this).val(), []);
+        });
     });
 
     $("#imagem_de_perfil").off("change").on("change", function (e) {
@@ -244,8 +259,15 @@ $(function () {
     });
 
     $("#create-profissional").off("click").on("click", function () {
+
+        let subcategorias = [];
+        $(".subcategorias:checked").each(function(i, e) {
+            subcategorias.push($(e).attr("id"));
+        });
+
         let profissional = {
             "categoria": $("#categoria").val(),
+            "subcategorias": subcategorias,
             "sobre": $("#sobre").val(),
             "imagem_de_perfil": imagem_de_perfil,
             "imagem_de_fundo": imagem_de_fundo,

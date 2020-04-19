@@ -1,4 +1,4 @@
-<main>
+<main class="unselect">
     <section id="busca-topo" class="busca">
         <div class="container">
             <div class="row justify-content-center">
@@ -23,12 +23,12 @@
                                 <div class="float-left">Usar minha localização</div>
                             </div>
                         </button>
-                        <button class="col btn py-2">
+                       <!-- <button class="col btn py-2">
                             <div class="btn-location-intern">
                                 <i class="material-icons float-left pr-3">location_on</i>
                                 <div class="float-left">Inserir um endereço</div>
                             </div>
-                        </button>
+                        </button>-->
                     </div>
                 </div>
             </div>

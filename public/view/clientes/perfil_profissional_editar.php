@@ -14,17 +14,6 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="form-group">
-                    <label for="categoria">Categoria</label>
-                    <select class="form-control" id="categoria">
-                        <option>Selecione...</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="sobre">Sobre</label>
-                    <textarea class="form-control" id="sobre" rows="3"></textarea>
-                </div>
-
                 <div class="form-group mb-5">
                     <div class="input-group-prepend">
                         <span>Imagem de perfil</span>
@@ -43,6 +32,21 @@
                             </label>
                         </div>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="sobre" class="pb-1">Sobre</label>
+                    <textarea class="form-control" id="sobre" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="categoria" class="pb-1">Profissão</label>
+                    <select class="form-control" id="categoria">
+                        <option>Selecione...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="categoria">Áreas de atuação</label>
+
+                    <div class="pt-1 row pl-3 pr-3 pb-3" id="subcategorias"></div>
                 </div>
 
                 <div class="form-group mb-3">

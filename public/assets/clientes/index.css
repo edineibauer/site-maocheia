@@ -45,7 +45,7 @@
 #menu .navbar a.active .mdi {
     text-decoration: none;
     border-bottom: 0;
-    color: #2D7AFF;
+    color: #2196f3;
 }
 
 /* Always set the map height explicitly to define the size of the div
@@ -131,7 +131,7 @@ body {
 }
 
 .hideFilter {
-    transform: translateY(-113px);
+    transform: translateY(-117px);
 }
 
 #service-perfil-body {
@@ -145,7 +145,6 @@ body {
 
 #pesquisa {
     overflow: hidden;
-    margin-bottom: 15px;
     margin-top: 20px;
 }
 
@@ -158,11 +157,18 @@ figure {
     margin: 0 auto;
 }
 
-#pesquisa figure img {
+#categorias {
+    background: #ffffff;
+    padding-top: 3px;
+    z-index: 2;
+    height: 66px;
+}
+
+#categorias figure img {
     border-radius: 5px;
 }
 
-#pesquisa figure {
+#categorias figure {
     width: 42px;
     height: 42px;
     margin: 0 auto 3px;
@@ -172,16 +178,57 @@ figure {
     padding: 7px;
 }
 
+#subcategorias {
+    background: #ececec;
+    transition: transform ease .15s;
+    height: 66px;
+    display: block;
+}
+
+#subcategorias.hideCategorie {
+    transform: translateY(-66px);
+    opacity: 0;
+}
+
+.owl-carousel {
+    width: auto;
+}
+
+#subcategorias figure img {
+    border-radius: 5px;
+    filter: grayscale(1) brightness(0);
+    opacity: .5;
+}
+
+#subcategorias .selecionado figure img {
+    filter: grayscale(1) brightness(0) invert(1);
+    opacity: .9;
+}
+
+#subcategorias figure {
+    width: 35px;
+    height: 35px;
+    margin: 0 auto 3px;
+    border-radius: 55px;
+    object-fit: cover;
+    transition: all ease-in .15s;
+    padding: 7px;
+}
+
+#subcategorias h4.servico {
+    color: #555555;
+}
+
 .serviceCategory.selecionado img {
     filter: grayscale(1) brightness(0) invert(1)
 }
 
 .serviceCategory.selecionado figure {
-    background: #2d7aff;
+    background: #2196f3;
 }
 
 .serviceCategory.selecionado h4 {
-    color: #2d7aff !important;
+    color: #2196f3 !important;
 }
 
 #pesquisa .servico {
@@ -189,6 +236,23 @@ figure {
     font-weight: 500;
     color: #303030;
     text-align: center;
+    margin-bottom: 6px;
+}
+
+#subcategorias .servico {
+    font-weight: 400!important;
+    font-size: 11px;
+}
+
+#pesquisa .selecionado .servico:after {
+    content: "";
+    height: 7px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    background: #ececec;
+    width: 100%;
+    float: left;
+    margin-bottom: 0;
 }
 
 #pesquisa .titulo {
@@ -201,6 +265,15 @@ figure {
 
 #pesquisa .owl-stage-outer {
     overflow: unset;
+}
+
+#profissionais {
+    margin-top: 0;
+    transition: margin-top ease .15s;
+}
+
+#profissionais.hideCategorie {
+    margin-top: -67px;
 }
 
 #profissionais .cardList {
@@ -487,14 +560,6 @@ body {
     overflow-y: auto;
 }
 
-.menu-swipe-class.touchOpen .swipe-line {
-    height: 130px
-}
-
-.menu-swipe-class.servicePerfil.open > .swipe-line {
-    height: 95px;
-}
-
 /**
     Swipe on Service
  */
@@ -586,10 +651,6 @@ body {
     border: solid 1px #2196f3 !important;
 }
 
-.menu-swipe-class.servicePerfil.anonimo.touchOpen {
-    height: 100%;
-}
-
 .menu-swipe.close {
     transition: .3s all ease;
     opacity: 1 !important;
@@ -603,7 +664,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 215px;
+    height: 5px;
 }
 
 .swipe-line::before {
@@ -775,7 +836,7 @@ body {
 #perfil-cliente .avaliacoes figure img {
     width: 52px;
     height: 52px;
-    border-radius: 50%;
+    border-radius: 7px;
 }
 
 #perfil-cliente .avaliacao .titulo {
@@ -808,8 +869,11 @@ body {
     font-weight: bold;
     font-size: 14px;
     float: left;
-    width: 100%;
+    max-width: calc(100vw - 250px);
+    width: auto;
     display: block;
+    overflow: hidden;
+    height: 18px;
 }
 
 #perfil-cliente .estrelas ul.horizontal-list > li:nth-last-child(1) {
@@ -823,9 +887,10 @@ body {
 
 #perfil-cliente .estrelas {
     float: left;
-    width: 100%;
+    width: 95px;
     display: block;
-    margin-top: 4px;
+    margin-top: 1px;
+    padding-left: 7px;
 }
 
 #perfil-cliente .data {
@@ -833,8 +898,10 @@ body {
     font-weight: 300;
     color: #aaaaaa;
     line-height: 10px;
-    float: left;
-    width: 100%;
+    float: right;
+    width: auto;
+    max-width: 55px;
+    padding: 5px 0;
     display: block;
 }
 
@@ -842,6 +909,17 @@ body {
     font-size: 12px;
     margin-top: 2px;
     font-weight: 400;
+    width: 100%;
+    float: left;
+    color: #999;
+}
+
+.card-avaliacao {
+    background: #f5f5f5;
+    border-radius: 7px;
+    padding: 7px;
+    margin-bottom: 5px;
+    border: solid 1px #eee;
 }
 
 #perfil-cliente .todas-avaliacoes {
@@ -881,6 +959,7 @@ ul {
 
 .col-perfil {
     margin-left: 15px;
+    width: calc(100vw - 115px);
 }
 
 @media only screen and (min-width: 768px) {
@@ -907,7 +986,7 @@ ul {
     left: 0;
     transform: translate(-50%, -100%);
     /* Style the bubble. */
-    background-color: #2D7AFF;
+    background-color: #2196f3;
     color: #ffffff;
     padding: 5px;
     border-radius: 5px;
@@ -940,7 +1019,7 @@ ul {
     /* The tip is 8px high, and 12px wide. */
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-top: /* TIP_HEIGHT= */ 8px solid #2D7AFF;
+    border-top: /* TIP_HEIGHT= */ 8px solid #2196f3;
 }
 
 /* JavaScript will position this div at the bottom of the popup tip. */

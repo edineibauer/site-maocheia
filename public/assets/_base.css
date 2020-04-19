@@ -9,6 +9,18 @@ body {
     background: initial !important;
 }
 
+.list-circle {
+    list-style: circle !important;
+}
+
+.unselect, .no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
 #core-header-nav-bottom {
     z-index: 1100;
 }

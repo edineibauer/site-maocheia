@@ -5,10 +5,10 @@
                 <div class="titulo">De que tipo de serviço você precisa?</div>
             </div>
         </div>
-        <div class="owl-carousel owl-theme{{#anonimo}} anonimo{{/anonimo}}" id="categorias">
+        <div class="owl-carousel owl-theme row" id="categorias">
             {{#categorias}}
                 {{#ativo}}
-                    <div class="item serviceCategory{{#selected}} selecionado{{/selected}}" rel="{{id}}">
+                    <div class="item serviceProfissao serviceCategory{{#selected}} selecionado{{/selected}}" rel="{{id}}">
                         <figure>
                             <img src="{{imagem.0.urls.thumb}}" alt="{{nome}}">
                         </figure>
@@ -17,10 +17,11 @@
                 {{/ativo}}
             {{/categorias}}
         </div>
+        <div class="owl-carousel owl-theme row pt-2 pb-1 hideCategorie" id="subcategorias"></div>
     </div>
 </section>
-<section id="profissionais">
-    <div class="container">
+<section id="profissionais" class="hideCategorie">
+    <div class="container pt-3">
         <h6 class="titulo titulo-result">Profissionais</h6>
     </div>
     <div class="container">
@@ -44,5 +45,5 @@
             </div>
         </div>-->
     </div>
-    <div id="services"></div>
+    <div id="services" class="pb-5"></div>
 </section>
