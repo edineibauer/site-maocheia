@@ -3,6 +3,6 @@
   "js": ["funcaoDashboard", "appCoreDashboard"],
   "css": ["w3"],
   "!setor": "0",
-  "setor": "admin",
+  "setor": ["admin", "administrador"],
   "redirect": "index"
 }

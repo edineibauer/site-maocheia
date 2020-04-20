@@ -40,6 +40,12 @@ function readSubCategoriesMenu(categoria, selected) {
     });
 }
 
+function showCategoryAndSubcategory() {
+    readSubCategoriesMenu(filtrosProfissionais.categoria, filtrosProfissionais.subcategoria);
+    $("#subcategorias, #profissionais").removeClass("hideCategorie");
+    touchElements.menu.setDistanciaStart(window.innerHeight - 188 - (USER.setor === 0 ? 0 : 50));
+}
+
 function changeSwipeToSearch() {
     openService = {};
     let $menu = $(".menu-swipe-class");
@@ -47,7 +53,13 @@ function changeSwipeToSearch() {
         $menu.addClass("serviceFilterSearch").removeClass("servicePerfil buildPerfil");
 
         resetMap();
-        touchElements.menu.setDistanciaTarget(87).setDistanciaStart(window.innerHeight - 130 - (USER.setor === 0 ? 0 : 50));
+        touchElements.menu.setDistanciaTarget(87);
+
+        if(isNumberPositive(filtrosProfissionais.categoria)) {
+            showCategoryAndSubcategory();
+        } else {
+            touchElements.menu.setDistanciaStart(window.innerHeight - 130 - (USER.setor === 0 ? 0 : 50));
+        }
 
         $(".swipe-zone-body").addClass("filter");
         closeMapPopup();
@@ -61,11 +73,8 @@ function changeSwipeToSearch() {
             }).then(() => {
                 updateListService(services);
 
-                if(isNumberPositive(filtrosProfissionais.categoria) && filtrosProfissionais.subcategoria.length) {
-                    readSubCategoriesMenu(filtrosProfissionais.categoria, filtrosProfissionais.subcategoria);
-                    $("#subcategorias, #profissionais").removeClass("hideCategorie");
-                    touchElements.menu.setDistanciaStart(window.innerHeight - 188 - (USER.setor === 0 ? 0 : 50));
-                }
+                if(isNumberPositive(filtrosProfissionais.categoria))
+                    showCategoryAndSubcategory();
 
                 /*
                 // init Isotope

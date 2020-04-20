@@ -17,22 +17,33 @@ if ($read->getResult()) {
     if ($read->getResult()) {
         $destinatario = $read->getResult()[0];
 
-        $read->exeRead("notifications", "WHERE usuario = :u && url = '" . HOME . "mensagem/" . $remetente['id'] . "'", "u={$destinatario['usuarios_id']}");
-        if (!$read->getResult()) {
+        $note = new \Dashboard\Notification();
+        $note->setUsuarios($destinatario['usuarios_id']);
+        $note->setTitulo($remetente['nome']);
 
-            $note = new \Dashboard\Notification();
-            $note->setUsuario($destinatario['usuarios_id']);
-            $note->setTitulo($remetente['nome']);
+        if($dados['aceitou'])
+            $note->setDescricao($mensagem['mensagem']);
+        else
+            $note->setDescricao("enviou uma mensagem para você");
 
-            if($dados['aceitou'])
-                $note->setDescricao($mensagem['mensagem']);
-            else
-                $note->setDescricao($remetente['nome'] . " entrou em contato novamente solicitando um serviço com você!");
+        if (!empty($remetente['imagem']))
+            $note->setImagem($remetente['imagem']);
 
-            if (!empty($remetente['imagem']))
-                $note->setImagem($remetente['imagem']);
+        $note->setUrl(HOME . "mensagem/" . $remetente['id']);
+        $note->enviar();
 
-            $note->setUrl(HOME . "mensagem/" . $remetente['id']);
+        /**
+         * Notifica cada um dos administradores
+         */
+        $read->exeRead("administrador", "WHERE ativo = 1");
+        if($read->getResult()) {
+            $note->setDescricao(json_decode($dados['mensagens'], !0)[0]['mensagem']);
+
+            $admins = [1];
+            foreach ($read->getResult() as $adm)
+                $admins[] = $adm['usuarios_id'];
+
+            $note->setUsuarios($admins);
             $note->enviar();
         }
     }

@@ -17,15 +17,15 @@
                 <div id="tela-cadastro">
                     <div class="form-group">
                         <label for="nome">Nome</label>
-                        <input type="email" class="form-control" id="nome">
+                        <input type="email" class="form-control" id="nomec">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email">
+                        <input type="email" class="form-control" id="emailc">
                     </div>
                     <div class="form-group">
                         <label for="senha">Senha</label>
-                        <input type="password" class="form-control" id="senha">
+                        <input type="password" class="form-control" id="senhac">
                     </div>
                     <div class="row justify-content-center">
                         <div class="form-group col-12 col-lg-6">

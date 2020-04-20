@@ -3,16 +3,15 @@ function clearForm($input) {
 }
 
 $(function() {
-
     $(".form-group").find("input").off("keyup").on("keyup", function() {
         clearForm($(this));
     });
 
     $("#btn-tela-cadastro").on("click", function() {
         db.exeCreate("clientes", {
-            nome: $('#nome').val(),
-            email: $('#email').val(),
-            senha: $('#senha').val(),
+            nome: $('#nomec').val(),
+            email: $('#emailc').val(),
+            senha: $('#senhac').val(),
             ativo: 1
         }).then(result => {
             loginFree = !0;
@@ -27,7 +26,7 @@ $(function() {
                 }
 
             } else if(result.db_errorback === 0) {
-                post('login', 'login', {email: result.nome, pass: $('#senha').val()}, function (g) {
+                post('login', 'login', {email: result.nome, pass: $('#senhac').val()}, function (g) {
                     if (typeof g === "string") {
                         navigator.vibrate(100);
                         if (g !== "no-network")
