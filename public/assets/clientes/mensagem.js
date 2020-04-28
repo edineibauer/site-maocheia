@@ -1,6 +1,10 @@
 var mensagem = [], contato = {}, lastMessageData = null, sendRequestBuy = !1, updateMessageLoop, messageId = null,
     isCliente = !0;
 
+function clearPage() {
+    clearInterval(updateMessageLoop);
+}
+
 $("#profile-img").click(function () {
     $("#status-options").toggleClass("active");
 });
@@ -38,7 +42,7 @@ function updateMessagesLoop() {
     updateMessageLoop = null;
     updateMessageLoop = setInterval(function () {
         updateMessage();
-    }, 2000);
+    }, 1000);
 }
 
 function newMessage(content, sendByClient) {

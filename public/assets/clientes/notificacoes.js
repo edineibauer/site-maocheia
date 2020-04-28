@@ -7,7 +7,6 @@ $(function () {
         if (isEmpty(myNotifications)) {
             $("#notificacoes").htmlTemplate('notificacoesEmpty');
         } else {
-            console.log(myNotifications);
             $("#notificacoes").htmlTemplate('note', {notificacoes: myNotifications});
         }
     })();

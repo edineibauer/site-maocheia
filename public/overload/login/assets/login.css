@@ -1,5 +1,6 @@
 body {
     font-family: 'Roboto', sans-serif !important;
+    background: #f9f9f9;
 }
 
 .form-group {
@@ -29,6 +30,21 @@ label {
     font-weight: 500 !important;
 }
 
+#login {
+    max-width: 400px;
+    margin: auto;
+    float: initial;
+    padding: 0 20px 40px;
+    border: solid 1px #eee;
+    border-radius: 5px;
+    box-shadow: 2px 4px 13px -7px #5d5d5d;
+    position: fixed;
+    top: 40px;
+    left: 0;
+    right: 0;
+    background: #fff;
+}
+
 #login .titulo {
     font-size: 26px;
     font-weight: bold;
@@ -47,11 +63,12 @@ label {
 
 .btn-primary {
     text-transform: uppercase;
-    font-size: 20px !important;
-    font-weight: 500 !important;
+    font-size: 16px!important;
+    font-weight: 500!important;
     width: 100%;
-    padding: 9px !important;
-    margin-top: 5px;
+    padding: 6px!important;
+    margin-top: 8px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);
 }
 
 #login .conta {

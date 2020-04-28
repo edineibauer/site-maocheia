@@ -18,6 +18,8 @@ function exeLogin(email, senha, recaptcha) {
                 toast("Bem-vindo ao " + SITENAME, 15000, "toast-success");
                 setCookieUser(g).then(() => {
                     let destino = "index";
+                    if(g.setor !== "clientes")
+                        destino = "dashboard";
                     if (getCookie("redirectOnLogin") !== "") {
                         destino = getCookie("redirectOnLogin");
                         setCookie("redirectOnLogin", 1, -1);

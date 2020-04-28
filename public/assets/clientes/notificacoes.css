@@ -10,15 +10,6 @@ body {
     margin-bottom: 30px;
 }
 
-.notification-card {
-    background: #ffffff;
-    color: #555555;
-    border-radius: 5px;
-    float: left;
-    width: 100%;
-    box-shadow: 1px 1px 11px -8px black;
-}
-
 .btn-notify {
     border: none;
     border-radius: 7px;
@@ -49,10 +40,6 @@ body {
 
 #notificacao figure img {
     max-width: 280px;
-}
-
-.imagem-notificacao {
-    border-radius: 50px;
 }
 
 h6 {

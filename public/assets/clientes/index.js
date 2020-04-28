@@ -8,6 +8,10 @@ var
     servicesFiltered = [],
     openService = {};
 
+function clearPage() {
+    clearInterval(servicesOnMapUpdate);
+}
+
 function readSubCategoriesMenu(categoria, selected) {
     db.exeRead("categorias_sub").then(cat => {
         let sub = cat.filter(c => c.categoria == categoria);
@@ -43,7 +47,7 @@ function readSubCategoriesMenu(categoria, selected) {
 function showCategoryAndSubcategory() {
     readSubCategoriesMenu(filtrosProfissionais.categoria, filtrosProfissionais.subcategoria);
     $("#subcategorias, #profissionais").removeClass("hideCategorie");
-    touchElements.menu.setDistanciaStart(window.innerHeight - 188 - (USER.setor === 0 ? 0 : 50));
+    touchElements.setDistanciaStart(window.innerHeight - 188 - (USER.setor === 0 ? 0 : 50));
 }
 
 function changeSwipeToSearch() {
@@ -53,12 +57,12 @@ function changeSwipeToSearch() {
         $menu.addClass("serviceFilterSearch").removeClass("servicePerfil buildPerfil");
 
         resetMap();
-        touchElements.menu.setDistanciaTarget(87);
+        touchElements.setDistanciaTarget(87);
 
         if(isNumberPositive(filtrosProfissionais.categoria)) {
             showCategoryAndSubcategory();
         } else {
-            touchElements.menu.setDistanciaStart(window.innerHeight - 130 - (USER.setor === 0 ? 0 : 50));
+            touchElements.setDistanciaStart(window.innerHeight - 130 - (USER.setor === 0 ? 0 : 50));
         }
 
         $(".swipe-zone-body").addClass("filter");
@@ -147,7 +151,7 @@ function changeSwipeToService(data) {
     openService = data;
     $(".menu-swipe-class").addClass("servicePerfil").removeClass("serviceFilterSearch buildPerfil");
 
-    touchElements.menu.setDistanciaTarget(0).setDistanciaStart(window.innerHeight - 255 - (USER.setor === 0 ? 0 : 50));
+    touchElements.setDistanciaTarget(0).setDistanciaStart(window.innerHeight - 255 - (USER.setor === 0 ? 0 : 50));
 
     $(".swipe-zone-body").removeClass("filter").htmlTemplate('servicePerfil', data).then(() => {
 
@@ -183,10 +187,10 @@ function changeSwipeToService(data) {
                 }
             }
             if (pass) {
-                touchElements.menu.moveToStart();
+                touchElements.moveToStart();
             } else {
                 changeSwipeToSearch();
-                touchElements.menu.moveToTarget();
+                touchElements.moveToTarget();
             }
         });
 
@@ -204,7 +208,7 @@ function touchOpenPerfil() {
     let state = history.state;
     state.param = Object.assign(state.param || {}, {service: openService});
     history.replaceState(state, null, HOME + state.route);
-    touchElements.menu.moveToTarget();
+    touchElements.moveToTarget();
 }
 
 /*function changeSwipeToBuild() {
@@ -397,7 +401,7 @@ $(function () {
         /**
          * Set default menu
          */
-        touchElements.menu.moveToStart();
+        touchElements.moveToStart();
         changeSwipeToSearch();
 
         let $loc = $("#location-box");
@@ -466,9 +470,9 @@ $(function () {
         $(".serviceCategory").removeClass("selecionado");
         filtrosProfissionais.subcategoria = [];
         filtrosProfissionais.categoria = "";
-        touchElements.menu.setDistanciaStart(window.innerHeight - 130 - (USER.setor === 0 ? 0 : 50));
+        touchElements.setDistanciaStart(window.innerHeight - 130 - (USER.setor === 0 ? 0 : 50));
 
-        touchElements.menu.moveToTarget();
+        touchElements.moveToTarget();
 
         $("#procura").one("blur", function () {
             let search = $(this).val();
@@ -553,13 +557,13 @@ function selectCategory(category, subcategory) {
     filtrosProfissionais.subcategoria = [];
     if (filtrosProfissionais.categoria === category) {
         if(!isNumberPositive(subcategory)) {
-            touchElements.menu.setDistanciaStart(window.innerHeight - 130 - (USER.setor === 0 ? 0 : 50));
+            touchElements.setDistanciaStart(window.innerHeight - 130 - (USER.setor === 0 ? 0 : 50));
             filtrosProfissionais.categoria = "";
             $(".serviceProfissao").removeClass("selecionado");
             $("#subcategorias, #profissionais").addClass("hideCategorie");
         }
     } else {
-        touchElements.menu.setDistanciaStart(window.innerHeight - 188 - (USER.setor === 0 ? 0 : 50));
+        touchElements.setDistanciaStart(window.innerHeight - 188 - (USER.setor === 0 ? 0 : 50));
         filtrosProfissionais.categoria = category;
         $(".serviceProfissao").removeClass("selecionado");
         $(".serviceProfissao[rel='" + category + "']").addClass("selecionado");

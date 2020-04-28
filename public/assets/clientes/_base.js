@@ -82,28 +82,6 @@ function getProfissionalStar(avaliacao) {
     return aval;
 }
 
-function setCoordenadas() {
-    if (!isEmpty(USER.setorData?.perfil_profissional) && navigator.geolocation) {
-        navigator.permissions.query({name: 'geolocation'}).then(permissionGeo => {
-            if (permissionGeo.state === "granted") {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                        if (position.coords.accuracy < 100)
-                            post("site-maocheia", "set/coordenadas", {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude
-                            });
-                    },
-                    function (error) {
-                    }, {
-                        enableHighAccuracy: true,
-                        timeout: 5000,
-                        maximumAge: 0
-                    });
-            }
-        });
-    }
-}
-
 /**
  * Busca a distância entre duas coordenadas
  */
@@ -113,6 +91,23 @@ function getLatLngDistance(lat, lng, lat2, lng2) {
 
 function degrees_to_radians(degrees) {
     return degrees * (Math.PI / 180);
+}
+
+/**
+ * Verifica se tem mensagens pendentes
+ * @returns {Promise<void>}
+ */
+async function checkMensagens() {
+    let pendentes = 0;
+    let mensagens = await db.exeRead("mensagens");
+    if(!isEmpty(mensagens)) {
+        for(let i in mensagens) {
+            if(mensagens[i].pendente === 1)
+                pendentes++
+        }
+    }
+    if(pendentes !== 0)
+        $("#core-header-nav-bottom").find("a[href='mensagem']").append("<div class='badge-notification'>" + pendentes + "</div>");
 }
 
 $(function ($) {
@@ -133,5 +128,6 @@ $(function ($) {
     clearInterval(intervalPosition);
     intervalPosition = setInterval(function () {
         setCoordenadas();
+        checkMensagens();
     }, 4000);
 });

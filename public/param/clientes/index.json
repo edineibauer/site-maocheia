@@ -9,7 +9,6 @@
     "libs/isotope.pkgd.min",
     "libs/owl.carousel.min",
     "libs/markerclustererplus.min",
-    "home-swipe",
     "home-map"
   ],
   "navbar": true,

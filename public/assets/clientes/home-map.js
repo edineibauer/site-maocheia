@@ -1,4 +1,4 @@
-var popup, Popup;
+var popup, intervalPosition, touchElements;
 
 function openMapPopup(marker) {
     if (marker.type === 2) {
@@ -83,6 +83,30 @@ function moveToLocation(lat, lng) {
     myMarker.latitude = lat;
     myMarker.longitude = lng;
     centerMap();
+}
+
+function setCoordenadas() {
+    if (!isEmpty(USER.setorData?.perfil_profissional) && navigator.geolocation) {
+        navigator.permissions.query({name: 'geolocation'}).then(permissionGeo => {
+            if (permissionGeo.state === "granted") {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                        if (position.coords.accuracy < 100) {
+                            post("site-maocheia", "set/coordenadas", {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude
+                            });
+                            moveToLocation(position.coords.latitude, position.coords.longitude);
+                        }
+                    },
+                    function (error) {
+                    }, {
+                        enableHighAccuracy: true,
+                        timeout: 5000,
+                        maximumAge: 0
+                    });
+            }
+        });
+    }
 }
 
 function addMarker(service, type, latitude, longitude) {
@@ -227,7 +251,7 @@ function startMap() {
 
     map.addListener('zoom_changed', function () {
         $("#procura").blur();
-        touchElements.menu.moveToStart();
+        touchElements.moveToStart();
         readServices();
     });
     map.addListener('click', function () {
@@ -236,7 +260,7 @@ function startMap() {
     });
 
     map.addListener('mousedown', function () {
-        touchElements.menu.moveToStart();
+        touchElements.moveToStart();
         if($("#location-box").hasClass("active"))
             $("#location-btn").trigger("click");
     });
@@ -281,5 +305,13 @@ function startMap() {
         readAllServices(1);
         toast("Seu endereço precisa ser informado manualmente, pois o aparelho não tem suporte para localização.", 3000, "toast-warning");
     }
-    startSwipe();
+
+    clearInterval(intervalPosition);
+    intervalPosition = setInterval(function () {
+        setCoordenadas();
+    }, 4000);
+
+    touchElements = new TouchUp($(".menu-swipe-class"), 450, 100, null, null, ["#services", "#service-perfil-body"]);
+    // $(".menu-swipe-class").touchVertical("menu", -450, 100, null, ["#services", "#service-perfil-body"]);
+    changeSwipeToSearch();
 }
