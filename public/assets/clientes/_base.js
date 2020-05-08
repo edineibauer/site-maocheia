@@ -127,7 +127,6 @@ $(function ($) {
 
     clearInterval(intervalPosition);
     intervalPosition = setInterval(function () {
-        setCoordenadas();
         checkMensagens();
     }, 4000);
 });

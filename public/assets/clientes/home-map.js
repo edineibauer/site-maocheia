@@ -95,7 +95,6 @@ function setCoordenadas() {
                                 lat: position.coords.latitude,
                                 lng: position.coords.longitude
                             });
-                            moveToLocation(position.coords.latitude, position.coords.longitude);
                         }
                     },
                     function (error) {

@@ -287,6 +287,7 @@ $(function () {
         });
 
         let p = {
+            "profissional_id": isNumberPositive(profissional.profissional_id) ? profissional.profissional_id : "",
             "categoria": $("#categoria").val(),
             "subcategorias": subcategorias,
             "sobre": $("#sobre").val(),

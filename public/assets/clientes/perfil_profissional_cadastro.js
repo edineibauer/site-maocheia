@@ -266,6 +266,7 @@ $(function () {
         });
 
         let profissional = {
+            "profissional_id": "",
             "categoria": $("#categoria").val(),
             "subcategorias": subcategorias,
             "sobre": $("#sobre").val(),

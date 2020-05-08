@@ -1,38 +1,31 @@
 <?php
 
-$up = new \Conn\Update();
 $read = new \Conn\Read();
+$read->exeRead("profissional", "WHERE id =:id", "id={$dados['profissional']}");
+if($read->getResult()) {
+    $profissional = $read->getResult()[0];
 
-$updates = [];
-$cliente = ["nome" => "anonimo"];
+    /**
+     * decode json values to not crash on save encode cliente data
+     */
+    $profissional['subcategorias'] = !empty($profissional['subcategorias']) ? json_decode($profissional['subcategorias'], !0) : null;
+    $profissional['imagem_de_perfil'] = !empty($profissional['imagem_de_perfil']) ? json_decode($profissional['imagem_de_perfil'], !0) : null;
+    $profissional['imagem_de_fundo'] = !empty($profissional['imagem_de_fundo']) ? json_decode($profissional['imagem_de_fundo'], !0) : null;
+    $profissional['cartao_de_credito'] = !empty($profissional['cartao_de_credito']) ? json_decode($profissional['cartao_de_credito'], !0) : null;
+    $profissional['galeria'] = !empty($profissional['galeria']) ? json_decode($profissional['galeria'], !0) : null;
+    $profissional['dias'] = !empty($profissional['dias']) ? json_decode($profissional['dias'], !0) : null;
 
-if (!empty($dados['cliente'])) {
-    $read->exeRead("clientes", "WHERE id = :cid", "cid={$dados['cliente']}");
-    if ($read->getResult()) {
-        if($dados['autorpub'] !== $read->getResult()[0]['usuarios_id'] && $_SESSION['userlogin']['setor'] !== "administrador" && $_SESSION['userlogin']['setor'] !== "admin")
-            unset($dados['cliente']);
-        else
-            $cliente = $read->getResult()[0];
-    }
+    $total = !empty($profissional['total_de_avaliacoes']) ? (int) $profissional['total_de_avaliacoes'] : 0;
+    $novoTotal = $total + 1;
+
+    $at = ($dados['atendimento'] * 10000000);
+    $ql = ($dados['qualidade'] * 10000000);
+    $pj = ($dados['preco_justo'] * 10000000);
+    $profissional['atendimento'] = (!empty($profissional['atendimento']) ? (((((int)$profissional['atendimento']) * $total) + $at) / $novoTotal) : $at);
+    $profissional['qualidade'] = (!empty($profissional['atendimento']) ? (((((int)$profissional['qualidade']) * $total) + $ql) / $novoTotal) : $ql);
+    $profissional['preco_justo'] = (!empty($profissional['atendimento']) ? (((((int)$profissional['preco_justo']) * $total) + $pj) / $novoTotal) : $pj);
+    $profissional['total_de_avaliacoes'] = $novoTotal;
+
+    $up = new \Conn\Update();
+    $up->exeUpdate("clientes", ["perfil_profissional" => json_encode([$profissional])], "WHERE perfil_profissional_id =:id", "id={$dados['profissional']}");
 }
-
-if (empty($dados['cliente'])) {
-    $read->exeRead("clientes", "WHERE usuarios_id = :ui", "ui={$dados['autorpub']}");
-    if ($read->getResult()) {
-        $cliente = $read->getResult()[0];
-        $updates["cliente"] = $cliente['id'];
-    }
-} elseif(!isset($cliente['id'])) {
-    $read->exeRead("clientes", "WHERE id = :cid", "cid={$dados['cliente']}");
-    if ($read->getResult())
-        $cliente = $read->getResult()[0];
-}
-
-if (empty($dados['nome_do_cliente']))
-    $updates["nome_do_cliente"] = $cliente['nome'];
-
-if (empty($dados['imagem_do_cliente']))
-    $updates["imagem_do_cliente"] = (!empty($cliente['imagem']) ? json_decode($cliente['imagem'], !0)[0]['urls']['thumb'] : HOME . VENDOR . "site-maocheia/public/assets/svg/account.svg");
-
-if(!empty($updates))
-    $up->exeUpdate("avaliacao", $updates, "WHERE id =:id", "id={$dados['id']}");

@@ -1,0 +1,7 @@
+{
+    "title": "Avaliação - {$sitename}",
+    "css": ["libs/bootstrap.min"],
+    "js": [],
+    "navbar": true,
+    "header": false
+}
