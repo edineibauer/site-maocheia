@@ -154,6 +154,11 @@ function readSubCategories(categoria, subcategorias) {
                 sub.push(cat[i]);
             }
         }
+        if(!isEmpty(sub))
+            $("#areasatuacao").removeClass("hide");
+        else
+            $("#areasatuacao").addClass("hide");
+
         $("#subcategorias").htmlTemplate('subcategorias', {categorias: sub});
     });
 }
@@ -286,6 +291,12 @@ $(function () {
             subcategorias.push($(e).attr("id"));
         });
 
+        let dias = [];
+        $(".dias").each(function(i, e) {
+            if($(e).is(":checked"))
+                dias.push($(e).attr("id"));
+        });
+
         let p = {
             "profissional_id": isNumberPositive(profissional.profissional_id) ? profissional.profissional_id : "",
             "categoria": $("#categoria").val(),
@@ -294,6 +305,9 @@ $(function () {
             "imagem_de_perfil": imagem_de_perfil,
             "imagem_de_fundo": imagem_de_fundo,
             "galeria": galeria,
+            "inicio": $("#inicio").val(),
+            "termino": $("#termino").val(),
+            "dias": JSON.stringify(dias),
             "ativo": !0,
         };
 

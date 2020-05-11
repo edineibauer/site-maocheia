@@ -14,16 +14,6 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="form-group">
-                    <label for="categoria">Categoria</label>
-                    <select class="form-control" id="categoria">
-                        <option>Selecione...</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="sobre">Sobre</label>
-                    <textarea class="form-control" id="sobre" rows="3"></textarea>
-                </div>
 
                 <div class="form-group mb-5">
                     <div class="input-group-prepend">
@@ -45,9 +35,70 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="categoria" class="pb-1">Profissão</label>
+                    <select class="form-control" id="categoria">
+                        <option>Selecione...</option>
+                    </select>
+                </div>
+                <div class="form-group hide" id="areasatuacao">
+                    <label for="categoria">Áreas de atuação</label>
+                    <div class="pt-1 row pl-3 pr-3 pb-3" id="subcategorias"></div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col s6">
+                        <label for="inicio" class="pb-1">Hora de início</label>
+                        <input type="time" class="form-control" id="inicio"/>
+                    </div>
+                    <div class="col s6">
+                        <label for="termino" class="pb-1">Hora de término</label>
+                        <input type="time" class="form-control" id="termino"/>
+                    </div>
+                </div>
+
+                <span class="row pb-1 mt-3 pl-3" style="font-size: 13px; color:#999999">Dias de Trabalho</span>
+                <div class="col container mt-1 mb-2">
+                    <div class="row">
+                        <div class="custom-control custom-checkbox col col-4">
+                            <input type="checkbox" class="dias custom-control-input" id="segunda">
+                            <label class="custom-control-label pt-1" for="segunda">Segunda</label>
+                        </div>
+                        <div class="custom-control custom-checkbox col col-4">
+                            <input type="checkbox" class="dias custom-control-input" id="terca">
+                            <label class="custom-control-label pt-1" for="terca">Terça</label>
+                        </div>
+                        <div class="custom-control custom-checkbox col col-4">
+                            <input type="checkbox" class="dias custom-control-input" id="quarta">
+                            <label class="custom-control-label pt-1" for="quarta">Quarta</label>
+                        </div>
+                        <div class="custom-control custom-checkbox col col-4">
+                            <input type="checkbox" class="dias custom-control-input" id="quinta">
+                            <label class="custom-control-label pt-1" for="quinta">Quinta</label>
+                        </div>
+                        <div class="custom-control custom-checkbox col col-4">
+                            <input type="checkbox" class="dias custom-control-input" id="sexta">
+                            <label class="custom-control-label pt-1" for="sexta">Sexta</label>
+                        </div>
+                        <div class="custom-control custom-checkbox col col-4">
+                            <input type="checkbox" class="dias custom-control-input" id="sabado">
+                            <label class="custom-control-label pt-1" for="sabado">Sábado</label>
+                        </div>
+                        <div class="custom-control custom-checkbox col col-4">
+                            <input type="checkbox" class="dias custom-control-input" id="domingo">
+                            <label class="custom-control-label pt-1" for="domingo">Domingo</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group pt-3">
+                    <label for="sobre">Sobre</label>
+                    <textarea class="form-control" id="sobre" rows="3"></textarea>
+                </div>
+
                 <div class="form-group mb-3">
                     <div class="input-group-prepend">
-                        <span>Galeria de imagens</span>
+                        <label class="pt-2">Galeria de imagens</label>
                     </div>
                     <div>
                         <input class="carregar-foto" id="galeria" type="file" multiple>
