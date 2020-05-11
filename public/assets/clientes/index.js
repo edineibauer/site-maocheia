@@ -56,7 +56,7 @@ function changeSwipeToSearch() {
     if (!$menu.hasClass("serviceFilterSearch")) {
         $menu.addClass("serviceFilterSearch").removeClass("servicePerfil buildPerfil");
 
-        resetMap();
+        // resetMap();
         touchElements.setDistanciaTarget(87);
 
         if(isNumberPositive(filtrosProfissionais.categoria)) {
@@ -80,29 +80,6 @@ function changeSwipeToSearch() {
                 if(isNumberPositive(filtrosProfissionais.categoria))
                     showCategoryAndSubcategory();
 
-                /*
-                // init Isotope
-                // filter functions
-                var $grid = $('.row .grid').isotope({
-                    itemSelector: '.profissional',
-                    layoutMode: 'fitRows'
-                });
-
-                $('.filters-button-group').on('click', 'button', function () {
-                    var filterValue = $(this).attr('data-filter');
-                    $grid.isotope({filter: filterValue});
-                });
-
-                // change is-checked class on buttons
-                $('.button-group').each(function (i, buttonGroup) {
-                    var $buttonGroup = $(buttonGroup);
-                    $buttonGroup.on('click', 'button', function () {
-                        $buttonGroup.find('.is-checked').removeClass('is-checked');
-                        $(this).addClass('is-checked');
-                    });
-                });
-                */
-
                 $('#categorias').owlCarousel({
                     loop: false,
                     margin: 10,
@@ -113,35 +90,8 @@ function changeSwipeToSearch() {
                             items: 5,
                             startPosition: 0
                         }
-                        /*,
-                        600: {
-                            items: 6
-                        },
-                        1000: {
-                            items: 10
-                        }*/
                     }
                 });
-
-                /*$('.owl-carousel.carousel-filters').owlCarousel({
-                    loop: false,
-                    margin: 4,
-                    dots: false,
-                    nav: false,
-                    autoWidth: true,
-                    responsive: {
-                        0: {
-                            items: 4,
-                            startPosition: 0
-                        },
-                        600: {
-                            items: 6
-                        },
-                        1000: {
-                            items: 10
-                        }
-                    }
-                });*/
             });
         });
     }
@@ -471,7 +421,6 @@ $(function () {
         filtrosProfissionais.subcategoria = [];
         filtrosProfissionais.categoria = "";
         touchElements.setDistanciaStart(window.innerHeight - 130 - (USER.setor === 0 ? 0 : 50));
-
         touchElements.moveToTarget();
 
         $("#procura").one("blur", function () {

@@ -4,13 +4,16 @@ function openMapPopup(marker) {
     if (marker.type === 2) {
         getTemplates().then(tpl => {
             //open popup
+            /*
+
+            //Centraliza mapa entre o target e a posição atual
             let bounds = new google.maps.LatLngBounds();
             let latlng = new google.maps.LatLng(marker.latitude, marker.longitude);
             let latlngMy = new google.maps.LatLng(myMarker.latitude, myMarker.longitude);
 
             bounds.extend(latlng);
             bounds.extend(latlngMy);
-            map.fitBounds(bounds, {top: 60, right: 50, left: 50, bottom: 230});
+            map.fitBounds(bounds, {top: 60, right: 50, left: 50, bottom: 230});*/
 
             marker.setAnimation(4);
             marker.setIcon({
@@ -244,7 +247,7 @@ function startMap() {
         disableDefaultUI: true
     });
     markerCluster = new MarkerClusterer(map, [], {
-        gridSize: 10,
+        gridSize: 5,
         imagePath: HOME + VENDOR + 'site-maocheia/public/assets/maps/m'
     });
 
