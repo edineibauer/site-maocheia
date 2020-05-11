@@ -163,6 +163,33 @@ function readSubCategories(categoria, subcategorias) {
     });
 }
 
+function getValoresCampos() {
+    let subcategorias = [];
+    $(".subcategorias:checked").each(function(i, e) {
+        subcategorias.push($(e).attr("id"));
+    });
+
+    let dias = [];
+    $(".dias").each(function(i, e) {
+        if($(e).is(":checked"))
+            dias.push($(e).attr("id"));
+    });
+
+    return {
+        "profissional_id": isNumberPositive(profissional.profissional_id) ? profissional.profissional_id : "",
+        "categoria": $("#categoria").val(),
+        "subcategorias": subcategorias,
+        "sobre": $("#sobre").val(),
+        "imagem_de_perfil": imagem_de_perfil,
+        "imagem_de_fundo": imagem_de_fundo,
+        "galeria": galeria,
+        "inicio": $("#inicio").val(),
+        "termino": $("#termino").val(),
+        "dias": JSON.stringify(dias),
+        "ativo": !0,
+    };
+}
+
 $(function () {
     profissional = JSON.parse(USER.setorData.perfil_profissional)[0];
     profissional.categoria = parseInt(profissional.categoria);
@@ -186,11 +213,14 @@ $(function () {
     $("#sobre").val(profissional.sobre);
     $("#imagem_de_perfil_preview").addClass("image").html("<img src='" + profissional.imagem_de_perfil[0].urls.thumb + "' alt='" + USER.nome + "' />");
     $("#imagem_de_fundo_preview").addClass("image").html("<img src='" + profissional.imagem_de_fundo[0].urls.medium + "' alt='" + USER.nome + "' />");
+    $("#inicio").val(profissional.inicio);
+    $("#termino").val(profissional.termino);
+    for(let dia of profissional.dias)
+        $("#" + dia).prop("checked", !0);
 
     if (!isEmpty(profissional.galeria)) {
-        for (let i in profissional.galeria) {
+        for (let i in profissional.galeria)
             $("#galeria_preview").append("<img src='" + profissional.galeria[i].urls.medium + "' alt='" + USER.nome + "' />");
-        }
     }
 
     $("#imagem_de_perfil").off("change").on("change", function (e) {
@@ -284,59 +314,27 @@ $(function () {
     });
 
     $("#update-profissional").off("click").on("click", function () {
-        let rel = $(this).attr("rel");
-
-        let subcategorias = [];
-        $(".subcategorias:checked").each(function(i, e) {
-            subcategorias.push($(e).attr("id"));
-        });
-
-        let dias = [];
-        $(".dias").each(function(i, e) {
-            if($(e).is(":checked"))
-                dias.push($(e).attr("id"));
-        });
-
-        let p = {
-            "profissional_id": isNumberPositive(profissional.profissional_id) ? profissional.profissional_id : "",
-            "categoria": $("#categoria").val(),
-            "subcategorias": subcategorias,
-            "sobre": $("#sobre").val(),
-            "imagem_de_perfil": imagem_de_perfil,
-            "imagem_de_fundo": imagem_de_fundo,
-            "galeria": galeria,
-            "inicio": $("#inicio").val(),
-            "termino": $("#termino").val(),
-            "dias": JSON.stringify(dias),
-            "ativo": !0,
-        };
+        let p = getValoresCampos();
 
         if (isEmpty(p.categoria)) {
             toast("informe a categoria", 2000, "toast-warning");
         } else if (isEmpty(p.sobre)) {
             toast("Defina seu Trabalho em Sobre", 2500, "toast-warning");
         } else {
-            p.id = Date.now() + Math.floor((Math.random() * 1000) + 1);
-            p.formIdentificador = Date.now() + Math.floor((Math.random() * 1000) + 1);
-            p.columnTituloExtend = "<small class='color-gray left opacity padding-tiny radius'>categoria</small><span style='padding: 1px 5px' class='left padding-right font-medium td-title'> " + $("#categoria :selected").text() + "</span>";
-            p.columnName = "perfil_profissional";
-            p.columnRelation = "profissional";
-            p.columnStatus = {column: "", have: "false", value: "false"};
-            db.exeCreate("clientes", {
-                id: USER.setorData.id,
-                nome: USER.setorData.nome,
-                perfil_profissional: [p]
-            }).then(r => {
+
+            db.exeCreate("profissional", Object.assign({id: USER.setorData.perfil_profissional_id, nome: USER.setorData.nome}, p)).then(r => {
                 if (r.db_errorback === 0) {
                     toast("Perfil atualizado!", 1400, "toast-success");
-                    USER.setorData.perfil_profissional = r.perfil_profissional;
-                    if (rel === "1") {
-                        setTimeout(function () {
-                            pageTransition("profissional");
-                        }, 1000);
-                    }
+                    delete(r.db_action);
+                    delete(r.db_errorback);
+                    delete(r.id_old);
+                    r.dias = JSON.parse(r.dias);
+                    r.imagem_de_perfil = JSON.parse(r.imagem_de_perfil);
+                    r.imagem_de_fundo = JSON.parse(r.imagem_de_fundo);
+                    USER.setorData.perfil_profissional = JSON.stringify([r]);
                 }
             });
         }
     });
+
 });

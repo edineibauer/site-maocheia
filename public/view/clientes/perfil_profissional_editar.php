@@ -34,7 +34,6 @@
                     </div>
                 </div>
 
-
                 <div class="form-group">
                     <label for="categoria" class="pb-1">Profissão</label>
                     <select class="form-control" id="categoria">

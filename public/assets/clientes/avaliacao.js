@@ -52,10 +52,10 @@ $(document).ready(function () {
 
             db.exeCreate("avaliacao", dados).then(result => {
                 if (!isEmpty(result)) {
-                    toast("Obrigado! Avaliação salva", "toast-success", 2500);
+                    toast("Profissional avaliado!", "toast-success", 2500);
                     setTimeout(function () {
                         pageTransition("index");
-                    }, 2500);
+                    }, 1500);
                 }
                 console.log(result);
             })

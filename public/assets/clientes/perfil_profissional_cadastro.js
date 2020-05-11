@@ -299,19 +299,21 @@ $(function () {
         } else if (isEmpty(profissional.imagem_de_fundo)) {
             toast("Defina uma imagem de fundo", 2500, "toast-warning");
         } else {
+
             profissional.id = Date.now() + Math.floor((Math.random() * 1000) + 1);
             profissional.formIdentificador = Date.now() + Math.floor((Math.random() * 1000) + 1);
             profissional.columnTituloExtend = "<small class='color-gray left opacity padding-tiny radius'>categoria</small><span style='padding: 1px 5px' class='left padding-right font-medium td-title'> " + $("#categoria :selected").text() + "</span>";
             profissional.columnName = "perfil_profissional";
             profissional.columnRelation = "profissional";
             profissional.columnStatus = {column: "", have: "false", value: "false"};
+
             db.exeCreate("clientes", {id: USER.setorData.id, nome: USER.setorData.nome, perfil_profissional: [profissional]}).then(r => {
                 if(r.db_errorback === 0) {
                     toast("Parabéns! Perfil criado!", 3000, "toast-success");
                     USER.setorData.perfil_profissional = r.perfil_profissional;
                     setTimeout(function () {
                         pageTransition("perfil");
-                    }, 1800);
+                    }, 1000);
                 }
             });
         }

@@ -7,8 +7,12 @@ function getProfissionalMustache(profissional, cat, subcategorias) {
 
     // profissional.endereco = (!isEmpty(profissional.endereco) ? getLogradouroFromEndereco(profissional.endereco[0]) : "");
 
-    profissional.perfil_profissional = Object.assign(profissional.perfil_profissional, getProfissionalStar(profissional.avaliacao_profissional || 0));
-    profissional.perfil_profissional = Object.assign(profissional.perfil_profissional, getProfissionalPreco(profissional.preco_justo || 0));
+    let avaliacao = (((!isEmpty(profissional.perfil_profissional.atendimento) ? parseInt(profissional.perfil_profissional.atendimento) : 10000000) + (!isEmpty(profissional.perfil_profissional.qualidade) ? parseInt(profissional.perfil_profissional.qualidade) : 10000000)) / 2) / 10000000;
+    let preco = (!isEmpty(profissional.perfil_profissional.preco_justo) ? parseInt(profissional.perfil_profissional.preco_justo) : 10000000) / 10000000;
+    console.log("av: " + avaliacao);
+    console.log("pr: " + preco);
+    profissional.perfil_profissional = Object.assign(profissional.perfil_profissional, getProfissionalStar(avaliacao));
+    profissional.perfil_profissional = Object.assign(profissional.perfil_profissional, getProfissionalPreco(preco));
 
     profissional.perfil_profissional.haveAvaliacoes = !1;
     profissional.perfil_profissional.avaliacoes = [];
@@ -49,9 +53,9 @@ function getProfissionalMustache(profissional, cat, subcategorias) {
  * @returns {{}}
  */
 function getProfissionalPreco(preco) {
-    preco = parseInt(typeof preco === "undefined" || isNaN(preco) ? 0 : (preco < 31 ? (preco > 0 ? preco : 0) : 30));
     let aval = {};
-    aval.preco_justo = Math.round(preco * .1);
+    aval.preco_justo = isNumberPositive(preco) && preco < 5.001 ? preco : 1;
+    aval.preco_justo = (aval.preco_justo * 3) / 5;
     aval.preco_star1 = aval.preco_justo >= 1;
     aval.preco_star2 = aval.preco_justo >= 2;
     aval.preco_star3 = aval.preco_justo >= 3;
@@ -65,9 +69,8 @@ function getProfissionalPreco(preco) {
  * @returns {{}}
  */
 function getProfissionalStar(avaliacao) {
-    avaliacao = parseInt(typeof avaliacao === "undefined" || isNaN(avaliacao) ? 0 : (avaliacao < 51 ? (avaliacao > 0 ? avaliacao : 0) : 50));
     let aval = {};
-    aval.avaliacao = parseFloat(avaliacao * .1).toFixed(1);
+    aval.avaliacao = isNumberPositive(avaliacao) && avaliacao < 5.001 ? avaliacao : 1;
     aval.avaliacao_star1 = aval.avaliacao > .2;
     aval.avaliacao_star2 = aval.avaliacao > 1.2;
     aval.avaliacao_star3 = aval.avaliacao > 2.2;

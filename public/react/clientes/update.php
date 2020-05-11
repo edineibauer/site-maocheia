@@ -1,6 +1,6 @@
 <?php
 
-if (!empty($dados['perfil_profissional']) && \Helpers\Check::isJson($dados['perfil_profissional'])) {
+if (!empty($dados['perfil_profissional']) && \Helpers\Check::isJson($dados['perfil_profissional']) && empty($dados['perfil_profissional_id'])) {
     $p = json_decode($dados['perfil_profissional'], !0)[0];
 
     $profissional = [
@@ -21,26 +21,17 @@ if (!empty($dados['perfil_profissional']) && \Helpers\Check::isJson($dados['perf
         'total_de_avaliacoes' => $p['total_de_avaliacoes'] ?? 0
     ];
 
-    $up = new \Conn\Update();
-    if (empty($dados['perfil_profissional_id'])) {
+    /**
+     * Cria perfil profissional na sua tabela
+     */
+    $create = new \Conn\Create();
+    $create->exeCreate("profissional", $profissional);
+    if ($create->getResult()) {
 
         /**
-         * Cria perfil profissional na sua tabela
+         * Atualiza perfil do cliente com o ID do perfil profissional na sua tabela de cliente
          */
-        $create = new \Conn\Create();
-        $create->exeCreate("profissional", $profissional);
-        if ($create->getResult()) {
-
-            /**
-             * Atualiza perfil do cliente com o ID do perfil profissional na sua tabela de cliente
-             */
-            $up->exeUpdate("clientes", ["perfil_profissional_id" => $create->getResult()], "WHERE id = :id", "id={$dados['id']}");
-        }
-    } else {
-
-        /**
-         * Atualiza perfil profissional na sua tabela
-         */
-        $up->exeUpdate("profissional", $profissional, "WHERE id = :id", "id={$dados['perfil_profissional_id']}");
+        $up = new \Conn\Update();
+        $up->exeUpdate("clientes", ["perfil_profissional_id" => $create->getResult()], "WHERE id = :id", "id={$dados['id']}");
     }
 }
