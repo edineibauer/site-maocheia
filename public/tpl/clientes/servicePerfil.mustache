@@ -95,7 +95,7 @@
                     </div>
                     {{#perfil_profissional.haveSubcategorias}}
                         <div class="row">
-                            <div class="col-12 mb-4">
+                            <div class="col-12 mb-4 mt-2">
                                 <h5 class="titulo-endereco">áreas de atuação:</h5>
                                 <ul class="col pl-4">
                                     {{#perfil_profissional.subcategoriasData}}
@@ -106,8 +106,32 @@
                         </div>
                     {{/perfil_profissional.haveSubcategorias}}
                     <div class="row">
-                        <div class="col-12 pb-3 pt-2">
+                        <div class="col-12 py-2">
                             <div class="endereco">{{perfil_profissional.sobre}}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="galeria_preview_parent" class="my-3">
+                            <div id="galeria_preview">
+                                {{#perfil_profissional.galeria}}
+                                    <img src='{{urls.thumb}}' alt='{{nome}}'/>
+                                {{/perfil_profissional.galeria}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container py-2">
+                        <div class="row horario-box">
+                            <h6 class="col-12 mb-2 py-2 horario-title">Horário de trabalho</h6>
+                            <div class="col-6">Início</div>
+                            <div class="col-6">Término</div>
+                            <div class="col-6">{{perfil_profissional.inicio}}</div>
+                            <div class="col-6">{{perfil_profissional.termino}}</div>
+
+                            <div class="col-12 horario-dias my-3">
+                                {{#perfil_profissional.dias}}
+                                    <div class="float-left pr-3">{{.}}</div>
+                                {{/perfil_profissional.dias}}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -118,15 +142,6 @@
                 <div class="endereco">{{endereco}}</div>
             </div>
         </div>-->
-            <div class="row">
-                <div id="galeria_preview_parent" class="mb-4">
-                    <div id="galeria_preview">
-                        {{#perfil_profissional.galeria}}
-                            <img src='{{urls.thumb}}' alt='{{nome}}'/>
-                        {{/perfil_profissional.galeria}}
-                    </div>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-12 pb-4">
                     <div class="row">

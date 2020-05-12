@@ -287,6 +287,7 @@ $(function () {
             "inicio": $("#inicio").val(),
             "termino": $("#termino").val(),
             "dias": JSON.stringify(dias),
+            "distancia_de_atendimento_km": parseInt($("#distancia").val() || 0),
             "ativo": !0,
         };
 

@@ -9,7 +9,6 @@ $(function() {
             type: 'POST',
             data: mensagem,
             success: function(result) {
-                console.log(result);
                 $("#resultado").html("<strong>Sucesso!</strong>");
             },
             error: function() {

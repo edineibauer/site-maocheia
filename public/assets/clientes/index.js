@@ -115,8 +115,10 @@ function changeSwipeToService(data) {
                     if (i > 4)
                         break;
                     avaliacoes.avaliacao[i].imagens = (!isEmpty(avaliacoes.avaliacao[i].imagens) ? JSON.parse(avaliacoes.avaliacao[i].imagens) : []);
-                    avaliacoes.avaliacao[i].data = moment(avaliacoes.avaliacao[i].data).calendar();
-                    avaliacoes.avaliacao[i].star = getProfissionalStar(parseInt(avaliacoes.avaliacao[i].qualidade) * 10);
+                    avaliacoes.avaliacao[i].data = moment(avaliacoes.avaliacao[i].data).format("DD/MM/YYYY");
+
+                    avaliacoes.avaliacao[i].avaliacao_geral = (((!isEmpty(avaliacoes.avaliacao[i].atendimento) ? parseInt(avaliacoes.avaliacao[i].atendimento) : 10000000) + (!isEmpty(avaliacoes.avaliacao[i].qualidade) ? parseInt(avaliacoes.avaliacao[i].qualidade) : 10000000)) / 2);
+                    avaliacoes.avaliacao[i].star = getProfissionalStar(avaliacoes.avaliacao[i].avaliacao_geral);
                     feedbacks.push(avaliacoes.avaliacao[i]);
                 }
                 if (avaliacoes.avaliacao.length > 5)
@@ -193,18 +195,17 @@ function toogleServicePerfil() {
 
 function profissionaisFiltrado(data) {
     let list = [];
-    for (let i in data) {
+    for (let p of data) {
         let pass = !0;
         for (let c in filtrosProfissionais) {
-
-            if (c === "categoria" && !isEmpty(filtrosProfissionais[c]) && filtrosProfissionais[c] !== parseInt(data[i].perfil_profissional.categoria))
+            if (c === "categoria" && !isEmpty(filtrosProfissionais[c]) && filtrosProfissionais[c] !== parseInt(p.perfil_profissional.categoria))
                 pass = !1;
-            else if (c === "subcategoria" && !isEmpty(filtrosProfissionais[c]) && (isEmpty(data[i].perfil_profissional.subcategorias) || filtrosProfissionais[c].length !== filtrosProfissionais[c].filter(element => data[i].perfil_profissional.subcategorias.includes(element)).length))
+            else if (c === "subcategoria" && !isEmpty(filtrosProfissionais[c]) && (isEmpty(p.perfil_profissional.subcategorias) || filtrosProfissionais[c].length !== filtrosProfissionais[c].filter(element => p.perfil_profissional.subcategorias.includes(element)).length))
                 pass = !1;
         }
 
-        if (pass)
-            list.push(data[i]);
+        if (pass && p.perfil_profissional.ativo == 1)
+            list.push(p);
     }
 
     return list;
@@ -225,8 +226,10 @@ function setAllServicesOnMap(data) {
     /**
      * Add all data to map as markers
      */
-    for (let i = 0; i < data.length; i++)
-        addMarker(data[i], 2, parseFloat(data[i].latitude), parseFloat(data[i].longitude));
+    for (let i = 0; i < data.length; i++) {
+        if(data[i].perfil_profissional?.ativo == 1)
+            addMarker(data[i], 2, parseFloat(data[i].latitude), parseFloat(data[i].longitude));
+    }
 }
 
 function updateListService(data) {
@@ -276,25 +279,27 @@ function updateRealPosition() {
                  * Para cada resultado retornado
                  * atualiza posição no mapa e distância da minha posição
                  */
-                for (let i in results) {
-                    for (let s in services) {
-                        if (services[s].id === results[i].cliente) {
+                for (let result of results) {
+                    for (let service of services) {
+                        if (service.id === result.cliente) {
                             /**
                              * Atualiza lat, e lng
                              * Atualiza distancia também
                              */
-                            services[s].latitude = results[i].latitude;
-                            services[s].longitude = results[i].longitude;
-                            services[s].data_de_atualizacao = results[i].data_de_atualizacao;
-                            services[s].distancia = getLatLngDistance(services[s].latitude, services[s].longitude, minhaLatlng.lat(), minhaLatlng.lng());
+                            service.latitude = result.latitude;
+                            service.longitude = result.longitude;
+                            service.data_de_atualizacao = result.data_de_atualizacao;
+                            service.distancia = getLatLngDistance(service.latitude, service.longitude, minhaLatlng.lat(), minhaLatlng.lng());
+                            if(isNumberPositive(service.distancia_de_atendimento_km) && service.distancia_de_atendimento_km < service.distancia)
+                                service.ativo = !1;
 
                             /**
                              * Atualiza posição dos markers no mapa
                              */
                             if (!isEmpty(markers)) {
-                                for (let m in markers) {
-                                    if (markers[m].id === services[s].id) {
-                                        markers[m].setPosition(new google.maps.LatLng(parseFloat(services[s].latitude), parseFloat(services[s].longitude)));
+                                for (let m of markers) {
+                                    if (m.id === service.id) {
+                                        m.setPosition(new google.maps.LatLng(parseFloat(service.latitude), parseFloat(service.longitude)));
                                         break;
                                     }
                                 }

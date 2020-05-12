@@ -91,6 +91,11 @@
                 </div>
 
                 <div class="form-group pt-3">
+                    <label for="sobre" class="pb-1">Distância de atendimento em KM</label>
+                    <input type="number" min="0" max="10000000000" class="form-control" id="distancia" />
+                </div>
+
+                <div class="form-group pt-3">
                     <label for="sobre" class="pb-1">Sobre</label>
                     <textarea class="form-control" id="sobre" rows="3"></textarea>
                 </div>

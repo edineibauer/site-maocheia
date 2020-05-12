@@ -48,8 +48,6 @@ $(document).ready(function () {
                 "imagem_do_cliente": USER.imagem || USER.setorData.imagem || (!isEmpty(USER.setorData.perfil_profissional) && !isEmpty(JSON.parse(USER.setorData.perfil_profissional)[0].imagem_de_perfil) && JSON.parse(USER.setorData.perfil_profissional)[0].imagem_de_perfil[0].urls.thumb)
             };
 
-            console.log(dados);
-
             db.exeCreate("avaliacao", dados).then(result => {
                 if (!isEmpty(result)) {
                     toast("Profissional avaliado!", "toast-success", 2500);
@@ -57,7 +55,6 @@ $(document).ready(function () {
                         pageTransition("index");
                     }, 1500);
                 }
-                console.log(result);
             })
         } else {
             toast("Aguarde e tente novamente", "toast-warning", 2000);

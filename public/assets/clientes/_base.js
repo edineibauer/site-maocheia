@@ -9,19 +9,21 @@ function getProfissionalMustache(profissional, cat, subcategorias) {
 
     let avaliacao = (((!isEmpty(profissional.perfil_profissional.atendimento) ? parseInt(profissional.perfil_profissional.atendimento) : 10000000) + (!isEmpty(profissional.perfil_profissional.qualidade) ? parseInt(profissional.perfil_profissional.qualidade) : 10000000)) / 2) / 10000000;
     let preco = (!isEmpty(profissional.perfil_profissional.preco_justo) ? parseInt(profissional.perfil_profissional.preco_justo) : 10000000) / 10000000;
-    console.log("av: " + avaliacao);
-    console.log("pr: " + preco);
     profissional.perfil_profissional = Object.assign(profissional.perfil_profissional, getProfissionalStar(avaliacao));
     profissional.perfil_profissional = Object.assign(profissional.perfil_profissional, getProfissionalPreco(preco));
 
     profissional.perfil_profissional.haveAvaliacoes = !1;
     profissional.perfil_profissional.avaliacoes = [];
+    let t = profissional.perfil_profissional.inicio.split(":");
+    profissional.perfil_profissional.inicio = t[0] + ":" + t[1];
+    t = profissional.perfil_profissional.termino.split(":");
+    profissional.perfil_profissional.termino = t[0] + ":" + t[1];
 
-    let hora = moment().format("H:m");
+    let hora = moment().format("HH:m");
     let week = moment().weekday();
     week = (week === 0 ? "domingo" : (week === 1 ? "segunda" : (week === 2 ? "terca" : (week === 3 ? "quarta" : (week === 4 ? "quinta" : (week === 5 ? "sexta" : "sabado"))))));
-    profissional.perfil_profissional.online = profissional.perfil_profissional.inicio < hora && profissional.perfil_profissional.termino > hora && profissional.perfil_profissional.dias.indexOf(week) > -1;
 
+    profissional.perfil_profissional.online = profissional.perfil_profissional.inicio < hora && profissional.perfil_profissional.termino > hora && profissional.perfil_profissional.dias.indexOf(week) > -1;
     profissional.perfil_profissional.categoriaNome = cat.nome;
     profissional.perfil_profissional.categoriaImage = (!isEmpty(cat.imagem) ? cat.imagem[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg");
 
@@ -39,6 +41,9 @@ function getProfissionalMustache(profissional, cat, subcategorias) {
         let minhaLatlng = map.getCenter();
         profissional.distancia = getLatLngDistance(profissional.latitude, profissional.longitude, minhaLatlng.lat(), minhaLatlng.lng());
         profissional.distanciaKm = (profissional.distancia < 1 ? parseInt(profissional.distancia * 1000) + "m" : (profissional.distancia > 20 ? parseInt(profissional.distancia) : parseFloat(profissional.distancia).toFixed(1)) + " km").replace(".", ',');
+        if(isNumberPositive(profissional.perfil_profissional.distancia_de_atendimento_km) && profissional.perfil_profissional.distancia_de_atendimento_km < profissional.distanciaKm)
+            profissional.perfil_profissional.ativo = !1;
+
     } else {
         profissional.distancia = "~";
         profissional.distanciaKm = "~"

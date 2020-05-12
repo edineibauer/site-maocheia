@@ -186,6 +186,7 @@ function getValoresCampos() {
         "inicio": $("#inicio").val(),
         "termino": $("#termino").val(),
         "dias": JSON.stringify(dias),
+        "distancia_de_atendimento_km": parseInt($("#distancia").val() || 0),
         "ativo": !0,
     };
 }
@@ -215,6 +216,7 @@ $(function () {
     $("#imagem_de_fundo_preview").addClass("image").html("<img src='" + profissional.imagem_de_fundo[0].urls.medium + "' alt='" + USER.nome + "' />");
     $("#inicio").val(profissional.inicio);
     $("#termino").val(profissional.termino);
+    $("#distancia").val(profissional.distancia_de_atendimento_km);
     for(let dia of profissional.dias)
         $("#" + dia).prop("checked", !0);
 

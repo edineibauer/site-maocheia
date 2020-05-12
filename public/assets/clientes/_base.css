@@ -13,6 +13,13 @@ body {
     list-style: circle !important;
 }
 
+.avaliacoes {
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    background-repeat: no-repeat;
+    border-radius: 50px;
+}
 
 .badge-notification {
     position: absolute;
