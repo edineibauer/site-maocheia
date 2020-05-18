@@ -174,23 +174,11 @@ function touchOpenPerfil() {
 function toogleServicePerfil() {
     closeAllMapPopupExceptThis(this);
 
-    let pass = !1;
-    for (let i in markers) {
-        if (/serviceSelected$/.test(markers[i].icon.url)) {
-            pass = !0;
-            break;
-        }
-    }
-
-    if (pass) {
-        changeSwipeToSearch();
-    } else {
-        $(".menu-swipe-class").addClass("open").removeClass("touchOpen close");
-        $("#procura").blur();
-        let myService = services.filter(s => s.id === this.id);
-        changeSwipeToService(myService[0]);
-        openMapPopup(this);
-    }
+    $(".menu-swipe-class").addClass("open").removeClass("touchOpen close");
+    $("#procura").blur();
+    let myService = services.filter(s => s.id === this.id);
+    changeSwipeToService(myService[0]);
+    openMapPopup(this);
 }
 
 function profissionaisFiltrado(data) {
