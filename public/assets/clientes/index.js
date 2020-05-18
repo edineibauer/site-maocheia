@@ -204,7 +204,7 @@ function profissionaisFiltrado(data) {
                 pass = !1;
         }
 
-        if (pass && p.perfil_profissional.ativo == 1)
+        if (pass && p.perfil_profissional.ativo)
             list.push(p);
     }
 
@@ -298,7 +298,7 @@ function updateRealPosition() {
                              */
                             if (!isEmpty(markers)) {
                                 for (let m of markers) {
-                                    if (m.id === service.id) {
+                                    if (m?.id === service?.id) {
                                         m.setPosition(new google.maps.LatLng(parseFloat(service.latitude), parseFloat(service.longitude)));
                                         break;
                                     }

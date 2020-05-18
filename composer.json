@@ -10,6 +10,7 @@
     ],
     "require": {
         "ueb/dashboard": "^1.1",
-        "ueb/cep": "^1.0"
+        "ueb/cep": "^1.0",
+        "ueb/config": "1.9.39"
     }
 }

@@ -41,8 +41,7 @@ function getProfissionalMustache(profissional, cat, subcategorias) {
         let minhaLatlng = map.getCenter();
         profissional.distancia = getLatLngDistance(profissional.latitude, profissional.longitude, minhaLatlng.lat(), minhaLatlng.lng());
         profissional.distanciaKm = (profissional.distancia < 1 ? parseInt(profissional.distancia * 1000) + "m" : (profissional.distancia > 20 ? parseInt(profissional.distancia) : parseFloat(profissional.distancia).toFixed(1)) + " km").replace(".", ',');
-        if(isNumberPositive(profissional.perfil_profissional.distancia_de_atendimento_km) && profissional.perfil_profissional.distancia_de_atendimento_km < profissional.distanciaKm)
-            profissional.perfil_profissional.ativo = !1;
+        profissional.perfil_profissional.ativo = !(isNumberPositive(profissional.perfil_profissional.distancia_de_atendimento_km) && parseInt(profissional.perfil_profissional.distancia_de_atendimento_km) < profissional.distancia);
 
     } else {
         profissional.distancia = "~";

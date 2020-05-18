@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="row">
+        <a href="#back" data-animation="back" class="col-3 volta">
+            <i class="material-icons">arrow_back</i>
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-12 text-center">
+            <div id="clienteImagem" style="background-image: url('{{imagem_url}}')"></div>
+            <h2 class="nome" id="clienteNome">{{nome}}</h2>
+            <div class="avaliacao-perfil avaliacao-card">
+                <ul class="horizontal-list">
+                    <li>
+                        <i class="material-icons{{#avaliacao.avaliacao_star1}} active{{/avaliacao.avaliacao_star1}}">{{#avaliacao.avaliacao_star1_half}}
+                            star_half{{/avaliacao.avaliacao_star1_half}}{{^avaliacao.avaliacao_star1_half}}
+                            star{{/avaliacao.avaliacao_star1_half}}</i></li>
+                    <li>
+                        <i class="material-icons{{#avaliacao.avaliacao_star2}} active{{/avaliacao.avaliacao_star2}}">{{#avaliacao.avaliacao_star2_half}}
+                            star_half{{/avaliacao.avaliacao_star2_half}}{{^avaliacao.avaliacao_star2_half}}
+                            star{{/avaliacao.avaliacao_star2_half}}</i></li>
+                    <li>
+                        <i class="material-icons{{#avaliacao.avaliacao_star3}} active{{/avaliacao.avaliacao_star3}}">{{#avaliacao.avaliacao_star3_half}}
+                            star_half{{/avaliacao.avaliacao_star3_half}}{{^avaliacao.avaliacao_star3_half}}
+                            star{{/avaliacao.avaliacao_star3_half}}</i></li>
+                    <li>
+                        <i class="material-icons{{#avaliacao.avaliacao_star4}} active{{/avaliacao.avaliacao_star4}}">{{#avaliacao.avaliacao_star4_half}}
+                            star_half{{/avaliacao.avaliacao_star4_half}}{{^avaliacao.avaliacao_star4_half}}
+                            star{{/avaliacao.avaliacao_star4_half}}</i></li>
+                    <li>
+                        <i class="material-icons{{#avaliacao.avaliacao_star5}} active{{/avaliacao.avaliacao_star5}}">{{#avaliacao.avaliacao_star5_half}}
+                            star_half{{/avaliacao.avaliacao_star5_half}}{{^avaliacao.avaliacao_star5_half}}
+                            star{{/avaliacao.avaliacao_star5_half}}</i></li>
+                    <li>{{avaliacao.avaliacao}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="row">
+        <div class="col-12">
+            <div class="pedido-concluido">
+                Este cliente tem 25% dos pedidos concluídos
+            </div>
+        </div>
+    </div>-->
+    <div class="row">
+        <div class="col-12 pb-4">
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="titulo-endereco" id="section-avaliacoes-title">Nenhuma avaliação</h5>
+                </div>
+            </div>
+
+            <!--<div id="section-avaliacoes"></div>
+
+            <div class="row hide" id="section-avaliacoes-more">
+                <div class="col-12">
+                    <div class="todas-avaliacoes">
+                        <a href="avaliacoes/{{id}}" data-animation="forward">Ver todas as avaliações</a>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+</div>
