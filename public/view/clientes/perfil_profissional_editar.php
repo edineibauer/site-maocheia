@@ -118,6 +118,26 @@
                     </div>
                 </div>
 
+                <div class="form-group pt-3">
+                    <label for="whatsapp" class="pb-1">Whatsapp * (com DDD)</label>
+                    <input type="number" class="form-control" autocomplete="off" id="whatsapp" minlength="10" min="10" maxlength="15" max="14" required="required" />
+                </div>
+
+                <div class="form-group pt-1">
+                    <label for="telefone" class="pb-1">Telefone (com DDD)</label>
+                    <input type="number" class="form-control" autocomplete="off" id="telefone" minlength="10" min="10" maxlength="15" max="14" />
+                </div>
+
+                <div class="form-group pt-1">
+                    <label for="email" class="pb-1">Email</label>
+                    <input type="email" class="form-control email" id="email" maxlength="127" max="127">
+                </div>
+
+                <div class="form-group pt-1">
+                    <label for="site" class="pb-1">Site</label>
+                    <input type="url" class="form-control" id="site" pattern="^https?:\/\/\w+.\.+" maxlength="254" max="254">
+                </div>
+
                 <div class="row justify-content-center">
                     <div class="form-group col-12 col-lg-6 mb-4">
                         <button class="btn btn-primary" id="update-profissional">ATUALIZAR</button>

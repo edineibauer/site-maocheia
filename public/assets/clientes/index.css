@@ -317,22 +317,38 @@ figure {
 
 #profissionais .cardList .distancia {
     font-size: 11px;
-    margin-top: 2px;
 }
 
 #profissionais .cardList .distancia .distancias {
     color: #999999;
     font-weight: normal;
+    padding: 2px 0 0 5px;
+    float: left;
+}
+
+.profissional-subtitulo {
+    display: inline;
+    float: left;
+    padding: 1px 5px 0 0;
+    font-size: 16px;
+    color: #777;
+}
+
+.profissional-subtitulo > img {
+    width: auto;
+    height: 16px;
+    margin: -3px 3px 0 3px;
 }
 
 .service-category-style > img {
-    margin-left: 5px;
+    height: 12px!important;
+    margin-right: 3px;
+    margin-top: -3px;
 }
 
 .service-category-style {
     font-size: 11px;
     font-weight: 400;
-    margin: 3px 0;
 }
 
 .cardListAval {
@@ -689,10 +705,6 @@ body {
     font-size: 32px;
 }
 
-.profissional-subtitulo {
-    display: inline;
-}
-
 .point-draw {
     width: 5px;
     height: 5px;
@@ -763,13 +775,19 @@ body {
 
 #serviceMensagem {
     margin: 15px auto;
-    width: 160px;
+    width: 170px;
     position: absolute;
     right: 20px;
     top: 80px;
-    padding: 10px;
+    padding: 10px 10px 10px 30px;
     font-size: 18px;
     box-shadow: 1px 3px 7px -6px black;
+    background-image: url("libs/ueb/site-maocheia/public/assets/img/whatsapp.png");
+    background-position: 20px center;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-color: #25d366;
+    color: #ffffff;
 }
 
 #imagem-perfil-div {
@@ -828,7 +846,6 @@ body {
     font-size: 12px;
     font-weight: 500;
     text-align: left;
-    margin-top: 5px;
     float: left;
     width: 100%;
 }
@@ -950,6 +967,11 @@ body {
 
 #perfil-cliente .avaliacao-perfil .material-icons {
     font-size: 18px !important;
+}
+
+.markerImg {
+    background: red;
+    height: 200px;
 }
 
 ul.horizontal-list > li:nth-last-child(1) {

@@ -287,6 +287,10 @@ $(function () {
             "inicio": $("#inicio").val(),
             "termino": $("#termino").val(),
             "dias": JSON.stringify(dias),
+            "whatsapp": $("#whatsapp").val(),
+            "telefone": $("#telefone").val(),
+            "email": $("#email").val(),
+            "site": $("#site").val(),
             "distancia_de_atendimento_km": parseInt($("#distancia").val() || 0),
             "ativo": !0,
         };
@@ -299,6 +303,8 @@ $(function () {
             toast("Defina uma imagem de perfil", 2500, "toast-warning");
         } else if (isEmpty(profissional.imagem_de_fundo)) {
             toast("Defina uma imagem de fundo", 2500, "toast-warning");
+        } else if (isEmpty(p.whatsapp) || p.whatsapp.length < 10) {
+            toast("Informe seu número do Whatsapp com DDD", 2500, "toast-warning");
         } else {
 
             profissional.id = Date.now() + Math.floor((Math.random() * 1000) + 1);

@@ -2,17 +2,17 @@
   {
     "href": "index",
     "class": "theme-text-aux",
-    "html": "<i class='material-icons left'>home</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>início</div>"
+    "html": "<i class='material-icons left'>map</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>início</div>"
+  },
+  {
+    "href": "historico",
+    "class": "theme-text-aux",
+    "html": "<i class='material-icons left'>history</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>histórico</div>"
   },
   {
     "href": "notificacoes",
     "class": "theme-text-aux",
     "html": "<i class='material-icons left'>notifications</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>notificações</div>"
-  },
-  {
-    "href": "mensagem",
-    "class": "theme-text-aux",
-    "html": "<i class='material-icons left'>chat_bubble</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>mensagens</div>"
   },
   {
     "href": "perfil",

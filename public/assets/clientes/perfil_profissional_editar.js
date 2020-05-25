@@ -185,6 +185,10 @@ function getValoresCampos() {
         "galeria": galeria,
         "inicio": $("#inicio").val(),
         "termino": $("#termino").val(),
+        "whatsapp": $("#whatsapp").val(),
+        "telefone": $("#telefone").val(),
+        "email": $("#email").val(),
+        "site": $("#site").val(),
         "dias": JSON.stringify(dias),
         "distancia_de_atendimento_km": parseInt($("#distancia").val() || 0),
         "ativo": !0,
@@ -216,13 +220,17 @@ $(function () {
     $("#imagem_de_fundo_preview").addClass("image").html("<img src='" + profissional.imagem_de_fundo[0].urls.medium + "' alt='" + USER.nome + "' />");
     $("#inicio").val(profissional.inicio);
     $("#termino").val(profissional.termino);
+    $("#whatsapp").val(profissional.whatsapp);
+    $("#telefone").val(profissional.telefone);
+    $("#email").val(profissional.email);
+    $("#site").val(profissional.site);
     $("#distancia").val(profissional.distancia_de_atendimento_km);
     for(let dia of profissional.dias)
         $("#" + dia).prop("checked", !0);
 
     if (!isEmpty(profissional.galeria)) {
         for (let i in profissional.galeria)
-            $("#galeria_preview").append("<img src='" + profissional.galeria[i].urls.medium + "' alt='" + USER.nome + "' />");
+            $("#galeria_preview").append("<img src='" + profissional.galeria[i].urls.medium + "' alt='" + USER.nome + "' data-id='"+ i +"' />");
     }
 
     $("#imagem_de_perfil").off("change").on("change", function (e) {
@@ -283,6 +291,17 @@ $(function () {
         }
     });
 
+    $("#app").off("click", "#galeria_preview>img").on("click", "#galeria_preview>img", function () {
+        let id = $(this).data("id");
+        if(confirm("remover imagem?")) {
+            galeria.splice(id, 1);
+
+            $("#galeria_preview>img").remove();
+            for (let i in galeria)
+                $("#galeria_preview").append("<img src='" + galeria[i].urls.medium + "' alt='" + USER.nome + "' data-id='"+ i +"' />");
+        }
+    });
+
     $("#galeria").off("change").on("change", function (e) {
         let $input = $(this);
         if (typeof e.target.files[0] !== "undefined") {
@@ -322,9 +341,11 @@ $(function () {
             toast("informe a categoria", 2000, "toast-warning");
         } else if (isEmpty(p.sobre)) {
             toast("Defina seu Trabalho em Sobre", 2500, "toast-warning");
+        } else if (isEmpty(p.whatsapp) || p.whatsapp.length < 10) {
+            toast("Informe seu número do Whatsapp com DDD", 2500, "toast-warning");
         } else {
 
-            db.exeCreate("profissional", Object.assign({id: USER.setorData.perfil_profissional_id, nome: USER.setorData.nome}, p)).then(r => {
+            db.exeCreate("profissional", Object.assign({id: parseInt(USER.setorData.perfil_profissional_id), nome: USER.setorData.nome}, p)).then(r => {
                 if (r.db_errorback === 0) {
                     toast("Perfil atualizado!", 1400, "toast-success");
                     delete(r.db_action);
@@ -333,6 +354,7 @@ $(function () {
                     r.dias = JSON.parse(r.dias);
                     r.imagem_de_perfil = JSON.parse(r.imagem_de_perfil);
                     r.imagem_de_fundo = JSON.parse(r.imagem_de_fundo);
+                    console.log(r);
                     USER.setorData.perfil_profissional = JSON.stringify([r]);
                 }
             });

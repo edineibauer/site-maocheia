@@ -12,6 +12,7 @@ function getProfissionalMustache(profissional, cat, subcategorias) {
     profissional.perfil_profissional = Object.assign(profissional.perfil_profissional, getProfissionalStar(avaliacao));
     profissional.perfil_profissional = Object.assign(profissional.perfil_profissional, getProfissionalPreco(preco));
 
+    profissional.perfil_profissional.sitePretty = !isEmpty(profissional.perfil_profissional.site) ? profissional.perfil_profissional.site.replace("https://", "").replace("http://", "").replace("/", "") : "";
     profissional.perfil_profissional.haveAvaliacoes = !1;
     profissional.perfil_profissional.avaliacoes = [];
     let t = profissional.perfil_profissional.inicio.split(":");

@@ -11,14 +11,10 @@
                         <h6 class="nome">
                             <div class="float-left">{{nome}}</div>
                             <div class="point-draw-medium{{#perfil_profissional.online}} online{{/perfil_profissional.online}} float-left"></div>
-                            <div class="profissional-subtitulo service-category-style float-left">
-                                <img src="{{perfil_profissional.categoriaImage}}" width="10" height="10" title="{{perfil_profissional.categoriaNome}}" alt="imagem da categoria {{perfil_profissional.categoriaNome}}" />
-                                {{perfil_profissional.categoriaNome}}
-                            </div>
                         </h6>
                     </div>
-                    <div class="profisao mt-1 cardListAval">
-                        <div class="profissional-subtitulo float-left">
+                    <div class="profisao cardListAval">
+                        <div class="profissional-subtitulo float-left" style="margin-top: -5px;">
                             <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: -5px"
                                  xmlns:xlink="http://www.w3.org/1999/xlink"
                                  fill="{{#perfil_profissional.preco_star1}}#FF1967{{/perfil_profissional.preco_star1}}{{^perfil_profissional.preco_star1}}#bbbbbb{{/perfil_profissional.preco_star1}}"
@@ -39,9 +35,6 @@
                             </svg>
                         </div>
 
-                        <div class="profissional-subtitulo float-left" style="margin-top: 1px">
-                            <div class="point-draw"></div>
-                        </div>
                         <div class="avaliacao-card">
                             <ul class="horizontal-list">
                                 <li>
@@ -74,6 +67,10 @@
                         </div>
                     </div>
                     <div class="distancia">
+                        <div class="profissional-subtitulo service-category-style float-left">
+                            <img src="{{perfil_profissional.categoriaImage}}" width="10" height="10" title="{{perfil_profissional.categoriaNome}}" alt="imagem da categoria {{perfil_profissional.categoriaNome}}" />
+                            {{perfil_profissional.categoriaNome}}
+                        </div>
                         <span class="distancias">{{distanciaKm}} de distência</span>
                     </div>
                 </div>

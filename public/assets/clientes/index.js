@@ -75,7 +75,7 @@ function changeSwipeToSearch() {
             $(".swipe-zone-body").htmlTemplate('serviceFilterSearch', {
                 categorias: categorias
             }).then(() => {
-                updateListService(services);
+                readServices();
 
                 if(isNumberPositive(filtrosProfissionais.categoria))
                     showCategoryAndSubcategory();
@@ -199,6 +199,15 @@ function profissionaisFiltrado(data) {
     return list;
 }
 
+function getAllServiceOnMap() {
+    let $imgs = [];
+    $("#mapa-home").find(".gm-style-pbc").next().find("img").each(function(i, e) {
+        if(/i=service/i.test($(e).attr("src")))
+            $imgs.push($(e));
+    });
+    return $imgs;
+}
+
 function setAllServicesOnMap(data) {
     /**
      * Remove all markers and clusters
@@ -306,24 +315,10 @@ function updateRealPosition() {
  * Atualiza lista e mapa com os serviços dentro da distância e dos filtros selecionados
  */
 function readServices() {
-    // let km = getZoomToKm(map.getZoom());
-    // let minhaLatlng = map.getCenter();
-
-    /**
-     * Verfica os resultados que devem ser mostrados no mapa a partir da distancia do meu ponto
-     */
-    let data = [];
-    for (let i in services) {
-        // let distancia = getLatLngDistance(services[i].latitude, services[i].longitude, minhaLatlng.lat(), minhaLatlng.lng());
-        // if (distancia < km)
-        data.push(services[i]);
-    }
-
     /**
      * Aplica filtro aos resultados que serão mostrados no mapa
      */
-    servicesFiltered = profissionaisFiltrado(data);
-    updateListService(servicesFiltered);
+    updateListService(profissionaisFiltrado(services));
 }
 
 function initAutocomplete() {
@@ -491,6 +486,8 @@ $(function () {
         db.exeRead("categorias_sub", id).then(sub => {
             selectCategory(sub.categoria, id);
         });
+    }).off("click", ".contato").on("click", ".contato", function () {
+        post("site-maocheia", "descontaMoeda");
     });
 });
 
