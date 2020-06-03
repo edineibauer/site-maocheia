@@ -356,7 +356,6 @@ $(function () {
                     r.dias = JSON.parse(r.dias);
                     r.imagem_de_perfil = JSON.parse(r.imagem_de_perfil);
                     r.imagem_de_fundo = JSON.parse(r.imagem_de_fundo);
-                    console.log(r);
                     USER.setorData.perfil_profissional = JSON.stringify([r]);
                 }
             });

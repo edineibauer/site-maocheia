@@ -49,7 +49,7 @@ function showCategoryAndSubcategory() {
     $("#subcategorias, #profissionais").removeClass("hideCategorie");
     touchElements.setDistanciaStart(window.innerHeight - 188 - (USER.setor === 0 ? 0 : 50));
 }
-db.exeRead("categorias").then(console.log);
+db.exeRead("categorias");
 
 function changeSwipeToSearch() {
 
@@ -328,6 +328,38 @@ function initAutocomplete() {
     startMap();
 }
 
+function getRealPosition() {
+    $("#location-btn").trigger("click");
+    if (navigator.geolocation) {
+        navigator.permissions.query({name: 'geolocation'}).then(permissionGeo => {
+            switch (permissionGeo.state) {
+                case "granted":
+                case "prompt":
+                    navigator.geolocation.getCurrentPosition(position => {
+                            myMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                            moveToLocation(position.coords.latitude, position.coords.longitude);
+                            readAllServices();
+                        },
+                        () => {
+                            toast("Erro ao obter localização", 2000, "toast-warning");
+                            readAllServices(1);
+                        }, {
+                            enableHighAccuracy: true,
+                            timeout: 5000,
+                            maximumAge: 0
+                        });
+                    break;
+                //exibe popup pedindo permissão para pegar localização
+                default:
+                    //não aceitou mostrar a localização
+                    toast("desinstale o app ou limpe os dados para poder localizar o GPS", 5000, "toast-warning");
+            }
+        });
+    } else {
+        toast("dispositivo sem suporte", 1500, "toast-warning");
+    }
+}
+
 $(function () {
     /**
      * Primeiro carregamento do mapa
@@ -336,6 +368,8 @@ $(function () {
         $.cachedScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyDOHzDqP5Obg3nqWwu-QwztEyhD8XENPGE&libraries=places,directions&callback=initAutocomplete&language=pt-br");
     else
         initAutocomplete();
+
+    getRealPosition();
 
     $("body").off("click", "#location-btn").on("click", "#location-btn", function () {
 
@@ -360,35 +394,7 @@ $(function () {
             }, 250);
         }
     }).off("click", "#my-location-btn").on("click", "#my-location-btn", function () {
-        $("#location-btn").trigger("click");
-        if (navigator.geolocation) {
-            navigator.permissions.query({name: 'geolocation'}).then(permissionGeo => {
-                switch (permissionGeo.state) {
-                    case "granted":
-                    case "prompt":
-                        navigator.geolocation.getCurrentPosition(position => {
-                                myMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-                                moveToLocation(position.coords.latitude, position.coords.longitude);
-                                readAllServices();
-                            },
-                            () => {
-                                toast("Erro ao obter localização", 2000, "toast-warning");
-                                readAllServices(1);
-                            }, {
-                                enableHighAccuracy: true,
-                                timeout: 5000,
-                                maximumAge: 0
-                            });
-                        break;
-                    //exibe popup pedindo permissão para pegar localização
-                    default:
-                        //não aceitou mostrar a localização
-                        toast("desinstale o app ou limpe os dados para poder localizar o GPS", 5000, "toast-warning");
-                }
-            });
-        } else {
-            toast("dispositivo sem suporte", 1500, "toast-warning");
-        }
+        getRealPosition();
 
     }).off("click", ".profissional").on("click", ".profissional", function () {
         for (let i in services) {

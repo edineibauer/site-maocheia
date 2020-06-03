@@ -93,12 +93,10 @@ function setCoordenadas() {
         navigator.permissions.query({name: 'geolocation'}).then(permissionGeo => {
             if (permissionGeo.state === "granted") {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                        if (position.coords.accuracy < 100) {
-                            post("site-maocheia", "set/coordenadas", {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude
-                            });
-                        }
+                        post("site-maocheia", "set/coordenadas", {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        });
                     },
                     function (error) {
                     }, {
