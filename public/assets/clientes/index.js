@@ -8,7 +8,7 @@ var
     servicesFiltered = [],
     openService = {};
 
-function clearPage() {
+function destruct() {
     clearInterval(servicesOnMapUpdate);
 }
 
@@ -49,8 +49,10 @@ function showCategoryAndSubcategory() {
     $("#subcategorias, #profissionais").removeClass("hideCategorie");
     touchElements.setDistanciaStart(window.innerHeight - 188 - (USER.setor === 0 ? 0 : 50));
 }
+db.exeRead("categorias").then(console.log);
 
 function changeSwipeToSearch() {
+
     openService = {};
     let $menu = $(".menu-swipe-class");
     if (!$menu.hasClass("serviceFilterSearch")) {
@@ -247,7 +249,6 @@ function readAllServices(localizationAnonimo) {
                     services.push(getProfissionalMustache(result[i], categories.find(s => s.id == result[i].perfil_profissional.categoria), subcategorias));
 
                 readServices();
-                setAllServicesOnMap();
 
                 if (navigator.onLine && USER.setor !== 0) {
                     clearInterval(servicesOnMapUpdate);
@@ -318,7 +319,9 @@ function readServices() {
     /**
      * Aplica filtro aos resultados que serão mostrados no mapa
      */
-    updateListService(profissionaisFiltrado(services));
+    servicesFiltered = profissionaisFiltrado(services)
+    updateListService(servicesFiltered);
+    setAllServicesOnMap(servicesFiltered);
 }
 
 function initAutocomplete() {
@@ -473,7 +476,6 @@ $(function () {
             $(this).addClass("selecionado");
         }
         readServices();
-        setAllServicesOnMap(servicesFiltered);
 
     }).off("click", ".serviceProfissao").on("click", ".serviceProfissao", function () {
         selectCategory($(this).attr('rel'));
@@ -512,6 +514,5 @@ function selectCategory(category, subcategory) {
     readSubCategoriesMenu(filtrosProfissionais.categoria, subcategory);
     setTimeout(function () {
         readServices();
-        setAllServicesOnMap(servicesFiltered);
     }, 150);
 }
