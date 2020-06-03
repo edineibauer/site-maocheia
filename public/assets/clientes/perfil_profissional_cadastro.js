@@ -265,6 +265,7 @@ $(function () {
 
     $("#create-profissional").off("click").on("click", function () {
 
+        toast("Enviando dados...", 13000, "toast-infor");
         let subcategorias = [];
         $(".subcategorias:checked").each(function(i, e) {
             subcategorias.push($(e).attr("id"));
@@ -303,7 +304,7 @@ $(function () {
             toast("Defina uma imagem de perfil", 2500, "toast-warning");
         } else if (isEmpty(profissional.imagem_de_fundo)) {
             toast("Defina uma imagem de fundo", 2500, "toast-warning");
-        } else if (isEmpty(p.whatsapp) || p.whatsapp.length < 10) {
+        } else if (isEmpty(profissional.whatsapp) || profissional.whatsapp.length < 10) {
             toast("Informe seu número do Whatsapp com DDD", 2500, "toast-warning");
         } else {
 
