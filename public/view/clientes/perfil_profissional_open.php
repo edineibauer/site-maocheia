@@ -23,8 +23,8 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-5 col-md-3 col-lg-4 mt-4">
-                <div class="botao">
-                    <a href="perfil_profissional_cadastro" class="btn btn-primary">criar</a>
+                <div class="botao mt-3">
+                    <a href="perfil_profissional_cadastro" class="col btn btn-primary py-2">criar</a>
                 </div>
             </div>
         </div>
