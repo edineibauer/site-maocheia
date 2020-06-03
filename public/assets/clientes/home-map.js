@@ -311,7 +311,6 @@ function startMap() {
         setCoordenadas();
     }, 4000);
 
-    touchElements = new TouchUp($(".menu-swipe-class"), 450, 100, null, null, ["#services", "#service-perfil-body"]);
-    // $(".menu-swipe-class").touchVertical("menu", -450, 100, null, ["#services", "#service-perfil-body"]);
+    touchElements = new TouchUp($(".menu-swipe-class"), 450, 100, null, null, ["#profissionais", "#service-perfil-body", "#serviceMensagem", "#categorias", "#subcategorias"]);
     changeSwipeToSearch();
 }
