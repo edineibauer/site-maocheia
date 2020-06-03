@@ -6,31 +6,48 @@ var
     servicesOnMapUpdate = null,
     services = [],
     servicesFiltered = [],
-    openService = {};
+    openService = {},
+    myMarker,
+    markers = [],
+    markerCluster = null,
+    map,
+    mapMoveTrack,
+    intervalPosition,
+    touchElements;
 
 function destruct() {
     clearInterval(servicesOnMapUpdate);
 }
 
 function readSubCategoriesMenu(categoria, selected) {
+    let $sub = $("#subcategorias");
     db.exeRead("categorias_sub").then(cat => {
         let sub = cat.filter(c => c.categoria == categoria);
-        $("#subcategorias").htmlTemplate('subcategoriasMenu', {subcategorias: sub}).then(() => {
-            if ($("#subcategorias").hasClass("owl-loaded"))
-                $("#subcategorias").trigger('destroy.owl.carousel');
+        $sub.htmlTemplate('subcategoriasMenu', {subcategorias: sub}).then(() => {
 
-            $('#subcategorias').owlCarousel({
+            if ($sub.hasClass("owl-loaded"))
+                $sub.trigger('destroy.owl.carousel');
+
+            $sub.owlCarousel({
                 loop: false,
                 margin: 10,
                 dots: false,
                 nav: false,
                 responsive: {
                     0: {
-                        items: 4,
+                        items: 3.6,
                         startPosition: 0
                     }
                 }
             });
+
+            if(!isEmpty(sub)) {
+                touchElements.setDistanciaStart(window.innerHeight - 122 - $sub.innerHeight() - (USER.setor === 0 ? 0 : 50));
+                $("#subcategorias, #profissionais").removeClass("hideCategorie");
+            } else {
+                touchElements.setDistanciaStart(window.innerHeight - 125 - (USER.setor === 0 ? 0 : 50));
+                $("#subcategorias, #profissionais").addClass("hideCategorie");
+            }
 
             if (isNumberPositive(selected)) {
                 $(".serviceAtuacao[rel='" + selected + "']").trigger("click");
@@ -47,7 +64,7 @@ function readSubCategoriesMenu(categoria, selected) {
 function showCategoryAndSubcategory() {
     readSubCategoriesMenu(filtrosProfissionais.categoria, filtrosProfissionais.subcategoria);
     $("#subcategorias, #profissionais").removeClass("hideCategorie");
-    touchElements.setDistanciaStart(window.innerHeight - 188 - (USER.setor === 0 ? 0 : 50));
+    touchElements.setDistanciaStart(window.innerHeight - 122 - $("#subcategorias").innerHeight() - (USER.setor === 0 ? 0 : 50));
 }
 db.exeRead("categorias");
 
@@ -64,7 +81,7 @@ function changeSwipeToSearch() {
         if(isNumberPositive(filtrosProfissionais.categoria)) {
             showCategoryAndSubcategory();
         } else {
-            touchElements.setDistanciaStart(window.innerHeight - 130 - (USER.setor === 0 ? 0 : 50));
+            touchElements.setDistanciaStart(window.innerHeight - 125 - (USER.setor === 0 ? 0 : 50));
         }
 
         $(".swipe-zone-body").addClass("filter");
@@ -89,7 +106,7 @@ function changeSwipeToSearch() {
                     nav: false,
                     responsive: {
                         0: {
-                            items: 5,
+                            items: 5.6,
                             startPosition: 0
                         }
                     }
@@ -329,7 +346,6 @@ function initAutocomplete() {
 }
 
 function getRealPosition() {
-    $("#location-btn").trigger("click");
     if (navigator.geolocation) {
         navigator.permissions.query({name: 'geolocation'}).then(permissionGeo => {
             switch (permissionGeo.state) {
@@ -369,8 +385,6 @@ $(function () {
     else
         initAutocomplete();
 
-    getRealPosition();
-
     $("body").off("click", "#location-btn").on("click", "#location-btn", function () {
 
         /**
@@ -394,6 +408,7 @@ $(function () {
             }, 250);
         }
     }).off("click", "#my-location-btn").on("click", "#my-location-btn", function () {
+        $("#location-btn").trigger("click");
         getRealPosition();
 
     }).off("click", ".profissional").on("click", ".profissional", function () {
@@ -417,7 +432,7 @@ $(function () {
         $(".serviceCategory").removeClass("selecionado");
         filtrosProfissionais.subcategoria = [];
         filtrosProfissionais.categoria = "";
-        touchElements.setDistanciaStart(window.innerHeight - 130 - (USER.setor === 0 ? 0 : 50));
+        touchElements.setDistanciaStart(window.innerHeight - 125 - (USER.setor === 0 ? 0 : 50));
         touchElements.moveToTarget();
 
         $("#procura").one("blur", function () {
@@ -504,17 +519,15 @@ function selectCategory(category, subcategory) {
     filtrosProfissionais.subcategoria = [];
     if (filtrosProfissionais.categoria === category) {
         if(!isNumberPositive(subcategory)) {
-            touchElements.setDistanciaStart(window.innerHeight - 130 - (USER.setor === 0 ? 0 : 50));
+            touchElements.setDistanciaStart(window.innerHeight - 125 - (USER.setor === 0 ? 0 : 50));
             filtrosProfissionais.categoria = "";
             $(".serviceProfissao").removeClass("selecionado");
             $("#subcategorias, #profissionais").addClass("hideCategorie");
         }
     } else {
-        touchElements.setDistanciaStart(window.innerHeight - 188 - (USER.setor === 0 ? 0 : 50));
         filtrosProfissionais.categoria = category;
         $(".serviceProfissao").removeClass("selecionado");
         $(".serviceProfissao[rel='" + category + "']").addClass("selecionado");
-        $("#subcategorias, #profissionais").removeClass("hideCategorie");
     }
 
     readSubCategoriesMenu(filtrosProfissionais.categoria, subcategory);

@@ -1,5 +1,3 @@
-var popup, intervalPosition, touchElements;
-
 function openMapPopup(marker) {
     if (marker.type === 2) {
         getTemplates().then(tpl => {
@@ -202,8 +200,6 @@ function getZoomToKm(zoom) {
     }
 }
 
-var myMarker, markers = [], markerCluster = null, map, mapMoveTrack;
-
 function startMap() {
 
     /**
@@ -313,4 +309,5 @@ function startMap() {
 
     touchElements = new TouchUp($(".menu-swipe-class"), 450, 100, null, null, ["#profissionais", "#service-perfil-body", "#serviceMensagem", "#categorias", "#subcategorias"]);
     changeSwipeToSearch();
+    getRealPosition();
 }

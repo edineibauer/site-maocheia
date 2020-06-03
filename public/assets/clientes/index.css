@@ -181,7 +181,7 @@ figure {
 #subcategorias {
     background: #ececec;
     transition: transform ease .15s;
-    height: 66px;
+    min-height: 66px;
     display: block;
 }
 
