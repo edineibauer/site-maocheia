@@ -35,7 +35,7 @@ function readSubCategoriesMenu(categoria, selected) {
                 nav: false,
                 responsive: {
                     0: {
-                        items: 3.6,
+                        items: 4,
                         startPosition: 0
                     }
                 }
@@ -106,7 +106,7 @@ function changeSwipeToSearch() {
                     nav: false,
                     responsive: {
                         0: {
-                            items: 5.6,
+                            items: 5,
                             startPosition: 0
                         }
                     }
