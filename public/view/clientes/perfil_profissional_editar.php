@@ -9,7 +9,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <h2 class="titulo">Criar conta profissional</h2>
+                <h2 class="titulo">Editar Perfil Profissional</h2>
             </div>
         </div>
         <div class="row">
