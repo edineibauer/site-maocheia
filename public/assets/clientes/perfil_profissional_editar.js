@@ -198,6 +198,8 @@ function getValoresCampos() {
 $(function () {
     profissional = JSON.parse(USER.setorData.perfil_profissional)[0];
     profissional.categoria = parseInt(profissional.categoria);
+    profissional.dias = (!isEmpty(profissional.dias) ? JSON.parse(profissional.dias) : []);
+
     db.exeRead("categorias").then(categorias => {
         $("#categoria").html("");
         if (!isEmpty(categorias)) {
