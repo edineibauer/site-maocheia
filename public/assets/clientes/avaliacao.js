@@ -19,15 +19,15 @@ if(isNumberPositive(profissional)) {
     }, 2000);
 }
 
-db.exeRead("avaliacao").then(ava => {
+getJSON(HOME + "app/get/avaliacao").then(ava => {
     accept++;
-    for(let a of ava) {
+    for(let a of ava.avaliacao) {
         if(a.profissional == profissional) {
             accept--;
-            toast("Você já avaliou este profissional! Obrigado", 3000, "toast-infor");
+            toast("profissional já avaliado!", 3000, "toast-infor");
             setTimeout(function () {
-                pageTransition("index");
-            }, 3000);
+                history.back();
+            }, 500);
             break;
         }
     }
