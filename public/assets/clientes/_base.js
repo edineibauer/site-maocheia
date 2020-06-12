@@ -1,4 +1,4 @@
-var intervalPosition;
+// var intervalPosition;
 
 function getProfissionalMustache(profissional, cat, subcategorias) {
     profissional = Object.assign({}, profissional);
@@ -7,10 +7,12 @@ function getProfissionalMustache(profissional, cat, subcategorias) {
 
     // profissional.endereco = (!isEmpty(profissional.endereco) ? getLogradouroFromEndereco(profissional.endereco[0]) : "");
 
-    let avaliacao = (((!isEmpty(profissional.perfil_profissional.atendimento) ? parseInt(profissional.perfil_profissional.atendimento) : 10000000) + (!isEmpty(profissional.perfil_profissional.qualidade) ? parseInt(profissional.perfil_profissional.qualidade) : 10000000)) / 2) / 10000000;
-    let preco = (!isEmpty(profissional.perfil_profissional.preco_justo) ? parseInt(profissional.perfil_profissional.preco_justo) : 10000000) / 10000000;
+    let avaliacao = parseFloat(parseFloat((((!isEmpty(profissional.perfil_profissional.atendimento) ? parseInt(profissional.perfil_profissional.atendimento) : 10000000) + (!isEmpty(profissional.perfil_profissional.qualidade) ? parseInt(profissional.perfil_profissional.qualidade) : 10000000)) / 2) / 10000000).toFixed(1));
+    let preco = parseFloat(parseFloat((!isEmpty(profissional.perfil_profissional.preco_justo) ? parseInt(profissional.perfil_profissional.preco_justo) : 10000000) / 10000000).toFixed(1));
+
     profissional.perfil_profissional = Object.assign(profissional.perfil_profissional, getProfissionalStar(avaliacao));
     profissional.perfil_profissional = Object.assign(profissional.perfil_profissional, getProfissionalPreco(preco));
+    profissional.perfil_profissional.avaliacao = profissional.perfil_profissional.avaliacao.toString().replace(".", ',');
 
     profissional.perfil_profissional.sitePretty = !isEmpty(profissional.perfil_profissional.site) ? profissional.perfil_profissional.site.replace("https://", "").replace("http://", "").replace("/", "") : "";
     profissional.perfil_profissional.haveAvaliacoes = !1;
@@ -106,7 +108,7 @@ function degrees_to_radians(degrees) {
  * Verifica se tem mensagens pendentes
  * @returns {Promise<void>}
  */
-async function checkMensagens() {
+/*async function checkMensagens() {
     let pendentes = 0;
     let mensagens = await db.exeRead("mensagens");
     if(!isEmpty(mensagens)) {
@@ -117,7 +119,7 @@ async function checkMensagens() {
     }
     if(pendentes !== 0)
         $("#core-header-nav-bottom").find("a[href='mensagem']").append("<div class='badge-notification'>" + pendentes + "</div>");
-}
+}*/
 
 $(function ($) {
     $.fn.profissionalStar = function (avaliacao) {
@@ -134,8 +136,8 @@ $(function ($) {
         return this
     };
 
-    clearInterval(intervalPosition);
-    intervalPosition = setInterval(function () {
-        checkMensagens();
-    }, 4000);
+    // clearInterval(intervalPosition);
+    // intervalPosition = setInterval(function () {
+    //     checkMensagens();
+    // }, 4000);
 });

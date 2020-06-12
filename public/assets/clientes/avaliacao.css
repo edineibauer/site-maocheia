@@ -1,11 +1,16 @@
 body {
     font-family: 'Roboto', sans-serif !important;
+    background: #F1F0F5;
 }
 
 .avaliacao-principal ul.horizontal-list>li {
     float: left;
     color: #FF1967;
     font-size: 16px;
+}
+
+textarea:focus {
+    background: #ffffff!important;
 }
 
 .avaliacao-principal ul.horizontal-list>li:nth-last-child(1) {

@@ -13,7 +13,9 @@
                     {{canal}}
                 </div>
             </div>
-            <a href="{{^isProfissional}}avaliacaoCliente/{{cliente}}{{/isProfissional}}{{#isProfissional}}avaliacao/{{profissional}}{{/isProfissional}}" class="btn theme historico-btn">avaliar</a>
+            {{^avaliou}}
+                <a href="{{^isProfissional}}avaliacaoCliente/{{cliente}}{{/isProfissional}}{{#isProfissional}}avaliacao/{{profissional}}{{/isProfissional}}" class="btn theme historico-btn">avaliar</a>
+            {{/avaliou}}
         </a>
         <i class="material-icons" onclick="closeNote({{id}}, {{notificacao}})">delete</i>
     </div>
