@@ -11,6 +11,7 @@
     "require": {
         "ueb/dashboard": "* ",
         "ueb/cep": "^1.0",
-        "ueb/config": "*"
+        "ueb/config": "2.*",
+        "ueb/route": "1.*"
     }
 }

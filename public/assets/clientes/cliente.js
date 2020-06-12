@@ -1,7 +1,5 @@
-let id = parseInt(FRONT.VARIAVEIS[0]);
-
 $(function() {
-    db.exeRead("clientes", id).then(cliente => {
+    db.exeRead("clientes", FRONT.VARIAVEIS[0]).then(cliente => {
         cliente.imagem_url = !isEmpty(cliente.imagem) ? cliente.imagem[0].urls.medium : "";
         cliente.avaliacao = getProfissionalStar(4.5);
 

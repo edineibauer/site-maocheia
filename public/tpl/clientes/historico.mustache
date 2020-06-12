@@ -1,0 +1,24 @@
+{{#.}}
+    <div class="notification-item" rel="{{id}}">
+        <a href="cliente/{{cliente}}" class="notification-card{{#recebeu}} readed{{/recebeu}} no-select">
+            <div class="notification-content-left">
+                <img src="{{imagem.url}}" width="50" height="50" class="imagem-notificacao"/>
+            </div>
+            <div class="notification-content-right">
+                <div class="notification-content notification-title font-weight-bold h6 mb-0">
+                    {{nome}}
+                </div>
+                <div class="history-time mb-1 font-weight-bold pl-3">{{data}}</div>
+                <div class="notification-content notification-desc">
+                    {{canal}}
+                </div>
+            </div>
+            <a href="{{^isProfissional}}avaliacaoCliente/{{cliente}}{{/isProfissional}}{{#isProfissional}}avaliacao/{{profissional}}{{/isProfissional}}" class="btn theme historico-btn">avaliar</a>
+        </a>
+        <i class="material-icons" onclick="closeNote({{id}}, {{notificacao}})">delete</i>
+    </div>
+{{/.}}
+
+<script>
+    new TouchLeft($(".notification-card"), -70, 50, 0);
+</script>

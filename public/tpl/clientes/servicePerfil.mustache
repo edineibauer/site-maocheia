@@ -16,7 +16,7 @@
                 </div>
 
                 <a data-preventDefault="1" href="//api.whatsapp.com/send?phone=55{{perfil_profissional.whatsapp}}"
-                   data-animation="forward" class="btn contato" id="serviceMensagem">
+                   data-animation="forward" class="btn contato" data-id="{{id}}" data-canal="whatsapp" id="serviceMensagem">
                     whatsapp
                 </a>
             </div>
@@ -142,21 +142,21 @@
                             <h5 class="titulo-endereco mb-3">Contato:</h5>
                             {{#perfil_profissional.site}}
                                 <p class="mb-3 float-left col-12 pl-0">
-                                    <a href="{{perfil_profissional.site}}" class="contato" target="_blank">
+                                    <a href="{{perfil_profissional.site}}" class="contato" data-id="{{id}}" data-canal="site" target="_blank">
                                         <i class="material-icons float-left pr-2">language</i>
                                         <span class="float-left">acessar site</span>
                                     </a>
                                 </p>
                             {{/perfil_profissional.site}}
                             <p class="mb-3 float-left col-12 pl-0">
-                                <a data-preventDefault="1" class="contato" href="//api.whatsapp.com/send?phone=55{{perfil_profissional.whatsapp}}">
+                                <a data-preventDefault="1" class="contato" data-id="{{id}}" data-canal="whatsapp" href="//api.whatsapp.com/send?phone=55{{perfil_profissional.whatsapp}}">
                                     <i class="material-icons float-left pr-2">chat_bubble</i>
                                     <span class="float-left">mandar whatsapp</span>
                                 </a>
                             </p>
                             {{#perfil_profissional.telefone}}
                                 <p class="mb-3 float-left col-12 pl-0">
-                                    <a data-preventDefault="1" class="contato" href="tel:+55{{perfil_profissional.telefone}}">
+                                    <a data-preventDefault="1" class="contato" data-id="{{id}}" data-canal="telefone" href="tel:+55{{perfil_profissional.telefone}}">
                                         <i class="material-icons float-left pr-2">call</i>
                                         <span class="float-left">ligar para celular</span>
                                     </a>
@@ -164,7 +164,7 @@
                             {{/perfil_profissional.telefone}}
                             {{#perfil_profissional.email}}
                                 <p class="float-left col-12 pl-0">
-                                    <a data-preventDefault="1" class="contato" href="mailto:{{perfil_profissional.email}}">
+                                    <a data-preventDefault="1" class="contato" data-id="{{id}}" data-canal="email" href="mailto:{{perfil_profissional.email}}">
                                         <i class="material-icons float-left pr-2">email</i>
                                         <span class="float-left">mandar email</span>
                                     </a>

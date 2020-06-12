@@ -45,7 +45,7 @@ $(document).ready(function () {
                 "cliente": parseInt(USER.id),
                 "data": moment().format("YYYY-MM-DD HH:mm:ss"),
                 "nome_do_cliente": USER.nome,
-                "imagem_do_cliente": USER.imagem || USER.setorData.imagem || (!isEmpty(USER.setorData.perfil_profissional) && !isEmpty(JSON.parse(USER.setorData.perfil_profissional)[0].imagem_de_perfil) && JSON.parse(USER.setorData.perfil_profissional)[0].imagem_de_perfil[0].urls.thumb)
+                "imagem_do_cliente": (!isEmpty(USER.setorData.imagem) ? JSON.parse(USER.setorData.imagem)[0].url : !isEmpty(USER.imagem) ? USER.imagem.url : !isEmpty(USER.setorData.perfil_profissional) ? JSON.parse(USER.setorData.perfil_profissional)[0].imagem_de_perfil[0].url : "")
             };
 
             db.exeCreate("avaliacao", dados).then(result => {

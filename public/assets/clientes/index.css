@@ -850,6 +850,10 @@ body {
     width: 100%;
 }
 
+#section-avaliacoes .avaliacoes {
+    background-size: cover!important;
+}
+
 #perfil-cliente .avaliacoes figure img {
     width: 52px;
     height: 52px;
@@ -891,7 +895,7 @@ body {
     font-weight: bold;
     font-size: 14px;
     float: left;
-    max-width: calc(100vw - 250px);
+    max-width: calc(100vw - 270px);
     width: auto;
     display: block;
     overflow: hidden;

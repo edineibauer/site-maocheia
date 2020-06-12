@@ -510,7 +510,7 @@ $(function () {
             selectCategory(sub.categoria, id);
         });
     }).off("click", ".contato").on("click", ".contato", function () {
-        post("site-maocheia", "descontaMoeda");
+        post("site-maocheia", "descontaMoeda", {profissional: $(this).data("id"), canal: $(this).data("canal")});
     });
 });
 
