@@ -12,8 +12,8 @@
                 <h2 class="titulo mb-4" id="avaliacao-title">Sua Avaliação</h2>
             </div>
         </div>
-        <div class="row sua-avaliacao">
-            <div class="col-4 mt-2">
+        <div class="row sua-avaliacao mt-2">
+            <div class="col-4">
                 <div class="atendimento">Atendimento</div>
             </div>
             <div class="col-8">
@@ -21,23 +21,23 @@
                     <input type="radio" id="at-cm-star-empty" name="at" value="" checked/>
 
                     <label for="at-cm-star-1">
-                        <i class="material-icons-round">star</i>
+                        <i class="material-icons">star</i>
                     </label>
                     <input type="radio" id="at-cm-star-1" name="at" value="1"/>
                     <label for="at-cm-star-2">
-                        <i class="material-icons-round">star</i>
+                        <i class="material-icons">star</i>
                     </label>
                     <input type="radio" id="at-cm-star-2" name="at" value="2"/>
                     <label for="at-cm-star-3">
-                        <i class="material-icons-round">star</i>
+                        <i class="material-icons">star</i>
                     </label>
                     <input type="radio" id="at-cm-star-3" name="at" value="3"/>
                     <label for="at-cm-star-4">
-                        <i class="material-icons-round">star</i>
+                        <i class="material-icons">star</i>
                     </label>
                     <input type="radio" id="at-cm-star-4" name="at" value="4"/>
                     <label for="at-cm-star-5">
-                        <i class="material-icons-round">star</i>
+                        <i class="material-icons">star</i>
                     </label>
                     <input type="radio" id="at-cm-star-5" name="at" value="5"/>
                 </div>
@@ -45,30 +45,30 @@
             </div>
         </div>
         <div class="row sua-avaliacao">
-            <div class="col-4 mt-2">
+            <div class="col-4 mt-1">
                 <div class="atendimento">Qualidade</div>
             </div>
             <div class="col-8">
                 <div class="estrelas">
                     <input type="radio" id="ql-cm-star-empty" name="ql" value="" checked/>
                     <label for="ql-cm-star-1">
-                        <i class="material-icons-round">star</i>
+                        <i class="material-icons">star</i>
                     </label>
                     <input type="radio" id="ql-cm-star-1" name="ql" value="1"/>
                     <label for="ql-cm-star-2">
-                        <i class="material-icons-round">star</i>
+                        <i class="material-icons">star</i>
                     </label>
                     <input type="radio" id="ql-cm-star-2" name="ql" value="2"/>
                     <label for="ql-cm-star-3">
-                        <i class="material-icons-round">star</i>
+                        <i class="material-icons">star</i>
                     </label>
                     <input type="radio" id="ql-cm-star-3" name="ql" value="3"/>
                     <label for="ql-cm-star-4">
-                        <i class="material-icons-round">star</i>
+                        <i class="material-icons">star</i>
                     </label>
                     <input type="radio" id="ql-cm-star-4" name="ql" value="4"/>
                     <label for="ql-cm-star-5">
-                        <i class="material-icons-round">star</i>
+                        <i class="material-icons">star</i>
                     </label>
                     <input type="radio" id="ql-cm-star-5" name="ql" value="5"/>
                 </div>
@@ -83,23 +83,23 @@
                 <div class="estrelas">
                     <input type="radio" id="pj-cm-star-empty" name="pj" value="" checked/>
                     <label for="pj-cm-star-1">
-                        <i class="material-icons-round">star</i>
+                        <i class="material-icons">star</i>
                     </label>
                     <input type="radio" id="pj-cm-star-1" name="pj" value="1"/>
                     <label for="pj-cm-star-2">
-                        <i class="material-icons-round">star</i>
+                        <i class="material-icons">star</i>
                     </label>
                     <input type="radio" id="pj-cm-star-2" name="pj" value="2"/>
                     <label for="pj-cm-star-3">
-                        <i class="material-icons-round">star</i>
+                        <i class="material-icons">star</i>
                     </label>
                     <input type="radio" id="pj-cm-star-3" name="pj" value="3"/>
                     <label for="pj-cm-star-4">
-                        <i class="material-icons-round">star</i>
+                        <i class="material-icons">star</i>
                     </label>
                     <input type="radio" id="pj-cm-star-4" name="pj" value="4"/>
                     <label for="pj-cm-star-5">
-                        <i class="material-icons-round">star</i>
+                        <i class="material-icons">star</i>
                     </label>
                     <input type="radio" id="pj-cm-star-5" name="pj" value="5"/>
                 </div>

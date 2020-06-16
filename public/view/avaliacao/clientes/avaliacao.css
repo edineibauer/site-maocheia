@@ -41,15 +41,15 @@ textarea:focus {
     display: none;
 }
 
-.estrelas label i.material-icons-round {
+.estrelas label i.material-icons {
     font-size: 33px
 }
 
-.estrelas label i.material-icons-round {
+.estrelas label i.material-icons {
     color: #FF1967;
 }
 
-.estrelas input[type=radio]:checked~label i.material-icons-round {
+.estrelas input[type=radio]:checked~label i.material-icons {
     color: #CCC;
 }
 
