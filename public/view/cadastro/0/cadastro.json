@@ -1,0 +1,6 @@
+{
+  "title": "Cadastre-se",
+  "css": ["libs/bootstrap.min"],
+  "header": false,
+  "navbar": false
+}
