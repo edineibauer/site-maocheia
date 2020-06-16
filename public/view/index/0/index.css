@@ -133,6 +133,7 @@ body {
     font-size: 12px;
     margin-top: 5px;
     color: #CECECE;
+    float: left;
 }
 
 #login .conta a {
@@ -160,6 +161,14 @@ body {
     color: #484848;
 }
 
+.g-signin2 {
+    width: 100%!important;
+}
+
+.g-signin2 > .abcRioButton {
+    width: 100%!important;
+}
+
 svg {
     margin: auto;
     display: block;
@@ -167,8 +176,8 @@ svg {
 
 span[id^=not_signed_]:before, span[id^=connected]:before {
     content: 'Google';
-    padding-right: 100px;
-    padding-left: 7px;
+    padding-right: 4px;
+    margin-left: -16px;
 }
 
 @media (min-width: 600px) {

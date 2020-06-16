@@ -80,19 +80,19 @@
                                             <div class="form-group mt-2">
                                                 <input type="password" class="form-control" placeholder="senha" id="senha">
                                                 <div class="text-end">
+                                                        <div class="conta">
+                                                            <a class="jaTemConta" href="cadastro" data-animation="forward">Cadastre-se</a>
+                                                        </div>
                                                     <a href="esqueci-a-senha" data-animation="forward">Esqueceu a senha?</a>
                                                 </div>
                                             </div>
                                             <div class="row justify-content-center mt-2">
                                                 <div class="col-12 mt-2">
-                                                <?= (defined("GOOGLELOGINCLIENTID") && !empty(GOOGLELOGINCLIENTID) ? '<div class="g-signin2" data-onsuccess="onSignIn"></div><script src="https://apis.google.com/js/platform.js" async defer></script><meta name="google-signin-client_id" content="' . GOOGLELOGINCLIENTID . '">' : '') ?>
+                                                    <div id="fb-root"></div>
+                                                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v7.0&appId=213756582120567&autoLogAppEvents=1" nonce="EfSjjpfG"></script>
+                                                <?php \Login\Social::googleLogin() ?>
+                                                <?php \Login\Social::facebookLogin() ?>
                                                 </div>
-                                                <div class="mt-4 col-12 col-lg-6">
-                                                    <div class="conta text-center">Não possui uma conta?
-                                                        <a class="jaTemConta" href="cadastro" data-animation="forward">Cadastre-se</a>
-                                                    </div>
-                                                </div>
-
                                             </div>
                                         </div>
                                     </div>
