@@ -38,6 +38,7 @@ function exeLogin(email, senha, recaptcha) {
 function loginSocial(profile) {
     //search for the user email
     getJSON(HOME + "app/find/clientes/email/" + profile.email).then(r => {
+        console.log(r.clientes);
         if (!isEmpty(r.clientes)) {
             exeLogin(profile.email, profile.id)
         } else {
@@ -64,11 +65,43 @@ function loginGoogle(profile) {
 }
 
 $(function () {
-
-    $("#btn-tela-cadastro").off("click").on("click", function () {
-        login();
+    $('#apresentacao .owl-carousel').owlCarousel({
+        loop: false,
+        margin: 10,
+        nav: false,
+        autoplay: false,
+        dots: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+        }
     });
 
+    // Go to the next item
+    var owl = $('.owl-carousel');
+    owl.owlCarousel();
+
+    owl.on('translated.owl.carousel', function (e) {
+        $('.btn-proximo').prop('disabled', true);
+        if (e.page.count === e.page.index + 1) {
+            $('.btn-proximo').prop('disabled', false).text('Entrar').off("click").on('click', function () {
+                login();
+            });
+        } else {
+            $('.btn-proximo').prop('disabled', false).text('Próximo').off("click").on("click", function () {
+                owl.trigger('next.owl.carousel');
+            });
+        }
+    });
+
+    $('.btn-proximo').off("click").on("click", function () {
+        owl.trigger('next.owl.carousel');
+    });
+
+    /**
+     * Login
+     */
     if (getCookie("token") !== "" && getCookie("token") !== "0")
         location.href = HOME + "dashboard";
 

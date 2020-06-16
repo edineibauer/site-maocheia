@@ -31,30 +31,37 @@ function exeLogin(email, senha, recaptcha) {
     }
 }
 
-var googleLogin = 0;
-function onSignIn(googleUser) {
-    if(googleLogin === 0) {
-        gapi.auth2.getAuthInstance().signOut();
+/**
+ * login Social work with the user data to
+ * create a new user or login
+ */
+function loginSocial(profile) {
+    //search for the user email
+    getJSON(HOME + "app/find/clientes/email/" + profile.email).then(r => {
+        console.log(r.clientes);
+        if (!isEmpty(r.clientes)) {
+            exeLogin(profile.email, profile.id)
+        } else {
+            db.exeCreate("clientes", {
+                nome: profile.name,
+                email: profile.email,
+                imagem_url: profile.image,
+                senha: profile.id,
+                ativo: 1
+            }).then(result => {
+                if (result.db_errorback === 0)
+                    exeLogin(result.email, profile.id)
+            })
+        }
+    });
+}
 
-    } else {
-        var profile = googleUser.getBasicProfile();
-        getJSON(HOME + "app/find/clientes/email/" + profile.getEmail()).then(r => {
-            if (!isEmpty(r.clientes)) {
-                exeLogin(profile.getEmail(), profile.getId())
-            } else {
-                db.exeCreate("clientes", {
-                    nome: profile.getName(),
-                    email: profile.getEmail(),
-                    imagem_url: profile.getImageUrl(),
-                    senha: profile.getId(),
-                    ativo: 1
-                }).then(result => {
-                    if (result.db_errorback === 0)
-                        exeLogin(result.email, profile.getId())
-                })
-            }
-        });
-    }
+function loginFacebook(profile) {
+    loginSocial(profile);
+}
+
+function loginGoogle(profile) {
+    loginSocial(profile);
 }
 
 $(function () {
