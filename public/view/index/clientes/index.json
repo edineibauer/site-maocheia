@@ -1,0 +1,22 @@
+{
+  "title": "{{sitename}}",
+  "head": {
+    "bootstrapCss": "<link href='{{home}}{{vendor}}site-maocheia/public/assets/libs/bootstrap.min.css' rel='stylesheet' type='text/css' media='all' />",
+    "baseCss": "<link href='{{home}}{{vendor}}site-maocheia/public/assets/_base.css' rel='stylesheet' type='text/css' media='all' />",
+    "baseJs": "<script src='{{home}}{{vendor}}site-maocheia/public/assets/_base.js'></script>",
+    "homeMap": "<script src='{{home}}{{vendor}}site-maocheia/public/assets/homeMap.js'></script>"
+  },
+  "css": [
+    "libs/materialdesignicons.min",
+    "libs/owl.carousel.min"
+  ],
+  "js": [
+    "libs/isotope.pkgd.min",
+    "libs/owl.carousel.min",
+    "libs/markerclustererplus.min",
+    "home-map"
+  ],
+  "navbar": true,
+  "header": false,
+  "cache": true
+}

@@ -1,0 +1,179 @@
+body {
+    font-family: 'Roboto', sans-serif !important;
+    background: #F1F0F5;
+}
+
+.avaliacao-principal ul.horizontal-list>li {
+    float: left;
+    color: #FF1967;
+    font-size: 16px;
+}
+
+textarea:focus {
+    background: #ffffff!important;
+}
+
+.avaliacao-principal ul.horizontal-list>li:nth-last-child(1) {
+    font-weight: bold;
+    margin-left: 4px;
+}
+
+.avaliacao-principal ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.titulo {
+    font-size: 26px;
+    font-weight: bold;
+    margin-top: 2px;
+    margin-bottom: 15px;
+}
+
+
+/* estrela de avaliação */
+.estrelas {
+    padding-top: 1px;
+}
+
+.estrelas input[type=radio] {
+    display: none;
+}
+
+.estrelas label i.material-icons-round {
+    font-size: 33px
+}
+
+.estrelas label i.material-icons-round {
+    color: #FF1967;
+}
+
+.estrelas input[type=radio]:checked~label i.material-icons-round {
+    color: #CCC;
+}
+
+.mt-28 {
+    margin-top: 28px;
+}
+
+.atendimento {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.avalicao-atendimento {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.btn-primary {
+    text-transform: uppercase;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    width: 100%;
+    padding: 10px 0px !important;
+    margin-top: 0px;
+}
+
+.sua-avaliacao {
+    margin-bottom: -10px;
+}
+
+
+/* inserir imagem */
+
+.Neon {
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #494949;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer !important;
+    display: block;
+    z-index: 9999;
+    width: 58px;
+}
+
+.Neon input {
+    position: absolute;
+    right: 0px;
+    width: 78px;
+    height: 58px;
+    font-size: 0;
+    line-height: 0;
+    left: -20px;
+}
+
+.Neon * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer !important;
+}
+
+.Neon-input-dragDrop {
+    display: block;
+    width: 58px;
+    height: 58px;
+    padding: 17px 6px 6px 21px;
+    color: #97A1A8;
+    background: #fff;
+    border: 1px solid #DBDBDB;
+    text-align: center;
+    border-radius: 6px;
+    -webkit-transition: box-shadow 0.3s, border-color 0.3s;
+    -moz-transition: box-shadow 0.3s, border-color 0.3s;
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.Neon-input-dragDrop .Neon-input-icon {
+    font-size: 48px;
+    margin-top: -10px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.Neon-input-text h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.Neon-input-text span {
+    font-size: 32px;
+    margin-left: -15px;
+}
+
+.Neon-input-choose-btn.blue {
+    color: #008BFF;
+    border: 1px solid #008BFF;
+}
+
+.Neon-input-choose-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: bold;
+    color: #8d9496;
+    border-radius: 3px;
+    border: 1px solid #c6c6c6;
+    vertical-align: middle;
+    background-color: #fff;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.05);
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.form-control:focus {
+    outline: 0;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border-color: #ced4da !important;
+}

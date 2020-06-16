@@ -1,0 +1,162 @@
+body {
+    font-family: 'Roboto', sans-serif !important;
+    background: #F1F0F5;
+}
+
+h6, h4 {
+    font-weight: 600;
+}
+
+#perfil-image {
+    background-color: #fff;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 52px;
+    width: 52px;
+    border-radius: 50px;
+
+}
+
+#perfil i {
+    color: #8B8B8B;
+}
+
+#topo {
+    margin-bottom: 16px;
+    box-shadow: 0 2px 5px #00000029;
+    padding: 20px 0;
+    border-bottom: 1px solid #00000029;
+    background: #FFFFFFF;
+}
+
+#topo figure,
+#topo figure img {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+#perfil .borda-row {
+    border-bottom: 1px solid #E8E8E8;
+    margin-bottom: 6px;
+}
+
+#perfil .titulo-h6 {
+    color: #aaaaaa;
+    text-transform: uppercase;
+    opacity: 1;
+    font-size: 10px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}
+
+#perfil .informacao-div {
+    color: #303030;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    padding: 10px 0 16px 0;
+}
+
+#perfil .mdi {
+    font-size: 20px;
+    color: #8B8B8B;
+}
+
+.sair-app i {
+    float: left;
+    margin: -2px -4px 0 0;
+}
+
+#sair-aplicativo {
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    left: 0;
+}
+
+#sair-aplicativo .sair-app {
+    color: #FF1967;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 102px;
+}
+
+#saldoProfissional {
+    padding-right: 0;
+}
+
+.saldo {
+    border-radius: 30px;
+    border: 0.5px solid #E5E5E5;
+    background-color: #F9F9F9;
+    margin-top: 15px;
+    float: right;
+}
+
+.saldo .valor {
+    font-size: 12px;
+    margin-left: 6px;
+    margin-right: 8px;
+    margin-top: 3px;
+}
+
+.saldo .mais {
+    line-height: 2;
+    font-size: 12px;
+    border-left: 0.5px solid #E5E5E5;
+    padding-left: 5px;
+    width: 22px;
+}
+
+#preco-perfil-profissional {
+    float: left;
+    margin-top: -14px;
+    margin-left: 8px;
+}
+
+.avaliacao-perfil {
+    margin-top: -8px;
+}
+
+@media (min-width: 374px) {
+    #menu .navbar a {
+        padding: 0 24px;
+    }
+}
+
+@media (min-width: 410px) {
+    #menu .navbar a {
+        padding: 6px 28px;
+    }
+}
+
+@media (min-width: 425px) {
+    #menu .navbar a {
+        padding: 6px 30px;
+    }
+}
+
+@media (min-width: 768px) {
+    #menu .navbar a {
+        padding: 6px 72px;
+    }
+
+    #menu {
+        padding: 4px 10px 4px 10px;
+    }
+}
+
+@media (min-width: 1024px) {
+    #menu .navbar a {
+        padding: 6px 102px;
+    }
+
+    #menu {
+        padding: 4px 10px 4px 10px;
+    }
+}

@@ -1,0 +1,64 @@
+body {
+    font-family: 'Roboto', sans-serif !important;
+    background: #F1F0F5;
+}
+
+.titulo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+
+.history-time {
+    width: 100%;
+    font-size: 10px;
+    color: #999;
+    line-height: 12px;
+    padding-top: 1px;
+    float: left;
+}
+
+.historico-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+    padding: 4px 15px;
+    z-index: 2;
+}
+
+.btn-notify {
+    border: none;
+    border-radius: 7px;
+    padding: 5px 10px;
+    margin-top: 22px;
+    color: white;
+    box-shadow: 1px 1px 11px -8px black;
+}
+
+.mdi-arrow-left {
+    font-size: 32px;
+    margin-left: -4px;
+}
+
+.mt-6 {
+    margin-top: 2px;
+}
+
+.texto {
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 18px;
+    float:left;
+    width: 100%;
+}
+
+#notificacao figure img {
+    max-width: 280px;
+}
+
+h6 {
+    font-weight: 600;
+}
