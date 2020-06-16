@@ -257,7 +257,7 @@ function updateListService(data) {
  */
 function readAllServices(localizationAnonimo) {
     let latlng = map.getCenter();
-    get("nearbyServices/" + latlng.lat() + "/" + latlng.lng() + "/" + (typeof localizationAnonimo !== "undefined" ? 2000 : 200)).then(result => {
+    get("event/nearbyServices/" + latlng.lat() + "/" + latlng.lng() + "/" + (typeof localizationAnonimo !== "undefined" ? 2000 : 200)).then(result => {
 
         db.exeRead("categorias").then(categories => {
             db.exeRead("categorias_sub").then(subcategorias => {
@@ -286,7 +286,7 @@ function updateRealPosition() {
         clearInterval(servicesOnMapUpdate);
 
     } else {
-        get("realtimePositionServices").then(results => {
+        get("event/realtimePositionServices").then(results => {
             if (!isEmpty(results)) {
                 let minhaLatlng = map.getCenter();
 
