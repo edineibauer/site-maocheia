@@ -1,11 +1,7 @@
 {
     "title": "Avaliação - {{sitename}}",
-    "head": {
-        "bootstrapCss": "<link href='{{home}}{{vendor}}site-maocheia/public/assets/libs/bootstrap.min.css' rel='stylesheet' type='text/css' media='all' />",
-        "baseCss": "<link href='{{home}}{{vendor}}site-maocheia/public/assets/_base.css' rel='stylesheet' type='text/css' media='all' />",
-        "baseJs": "<script src='{{home}}{{vendor}}site-maocheia/public/assets/_base.js'></script>",
-        "homeMap": "<script src='{{home}}{{vendor}}site-maocheia/public/assets/homeMap.js'></script>"
-    },
+    "link": ["libs/bootstrap.min", "_base"],
+    "script": ["homeMap", "_base"],
     "js": [],
     "navbar": true,
     "header": false
