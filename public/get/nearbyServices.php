@@ -1,8 +1,8 @@
 <?php
 
-$latitude = (float)$link->getVariaveis()[2];
-$longitude = (float)$link->getVariaveis()[1];
-$dist = (float)$link->getVariaveis()[0];
+$latitude = (float)$variaveis[0];
+$longitude = (float)$variaveis[1];
+$dist = (float)$variaveis[2];
 
 $_SESSION['services']['nearbyServices'] = [];
 $_SESSION['services']['nearbyServicesDate'] = [];

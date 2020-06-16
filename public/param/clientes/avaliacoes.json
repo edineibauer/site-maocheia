@@ -1,7 +1,0 @@
-{
-    "title": "Avaliações - {$sitename}",
-    "css": ["libs/bootstrap.min", "libs/owl.carousel.min"],
-    "js": ["libs/popper.min", "libs/bootstrap.min"],
-    "navbar": true,
-    "header": false
-}

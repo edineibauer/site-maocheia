@@ -1,11 +1,9 @@
 <section id="pesquisa">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="titulo">De que tipo de serviço você precisa?</div>
-            </div>
+    <div class="col p-0">
+        <div class="container">
+            <div class="titulo">De que tipo de serviço você precisa?</div>
         </div>
-        <div class="owl-carousel owl-theme row" id="categorias">
+        <div class="owl-carousel container owl-theme" id="categorias">
             {{#categorias}}
                 {{#ativo}}
                     <div class="item serviceProfissao serviceCategory{{#selected}} selecionado{{/selected}}" rel="{{id}}">
@@ -17,7 +15,7 @@
                 {{/ativo}}
             {{/categorias}}
         </div>
-        <div class="owl-carousel owl-theme row pt-2 pb-1 hideCategorie" id="subcategorias"></div>
+        <div class="owl-carousel container owl-theme pt-2 pb-1 hideCategorie" id="subcategorias"></div>
     </div>
 </section>
 <section id="profissionais" class="hideCategorie">

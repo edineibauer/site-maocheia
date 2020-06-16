@@ -1,5 +1,5 @@
 {
-    "title": "{$sitename}",
+    "title": "{{sitename}}",
     "css": ["libs/bootstrap.min", "libs/materialdesignicons.min", "libs/owl.carousel.min"],
     "js": ["libs/owl.carousel.min"],
     "navbar": false,
