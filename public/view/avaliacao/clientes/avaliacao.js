@@ -20,8 +20,8 @@ if(isNumberPositive(profissional)) {
 }
 
 getJSON(HOME + "app/find/avaliacao/cliente/" + USER.setorData.id).then(ava => {
+    accept++;
     if(!isEmpty(ava.avaliacao)) {
-        accept++;
         for(let avaliacao of ava.avaliacao) {
             if(avaliacao.profissional === profissional) {
                 accept--;
@@ -57,6 +57,8 @@ $(document).ready(function () {
                     }, 500);
                 }
             })
+        } else if(accept === 1) {
+            toast("Você não pode avaliar seu próprio perfil", "toast-info", 3000);
         } else {
             toast("Aguarde e tente novamente", "toast-warning", 2000);
         }
