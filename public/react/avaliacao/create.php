@@ -8,6 +8,17 @@ if ($read->getResult()) {
         $profissional = json_decode($cliente['perfil_profissional'], !0)[0];
 
         /**
+         * Notifica profissional
+         */
+        $note = new \Dashboard\Notification();
+        $note->setTitulo($dados['nome_do_cliente'] . " avaliou seu perfil!");
+        $note->setDescricao("confira a sua avaliação no app.");
+        $note->setImagem($dados['imagem_do_cliente']);
+        $note->setUrl(HOME + "cliente/" + $dados['cliente']);
+        $note->setUsuarios($dados['cliente']);
+        $note->enviar();
+
+        /**
          * Obtém o total de avaliações
          */
         $total = !empty($profissional['total_de_avaliacoes']) ? (int)$profissional['total_de_avaliacoes'] : 0;
