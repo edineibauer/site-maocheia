@@ -5,7 +5,7 @@ $(function () {
     (async () => {
         let myNotifications = await getNotifications();
         if (isEmpty(myNotifications)) {
-            $("#notificacoes").htmlTemplate('notificacoesEmpty');
+            $("#notificacoes").htmlTemplate('notificacoesEmpty', {mensagem: "Você não tem nenhuma notificação"});
         } else {
             $("#notificacoes").htmlTemplate('note', {notificacoes: myNotifications});
         }

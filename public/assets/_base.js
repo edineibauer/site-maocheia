@@ -1,5 +1,9 @@
 // var intervalPosition;
-ScreenOrientation.lock("portrait");
+if(window.screen.lockOrientation)
+    window.screen.orientation.lock("portrait");
+
+if(typeof ScreenOrientation.lock === "function")
+    ScreenOrientation.lock("portrait");
 
 function getProfissionalMustache(profissional, cat, subcategorias) {
     profissional = Object.assign({}, profissional);

@@ -14,7 +14,7 @@ $(function () {
     (async () => {
         let myHistorico = await get("event/historico");
         if (isEmpty(myHistorico)) {
-            $("#notificacoes").htmlTemplate('notificacoesEmpty');
+            $("#notificacoes").htmlTemplate('notificacoesEmpty', {mensagem: "Você não possui histórico"});
         } else {
             for(let historico of myHistorico) {
                 historico.imagem = (!isEmpty(historico.perfil_profissional) && !isEmpty(historico.perfil_profissional.imagem_de_perfil) ? historico.perfil_profissional.imagem_de_perfil[0] : (!isEmpty(historico.imagem) ? JSON.parse(historico.imagem)[0] : ""));
