@@ -1,66 +1,77 @@
-var profissional = FRONT.VARIAVEIS[0], accept = 0, read = new Read();
+var profissional = FRONT.VARIAVEIS[0], read = new Read();
 
-if(isNumberPositive(profissional)) {
-    read.exeRead("clientes", profissional).then(p => {
-        if (isEmpty(p)) {
-            toast("Profissional não encontrado", "toast-error", 2000);
+if (USER.setorData.id == profissional) {
+    toast("Você não pode avaliar seu próprio perfil", "toast-info", 3000);
+    setTimeout(function () {
+        history.back();
+    }, 500);
+
+} else {
+
+    read.setFilter({"cliente": USER.setorData.id, "profissional": profissional});
+    read.exeRead("avaliacao").then(result => {
+        if (!isEmpty(result)) {
+            toast("profissional já avaliado!", 3000, "toast-infor");
             setTimeout(function () {
                 history.back();
             }, 500);
         } else {
-            $("#avaliacao-title").html("<small>avaliação</small> " + p.nome);
-            accept++;
-        }
-    });
-} else {
-    toast("Profissional não encontrado", "toast-error", 2000);
-    setTimeout(function () {
-        history.back();
-    }, 500);
-}
 
-getJSON(HOME + "app/find/avaliacao/cliente/" + USER.setorData.id).then(ava => {
-    accept++;
-    if(!isEmpty(ava.avaliacao)) {
-        for(let avaliacao of ava.avaliacao) {
-            if(avaliacao.profissional === profissional) {
-                accept--;
-                toast("profissional já avaliado!", 3000, "toast-infor");
+            if (!isNumberPositive(profissional)) {
+                toast("id do profissional precisa ser um número", "toast-error", 2000);
                 setTimeout(function () {
                     history.back();
                 }, 500);
+            } else {
+
+                read.exeRead("clientes", profissional).then(p => {
+                    if (isEmpty(p)) {
+                        toast("Profissional não encontrado", "toast-error", 2000);
+                        setTimeout(function () {
+                            history.back();
+                        }, 500);
+                    } else {
+
+                        /**
+                         * Tudo certo, bora avaliar
+                         */
+                        $("#avaliacao-title").html("<small>avaliação</small> " + p.nome);
+                        $(document).ready(function () {
+                            $("#enviar").off("click").on("click", function () {
+                                let dados = {
+                                    "qualidade": parseInt($('input[name=ql]:checked').val()),
+                                    "preco_justo": parseInt($('input[name=pj]:checked').val()),
+                                    "atendimento": parseInt($('input[name=at]:checked').val()),
+                                    "comentario": $("#comentario").val(),
+                                    "profissional": profissional,
+                                    "cliente": parseInt(USER.setorData.id),
+                                    "data": moment().format("YYYY-MM-DD HH:mm:ss"),
+                                    "nome_do_cliente": USER.nome,
+                                    "imagem_do_cliente": (!isEmpty(USER.setorData.imagem) ? JSON.parse(USER.setorData.imagem)[0].url : !isEmpty(USER.imagem) ? USER.imagem.url : !isEmpty(USER.setorData.perfil_profissional) ? JSON.parse(USER.setorData.perfil_profissional)[0].imagem_de_perfil[0].url : "")
+                                };
+
+                                if (isEmpty(dados.atendimento) || !isNumberPositive(dados.atendimento)) {
+                                    toast("Avalie o atendimento", 2000, "toast-infor");
+                                } else if (isEmpty(dados.qualidade) || !isNumberPositive(dados.qualidade)) {
+                                    toast("Avalie a qualidade", 2000, "toast-infor");
+                                } else if (isEmpty(dados.preco_justo) || !isNumberPositive(dados.preco_justo)) {
+                                    toast("Avalie o valor cobrado", 2000, "toast-infor");
+                                } else {
+
+                                    db.exeCreate("avaliacao", dados).then(result => {
+                                        if (!isEmpty(result)) {
+                                            toast("Obrigado, a sua avaliação foi enviada!", "toast-success", 2500);
+                                            setTimeout(function () {
+                                                history.back();
+                                            }, 500);
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                    }
+                });
             }
         }
-    }
-});
-
-$(document).ready(function () {
-    $("#enviar").off("click").on("click", function () {
-        if (accept > 1) {
-            let dados = {
-                "qualidade": parseInt($('input[name=ql]:checked').val()),
-                "preco_justo": parseInt($('input[name=pj]:checked').val()),
-                "atendimento": parseInt($('input[name=at]:checked').val()),
-                "comentario": $("#comentario").val(),
-                "profissional": profissional,
-                "cliente": parseInt(USER.setorData.id),
-                "data": moment().format("YYYY-MM-DD HH:mm:ss"),
-                "nome_do_cliente": USER.nome,
-                "imagem_do_cliente": (!isEmpty(USER.setorData.imagem) ? JSON.parse(USER.setorData.imagem)[0].url : !isEmpty(USER.imagem) ? USER.imagem.url : !isEmpty(USER.setorData.perfil_profissional) ? JSON.parse(USER.setorData.perfil_profissional)[0].imagem_de_perfil[0].url : "")
-            };
-
-            db.exeCreate("avaliacao", dados).then(result => {
-                if (!isEmpty(result)) {
-                    toast("Obrigado, a sua avaliação foi enviada!", "toast-success", 2500);
-                    setTimeout(function () {
-                        history.back();
-                    }, 500);
-                }
-            })
-        } else if(accept === 1) {
-            toast("Você não pode avaliar seu próprio perfil", "toast-info", 3000);
-        } else {
-            toast("Aguarde e tente novamente", "toast-warning", 2000);
-        }
     });
-})
+}

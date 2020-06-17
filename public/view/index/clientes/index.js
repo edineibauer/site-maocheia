@@ -130,15 +130,17 @@ function changeSwipeToService(data) {
         getJSON(HOME + "app/find/avaliacao/profissional/" + data.id).then(avaliacoes => {
             let feedbacks = [];
             if (!isEmpty(avaliacoes.avaliacao)) {
-                for (let i in avaliacoes.avaliacao) {
-                    if (i > 4)
-                        break;
-                    avaliacoes.avaliacao[i].imagens = (!isEmpty(avaliacoes.avaliacao[i].imagens) ? JSON.parse(avaliacoes.avaliacao[i].imagens) : []);
-                    avaliacoes.avaliacao[i].data = moment(avaliacoes.avaliacao[i].data).format("DD/MM/YYYY");
 
-                    avaliacoes.avaliacao[i].avaliacao_geral = (((!isEmpty(avaliacoes.avaliacao[i].atendimento) ? parseInt(avaliacoes.avaliacao[i].atendimento) : 10000000) + (!isEmpty(avaliacoes.avaliacao[i].qualidade) ? parseInt(avaliacoes.avaliacao[i].qualidade) : 10000000)) / 2);
-                    avaliacoes.avaliacao[i].star = getProfissionalStar(avaliacoes.avaliacao[i].avaliacao_geral);
-                    feedbacks.push(avaliacoes.avaliacao[i]);
+                if (avaliacoes.avaliacao.length > 5)
+                    $("#section-avaliacoes-more").removeClass("hide");
+
+                for (let aval of avaliacoes.avaliacao.slice(0, 5)) {
+                    // aval.imagens = (!isEmpty(aval.imagens) ? JSON.parse(aval.imagens) : []);
+                    aval.data = moment(aval.data).format("DD/MM/YYYY");
+                    aval.imagem_do_cliente = (!isEmpty(aval.imagem_do_cliente) ? aval.imagem_do_cliente : HOME + "assetsPublic/img/favicon.png?v=" + VERSION);
+                    aval.avaliacao_geral = (((!isEmpty(aval.atendimento) ? parseInt(aval.atendimento) : 10000000) + (!isEmpty(aval.qualidade) ? parseInt(aval.qualidade) : 10000000)) / 2);
+                    aval.star = getProfissionalStar(aval.avaliacao_geral);
+                    feedbacks.push(aval);
                 }
                 if (avaliacoes.avaliacao.length > 5)
                     $("#section-avaliacoes-more").removeClass("hide");
@@ -146,7 +148,7 @@ function changeSwipeToService(data) {
                 $("#section-avaliacoes-title").html("Avaliações");
             }
 
-            $("#section-avaliacoes").htmlTemplate('avaliacoes', {avaliacoes: feedbacks});
+            $("#section-avaliacoes").htmlTemplate('avaliacoes', feedbacks);
         });
 
         $("#arrowback-perfil").off("click").on("click", function () {

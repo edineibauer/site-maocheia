@@ -13,22 +13,23 @@ body {
 }
 
 .avaliacao-card .material-icons {
-    font-size: 16px!important;
+    font-size: 16px !important;
 }
 
-ul.horizontal-list>li:nth-last-child(1) {
-    font-size: 12px!important;
+ul.horizontal-list > li:nth-last-child(1) {
+    font-size: 12px !important;
 }
 
 #perfil-cliente .avaliacao-perfil {
-    margin-left: calc(50% - 50.6px)!important;
-    margin-top: -19px!important;
+    margin-left: calc(50% - 50.6px) !important;
+    margin-top: -19px !important;
 }
 
 .titulo-endereco {
     color: #999;
-    text-align: center;
+    text-align: left;
     padding-top: 20px;
+    padding-left: 5px;
 }
 
 #perfil-cliente .nome {
@@ -60,71 +61,13 @@ ul.horizontal-list>li:nth-last-child(1) {
     margin-bottom: 14px;
 }
 
-#perfil-cliente .titulo-endereco {
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 17px;
-}
-
-#perfil-cliente .endereco {
-    font-size: 14px;
-    font-weight: normal;
-    margin-top: 1px;
-    margin-bottom: 8px;
-}
-
-#perfil-cliente .mapa iframe {
-    width: 100%;
-    height: 130px;
-    border-radius: 5px;
-}
-
-#perfil-cliente .nomes {
-    font-weight: bold;
-    font-size: 14px;
-}
-
-#perfil-cliente .data {
-    font-size: 10px;
-    font-weight: 500;
-    color: #CBCBCB;
-    margin-top: -4px;
-    margin-bottom: -13px;
-}
-
-#perfil-cliente .texto {
-    font-size: 12px;
-    margin-top: -9px;
-}
-
-#perfil-cliente .todas-avaliacoes {
-    margin-top: 10px;
-    margin-bottom: 40px;
-}
-
-#perfil-cliente .todas-avaliacoes a {
-    color: #FF1967;
-    font-weight: 500;
-    font-size: 14px;
-}
-
-#perfil-cliente .estrelas .avaliacao-perfil {
-    margin-left: 0%;
-    margin-top: -20px;
-}
-
-#perfil-cliente .avaliacao-perfil {
-    margin-left: 40%;
-    margin-top: -24px;
-}
-
-ul.horizontal-list>li {
+ul.horizontal-list > li {
     float: left;
     color: #FF1967;
     font-size: 9px;
 }
 
-ul.horizontal-list>li:nth-last-child(1) {
+ul.horizontal-list > li:nth-last-child(1) {
     font-weight: bold;
     margin-left: 4px;
 }
@@ -135,8 +78,104 @@ ul {
     padding: 0;
 }
 
+.card-avaliacao {
+    background: #ffffff;
+    border-radius: 7px;
+    padding: 9px;
+    margin-bottom: 5px;
+    border: solid 1px #eee;
+}
+
 .col-perfil {
-    margin-left: 24px;
+    margin-left: 15px;
+    width: calc(100vw - 115px);
+}
+
+.avaliacao-card {
+    margin-top: 2px;
+}
+
+#perfil-cliente ul > li {
+    font-size: 14px;
+}
+
+#perfil-cliente .estrelas ul.horizontal-list>li:nth-last-child(1) {
+    margin-top: 3px;
+    line-height: 12px;
+    font-size: 11px!important;
+}
+
+#perfil-cliente .nomes {
+    font-weight: bold;
+    font-size: 14px;
+    float: left;
+    max-width: calc(100vw - 270px);
+    width: auto;
+    display: block;
+    overflow: hidden;
+    height: 18px;
+}
+
+#perfil-cliente .estrelas ul.horizontal-list > li:nth-last-child(1) {
+    margin-top: 4px;
+    line-height: 12px;
+    font-size: 11px;
+}
+
+#perfil-cliente .avaliacao-perfil > ul.horizontal-list > li:nth-last-child(1) {
+    line-height: 12px;
+}
+
+#perfil-cliente .estrelas {
+    float: left;
+    width: 100%;
+    display: block;
+    margin-top: -1px;
+}
+
+#perfil-cliente .data {
+    font-size: 10px;
+    font-weight: 300;
+    color: #aaaaaa;
+    line-height: 10px;
+    float: right;
+    width: auto;
+    max-width: 55px;
+    padding: 5px 0;
+    display: block;
+}
+
+#perfil-cliente .texto {
+    font-size: 12px;
+    margin-top: 0;
+    font-weight: 400;
+    width: 100%;
+    float: left;
+    color: #999;
+}
+
+#perfil-cliente .todas-avaliacoes {
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+#perfil-cliente .todas-avaliacoes a {
+    color: #FF1967;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+#perfil-cliente .avaliacao-perfil {
+    margin-left: 0;
+    margin-top: 4px;
+}
+
+#perfil-cliente .avaliacao-perfil > ul.horizontal-list > li:nth-last-child(1) {
+    margin-top: 5px;
+}
+
+#perfil-cliente .avaliacao-perfil .material-icons {
+    font-size: 18px !important;
 }
 
 @media only screen and (min-width: 425px) {
@@ -158,6 +197,7 @@ ul {
     #perfil-cliente .avaliacao-perfil {
         margin-left: 47%;
     }
+
     #perfil-cliente .mapa iframe {
         width: 100%;
         height: 240px;

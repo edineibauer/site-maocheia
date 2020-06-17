@@ -306,6 +306,10 @@ $(function () {
             toast("Defina uma imagem de fundo", 2500, "toast-warning");
         } else if (isEmpty(profissional.whatsapp) || profissional.whatsapp.length < 10) {
             toast("Informe seu número do Whatsapp com DDD", 2500, "toast-warning");
+        } else if (isEmpty(profissional.inicio)) {
+            toast("Informe a hora que começa a trabalhar", 2500, "toast-warning");
+        } else if (isEmpty(profissional.termino)) {
+            toast("Informe a hora que termina de trabalhar", 2500, "toast-warning");
         } else {
 
             profissional.id = Date.now() + Math.floor((Math.random() * 1000) + 1);

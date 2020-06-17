@@ -1,9 +1,12 @@
-{{#avaliacoes}}
+{{#.}}
     <div class="row no-gutters card-avaliacao">
-        <div class="avaliacoes" style="background: url({{imagem_do_cliente}});"></div>
+        <div class="avaliacoes" style="background-image: url({{imagem_do_cliente}});"></div>
         <div class="col-perfil">
             <div class="nomes">
                 {{nome_do_cliente}}
+            </div>
+            <div class="data">
+                {{data}}
             </div>
             <div class="estrelas">
                 <div class="avaliacao-comment avaliacao-card">
@@ -17,12 +20,9 @@
                     </ul>
                 </div>
             </div>
-            <div class="data">
-                {{data}}
-            </div>
             <p class="texto">
                 {{comentario}}
             </p>
         </div>
     </div>
-{{/avaliacoes}}
+{{/.}}

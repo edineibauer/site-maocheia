@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="categoria" class="pb-1">Profissão</label>
+                    <label for="categoria" class="pb-1">Profissão *</label>
                     <select class="form-control" id="categoria">
                         <option>Selecione...</option>
                     </select>
@@ -47,11 +47,11 @@
 
                 <div class="row mt-2">
                     <div class="col s6">
-                        <label for="inicio" class="pb-1">Hora de início</label>
+                        <label for="inicio" class="pb-1">Hora de início *</label>
                         <input type="time" class="form-control" id="inicio"/>
                     </div>
                     <div class="col s6">
-                        <label for="termino" class="pb-1">Hora de término</label>
+                        <label for="termino" class="pb-1">Hora de término *</label>
                         <input type="time" class="form-control" id="termino"/>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                 </div>
 
                 <div class="form-group pt-3">
-                    <label for="sobre" class="pb-1">Sobre</label>
+                    <label for="sobre" class="pb-1">Sobre *</label>
                     <textarea class="form-control" id="sobre" rows="3"></textarea>
                 </div>
 

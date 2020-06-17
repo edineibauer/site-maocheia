@@ -343,20 +343,21 @@ $(function () {
             toast("informe a categoria", 2000, "toast-warning");
         } else if (isEmpty(p.sobre)) {
             toast("Defina seu Trabalho em Sobre", 2500, "toast-warning");
+        } else if (isEmpty(p.imagem_de_perfil)) {
+            toast("Defina uma imagem de perfil", 2500, "toast-warning");
+        } else if (isEmpty(p.imagem_de_fundo)) {
+            toast("Defina uma imagem de fundo", 2500, "toast-warning");
         } else if (isEmpty(p.whatsapp) || p.whatsapp.length < 10) {
             toast("Informe seu número do Whatsapp com DDD", 2500, "toast-warning");
+        } else if (isEmpty(p.inicio)) {
+            toast("Informe a hora que começa a trabalhar", 2500, "toast-warning");
+        } else if (isEmpty(p.termino)) {
+            toast("Informe a hora que termina de trabalhar", 2500, "toast-warning");
         } else {
-
-            db.exeCreate("profissional", Object.assign({id: parseInt(USER.setorData.perfil_profissional_id), nome: USER.setorData.nome}, p)).then(r => {
+            db.exeCreate("clientes", {id: USER.setorData.id, nome: USER.setorData.nome, perfil_profissional: [p]}).then(r => {
                 if (r.db_errorback === 0) {
                     toast("Perfil atualizado!", 1400, "toast-success");
-                    delete(r.db_action);
-                    delete(r.db_errorback);
-                    delete(r.id_old);
-                    r.dias = JSON.parse(r.dias);
-                    r.imagem_de_perfil = JSON.parse(r.imagem_de_perfil);
-                    r.imagem_de_fundo = JSON.parse(r.imagem_de_fundo);
-                    USER.setorData.perfil_profissional = JSON.stringify([r]);
+                    pageTransition("perfil", "route", "back");
                 }
             });
         }
