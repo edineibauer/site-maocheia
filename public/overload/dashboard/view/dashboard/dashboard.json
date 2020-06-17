@@ -1,6 +1,6 @@
 {
   "title": "Dashboard",
-  "js": ["reportRead", "funcaoDashboard", "appCoreDashboard"],
+  "js": ["coreGrid", "coreForm", "coreReport"],
   "css": ["w3"],
   "setor": ["admin", "administrador"],
   "offline": true,
