@@ -308,6 +308,11 @@ function startMap() {
     }, 4000);
 
     touchElements = new TouchUp($(".menu-swipe-class"), 450, 100, null, null, ["#profissionais", "#service-perfil-body", "#serviceMensagem", "#categorias", "#subcategorias"]);
+    touchElements.setFuncaoToStart(function (touch, $div) {
+        $div.animate({
+            scrollTop: 0
+        }, 100);
+    });
     changeSwipeToSearch();
     getRealPosition();
 }
