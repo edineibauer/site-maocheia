@@ -94,7 +94,7 @@ function changeSwipeToSearch() {
             $(".swipe-zone-body").htmlTemplate('serviceFilterSearch', {
                 categorias: categorias
             }).then(() => {
-                // readServices();
+                readServices();
 
                 if(isNumberPositive(filtrosProfissionais.categoria))
                     showCategoryAndSubcategory();
@@ -159,11 +159,11 @@ function changeSwipeToService(data) {
                     break;
                 }
             }
+            console.log(pass);
             if (pass) {
                 touchElements.moveToStart();
             } else {
                 changeSwipeToSearch();
-                readServices();
                 touchElements.moveToTarget();
             }
         });
