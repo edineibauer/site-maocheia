@@ -1,5 +1,6 @@
 {
   "title": "Sem Conexão",
-  "css": ["libs/bootstrap.min"],
-  "header": false
+  "link": ["libs/bootstrap.min"],
+  "header": false,
+  "offline": true
 }
