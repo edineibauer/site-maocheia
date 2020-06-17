@@ -163,6 +163,7 @@ function changeSwipeToService(data) {
                 touchElements.moveToStart();
             } else {
                 changeSwipeToSearch();
+                readServices();
                 touchElements.moveToTarget();
             }
         });
