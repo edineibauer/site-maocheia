@@ -4,7 +4,7 @@
             <a href="cliente/{{#isProfissional}}{{profissional}}{{/isProfissional}}{{^isProfissional}}{{cliente}}{{/isProfissional}}" class="notification-content-left">
                 <img src="{{imagem.urls.medium}}" width="50" height="50" class="imagem-notificacao"/>
             </a>
-            <a href="cliente/{{profissional}}" class="notification-content-right">
+            <a href="cliente/{{#isProfissional}}{{profissional}}{{/isProfissional}}{{^isProfissional}}{{cliente}}{{/isProfissional}}" class="notification-content-right">
                 <div class="notification-content notification-title font-weight-bold h6 mb-0">
                     {{nome}}
                 </div>
@@ -14,7 +14,7 @@
                 </div>
             </a>
             {{^avaliou}}
-                <a href="{{^isProfissional}}avaliacaoCliente/{{cliente}}{{/isProfissional}}{{#isProfissional}}avaliacao/{{profissional}}{{/isProfissional}}" class="btn theme historico-btn">avaliar</a>
+                <a href="avaliacao/{{^isProfissional}}{{cliente}}{{/isProfissional}}{{#isProfissional}}{{profissional}}{{/isProfissional}}" class="btn theme historico-btn">avaliar</a>
             {{/avaliou}}
         </div>
         <i class="material-icons" onclick="closeHistory({{id}})">delete</i>
