@@ -96,7 +96,7 @@
                 </div>
 
                 <div class="form-group pt-3">
-                    <label for="sobre" class="pb-1">Sobre *</label>
+                    <label for="sobre" class="pb-1">Descrição do seu trabalho *</label>
                     <textarea class="form-control" id="sobre" rows="3"></textarea>
                 </div>
 
