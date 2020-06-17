@@ -1,7 +1,7 @@
 {{#.}}
     <div class="notification-item" rel="{{id}}">
         <div class="notification-card{{#recebeu}} readed{{/recebeu}} no-select">
-            <a href="cliente/{{#isProfissional}}{{cliente}}{{/isProfissional}}{{^isProfissional}}{{profissional}}{{/isProfissional}}" class="notification-content-left">
+            <a href="cliente/{{#isProfissional}}{{profissional}}{{/isProfissional}}{{^isProfissional}}{{cliente}}{{/isProfissional}}" class="notification-content-left">
                 <img src="{{imagem.urls.medium}}" width="50" height="50" class="imagem-notificacao"/>
             </a>
             <a href="cliente/{{profissional}}" class="notification-content-right">
