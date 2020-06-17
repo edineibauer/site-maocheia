@@ -19,12 +19,14 @@ body {
     float: left;
 }
 
+.notification-content-right {
+    width: calc(100% - 135px)!important;
+}
+
 .historico-btn {
-    position: absolute;
-    right: 10px;
-    bottom: 20px;
     padding: 4px 15px;
-    z-index: 2;
+    float: right;
+    margin-top: 6px;
 }
 
 .btn-notify {

@@ -42,14 +42,14 @@ body {
 }
 
 #apresentacao .btn-proximo {
-    box-shadow: 0px 2px 10px #00000033;
+    box-shadow:0 2px 10px #00000033;
     border-radius: 4px;
     font-size: 22px;
     font-weight: bold;
     width: 96%;
     margin-top: 42px;
     font-family: 'Roboto', sans-serif;
-    padding: 9px 0px 9px 0px;
+    padding: 9px 0 9px 0;
 }
 
 #apresentacao .texto {
@@ -178,10 +178,15 @@ svg {
     display: block;
 }
 
+.abcRioButtonContents > span {
+    font-size: 0;
+}
+
 span[id^=not_signed_]:before, span[id^=connected]:before {
-    content: 'Google';
+    content: 'google login';
     padding-right: 4px;
-    margin-left: -16px;
+    margin-left: -26px;
+    font-size: 13px;
 }
 
 @media (min-width: 600px) {

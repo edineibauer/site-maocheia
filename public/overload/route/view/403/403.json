@@ -1,6 +1,7 @@
 {
   "title": "Sem Permissão",
-  "link": ["libs/bootstrap.min"],
+  "link": ["libs/bootstrap.min", "_base"],
+  "navbar": false,
   "header": false,
   "offline": true
 }
