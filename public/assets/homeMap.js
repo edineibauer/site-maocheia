@@ -248,7 +248,7 @@ function startMap() {
     map.addListener('zoom_changed', function () {
         $("#procura").blur();
         touchElements.moveToStart();
-        readServices();
+        // readServices();
     });
     map.addListener('click', function () {
         $("#procura").blur();
@@ -262,10 +262,10 @@ function startMap() {
     });
 
     map.addListener('drag', function () {
-        clearTimeout(mapMoveTrack);
-        mapMoveTrack = setTimeout(function () {
-            readServices();
-        }, 200);
+        // clearTimeout(mapMoveTrack);
+        // mapMoveTrack = setTimeout(function () {
+        //     readServices();
+        // }, 200);
     });
 
     /**

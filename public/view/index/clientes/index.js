@@ -94,7 +94,7 @@ function changeSwipeToSearch() {
             $(".swipe-zone-body").htmlTemplate('serviceFilterSearch', {
                 categorias: categorias
             }).then(() => {
-                readServices();
+                // readServices();
 
                 if(isNumberPositive(filtrosProfissionais.categoria))
                     showCategoryAndSubcategory();
@@ -338,7 +338,7 @@ function readServices() {
     /**
      * Aplica filtro aos resultados que serão mostrados no mapa
      */
-    servicesFiltered = profissionaisFiltrado(services)
+    servicesFiltered = profissionaisFiltrado(services);
     updateListService(servicesFiltered);
     setAllServicesOnMap(servicesFiltered);
 }
@@ -438,6 +438,7 @@ $(function () {
         touchElements.moveToTarget();
 
         $("#procura").one("blur", function () {
+            readServices();
             let search = $(this).val();
             setTimeout(function () {
                 $(".swipe-zone-body").removeClass("hideFilter");
