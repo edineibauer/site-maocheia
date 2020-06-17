@@ -16,7 +16,7 @@ if ($read->getResult()) {
             $note->setTitulo($dados['nome_do_cliente'] . " avaliou seu perfil!");
             $note->setDescricao("confira a sua avaliação no app.");
             $note->setImagem($dados['imagem_do_cliente']);
-            $note->setUrl(HOME + "cliente/" + $dados['cliente']);
+            $note->setUrl(HOME . "cliente/" . $dados['cliente']);
             $note->setUsuarios($read->getResult()[0]['usuarios_id']);
             $note->enviar();
         }
