@@ -779,15 +779,15 @@ body {
     position: absolute;
     right: 20px;
     top: 80px;
-    padding: 10px 10px 10px 30px;
+    padding: 10px;
     font-size: 18px;
     box-shadow: 1px 3px 7px -6px black;
-    background-image: url("libs/ueb/site-maocheia/public/assets/img/whatsapp.png");
+    /*background-image: url("libs/ueb/site-maocheia/public/assets/img/whatsapp.png");*/
     background-position: 20px center;
     background-repeat: no-repeat;
     background-size: 20px;
-    background-color: #25d366;
-    color: #ffffff;
+    /*background-color: #25d366;*/
+    /*color: #ffffff;*/
 }
 
 #imagem-perfil-div {

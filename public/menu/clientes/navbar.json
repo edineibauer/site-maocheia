@@ -10,6 +10,11 @@
     "html": "<i class='material-icons left'>history</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>histórico</div>"
   },
   {
+    "href": "mensagem",
+    "class": "theme-text-aux",
+    "html": "<i class='material-icons left'>chat_bubble</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>mensagens</div>"
+  },
+  {
     "href": "notificacoes",
     "class": "theme-text-aux",
     "html": "<i class='material-icons left'>notifications</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>notificações</div>"
