@@ -1,8 +1,7 @@
 {
     "title": "Conta - {{sitename}}",
-    "link": ["libs/bootstrap.min", "_base"],
-    "script": ["homeMap", "_base"],
-    "js": [],
+    "css": ["libs/bootstrap.min", "_base"],
+    "js": ["homeMap", "_base"],
     "navbar": true,
     "header": false
 }

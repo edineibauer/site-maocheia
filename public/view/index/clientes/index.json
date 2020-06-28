@@ -1,12 +1,12 @@
 {
   "title": "{{sitename}}",
-  "link": ["libs/bootstrap.min", "_base"],
-  "script": ["homeMap", "_base"],
   "css": [
+    "libs/bootstrap.min", "_base",
     "libs/materialdesignicons.min",
     "libs/owl.carousel.min"
   ],
   "js": [
+    "homeMap", "_base",
     "libs/isotope.pkgd.min",
     "libs/owl.carousel.min",
     "libs/markerclustererplus.min",

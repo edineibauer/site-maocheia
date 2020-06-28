@@ -1,7 +1,7 @@
 {
     "title": "Termo - {{sitename}}",
-    "link": ["libs/bootstrap.min", "_base"],
-    "script": ["homeMap", "_base"],
+    "css": ["libs/bootstrap.min", "_base"],
+    "js": ["homeMap", "_base"],
     "navbar": true,
     "header": false
 }

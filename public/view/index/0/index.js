@@ -38,7 +38,6 @@ function exeLogin(email, senha, recaptcha) {
 function loginSocial(profile) {
     //search for the user email
     getJSON(HOME + "app/find/clientes/email/" + profile.email).then(r => {
-        console.log(r.clientes);
         if (!isEmpty(r.clientes)) {
             exeLogin(profile.email, profile.id)
         } else {

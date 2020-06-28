@@ -1,8 +1,7 @@
 {
     "title": "Cliente {{sitename}}",
-    "link": ["libs/bootstrap.min", "_base"],
-    "script": ["homeMap", "_base"],
-    "js": ["libs/bootstrap.min"],
+    "css": ["libs/bootstrap.min", "_base"],
+    "js": ["libs/bootstrap.min", "homeMap", "_base"],
     "navbar": true,
     "header": false,
     "setor": "clientes",

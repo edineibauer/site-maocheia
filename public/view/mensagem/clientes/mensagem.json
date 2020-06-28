@@ -1,6 +1,6 @@
 {
   "title": "{{sitename}}",
-  "link": ["libs/bootstrap.min", "_base"],
+  "css": ["libs/bootstrap.min", "_base"],
   "js": ["libs/bootstrap.min"],
   "navbar": true,
   "header": false,

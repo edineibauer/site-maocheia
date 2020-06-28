@@ -1,9 +1,7 @@
 {
     "title": "Avaliações - {{sitename}}",
-    "link": ["libs/bootstrap.min", "_base"],
-    "script": ["homeMap", "_base"],
-    "css": ["libs/owl.carousel.min"],
-    "js": ["libs/popper.min", "libs/bootstrap.min"],
+    "css": ["libs/bootstrap.min", "_base", "libs/owl.carousel.min"],
+    "js": ["homeMap", "_base", "libs/popper.min", "libs/bootstrap.min"],
     "navbar": true,
     "header": false
 }
