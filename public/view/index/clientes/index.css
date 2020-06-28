@@ -48,6 +48,10 @@
     color: #2196f3;
 }
 
+.facebook-login {
+    width: 100%!important;
+}
+
 /* Always set the map height explicitly to define the size of the div
    * element that contains the map. */
 
