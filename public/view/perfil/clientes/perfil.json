@@ -1,7 +1,7 @@
 {
     "title": "Perfil {{sitename}}",
     "css": ["libs/bootstrap.min", "_base"],
-    "js": ["homeMap", "_base"],
+    "js": ["_base", "homeMap"],
     "navbar": true,
     "header": false,
     "setor": "clientes",

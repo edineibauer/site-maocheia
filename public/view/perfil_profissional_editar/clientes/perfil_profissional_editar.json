@@ -3,5 +3,6 @@
   "css": ["libs/bootstrap.min", "_base"],
   "js": ["homeMap", "_base"],
   "navbar": true,
-  "header": false
+  "header": false,
+  "templates": ["subcategorias"]
 }

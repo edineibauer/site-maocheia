@@ -14,5 +14,6 @@
   ],
   "navbar": true,
   "header": false,
-  "cache": true
+  "cache": true,
+  "templates": ["avaliacoes", "subcategorias"]
 }

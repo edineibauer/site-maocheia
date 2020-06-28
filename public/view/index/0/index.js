@@ -20,47 +20,15 @@ function exeLogin(email, senha, recaptcha) {
                     let destino = "index";
                     if(g.setor !== "clientes")
                         destino = "dashboard";
-                    if (getCookie("redirectOnLogin") !== "") {
-                        destino = getCookie("redirectOnLogin");
-                        setCookie("redirectOnLogin", 1, -1);
+                    if (!!localStorage.redirectOnLogin) {
+                        destino = localStorage.redirectOnLogin;
+                        localStorage.removeItem("redirectOnLogin");
                     }
                     location.href = destino;
                 })
             }
         });
     }
-}
-
-/**
- * login Social work with the user data to
- * create a new user or login
- */
-function loginSocial(profile) {
-    //search for the user email
-    getJSON(HOME + "app/find/clientes/email/" + profile.email).then(r => {
-        if (!isEmpty(r.clientes)) {
-            exeLogin(profile.email, profile.id)
-        } else {
-            db.exeCreate("clientes", {
-                nome: profile.name,
-                email: profile.email,
-                imagem_url: profile.image,
-                senha: profile.id,
-                ativo: 1
-            }).then(result => {
-                if (result.db_errorback === 0)
-                    exeLogin(result.email, profile.id)
-            })
-        }
-    });
-}
-
-function loginFacebook(profile) {
-    loginSocial(profile);
-}
-
-function loginGoogle(profile) {
-    loginSocial(profile);
 }
 
 $(function () {
@@ -101,7 +69,7 @@ $(function () {
     /**
      * Login
      */
-    if (getCookie("token") !== "" && getCookie("token") !== "0")
+    if (localStorage.token !== "" && localStorage.token !== "0")
         location.href = HOME + "dashboard";
 
     $("#app").off("keyup", "#email, #senha").on("keyup", "#email, #senha", function (e) {
