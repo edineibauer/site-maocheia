@@ -3,6 +3,10 @@ body {
     background: #ffffff;
 }
 
+.facebook-login {
+    width: 100%!important;
+}
+
 #bt {
     margin-top: 20px;
 }

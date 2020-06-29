@@ -41,7 +41,7 @@ function getProfissionalMustache(profissional, cat, subcategorias) {
 
     profissional.perfil_profissional.dias = (!isEmpty(profissional.perfil_profissional.dias) ? (isJson(profissional.perfil_profissional.dias) ? JSON.parse(profissional.perfil_profissional.dias) : profissional.perfil_profissional.dias) : "");
     profissional.perfil_profissional.online = profissional.perfil_profissional.inicio < hora && profissional.perfil_profissional.termino > hora && !isEmpty(profissional.perfil_profissional.dias) && profissional.perfil_profissional.dias.indexOf(week) > -1;
-    profissional.perfil_profissional.categoriaNome = cat.nome;
+    profissional.perfil_profissional.categoriaNome = cat.nome || "";
     profissional.perfil_profissional.categoriaImage = (!isEmpty(cat.imagem) ? cat.imagem[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg");
 
     profissional.perfil_profissional.subcategoriasData = [];
