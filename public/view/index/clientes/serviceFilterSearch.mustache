@@ -4,7 +4,7 @@
             <div class="titulo">De que tipo de serviço você precisa?</div>
         </div>
         <div class="owl-carousel container owl-theme" id="categorias">
-            {{#categorias}}
+            {{#.}}
                 {{#ativo}}
                     <div class="item serviceProfissao serviceCategory{{#selected}} selecionado{{/selected}}" rel="{{id}}">
                         <figure>
@@ -13,7 +13,7 @@
                         <h4 class="servico">{{nome}}</h4>
                     </div>
                 {{/ativo}}
-            {{/categorias}}
+            {{/.}}
         </div>
         <div class="owl-carousel container owl-theme pt-2 pb-1 hideCategorie" id="subcategorias"></div>
     </div>

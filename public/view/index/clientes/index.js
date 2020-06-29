@@ -11,7 +11,6 @@ var
     markers = [],
     markerCluster = null,
     map,
-    mapMoveTrack,
     intervalPosition,
     touchElements;
 
@@ -91,9 +90,7 @@ function changeSwipeToSearch() {
             for (let c in categorias)
                 categorias[c].selected = (!isEmpty(filtrosProfissionais.categoria) && categorias[c].id === filtrosProfissionais.categoria);
 
-            $(".swipe-zone-body").htmlTemplate('serviceFilterSearch', {
-                categorias: categorias
-            }).then(() => {
+            $(".swipe-zone-body").htmlTemplate('serviceFilterSearch', categorias).then(() => {
                 readServices();
 
                 if(isNumberPositive(filtrosProfissionais.categoria))
