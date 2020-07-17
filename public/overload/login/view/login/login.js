@@ -20,10 +20,7 @@ function exeLogin(email, senha, recaptcha) {
                     let destino = "index";
                     if(g.setor !== "clientes")
                         destino = "dashboard";
-                    if (getCookie("redirectOnLogin") !== "") {
-                        destino = getCookie("redirectOnLogin");
-                        setCookie("redirectOnLogin", 1, -1);
-                    }
+
                     location.href = destino;
                 })
             }
@@ -102,7 +99,7 @@ $(function () {
     /**
      * Login
      */
-    if (getCookie("token") !== "" && getCookie("token") !== "0")
+    if (localStorage.token !== "" && localStorage.token !== "0")
         location.href = HOME + "dashboard";
 
     $("#app").off("keyup", "#email, #senha").on("keyup", "#email, #senha", function (e) {

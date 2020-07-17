@@ -12,11 +12,11 @@
     "libs/isotope.pkgd.min",
     "libs/owl.carousel.min",
     "libs/markerclustererplus.min",
-    "home-map"
+    "home-map",
+    "moment"
   ],
   "navbar": true,
   "header": false,
-  "cache": true,
   "offline": true,
   "templates": [
     "avaliacoes",

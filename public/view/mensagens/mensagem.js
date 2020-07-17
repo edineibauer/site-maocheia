@@ -68,14 +68,15 @@ function newMessage(content, sendByClient) {
             columnStatus: {column: "", have: false, value: false}
         });
 
-        $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, "fast");
+        if ($(".messages").length)
+            $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, "fast");
 
         clearInterval(updateMessageLoop);
         db.exeCreate("mensagens", mensagem).then(r => {
             mensagem.id = parseInt(r.id);
 
             //ativa novamente o update das mensagens
-            updateMessagesLoop();
+            // updateMessagesLoop();
         });
     }
 }
@@ -146,14 +147,19 @@ function readMessage() {
                                     loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
 
                                 lastMessageData = mensagem.mensagens[mensagem.mensagens.length - 1].data;
-                                $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, 0);
+
+                                if ($(".messages").length)
+                                    $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, 0);
+
                                 $(".message-input").css("display", "block");
                             }
 
                             if (!isCliente && mensagem.aceitou === 0) {
                                 loadMessage(contato.nome + " entrou em contato com você! \n\nClique em responder abaixo", !0);
                                 lastMessageData = mensagem.mensagens[mensagem.mensagens.length - 1].data;
-                                $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, 0);
+
+                                if ($(".messages").length)
+                                    $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, 0);
 
                                 $(".message-input-buy").css("display", "block");
                                 $(".btn-buy").off("click").on("click", function () {
@@ -171,7 +177,9 @@ function readMessage() {
                                                     loadMessage(mensagem.mensagens[i].mensagem, mensagem.mensagens[i].enviada_pelo_cliente === "1");
 
                                                 lastMessageData = mensagem.mensagens[mensagem.mensagens.length - 1].data;
-                                                $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, 0);
+
+                                                if ($(".messages").length)
+                                                    $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, 0);
                                             }
                                         });
                                     }
@@ -202,9 +210,11 @@ function readMessage() {
             }
 
             lastMessageData = mensagem.mensagens[mensagem.mensagens.length - 1].data;
-            $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, "fast");
 
-            updateMessagesLoop();
+            if ($(".messages").length)
+                $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, "fast");
+
+            // updateMessagesLoop();
         })
     }
 }
@@ -213,7 +223,7 @@ function readAllMessages() {
     let gets = [];
 
     return db.exeRead("mensagens").then(mensagens => {
-        for(let i in mensagens)
+        for (let i in mensagens)
             mensagens[i].isProfissional = mensagens[i].profissional === USER.setorData.id;
 
         $(".nomessage").css("display", "block");
@@ -247,25 +257,18 @@ function readAllMessages() {
     });
 }
 
+async function readPeopleMessages() {
+    let messages = await db.exeRead("message_user");
+    console.log(messages);
+    if (!isEmpty(messages))
+        $("#list-message").htmlTemplate("cardMessages", messages);
+    else
+        $("#list-message").htmlTemplate("notificacoesEmpty", {mensagem: "Nenhuma mensagem no momento"});
+
+}
+
 $(function () {
-    let url = location.href.split("/");
-    url = url[url.length - 1];
-    if (url !== "mensagem" && !isNaN(url) && url > 0)
-        messageId = parseInt(url);
-
-    if (messageId) {
-        $(".message").css("display", "block");
-        readMessage();
-    } else {
-        readAllMessages();
-    }
-
-    updateMessagesLoop();
-
-    $(window).on('keydown', function (e) {
-        if (e.which === 13) {
-            sendMessage();
-            return false;
-        }
-    });
+    (async () => {
+        await readPeopleMessages();
+    })();
 });
