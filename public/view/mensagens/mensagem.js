@@ -258,13 +258,19 @@ function readAllMessages() {
 }
 
 async function readPeopleMessages() {
-    let messages = await db.exeRead("message_user");
-    console.log(messages);
-    if (!isEmpty(messages))
-        $("#list-message").htmlTemplate("cardMessages", messages);
-    else
-        $("#list-message").htmlTemplate("notificacoesEmpty", {mensagem: "Nenhuma mensagem no momento"});
+    let read = new Read;
+    let messages = await read.exeRead("messages_user");
 
+    if (!isEmpty(messages)) {
+        for(let message of messages) {
+            message.ultima_vez_online = (!isEmpty(message.ultima_vez_online) ? moment(message.ultima_vez_online) : moment()).calendar();
+            message.usuario = await read.exeRead("usuarios", message.usuario);
+            message.usuario.imagem = (!isEmpty(message.usuario.imagem) ? (message.usuario.imagem.constructor === Array && typeof message.usuario.imagem[0] !== "undefined" ? message.usuario.imagem[0].url : message.usuario.imagem ) : HOME + "assetsPublic/img/img.png");
+        }
+        $("#list-message").htmlTemplate("cardMessages", messages);
+    } else {
+        $("#list-message").htmlTemplate("notificacoesEmpty", {mensagem: "Nenhuma mensagem no momento"});
+    }
 }
 
 $(function () {

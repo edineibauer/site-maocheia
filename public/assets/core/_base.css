@@ -3,6 +3,14 @@ body {
     overscroll-behavior-y: contain;
 }
 
+.r-network {
+    background: #F1F0F5!important;
+}
+
+a:active, a:focus, a:hover {
+    color: initial!important;
+}
+
 .form-control:focus {
     outline: none !important;
     box-shadow: none !important;

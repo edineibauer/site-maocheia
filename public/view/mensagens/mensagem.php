@@ -7,7 +7,7 @@
                         <div>
                             <h3 class="titulo" style="font-weight: 700">Mensagens</h3>
                         </div>
-                        <div id="list-message" data-templates="cardMessages"></div>
+                        <div id="list-message" data-template="cardMessages"></div>
                     </div>
                 </div>
             </div>

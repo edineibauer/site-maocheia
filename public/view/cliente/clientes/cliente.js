@@ -1,7 +1,7 @@
 $(function () {
     (async () => {
 
-        let cliente = await db.exeRead("clientes", FRONT.VARIAVEIS[0]);
+        let cliente = await db.exeRead("clientes", history.state.param.url[0]);
         if(isEmpty(cliente)) {
             toast("usuário não encontrado", 3000, "toast-info");
             history.back();

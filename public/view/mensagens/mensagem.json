@@ -1,6 +1,7 @@
 {
   "title": "{{sitename}}",
-  "css": ["libs/bootstrap.min", "_base"],
+  "css": ["libs/bootstrap.min", "core/_base"],
+  "js": ["moment"],
   "navbar": true,
   "header": false,
   "setor": "clientes",

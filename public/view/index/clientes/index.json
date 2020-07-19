@@ -2,13 +2,13 @@
   "title": "{{sitename}}",
   "css": [
     "libs/bootstrap.min",
-    "_base",
+    "core/_base",
     "libs/materialdesignicons.min",
     "libs/owl.carousel.min"
   ],
   "js": [
     "homeMap",
-    "_base",
+    "core/_base",
     "libs/isotope.pkgd.min",
     "libs/owl.carousel.min",
     "libs/markerclustererplus.min",

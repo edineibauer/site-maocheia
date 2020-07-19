@@ -1,7 +1,7 @@
 {
     "title": "Ajuda - {{sitename}}",
-    "css": ["libs/bootstrap.min", "_base"],
-    "js": ["homeMap", "_base"],
+    "css": ["libs/bootstrap.min", "core/_base"],
+    "js": ["homeMap", "core/_base"],
     "navbar": true,
     "header": false
 }

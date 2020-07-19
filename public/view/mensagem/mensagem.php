@@ -4,21 +4,40 @@
             <div class="contact-profile">
                 <a href="#back" data-animation="back">
                     <i class="material-icons" id="arrowback">arrow_back</i>
+                    <img src="<?=HOME?>assetsPublic/img/loading.png" id="perfil-image" height="40" width="40" class="float-left mt-2" />
                 </a>
-                <div id="perfil-info"></div>
+                <div id="perfil-info">
+                    <h6 id="perfil-name" class="float-left pl-3 mb-0"></h6>
+                    <span id="perfil-status" class="float-left pl-3"></span>
+                </div>
                 <div class="social-media">
                     <i class="material-icons">more_vert</i>
                 </div>
             </div>
+
+            <div id="menu-chat">
+                <ul class="col">
+                    <a href="cliente/" id="perfil-link">
+                        <li>Ver perfil</li>
+                    </a>
+                    <div id="selenciar">
+                        <li>Silenciar</li>
+                    </div>
+                    <div id="bloquear">
+                        <li>Bloquear</li>
+                    </div>
+                </ul>
+            </div>
+
             <div class="messages">
-                <ul class="mb-0"></ul>
+                <ul class="mb-0" data-template-loop="7" data-template="mensagem"></ul>
             </div>
         </section>
     </div>
     <div class="message-input" style="display: block">
         <div class="wrap">
             <input type="text" id="message-text" autocomplete="off" placeholder="Digite uma mensagem..."/>
-            <!--                <i class="material-icons" style="padding: 13px;">link</i>-->
+            <i class="material-icons" style="padding: 9px 13px;">link</i>
             <button class="submit"><i class="material-icons" style="padding: 3px 5px;">send</i></button>
         </div>
     </div>

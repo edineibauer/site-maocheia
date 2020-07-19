@@ -1,4 +1,4 @@
-var profissional = FRONT.VARIAVEIS[0], read = new Read();
+var profissional = history.state.param.url[0], read = new Read();
 
 if (USER.setorData.id == profissional) {
     toast("Você não pode avaliar seu próprio perfil", "toast-info", 3000);

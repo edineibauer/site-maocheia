@@ -13,7 +13,7 @@ function addMessageToMysql(int $user, string $msg)
 {
     $mensagem = [
         "mensagem" => $msg,
-        "usuario" => $_SESSION['userlogin']['id'],
+        "usuario" => $user,
         "data" => date("Y-m-d H:i:s"),
         "anexos" => null
     ];
@@ -58,6 +58,15 @@ function addMessageToMysql(int $user, string $msg)
             $create->exeCreate("messages_user", [
                 "usuario" => $user,
                 "ownerpub" => $_SESSION['userlogin']['id'],
+                "mensagem" => $create->getResult()
+            ]);
+
+            /**
+             * Create personal user message track with the message data dialog to the user target
+             */
+            $create->exeCreate("messages_user", [
+                "usuario" => $_SESSION['userlogin']['id'],
+                "ownerpub" => $user,
                 "mensagem" => $create->getResult()
             ]);
         }
