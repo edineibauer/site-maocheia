@@ -3,11 +3,12 @@ if(typeof host === "undefined") {
     var socket = new WebSocket('ws://' + host + ':9999/mensagem/chat');
 
     // AJAX.get("serverMessage");
-    var writing = !1, usuario = {};
+    var writing = !1, usuario = {}, bloqueado = !1;
 
     // Ao receber mensagens do servidor
     socket.addEventListener('message', function (event) {
-        showMessage(JSON.parse(event.data));
+        if(!bloqueado)
+            showMessage(JSON.parse(event.data));
     });
 }
 
@@ -21,7 +22,7 @@ function showMessage(mensagem) {
             showLastOnline();
             $('<li class="' + (mensagem.usuario == usuario.id ? "replies" : "sent") + '"><p>' + mensagem.mensagem + '<small>' + (!isEmpty(mensagem.data) ? moment(mensagem.data) : moment()).format("HH:mm") + '</small></p></li>').appendTo($('.messages ul'));
             $('.message-input input').val(null);
-            $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight}, "fast");
+            $(".messages")[0].scrollTop = $(".messages")[0].scrollHeight;
         }
     }
 }
@@ -35,10 +36,6 @@ function showWriting() {
     },1500);
 }
 
-function showLastOnline(ultima_vez_online) {
-    $("#perfil-status").html((!isEmpty(ultima_vez_online) ? moment(ultima_vez_online) : moment()).calendar());
-}
-
 function sendMessage() {
     const data = {
         usuario: usuario.id,
@@ -47,7 +44,7 @@ function sendMessage() {
     };
 
     socket.send(JSON.stringify(data));
-    AJAX.post("serverSendMessage", data);
+    AJAX.post("chatServerSendMessage", data);
     $("#message-text").val('');
 }
 
@@ -61,6 +58,12 @@ function sendWriting() {
     socket.send(JSON.stringify(data));
 }
 
+async function readUser() {
+    usuario = await db.exeRead("usuarios", history.state.param.url[0]);
+    usuario.imagem = (!isEmpty(usuario.imagem) ? (usuario.imagem.constructor === Array && typeof usuario.imagem[0] !== "undefined" ? usuario.imagem[0].url : usuario.imagem ) : HOME + "assetsPublic/img/img.png");
+    updateDomInfo();
+}
+
 function updateDomInfo() {
     $("#perfil-image").attr("src", usuario.imagem);
     $("#perfil-name").html(usuario.nome);
@@ -68,17 +71,37 @@ function updateDomInfo() {
     showLastOnline();
 }
 
+function showLastOnline(ultima_vez_online) {
+    $("#perfil-status").html((bloqueado ? "<i class='material-icons'>block</i>" : "") + (!isEmpty(ultima_vez_online) ? moment(ultima_vez_online) : moment()).calendar());
+}
+
 (async () => {
-    usuario = await db.exeRead("usuarios", history.state.param.url[0]);
-    usuario.imagem = (!isEmpty(usuario.imagem) ? (usuario.imagem.constructor === Array && typeof usuario.imagem[0] !== "undefined" ? usuario.imagem[0].url : usuario.imagem ) : HOME + "assetsPublic/img/img.png");
+    /**
+     * Retrieve user info
+     * show user on DOM
+     */
+    await readUser();
 
-    updateDomInfo();
-
+    /**
+     * Retrieve messages chat data
+     */
     let read = new Read;
     read.setFilter({"usuario": usuario.id});
     let messageUser = await read.exeRead("messages_user");
-
     if(!isEmpty(messageUser) && messageUser.constructor === Array) {
+
+        /**
+         * Check blocked status
+         */
+        bloqueado = messageUser[0].bloqueado == 1;
+        if(bloqueado) {
+            $("#bloquear > li").html("desbloquear");
+            $("#perfil-status").prepend("<i class='material-icons'>block</i>");
+        }
+
+        /**
+         * Show messages on DOM
+         */
         let mensagens = await db.exeRead("messages", messageUser[0].mensagem);
         $(".messages > ul").html("");
         if(!isEmpty(mensagens)) {
@@ -87,17 +110,52 @@ function updateDomInfo() {
         }
     }
 
+    /**
+     * Input text click
+     */
     $("#message-text").off("keyup").on("keyup", function () {
         if (event.keyCode === 13)
             sendMessage();
         else
             sendWriting();
     });
+
+    /**
+     * Buttons click
+     */
     $('.submit').click(function () {
         sendMessage();
     });
 
     $(".social-media").off("click").on("click", function () {
-        $("#menu-chat").toggleClass("active");
+        let $menu = $("#menu-chat");
+        if(!$menu.hasClass("active")) {
+            $menu.addClass("active");
+            $("body").off("mouseup").on("mouseup", function (e) {
+                if (!$menu.is(e.target) && $menu.has(e.target).length === 0) {
+                    setTimeout(function () {
+                        $menu.removeClass("active");
+                        $("body").off("mouseup");
+                    },50);
+                }
+            })
+        }
+    });
+
+    $("#selenciar").off("click").on("click", function () {
+        toast("Usuário silenciado", 2000, "toast-infor");
+        $("#menu-chat").removeClass("active");
+        $("body").off("mouseup");
+        AJAX.post("chatSilenciar", {user: usuario.id});
+    });
+
+    $("#bloquear").off("click").on("click", function () {
+
+        $("#bloquear > li").html((bloqueado ? "" : "des") + "bloquear");
+        bloqueado = !bloqueado;
+        showLastOnline();
+        $("#menu-chat").removeClass("active");
+        $("body").off("mouseup");
+        AJAX.post("chatBloquear", {user: usuario.id, bloqueado: bloqueado ? 1 : 0});
     });
 })();
