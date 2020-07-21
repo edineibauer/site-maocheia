@@ -832,7 +832,7 @@ body {
     bottom: 0;
     width: 100%;
     z-index: 99;
-    padding: 5px 10px 10px;
+    padding: 5px 10px 3px;
 }
 
 .message-input-buy {
@@ -970,7 +970,7 @@ body {
 /* #### PREVIEW ANEXO ######## */
 /* ########################### */
 
-.preview, .preview > svg {
+.preview {
     width: 100%;
     min-height: 50px;
 }
@@ -982,15 +982,16 @@ body {
 
 .preview > img {
     max-width: 250px;
-    max-height: 300px;
+    width: auto;
+    height: 140px;
     display: block;
     margin: auto;
     float: initial !important;
 }
 
 .preview > svg {
-    padding-top: 10px !important;
-    max-height: 100px;
+    padding: 10px !important;
+    height: 140px;
 }
 
 .card-repositorio {
@@ -1096,6 +1097,7 @@ body {
     max-width: 100%;
     display: block;
     margin: auto;
+    background: #fff;
 }
 
 #modalPreviewFile.active {
