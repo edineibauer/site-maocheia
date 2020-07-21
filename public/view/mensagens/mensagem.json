@@ -1,10 +1,9 @@
 {
   "title": "{{sitename}}",
-  "css": ["libs/bootstrap.min", "core/_base"],
+  "css": ["bootstrap"],
   "js": ["moment"],
   "navbar": true,
   "header": false,
-  "setor": "clientes",
   "redirect": "login",
   "templates": ["notificacoesEmpty"]
 }

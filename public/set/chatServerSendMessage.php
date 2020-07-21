@@ -87,6 +87,6 @@ function addMessageToMysql(int $user, string $msg)
 }
 
 $user = filter_input(INPUT_POST, 'usuario', FILTER_VALIDATE_INT);
-$mensagem = trim(strip_tags(filter_input(INPUT_POST, 'mensagem', FILTER_DEFAULT)));
+$mensagem = trim(filter_input(INPUT_POST, 'mensagem', FILTER_DEFAULT));
 
 addMessageToMysql($user, $mensagem);

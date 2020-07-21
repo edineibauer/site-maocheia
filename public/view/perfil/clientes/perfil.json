@@ -1,6 +1,6 @@
 {
     "title": "Perfil {{sitename}}",
-    "css": ["libs/bootstrap.min", "core/_base"],
+    "css": ["bootstrap", "core/_base"],
     "js": ["core/_base", "homeMap"],
     "navbar": true,
     "header": false,

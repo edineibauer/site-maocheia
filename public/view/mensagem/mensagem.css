@@ -43,22 +43,34 @@ body {
     color: #555555;
 }
 
+#perfil-image {
+    height: 40px;
+    width: 40px!important;
+    border-radius: 50px;
+}
+
 #perfil-name {
-    min-width: 60%;
-    padding-top: 10px;
+    width: 60%!important;
+    margin-top: 10px;
 }
 
 #perfil-status {
     font-size: 12px;
     color: green;
     padding-top: 1px;
+    width: 60%!important;
 }
 
 #perfil-status > .material-icons {
-    font-size: 12px;
+    font-size: 14px;
     float: left;
     padding: 2px 5px 0 0;
+    color: #777;
+}
+
+#perfil-status > .material-icons.blocked {
     color: red;
+    font-size: 12px;
 }
 
 .imagem-perfil-mensagem {
@@ -775,43 +787,32 @@ body {
     font-size: 0.9em;
 }
 
-.messages > ul li:nth-last-child(1) {
+.messages > ul > li:nth-last-child(1) {
     margin-bottom: 20px;
 }
 
-.messages > ul li.sent img {
+.messages > ul > li.sent img {
     margin: 6px 8px 0 0;
 }
 
-.messages > ul li.replies p {
+.messages > ul > li.replies > p {
     background: #2D7AFF;
     color: #ffffff;
     float: right;
 }
 
-.messages > ul li.replies img {
-    float: right;
-    margin: 6px 0 0 8px;
-}
-
-.messages > ul li.sent p {
+.messages > ul > li.sent p {
     background: #ffffff;
 }
 
-.messages > ul li img {
-    width: 22px;
-    border-radius: 50%;
-    float: left;
-}
-
-.messages > ul li p small {
+.messages > ul > li p small {
     margin-top: 4px;
     float: right;
     margin-left: 9px;
     opacity: .6;
 }
 
-.messages > ul li p {
+.messages > ul > li p {
     display: inline-block;
     padding: 5px 10px 5px 10px;
     border-radius: 7px;
@@ -963,4 +964,140 @@ body {
 
 .nomessage #notificacao figure img {
     max-width: 280px;
+}
+
+/* ########################### */
+/* #### PREVIEW ANEXO ######## */
+/* ########################### */
+
+.preview, .preview > svg {
+    width: 100%;
+    min-height: 50px;
+}
+
+.preview > video {
+    display: block;
+    width: 100%;
+}
+
+.preview > img {
+    max-width: 250px;
+    max-height: 300px;
+    display: block;
+    margin: auto;
+    float: initial !important;
+}
+
+.preview > svg {
+    padding-top: 10px !important;
+    max-height: 100px;
+}
+
+.card-repositorio {
+    overflow: hidden;
+    padding: 0;
+    border: none;
+}
+
+.modalPreviewFileText {
+    background: #2D7AFF!important;
+    color:#ffffff!important;
+}
+
+#modalPreviewFile {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    height: 100%;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0;
+    transition: all ease .3s;
+}
+
+#modalTitle .svgIcon {
+    height: 20px;
+    width: 20px;
+    margin-right: 6px;
+}
+
+#modalTitle {
+    color: #ffffff;
+    font-size: 16px;
+    padding: 18px 0;
+    font-weight: 400;
+    float: left;
+    max-height: 47px;
+    overflow: hidden;
+    max-width: calc(100% - 55px);
+}
+
+.closeModal {
+    padding: 0;
+    float: left;
+    width: calc(100% - 55px);
+}
+
+.closeModal > i,.downloadModal {
+    cursor: pointer;
+    float: left;
+    box-shadow: none;
+    padding: 16px 15px 10px;
+    margin: 0;
+    color: #ffffff;
+    background: transparent;
+}
+
+.downloadModal {
+    float: right;
+}
+
+.previewFileCard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.previewFileCard > header {
+    float: left;
+    width: 100%;
+}
+
+#modalContent {
+    max-height: calc(100vh - 60px);
+    overflow: auto;
+    padding-top: 20px;
+    width: 100%;
+    float: left;
+}
+
+#modalContent > audio {
+    width: calc(100% - 12px);
+    background: #f1f3f4;
+    float: left;
+    margin: 40px 6px;
+}
+
+#modalContent > video {
+    width: 100%;
+    height: auto;
+    margin: auto;
+    display: block;
+    float: initial;
+}
+
+#modalContent > img {
+    width: auto;
+    max-height: 100%;
+    max-width: 100%;
+    display: block;
+    margin: auto;
+}
+
+#modalPreviewFile.active {
+    display: block;
 }

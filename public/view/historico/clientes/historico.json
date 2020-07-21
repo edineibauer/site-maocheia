@@ -1,6 +1,6 @@
 {
     "title": "Histórico {{sitename}}",
-    "css": ["libs/bootstrap.min", "core/_base"],
+    "css": ["bootstrap", "core/_base"],
     "js": ["homeMap", "core/_base", "moment"],
     "navbar": true,
     "header": false,

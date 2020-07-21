@@ -19,6 +19,10 @@ body {
     float: left;
 }
 
+.notification-content-left {
+    margin-top: -2px;
+}
+
 .notification-content-right {
     width: calc(100% - 135px)!important;
 }

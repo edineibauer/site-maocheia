@@ -52,6 +52,18 @@ body {
     color: #bbbbbb
 }
 
+.message-card-date > .material-icons {
+    font-size: 14px;
+    float: left;
+    padding: 2px 5px 0 0;
+    color: #777;
+}
+
+.message-card-date > .material-icons.blocked {
+    color: red;
+    font-size: 12px;
+}
+
 .message-card-name {
     height: 18px;
     overflow: hidden;

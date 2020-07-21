@@ -1,1 +1,1 @@
-<section id="perfil-cliente"></section>
+<section id="perfil-cliente" data-template="cliente"></section>
