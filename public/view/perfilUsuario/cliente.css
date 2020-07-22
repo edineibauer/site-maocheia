@@ -6,8 +6,8 @@ body {
 #clienteImagem {
     background-repeat: no-repeat;
     background-size: cover;
-    width: 103px;
-    height: 103px;
+    width: 103px!important;
+    height: 103px!important;
     border-radius: 100px;
     margin: auto;
 }
