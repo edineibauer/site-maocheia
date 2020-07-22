@@ -55,9 +55,9 @@
                             <input type="password" class="form-control" id="senha" readonly="readonly" disabled="disabled">
                         </div>
                     </div>
-                    <div class="col mt-4">
+                    <div class="mt-4">
                         <div class="text-center">
-                            <button id="salvar" class="btn theme">salvar Perfil</button>
+                            <button id="salvar" class="btn col theme py-2">salvar Perfil</button>
                         </div>
                     </div>
                 </div>

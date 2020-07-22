@@ -45,7 +45,7 @@
                     <div class="pt-1 row pl-3 pr-3 pb-3" id="subcategorias"></div>
                 </div>
 
-                <div class="row mt-2">
+                <div class="form-group row mt-2">
                     <div class="col s6">
                         <label for="inicio" class="pb-1">Hora de início *</label>
                         <input type="time" class="form-control" id="inicio"/>
@@ -56,7 +56,8 @@
                     </div>
                 </div>
 
-                <span class="row pb-1 mt-3 pl-3" style="font-size: 13px; color:#999999">Dias de Trabalho</span>
+                <span class="row pb-1 mt-3 pl-3" style="font-size: 12px; color:#707070">Dias de Trabalho</span>
+
                 <div class="col container mt-1 mb-2">
                     <div class="row">
                         <div class="custom-control custom-checkbox col col-4">

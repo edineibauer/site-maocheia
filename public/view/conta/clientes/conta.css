@@ -13,10 +13,6 @@ body {
     margin-bottom: -4px !important;
 }
 
-#salvar {
-
-}
-
 #imagem_de_perfil_preview {
     float: left;
 }
@@ -107,11 +103,11 @@ label {
     color: #707070 !important;
     font-size: 12px !important;
     font-weight: 400 !important;
+    padding-bottom: 7px;
 }
 
 .form-control {
-    background: transparent!important;
-    padding: .375rem .0rem !important;
+    padding: .375rem .0rem .375rem 7px !important;
     font-size: 14px !important;
     line-height: 1.5;
     color: #000000 !important;
@@ -122,6 +118,10 @@ label {
     border-radius: 0 !important;
     margin-top: -7px !important;
     font-weight: 500 !important;
+}
+
+.form-control:focus {
+    background: #ffffff!important;
 }
 
 #perfil .editar {
