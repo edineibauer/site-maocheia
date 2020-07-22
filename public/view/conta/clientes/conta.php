@@ -30,29 +30,27 @@
                 <div id="formProfissional">
 
                     <div class="row">
-                        <div class="form-group col-12 col-lg-6">
+                        <div class="form-group col-6">
                             <label for="nome">Nome</label>
                             <input type="text" class="form-control" id="nome">
                         </div>
-                        <div class="form-group col-12 col-lg-6 pt-2">
+                        <div class="form-group col-6">
                             <label for="cpf">CPF</label>
                             <input type="text" class="form-control cpf" id="cpf" readonly="readonly" disabled="disabled">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-12 col-lg-6 pt-2">
+                    <div class="row pt-2">
+                        <div class="form-group col-6">
                             <label for="email">Email</label>
                             <input type="email" class="form-control email" id="email" readonly="readonly" disabled="disabled">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-12 col-lg-6 pt-2">
+                        <div class="form-group col-6">
                             <label for="telefone">Telefone</label>
                             <input type="text" class="form-control tel" id="telefone" readonly="readonly" disabled="disabled">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-12 col-lg-6 pt-2">
+                    <div class="row pt-2">
+                        <div class="form-group col-12 col-lg-6">
                             <label for="senha">Nova senha</label>
                             <input type="password" class="form-control" id="senha" readonly="readonly" disabled="disabled">
                         </div>

@@ -1,7 +1,7 @@
 {
   "title": "Sem Conexão",
-  "link": ["libs/bootstrap.min", "_base"],
-  "navbar": false,
+  "css": ["bootstrap", "core/_base"],
+  "navbar": true,
   "header": false,
   "offline": true
 }

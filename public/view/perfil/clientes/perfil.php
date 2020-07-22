@@ -40,6 +40,26 @@
             </div>
         </a>
 
+        <a href="perfil_profissional_editar" id="editprofissional" class="hide row borda-row">
+            <div class="col-8 col-lg-8">
+                <div class="titulo-h6">Configurações da conta Profissional</div>
+                <div class="informacao-div">Perfil profissional</div>
+            </div>
+            <div class="col-4 col-lg-4 mt-3 text-right">
+                <i class="material-icons">description</i>
+            </div>
+        </a>
+
+        <a href="perfil_profissional_open" id="openprofissional" class="row borda-row">
+            <div class="col-8 col-lg-8">
+                <div class="titulo-h6">Configurações da conta Profissional</div>
+                <div class="informacao-div">Abrir perfil profissional</div>
+            </div>
+            <div class="col-4 col-lg-4 mt-3 text-right">
+                <i class="material-icons">business</i>
+            </div>
+        </a>
+
         <div id="setor-profissional"></div>
 
         <a href="configuracoes" class="row borda-row">
