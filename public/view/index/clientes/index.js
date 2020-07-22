@@ -145,7 +145,10 @@ function changeSwipeToService(data) {
                 $("#section-avaliacoes-title").html("Avaliações");
             }
 
-            $("#section-avaliacoes").htmlTemplate('avaliacoes', feedbacks);
+            if(!isEmpty(feedbacks))
+                $("#section-avaliacoes").htmlTemplate('avaliacoes', feedbacks);
+            else
+                $("#section-avaliacoes").html('');
         });
 
         $("#arrowback-perfil").off("click").on("click", function () {

@@ -10,7 +10,7 @@
     ],
     "require": {
         "ueb/dashboard": "*",
-        "cboden/ratchet": "^0.4.3"
+        "ueb/chat": "^1.0"
     },
     "autoload": {
         "psr-0": {
