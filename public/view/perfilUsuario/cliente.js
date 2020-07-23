@@ -1,6 +1,6 @@
 $(function () {
     (async () => {
-        let cliente = await read.exeRead("clientes", {"usuarios_id": history.state.param.url[0]});
+        let cliente = await exeRead("clientes", {"usuarios_id": history.state.param.url[0]});
         if(isEmpty(cliente)) {
             toast("usuário não encontrado", 1000, "toast-infor");
             history.back();

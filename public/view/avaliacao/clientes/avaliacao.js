@@ -1,4 +1,4 @@
-var profissional = history.state.param.url[0], read = new Read();
+var profissional = history.state.param.url[0];
 
 if (USER.setorData.id == profissional) {
     toast("Você não pode avaliar seu próprio perfil", "toast-info", 3000);
@@ -7,9 +7,7 @@ if (USER.setorData.id == profissional) {
     }, 500);
 
 } else {
-
-    read.setFilter({"cliente": USER.setorData.id, "profissional": profissional});
-    read.exeRead("avaliacao").then(result => {
+    exeRead("avaliacao", {"cliente": USER.setorData.id, "profissional": profissional}).then(result => {
         if (!isEmpty(result)) {
             toast("profissional já avaliado!", 3000, "toast-infor");
             setTimeout(function () {
@@ -24,7 +22,7 @@ if (USER.setorData.id == profissional) {
                 }, 500);
             } else {
 
-                read.exeRead("clientes", profissional).then(p => {
+                exeRead("clientes", profissional).then(p => {
                     if (isEmpty(p)) {
                         toast("Profissional não encontrado", "toast-error", 2000);
                         setTimeout(function () {

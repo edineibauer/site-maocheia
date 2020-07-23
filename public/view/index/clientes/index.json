@@ -21,5 +21,6 @@
   "templates": [
     "avaliacoes",
     "subcategorias"
-  ]
+  ],
+  "cache": true
 }

@@ -1,7 +1,7 @@
 $(function () {
     (async () => {
 
-        let ajuda = await read.exeRead("ajuda");
+        let ajuda = await exeRead("ajuda");
 
         if(!isEmpty(ajuda)) {
             $("#ajudas").htmlTemplate('ajudas', {ajudas: ajuda})

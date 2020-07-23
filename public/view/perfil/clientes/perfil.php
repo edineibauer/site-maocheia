@@ -6,12 +6,12 @@
             </div>
             <div class="col-8 col-lg-8" style="padding: 0;">
                 <div class="row">
-                    <div class="col-7">
-                        <h5 class="mt-2" style="max-height: 43px;line-height: 21px;overflow: hidden;" id="nome-user"><?=$_SESSION['userlogin']['nome']?></h5>
+                    <div class="col-8 pl-1">
+                        <h5 style="max-height: 43px;line-height: 21px;overflow: hidden;" id="nome-user"><?=$_SESSION['userlogin']['nome']?></h5>
                         <div id="avaliacao-perfil-profissional"></div>
                         <div id="preco-perfil-profissional"></div>
                     </div>
-                    <div class="col-5 col-md-4 col-lg-2 hide" id="saldoProfissional">
+                    <div class="col-4 col-md-4 col-lg-2 hide" id="saldoProfissional">
                         <div class="saldo">
                             <div class="row no-gutters">
                                 <div class="moeda">
