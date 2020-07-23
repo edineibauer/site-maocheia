@@ -1,7 +1,7 @@
 {
     "title": "{{sitename}}",
     "css": ["bootstrap", "libs/materialdesignicons.min", "libs/owl.carousel.min"],
-    "js": ["libs/owl.carousel.min"],
+    "js": ["libs/owl.carousel.min", "core/_base"],
     "navbar": false,
     "header": false
 }

@@ -1,5 +1,5 @@
 #ajuda .titulo {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     margin-top: 12px;
     margin-bottom: 7px;
@@ -10,8 +10,14 @@
     margin-left: -5px;
 }
 
+.ajudatextodiv {
+    height: 0;
+    overflow: hidden;
+    transition: all ease .3s;
+}
+
 #ajuda .texto {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: normal;
     margin-top: 5px;
     margin-bottom: 50px;

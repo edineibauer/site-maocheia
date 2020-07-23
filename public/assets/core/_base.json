@@ -1,3 +1,4 @@
 {
+  "js": ["badgeMessageNotification"],
   "templates": ["profissionalStar", "profissionalPreco"]
 }

@@ -1,19 +1,14 @@
 $(function() {
     $("#feed").on("click", function(e) {
         e.preventDefault();
+        let m = $.trim($('#feedback').val());
 
-        const mensagem = $('textarea[name="feedback-teste"]').val();
-        $.ajax({
-            url: "https://maocheia.ag3tecnologia.com.br/app/put/feedback",
-            key: '9fdd61be642501ac434acded4315adc6',
-            type: 'POST',
-            data: mensagem,
-            success: function(result) {
-                $("#resultado").html("<strong>Sucesso!</strong>");
-            },
-            error: function() {
-                console.log("deu errado");
-            }
-        });
+        if(m.length > 5) {
+            db.exeCreate("feedback", {descricao: $('#feedback').val()});
+            toast("Obrigado pelo seu Feedback!", 2500, "toast-success");
+            history.back();
+        } else {
+            toast("Sua mensagem é muito curta", 1500, "toast-warning");
+        }
     });
 });

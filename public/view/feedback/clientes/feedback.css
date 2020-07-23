@@ -1,4 +1,4 @@
-#feedback .titulo {
+.titulo {
     font-size: 26px;
     font-weight: bold;
     margin-bottom: 36px;
@@ -8,7 +8,7 @@
     font-size: 32px;
 }
 
-#feedback .btn-primary {
+.btn-primary {
     color: #fff;
     background-color: #2D7AFF !important;
     border-color: #2D7AFF !important;
