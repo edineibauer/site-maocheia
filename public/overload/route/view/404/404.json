@@ -1,5 +1,5 @@
 {
-  "title": "Conexão perdida",
+  "title": "Opss! Nos perdemos",
   "css": ["bootstrap", "core/_base"],
   "navbar": true,
   "header": false,
