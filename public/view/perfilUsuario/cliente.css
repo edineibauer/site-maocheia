@@ -27,7 +27,6 @@ ul.horizontal-list > li:nth-last-child(1) {
 
 .titulo-endereco {
     color: #999;
-    text-align: left;
     padding-top: 20px;
     padding-left: 5px;
 }
