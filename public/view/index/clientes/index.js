@@ -159,7 +159,6 @@ function changeSwipeToService(data) {
                     break;
                 }
             }
-            console.log(pass);
             if (pass) {
                 touchElements.moveToStart();
             } else {

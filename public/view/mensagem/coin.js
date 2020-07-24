@@ -3,7 +3,6 @@
 $(function () {
     (async () => {
         let havePermissionChat = await AJAX.get("event/messagePermission/" + history.state.param.url[0]);
-        console.log(havePermissionChat);
         if(isEmpty(USER.setorData.perfil_profissional) || havePermissionChat) {
             $(".message-input").css("display", "block");
         } else {
