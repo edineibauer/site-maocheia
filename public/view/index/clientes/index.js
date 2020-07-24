@@ -268,6 +268,7 @@ function readAllServices(localizationAnonimo) {
                     services.push(getProfissionalMustache(result[i], categories.find(s => s.id == result[i].perfil_profissional.categoria), subcategorias));
 
                 readServices();
+                setAllServicesOnMap(servicesFiltered);
 
                 if (navigator.onLine && USER.setor !== 0) {
                     clearInterval(servicesOnMapUpdate);
@@ -340,7 +341,6 @@ function readServices() {
      */
     servicesFiltered = profissionaisFiltrado(services);
     updateListService(servicesFiltered);
-    setAllServicesOnMap(servicesFiltered);
 }
 
 function initAutocomplete() {
@@ -500,6 +500,7 @@ $(function () {
             $(this).addClass("selecionado");
         }
         readServices();
+        setAllServicesOnMap(servicesFiltered);
 
     }).off("click", ".serviceProfissao").on("click", ".serviceProfissao", function () {
         selectCategory($(this).attr('rel'));
@@ -536,5 +537,6 @@ function selectCategory(category, subcategory) {
     readSubCategoriesMenu(filtrosProfissionais.categoria, subcategory);
     setTimeout(function () {
         readServices();
+        setAllServicesOnMap(servicesFiltered);
     }, 150);
 }
