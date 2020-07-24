@@ -13,7 +13,7 @@
                 <h2 class="titulo">Configurações do aplicativo</h2>
             </div>
         </div>
-        <div class="bloco">
+        <!--<div class="bloco">
             <div class="row">
                 <div class="col-12">
                     <h5 class="subtitulo">Geral</h5>
@@ -55,7 +55,7 @@
                     <hr>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!--<div class="bloco">
             <div class="row">
                 <div class="col-12">
@@ -102,19 +102,19 @@
         </div>-->
 
         <div class="bloco">
-            <div class="row">
+           <!-- <div class="row">
                 <div class="col-12">
                     <h5 class="subtitulo">Suporte</h5>
                 </div>
-            </div>
+            </div>-->
 
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col-12">
                     <div class="row">
                         <div class="col-10">
                             <div class="opcao">
                                 <a href="termos">
-                                    Termo de uso
+                                    Termos de uso
                                 </a>
                             </div>
                         </div>
@@ -143,7 +143,7 @@
                         <div class="col-10">
                             <div class="opcao">
                                 <a href="feedback">
-                                    De feedback
+                                    Deixe seu feedback
                                 </a>
                             </div>
                         </div>

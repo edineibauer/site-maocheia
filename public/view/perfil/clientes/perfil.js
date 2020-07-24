@@ -20,6 +20,6 @@ $(function () {
     });
 
     $(".update-btn").one("click", function () {
-        location.reload();
+        updateCache();
     });
 });
