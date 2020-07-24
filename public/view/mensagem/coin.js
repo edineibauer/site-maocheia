@@ -1,22 +1,21 @@
+
+
 $(function () {
     (async () => {
-        let minhaMensagem = await exeRead("messages_user", {"usuario": history.state.param.url[0]});
-        let tpl = await getTemplates();
-        if(isEmpty(minhaMensagem[0].mensagem)) {
-            $("#frame").append(Mustache.render(tpl.coin));
+        let havePermissionChat = await AJAX.get("event/messagePermission/" + history.state.param.url[0]);
+        console.log(havePermissionChat);
+        if(isEmpty(USER.setorData.perfil_profissional) || havePermissionChat) {
+            $(".message-input").css("display", "block");
         } else {
-            $(".message-input").css("display", "block");
-        }
 
-        $("#app").off("click", ".btn-buy").on("click", ".btn-buy", function () {
-            $(".message-input").css("display", "block");
-            $(".message-input-buy").remove();
-            AJAX.post("openMessage", {id: history.state.param.url[0]}).then(r => {
-                console.log(r);
-                if(r === 1) {
-                    USER.setorData.moeda--;
-                }
+            let tpl = await getTemplates();
+            $("#frame").append(Mustache.render(tpl.coin));
+
+            $("#app").off("click", ".btn-buy").on("click", ".btn-buy", function () {
+                $(".message-input").css("display", "block");
+                $(".message-input-buy").remove();
+                AJAX.post("openMessage", {id: history.state.param.url[0]});
             });
-        });
+        }
     })();
 });

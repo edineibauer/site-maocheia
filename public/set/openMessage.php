@@ -11,7 +11,7 @@ if ($read->getResult()) {
         $_SESSION['userlogin']['setorData']['moedas'] = ($prof['moedas'] - 1);
 
         $up->exeUpdate("clientes", ["moedas" => $_SESSION['userlogin']['setorData']['moedas']], "WHERE id = :id", "id={$_SESSION['userlogin']['setorData']['id']}");
-//        $up->exeUpdate("messages_user", ["aceito" => 1], "WHERE usuario = :u", "u={$id}");
+        $up->exeUpdate("messages_user", ["aceito" => 1], "WHERE usuario = :u", "u={$id}");
 
         $f = fopen(PATH_HOME . "_cdn/userPerfil/" . $_SESSION['userlogin']['id'] . ".json", "w+");
         fwrite($f, json_encode($_SESSION['userlogin']));
