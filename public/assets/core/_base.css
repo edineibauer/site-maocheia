@@ -99,6 +99,7 @@ input:focus~label {
 }
 
 #galeria_preview_parent {
+    width: 100vw;
     overflow-x: auto;
     overflow-y: hidden;
 }
