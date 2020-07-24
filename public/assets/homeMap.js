@@ -212,6 +212,7 @@ function startMap() {
     map = new google.maps.Map(document.getElementById('mapa-home'), {
         center: myLatLng,
         zoom: 12,
+        gestureHandling: "greedy",
         styles: [
             {
                 "elementType": "labels",
