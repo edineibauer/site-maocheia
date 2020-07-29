@@ -126,12 +126,12 @@ function changeSwipeToService(data) {
          */
         getJSON(HOME + "app/find/avaliacao/profissional/" + data.id).then(avaliacoes => {
             let feedbacks = [];
-            if (!isEmpty(avaliacoes.avaliacao)) {
+            if (avaliacoes.response === 1 && !isEmpty(avaliacoes.data) && !isEmpty(avaliacoes.data.avaliacao)) {
 
-                if (avaliacoes.avaliacao.length > 5)
+                if (avaliacoes.data.avaliacao.length > 5)
                     $("#section-avaliacoes-more").removeClass("hide");
 
-                for (let aval of avaliacoes.avaliacao.slice(0, 5)) {
+                for (let aval of avaliacoes.data.avaliacao.slice(0, 5)) {
                     // aval.imagens = (!isEmpty(aval.imagens) ? JSON.parse(aval.imagens) : []);
                     aval.data = moment(aval.data).format("DD/MM/YYYY");
                     aval.imagem_do_cliente = (!isEmpty(aval.imagem_do_cliente) ? aval.imagem_do_cliente : HOME + "assetsPublic/img/favicon.png?v=" + VERSION);
@@ -139,7 +139,7 @@ function changeSwipeToService(data) {
                     aval.star = getProfissionalStar(aval.avaliacao_geral);
                     feedbacks.push(aval);
                 }
-                if (avaliacoes.avaliacao.length > 5)
+                if (avaliacoes.data.avaliacao.length > 5)
                     $("#section-avaliacoes-more").removeClass("hide");
 
                 $("#section-avaliacoes-title").html("Avaliações");
