@@ -23,13 +23,15 @@ $(function () {
          */
         let feedbacks = [];
         let avaliacoes = await getJSON(HOME + "app/find/avaliacao/profissional/" + cliente.id);
-        if (!isEmpty(avaliacoes.avaliacao)) {
-            if (avaliacoes.avaliacao.length > 5)
+        console.log(avaliacoes.data.avaliacao);
+        if (avaliacoes.response === 1 && !isEmpty(avaliacoes.data) && !isEmpty(avaliacoes.data.avaliacao)) {
+            if (avaliacoes.data.avaliacao.length > 5)
                 $("#section-avaliacoes-more").removeClass("hide");
 
-            for (let aval of avaliacoes.avaliacao.slice(0, 5)) {
+            for (let aval of avaliacoes.data.avaliacao.slice(0, 5)) {
+                let d = aval.data.split(" ")[0].split("-");
                 aval.imagem_do_cliente = (!isEmpty(aval.imagem_do_cliente) ? aval.imagem_do_cliente : HOME + "assetsPublic/img/favicon.png?v=" + VERSION);
-                aval.data = moment(aval.data).format("DD/MM/YYYY");
+                aval.data = d[2] + "/" + d[1] + "/" + d[0];
                 aval.avaliacao_geral = (((!isEmpty(aval.atendimento) ? parseInt(aval.atendimento) : 10000000) + (!isEmpty(aval.qualidade) ? parseInt(aval.qualidade) : 10000000)) / 2);
                 aval.star = getProfissionalStar(aval.avaliacao_geral);
                 feedbacks.push(aval);
