@@ -6,14 +6,15 @@ $(function () {
         $("#openprofissional").addClass("hide");
         profissional = JSON.parse(USER.setorData.perfil_profissional)[0];
         $("#moedas").html(USER.setorData.moedas);
-        $("#avaliacao-perfil-profissional").profissionalStar(USER.setorData.avaliacao_profissional);
-        $("#preco-perfil-profissional").profissionalPreco(USER.setorData.preco_justo);
+        $("#avaliacao-perfil-profissional").profissionalStar(USER.setorData.avaliacao/10000000);
+        $("#preco-perfil-profissional").profissionalPreco(profissional.preco_justo || 0);
     } else {
         userImage = !isEmpty(USER.setorData.imagem) ? JSON.parse(USER.setorData.imagem)[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
     }
 
     $("#nome-user").html(USER.setorData.nome);
     $("#perfil-image").css("background-image", "url('" + (profissional ? profissional.imagem_de_perfil[0].urls.thumb : userImage) + "')");
+    $(".perfil-link").attr("href", "perfilUsuario/" + USER.id);
 
     $(".sair-app").off("click").on("click", function() {
         logoutDashboard();
