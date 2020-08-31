@@ -8,15 +8,6 @@ function showWriting() {
     }, 1500);
 }
 
-function storeMessages() {
-    history.replaceState(history.state, null, HOME + (HOME === "" && HOME !== SERVER ? "index.html?url=" : "") + app.route);
-
-    db.exeUpdate("messages", {
-        id: history.state.param.relationData.mensagens.id,
-        mensagens: history.state.param.relationData.mensagens.mensagens
-    });
-}
-
 async function sendMessage(mensagem) {
     if (typeof mensagem === "string" && mensagem.trim().length) {
         if (typeof history.state.param.id !== "undefined") {
@@ -27,14 +18,19 @@ async function sendMessage(mensagem) {
                     data: dateTimeFormat(),
                     lido: 0
                 };
-                history.state.param.relationData.mensagens.mensagens.push(message);
 
-                storeMessages();
+                history.state.param.relationData.mensagens.mensagens.push(message);
+                history.replaceState(history.state, null, HOME + (HOME === "" && HOME !== SERVER ? "index.html?url=" : "") + app.route);
+
+                AJAX.post("messages/sendMessage", {
+                    id: history.state.param.relationData.mensagens.id,
+                    mensagem: JSON.stringify(message)
+                });
 
                 /**
                  * DOM control
                  */
-                $('<li class="replies"><p>' + mensagem + '<i class="material-icons h6 received mb-0 float-right pl-1" rel="0">done</i><small>' + moment().calendar() + '</small></p></li>').appendTo($('.messages ul'));
+                $('<li class="skeletonmessage" rel="' + message.usuario + '"><p>' + mensagem + '<i class="material-icons h6 received mb-0 float-right pl-1" rel="0">done</i><small>' + moment().calendar() + '</small></p></li>').appendTo($('.messages ul'));
                 $(".messages")[0].scrollTop = $(".messages")[0].scrollHeight;
                 $("#message-text").val('');
 
@@ -68,7 +64,7 @@ async function sendMessage(mensagem) {
             /**
              * DOM control
              */
-            $('<li class="replies"><p>' + mensagem + '<small>' + moment().calendar() + '</small></p></li>').appendTo($('.messages ul'));
+            $('<li class="skeletonmessage" rel="' + URL[0] + '"><p>' + mensagem + '<i class="material-icons h6 received mb-0 float-right pl-1" rel="0">done</i><small>' + moment().calendar() + '</small></p></li>').appendTo($('.messages ul'));
             $(".messages")[0].scrollTop = $(".messages")[0].scrollHeight;
             $("#message-text").val('');
         }
@@ -80,36 +76,71 @@ function showLastOnline() {
 }
 
 function receiveNewMessages(messages) {
-    let mensagens = [];
     let haveChanges = !1;
-    for(let i in messages[0].mensagens) {
-        let m = messages[0].mensagens[i];
-        if(typeof history.state.param.relationData.mensagens.mensagens[i] === "undefined") {
-            haveChanges = !0;
-            m.lido = 1;
-            history.state.param.relationData.mensagens.mensagens.push(m);
+    let listIndices = [];
+    if(typeof history.state.param.id !== "undefined") {
 
-            /**
-             * DOM control
-             */
-            $('<li class="skeletonmessage" rel="' + m.usuario + '"><p>' + m.mensagem + (m.usuario == URL[0] ? '<i class="material-icons h6 received mb-0 float-right pl-1" rel="0">done</i>' : '') + '<small>' + moment(m.data).calendar() + '</small></p></li>').appendTo($('.messages ul'));
-            $(".messages")[0].scrollTop = $(".messages")[0].scrollHeight;
-        } else {
-            /**
-             * Update status message as received
-             */
-            if(m.lido == 1 && history.state.param.relationData.mensagens.mensagens[i].usuario == URL[0] && history.state.param.relationData.mensagens.mensagens[i].lido == "0") {
-                haveChanges = !0;
-                history.state.param.relationData.mensagens.mensagens[i].lido = 1;
-                $(".received").attr("rel", 1).html("done_all");
+        /**
+         * Get date from the last message received
+         */
+        let lastMessage = dateTimeFormat();
+        for(let um of history.state.param.relationData.mensagens.mensagens.reverse()) {
+            if(um.usuario == USER.id) {
+                lastMessage = um.data;
+                break;
             }
         }
+
+        /**
+         * Revert the chat again to normal
+         */
+        history.state.param.relationData.mensagens.mensagens.reverse()
+
+        for (let i in messages[0].mensagens) {
+            let m = messages[0].mensagens[i];
+
+            if(m.usuario == USER.id) {
+                /**
+                 * Message for me
+                 */
+                if(m.data > lastMessage) {
+                    haveChanges = !0;
+                    m.lido = 1;
+                    history.state.param.relationData.mensagens.mensagens.push(m);
+                    listIndices.push(i);
+
+                    /**
+                     * DOM control
+                     */
+                    $('<li class="skeletonmessage" rel="' + m.usuario + '"><p>' + m.mensagem + (m.usuario == URL[0] ? '<i class="material-icons h6 received mb-0 float-right pl-1" rel="0">done</i>' : '') + '<small>' + moment(m.data).calendar() + '</small></p></li>').appendTo($('.messages ul'));
+                    $(".messages")[0].scrollTop = $(".messages")[0].scrollHeight;
+                }
+            } else {
+                /**
+                 * Message send
+                 * check if is readed
+                 */
+                if (m.lido == 1 && history.state.param.relationData.mensagens.mensagens[i].lido == 0) {
+                    haveChanges = !0;
+                    history.state.param.relationData.mensagens.mensagens[i].lido = 1;
+
+                    /**
+                     * DOM control
+                     */
+                    $(".received").attr("rel", 1).html("done_all");
+                }
+            }
+        }
+
+        if (haveChanges) {
+            history.replaceState(history.state, null, HOME + (HOME === "" && HOME !== SERVER ? "index.html?url=" : "") + app.route);
+            AJAX.post("messages/updateStatusMessage", {
+                id: history.state.param.relationData.mensagens.id,
+                indices: listIndices,
+                usuario: URL[0]
+            });
+        }
     }
-
-    if(haveChanges)
-        storeMessages();
-
-    return mensagens;
 }
 
 $(async function () {
@@ -135,8 +166,15 @@ $(async function () {
             /**
              * Coloca messages_user on history.state.param
              */
-            history.state.param = messages;
+            history.state.param = messages[0];
+            for(let m of history.state.param.relationData.mensagens.mensagens)
+                $('<li class="skeletonmessage" rel="' + m.usuario + '"><p>' + m.mensagem + (m.usuario == URL[0] ? '<i class="material-icons h6 received mb-0 float-right pl-1" rel="0">done</i>' : '') + '<small>' + moment(m.data).calendar() + '</small></p></li>').appendTo($('.messages ul'));
+
+            $(".messages")[0].scrollTop = $(".messages")[0].scrollHeight;
+
             history.replaceState(history.state, null, HOME + (HOME === "" && HOME !== SERVER ? "index.html?url=" : "") + app.route);
+            $("#perfil-image").attr("src", (!isEmpty(history.state.param.relationData.usuario.relationData.clientes.perfil_profissional) ? history.state.param.relationData.usuario.relationData.clientes.perfil_profissional[0].imagem_de_perfil[0].urls.thumb : (!isEmpty(history.state.param.relationData.usuario.relationData.clientes.imagem) ? history.state.param.relationData.usuario.relationData.clientes.imagem[0].urls.thumb : (!isEmpty(history.state.param.relationData.usuario.relationData.clientes.imagem_url) ? history.state.param.relationData.usuario.relationData.clientes.imagem_url : HOME + "assetsPublic/img/img.png"))));
+            $("#perfil-name").html(history.state.param.relationData.usuario.nome);
         }
     } else {
         /**
@@ -151,12 +189,11 @@ $(async function () {
     /**
      * Receive writing information
      */
-    let firstIgnore = !0;
-    sseAdd("writing", function() {
-        if(firstIgnore)
-            firstIgnore = !1;
-        else
-            showWriting();
+    sseAdd("writing", function(data) {
+        for(let id in data) {
+            if(id == URL[0] && (parseInt((parseInt(data[id]) + 5).toString() + "000") > Date.now()))
+                showWriting();
+        }
     });
 
     $("#app").off("click", ".submit").on("click", ".submit", function () {

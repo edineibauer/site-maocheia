@@ -1,5 +1,5 @@
 <section id="avaliacao">
-    <div class="container">
+    <div class="container" data-db="avaliacao_prof" data-id='{"profissional": "{{URL.0}}", "autorpub": "{{USER.id}}"}'>
         <div class="row">
             <div class="col-12">
                 <a href="#back" class="volta">
@@ -132,7 +132,7 @@
                         <div class="form-group col-12 col-lg-12">
                             <label class="avalicao-atendimento" for="comentario">deixe um comentário</label>
                             <textarea class="form-control" id="comentario" rows="6"
-                                      name="feedbackTeste"></textarea>
+                                      name="feedbackTeste">{{comentario}}</textarea>
                         </div>
                     </div>
                     <div class="row justify-content-center">

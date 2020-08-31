@@ -6,7 +6,8 @@ $(async function () {
      */
     if(parseInt($("#profissional").val())) {
         let feedbacks = [];
-        let avaliacoes = await db.exeRead("avaliacao_prof", {profissional: URL[0]});
+        let cliente = await db.exeRead("clientes", {usuarios_id: URL[0]});
+        let avaliacoes = await db.exeRead("avaliacao_prof", {profissional: cliente[0].id});
         if (!isEmpty(avaliacoes)) {
             if (avaliacoes.length > 5)
                 $("#section-avaliacoes-more").removeClass("hide");
@@ -25,7 +26,10 @@ $(async function () {
             $("#section-avaliacoes-title").html("Nenhuma avaliação").addClass("text-center");
         }
 
-        $("#section-avaliacoes").html(Mustache.render(tpl.avaliacoes, feedbacks));
+        setTimeout(function () {
+            $("#section-avaliacoes").html(Mustache.render(tpl.avaliacoes, feedbacks));
+        },100);
+
     } else {
         let feedbacks = [];
         let avaliacoes = await db.exeRead("avaliacao", {usuario: $("#idUsuario").val()});

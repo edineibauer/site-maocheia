@@ -3,7 +3,7 @@ var chatWriting = !1;
 async function filterMessages(data) {
     dados = [];
     if(!isEmpty(data)) {
-        data = orderBy(data, 'data_ultima_mensagem').reverse();
+        data = orderBy(data, 'data_ultima_mensagem');
         for (let d of data) {
             d.ultima_vez_online = moment(d.ultima_vez_online).calendar();
             dados.push(d);
@@ -22,10 +22,10 @@ var before = "";
 function showWriting(data) {
     let user = Object.keys(data)[0];
     let $userChat = $(".message-card-message[rel='" + user + "']");
-    if("digitando..." !== $userChat.html())
+    if("digitando..." !== $userChat.text().trim())
         before = $userChat.html();
 
-    $(".message-card-message").html("digitando...");
+    $(".message-card-message").html("<div style='color: seagreen'>digitando...</div>");
     clearTimeout(chatWriting);
     chatWriting = setTimeout(function () {
         $userChat.html(before);

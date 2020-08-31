@@ -20,6 +20,7 @@ $(function () {
                 historico.imagem = (!isEmpty(historico.perfil_profissional) && !isEmpty(historico.perfil_profissional.imagem_de_perfil) ? historico.perfil_profissional.imagem_de_perfil[0] : (!isEmpty(historico.imagem) ? JSON.parse(historico.imagem)[0] : ""));
                 historico.data = moment(historico.data).calendar().toLowerCase();
             }
+            console.log(myHistorico);
             $("#notificacoes").htmlTemplate('historico', myHistorico);
         }
     })();
