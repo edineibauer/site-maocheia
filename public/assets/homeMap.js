@@ -91,7 +91,7 @@ function setCoordenadas() {
         navigator.permissions.query({name: 'geolocation'}).then(permissionGeo => {
             if (permissionGeo.state === "granted") {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                        post("site-maocheia", "set/coordenadas", {
+                        AJAX.post("set/coordenadas", {
                             lat: position.coords.latitude,
                             lng: position.coords.longitude
                         });
@@ -308,7 +308,7 @@ function startMap() {
         setCoordenadas();
     }, 4000);
 
-    touchElements = new TouchUp($(".menu-swipe-class"), 450, 100, null, null, ["#profissionais", ".perfil-profissional-notTouch", "#serviceMensagem", "#categorias", "#subcategorias"]);
+    touchElements = new TouchUp($(".menu-swipe-class"), 450, 100, null, null, ["#profissionais", "#service-perfil-body", "#serviceMensagem", "#categorias", "#subcategorias", "#arrowback-perfil"]);
     touchElements.setFuncaoToStart(function (touch, $div) {
         $div.animate({
             scrollTop: 0

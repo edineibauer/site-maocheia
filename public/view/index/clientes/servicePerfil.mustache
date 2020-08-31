@@ -8,16 +8,14 @@
 <section id="perfil-cliente">
 
     <div class="container">
-        <div class="row">
+        <div class="row" id="touchableUp">
             <div class="col-12 text-center">
                 <div id="imagem-perfil-div">
                     <div id="imagem-perfil"
                          style="background-image: url('{{perfil_profissional.imagem_de_perfil}}')"></div>
                 </div>
 
-                <a href="mensagem/{{usuarios_id}}" data-animation="forward" class="btn theme" id="serviceMensagem">
-                    MENSAGEM
-                </a>
+                <div onclick="btnPrimary()" data-rel="{{usuarios_id}}" class="btn theme" id="serviceMensagem"></div>
                 <!--<a data-preventDefault="1" href="//api.whatsapp.com/send?phone=55{{perfil_profissional.whatsapp}}"
                    data-animation="forward" class="btn contato" data-id="{{id}}" data-canal="whatsapp" id="serviceMensagem">
                     whatsapp
@@ -150,7 +148,7 @@
                             <div class="col-12">
                                 <h5 class="titulo-endereco mb-3">Contato:</h5>
                                 <p class="mb-3 float-left col-12 pl-0">
-                                    <a href="mensagem/{{usuarios_id}}">
+                                    <a href="message/{{usuarios_id}}">
                                         <i class="material-icons float-left pr-2">textsms</i>
                                         <span class="float-left">enviar mensagem</span>
                                     </a>

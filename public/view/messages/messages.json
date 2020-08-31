@@ -1,0 +1,7 @@
+{
+  "css": ["core/_base", "bootstrap"],
+  "js": ["moment", "core/_base"],
+  "template": ["empty"],
+  "header": false,
+  "offline": true
+}

@@ -21,7 +21,7 @@ h6, h4 {
 #perfil-nome-block {
     padding: 0;
     float: left;
-    width: calc(100% - 127px);
+    width: calc(100% - 132px);
 }
 
 #nome-user {
@@ -106,7 +106,7 @@ h6, h4 {
 
 #saldoProfissional {
     padding-right: 0;
-    width: 75px;
+    width: 80px;
     float: left;
 }
 
@@ -140,7 +140,7 @@ h6, h4 {
 
 #preco-perfil-profissional {
     float: left;
-    margin-top: -1px;
+    margin-top: -1.7px;
     margin-left: 4px;
 }
 

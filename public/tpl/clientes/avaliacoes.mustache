@@ -3,7 +3,7 @@
         <div class="avaliacoes" style="background-image: url({{imagem_do_cliente}});"></div>
         <div class="col-perfil">
             <div class="nomes">
-                {{nome_do_cliente}}
+                {{relationData.autorpub.nome}}
             </div>
             <div class="data">
                 {{data}}
@@ -16,11 +16,11 @@
                         <li><i class="material-icons{{#star.avaliacao_star3}} active{{/star.avaliacao_star3}}">star</i></li>
                         <li><i class="material-icons{{#star.avaliacao_star4}} active{{/star.avaliacao_star4}}">star</i></li>
                         <li><i class="material-icons{{#star.avaliacao_star5}} active{{/star.avaliacao_star5}}">star</i></li>
-                        <li> {{avaliacao_geral}}</li>
+                        <li> {{star.avaliacao}}</li>
                     </ul>
                 </div>
             </div>
-            <p class="texto">
+            <p class="texto mb-0">
                 {{comentario}}
             </p>
         </div>

@@ -1,0 +1,9 @@
+{
+  "title": "{{sitename}}",
+  "css": ["core/_base", "bootstrap"],
+  "js": ["bootstrap", "moment", "core/_base"],
+  "template": ["empty"],
+  "navbar": true,
+  "header": false,
+  "redirect": "login"
+}

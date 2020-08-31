@@ -18,8 +18,8 @@ body{
 
 #cadastro .btn-primary {
     color: #fff;
-    background-color: #FF1967 !important;
-    border-color: #FF1967 !important;
+    background-color: {{theme}} !important;
+    border-color: {{theme}} !important;
     width: 100% !important;
     font-size: 20px !important;
     text-transform: uppercase !important;

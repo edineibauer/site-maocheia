@@ -21,8 +21,10 @@ ul.horizontal-list > li:nth-last-child(1) {
 }
 
 #perfil-cliente .avaliacao-perfil {
-    margin-left: calc(50% - 50.6px) !important;
-    margin-top: -19px !important;
+    margin: -17px auto 0!important;
+    float: initial;
+    display: block;
+    width: 117px;
 }
 
 .titulo-endereco {
@@ -45,6 +47,10 @@ ul.horizontal-list > li:nth-last-child(1) {
     font-weight: 500;
     text-align: center;
     margin-top: 13px;
+}
+
+.avaliacoes {
+    background-color: {{theme}};
 }
 
 #perfil-cliente .avaliacoes figure img {
@@ -116,7 +122,7 @@ ul {
 }
 
 #perfil-cliente .estrelas ul.horizontal-list > li:nth-last-child(1) {
-    margin-top: 4px;
+    margin-top: 3px;
     line-height: 12px;
     font-size: 11px;
 }

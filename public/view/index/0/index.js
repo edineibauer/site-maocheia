@@ -52,8 +52,8 @@ $(function () {
     owl.on('translated.owl.carousel', function (e) {
         $('.btn-proximo').prop('disabled', true);
         if (e.page.count === e.page.index + 1) {
-            $('.btn-proximo').prop('disabled', false).text('Entrar').off("click").on('click', function () {
-                login();
+            $('.btn-proximo').prop('disabled', false).text('Login').off("click").on('click', function () {
+                pageTransition("login")
             });
         } else {
             $('.btn-proximo').prop('disabled', false).text('Próximo').off("click").on("click", function () {
@@ -65,12 +65,6 @@ $(function () {
     $('.btn-proximo').off("click").on("click", function () {
         owl.trigger('next.owl.carousel');
     });
-
-    /**
-     * Login
-     */
-    if (localStorage.token !== "" && localStorage.token !== "0")
-        location.href = HOME + "dashboard";
 
     $("#app").off("keyup", "#email, #senha").on("keyup", "#email, #senha", function (e) {
         if (e.which === 13)

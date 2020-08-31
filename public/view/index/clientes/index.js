@@ -18,6 +18,15 @@ function destruct() {
     clearInterval(servicesOnMapUpdate);
 }
 
+function btnPrimary() {
+    let $btn = $("#serviceMensagem");
+    if(window.getComputedStyle($("#serviceMensagem")[0],':before').content.replace('"', "").replace('"', "").trim() === "VER MAIS") {
+        touchOpenPerfil();
+    } else {
+        pageTransition("message/" + $btn.data("rel"));
+    }
+}
+
 function readSubCategoriesMenu(categoria, selected) {
     let $sub = $("#subcategorias");
     db.exeRead("categorias_sub").then(cat => {

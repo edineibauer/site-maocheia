@@ -6,5 +6,5 @@
     "header": false,
     "setor": "clientes",
     "redirect": "login",
-    "templates": ["notificacoesEmpty"]
+    "templates": ["empty"]
 }

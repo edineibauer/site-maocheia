@@ -9,7 +9,7 @@
         </div>
 
         <div class="row">
-            <div class="col-12 mb-2 mt-4 pb-2">
+            <div class="col-12 mb-0 mt-0 pb-0">
                 <div class="figure-logo">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120"
                          height="90" viewBox="0 0 126 88.343">
@@ -28,6 +28,8 @@
                                   transform="translate(158 49)" fill="#007bff"/>
                         </g>
                     </svg>
+
+                    <p class="text-center mb-1" style="font-size: 13px;color: #999;padding: 5px 0 0">nova conta de cliente</p>
                 </div>
             </div>
         </div>

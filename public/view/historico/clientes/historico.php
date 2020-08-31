@@ -5,7 +5,7 @@
                 <div class="col p-0">
                     <h3 class="titulo float-left">Histórico</h3>
                 </div>
-                <div id="notificacoes"></div>
+                <div id="notificacoes" data-template="historico"></div>
             </div>
         </div>
     </div>

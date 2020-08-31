@@ -1,64 +1,46 @@
-<div class="container">
-    <div class="row">
-        <a href="#back" data-animation="back" class="col-3 volta">
-            <i class="material-icons">arrow_back</i>
-        </a>
-    </div>
-    <div class="row">
-        <div class="col-12 text-center">
-            <img onerror="this.src = '{{home}}assetsPublic/img/img.png'" src="{{imagem_url}}" id="clienteImagem" style="background-image: url('{{imagem_url}}')" />
-            <h2 class="nome" id="clienteNome">{{nome}}</h2>
-            <div class="avaliacao-perfil avaliacao-card">
-                <ul class="horizontal-list">
-                    <li>
-                        <i class="material-icons{{#avaliacao.avaliacao_star1}} active{{/avaliacao.avaliacao_star1}}">{{#avaliacao.avaliacao_star1_half}}
-                            star_half{{/avaliacao.avaliacao_star1_half}}{{^avaliacao.avaliacao_star1_half}}
-                            star{{/avaliacao.avaliacao_star1_half}}</i></li>
-                    <li>
-                        <i class="material-icons{{#avaliacao.avaliacao_star2}} active{{/avaliacao.avaliacao_star2}}">{{#avaliacao.avaliacao_star2_half}}
-                            star_half{{/avaliacao.avaliacao_star2_half}}{{^avaliacao.avaliacao_star2_half}}
-                            star{{/avaliacao.avaliacao_star2_half}}</i></li>
-                    <li>
-                        <i class="material-icons{{#avaliacao.avaliacao_star3}} active{{/avaliacao.avaliacao_star3}}">{{#avaliacao.avaliacao_star3_half}}
-                            star_half{{/avaliacao.avaliacao_star3_half}}{{^avaliacao.avaliacao_star3_half}}
-                            star{{/avaliacao.avaliacao_star3_half}}</i></li>
-                    <li>
-                        <i class="material-icons{{#avaliacao.avaliacao_star4}} active{{/avaliacao.avaliacao_star4}}">{{#avaliacao.avaliacao_star4_half}}
-                            star_half{{/avaliacao.avaliacao_star4_half}}{{^avaliacao.avaliacao_star4_half}}
-                            star{{/avaliacao.avaliacao_star4_half}}</i></li>
-                    <li>
-                        <i class="material-icons{{#avaliacao.avaliacao_star5}} active{{/avaliacao.avaliacao_star5}}">{{#avaliacao.avaliacao_star5_half}}
-                            star_half{{/avaliacao.avaliacao_star5_half}}{{^avaliacao.avaliacao_star5_half}}
-                            star{{/avaliacao.avaliacao_star5_half}}</i></li>
-                    <li style="width: 30px">{{avaliacao.avaliacao}}</li>
-                </ul>
-            </div>
+<section id="perfil-cliente">
+    <div class="container" data-db="clientes" data-id="{{URL.0}}">
+        <div class="row">
+            <a href="#back" data-animation="back" class="col-3 volta">
+                <i class="material-icons">arrow_back</i>
+            </a>
         </div>
-    </div>
-    <!--<div class="row">
-        <div class="col-12">
-            <div class="pedido-concluido">
-                Este cliente tem 25% dos pedidos concluídos
-            </div>
-        </div>
-    </div>-->
-    <div class="row">
-        <div class="col-12 pb-4">
-            <div class="row">
-                <div class="col-12">
-                    <h5 class="titulo-endereco text-center" id="section-avaliacoes-title">Avaliações</h5>
+        <div class="row">
+            <div class="col-12 text-center">
+                <div id="clienteImagem" style="background-image: url('{{#0.perfil_profissional}}{{imagem_de_perfil.0.urls.medium}}{{/0.perfil_profissional}}{{^0.perfil_profissional}}{{#0.imagem}}{{urls.medium}}{{/0.imagem}}{{^0.imagem}}{{home}}{{vendor}}site-maocheia/public/assets/svg/account.svg{{/0.imagem}}{{/0.perfil_profissional}}')"></div>
+                <h2 class="nome" id="clienteNome">{{0.nome}}</h2>
+                <input type="hidden" id="idUsuario" value="{{0.usuarios_id}}" />
+                <input type="hidden" id="profissional" value="{{#0.perfil_profissional}}1{{/0.perfil_profissional}}{{^0.perfil_profissional}}0{{/0.perfil_profissional}}" />
+                <div class="col-12 align-center avaliacao-perfil avaliacao-card">
+                    <ul class="horizontal-list" id="avaliacaop" data-rel="{{0.avaliacao}}"></ul>
                 </div>
             </div>
+        </div>
+        <!--<div class="row">
+            <div class="col-12">
+                <div class="pedido-concluido">
+                    Este cliente tem 25% dos pedidos concluídos
+                </div>
+            </div>
+        </div>-->
+        <div class="row">
+            <div class="col-12 pb-4">
+                <div class="row">
+                    <div class="col-12">
+                        <h5 class="titulo-endereco text-center" id="section-avaliacoes-title">Avaliações</h5>
+                    </div>
+                </div>
 
-            <div id="section-avaliacoes"></div>
+                <div id="section-avaliacoes"></div>
 
-            <div class="row hide" id="section-avaliacoes-more">
-                <div class="col-12">
-                    <div class="todas-avaliacoes">
-                        <a href="avaliacoes/{{id}}" data-animation="forward">Ver todas as avaliações</a>
+                <div class="row hide" id="section-avaliacoes-more">
+                    <div class="col-12">
+                        <div class="todas-avaliacoes">
+                            <a href="avaliacoes/{{id}}" data-animation="forward">Ver todas as avaliações</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>

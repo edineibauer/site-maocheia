@@ -1,3 +1,19 @@
+sseAdd("messagesBadge", function (data) {
+    if (USER.setor !== 0) {
+        if (data !== "0") {
+            /**
+             * Adiciona badge notification apenas no navbar mobile e se tiver a aba de notificações
+             */
+            let $navbarNotify = $("#core-header-nav-bottom").find("a[href='messages']");
+            if ($navbarNotify.length && !$navbarNotify.find("#badge-message").length)
+                $navbarNotify.append("<span class='badge-notification' id='badge-message'>" + data + "</span>");
+
+        } else {
+            $("#badge-message").remove();
+        }
+    }
+});
+
 // var intervalPosition;
 if(window.screen.lockOrientation)
     window.screen.orientation.lock("portrait");
@@ -91,7 +107,7 @@ function getProfissionalPreco(preco) {
  */
 function getProfissionalStar(avaliacao) {
     let aval = {};
-    aval.avaliacao = isNumberPositive(avaliacao) && avaliacao < 5.001 ? avaliacao : 1;
+    aval.avaliacao = isNumberPositive(avaliacao) && avaliacao < 5.001 ? avaliacao : 0;
     aval.avaliacao_star1 = aval.avaliacao > .2;
     aval.avaliacao_star2 = aval.avaliacao > 1.2;
     aval.avaliacao_star3 = aval.avaliacao > 2.2;

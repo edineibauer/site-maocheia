@@ -7,7 +7,7 @@ if (USER.setorData.id == profissional) {
     }, 500);
 
 } else {
-    exeRead("avaliacao", {"cliente": USER.setorData.id, "profissional": profissional}).then(result => {
+    db.exeRead("avaliacao", {"cliente": USER.setorData.id, "profissional": profissional}).then(result => {
         if (!isEmpty(result)) {
             toast("profissional já avaliado!", 3000, "toast-infor");
             setTimeout(function () {
@@ -22,7 +22,7 @@ if (USER.setorData.id == profissional) {
                 }, 500);
             } else {
 
-                exeRead("clientes", profissional).then(p => {
+                db.exeRead("clientes", profissional).then(p => {
                     if (isEmpty(p)) {
                         toast("Profissional não encontrado", "toast-error", 2000);
                         setTimeout(function () {

@@ -9,13 +9,31 @@
     "html": "<i class='material-icons left'>dashboard</i>"
   },
   {
+    "href": "UIRelatorios",
+    "li": {
+      "class": "s-hide"
+    },
+    "attr": "rel='UIRelatorios'",
+    "class": "theme-text-aux",
+    "html": "<i class='material-icons left'>assessment</i>"
+  },
+  {
+    "href": "UIConfiguracoes",
+    "li": {
+      "class": "s-hide"
+    },
+    "attr": "rel='UIConfiguracoes'",
+    "class": "theme-text-aux",
+    "html": "<i class='material-icons left'>settings</i>"
+  },
+  {
     "href": "UIDev",
     "li": {
       "class": "s-hide"
     },
     "attr": "rel='UIDev'",
     "class": "theme-text-aux",
-    "html": "<i class='material-icons left'>settings</i>"
+    "html": "<i class='material-icons left'>engineering</i>"
   },
   {
     "href": "UIEntidades",
@@ -31,6 +49,6 @@
     "li": {
         "class": "not-menu-li"
     },
-    "html": "<div id='core-header-perfil'></div>"
+    "html": "<i class='material-icons theme-text-aux' style='padding:8px'>perm_identity</i>"
   }
 ]

@@ -12,7 +12,7 @@
                 <div>
                     <h3 class="titulo">Conta profissional</h3>
                 </div>
-                <div class="texto mb-4 mt-2 float-left">
+                <div class="texto mb-4 mt-2 float-left" style="font-size: 14px;">
                     Comece você também a oferecer seus serviços de forma prática e com plano de carreira
                 </div>
                 <div class="text-center">

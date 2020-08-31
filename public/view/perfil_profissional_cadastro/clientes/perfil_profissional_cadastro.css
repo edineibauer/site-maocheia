@@ -24,6 +24,23 @@ body {
     font-size: 32px;
 }
 
+#subcategorias > div {
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.bordas-galeria {
+    overflow: hidden;
+    background: #fff;
+    border-radius: 5px;
+}
+
+.form-group > label, .col > label {
+    float: left;
+    width: 100%
+}
+
 #imagem_de_perfil_preview {
     position: absolute;
     z-index: 10;
@@ -67,7 +84,7 @@ body {
 label {
     display: inline-block;
     margin-bottom: 0 !important;
-    color: #707070 !important;
+    color: #707070;
     font-size: 12px !important;
     font-weight: 400 !important;
 }
@@ -75,7 +92,7 @@ label {
 .form-control {
     padding: .375rem .0rem !important;
     color: #000000 !important;
-    border: 1px solid #CECECE !important;
+    border: 1px solid #CECECE;
     border-top: 0 !important;
     border-left: 0 !important;
     border-right: 0 !important;
@@ -204,6 +221,7 @@ label {
 #galeria_preview {
     height: 100px;
     width: max-content;
+    padding-right: 50px;
 }
 
 #galeria_preview > img {
