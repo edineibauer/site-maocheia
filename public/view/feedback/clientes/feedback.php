@@ -17,7 +17,7 @@
                 <div class="row justify-content-center">
                     <div class="form-group col-12 col-lg-12">
                         <textarea class="form-control" id="feedback"
-                                  placeholder="Deixe seu comentário sobre o aplicativo." rows="14"></textarea>
+                                  placeholder="Deixe seu comentário sobre o aplicativo." rows="8"></textarea>
                     </div>
                 </div>
                 <div class="row justify-content-center">

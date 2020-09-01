@@ -6,7 +6,7 @@ $(function () {
         if(!isEmpty(ajuda)) {
             $("#ajudas").htmlTemplate('ajudas', {ajudas: ajuda})
         } else {
-            $("#ajudas").htmlTemplate('notificacoesEmpty');
+            $("#ajudas").htmlTemplate('empty', {text: "Nenhuma ajuda cadastrada"});
         }
 
         $("#app").off("click", ".ajudatitulo").on("click", ".ajudatitulo", function () {

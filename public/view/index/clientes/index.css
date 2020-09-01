@@ -3,7 +3,7 @@
 }
 
 #serviceMensagem:before {
-    content: "VER MAIS";
+    content: "VER PERFIL";
 }
 
 #menu {
@@ -148,7 +148,7 @@ body {
 
 .swipe-zone-body {
     z-index: 3;
-    transition: transform ease .15s;
+    transition: transform ease .1s;
 }
 
 #pesquisa {
@@ -734,12 +734,7 @@ body {
     background: #22E82F;
 }
 
-.touchOpen #arrowback-perfil {
-    opacity: 1;
-}
-
 #arrowback-perfil {
-    opacity: 0;
     z-index: 3;
     width: 50px;
     height: 50px;

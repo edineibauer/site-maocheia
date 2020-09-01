@@ -8,20 +8,6 @@ if (!empty($dados)) {
         if (!empty($cliente['perfil_profissional'])) {
             $profissional = json_decode($cliente['perfil_profissional'], !0)[0];
 
-            $read->exeRead("clientes", "WHERE id = :ii", "ii={$dados['cliente']}");
-            if ($read->getResult()) {
-                /**
-                 * Notifica profissional
-                 */
-                $note = new \Dashboard\Notification();
-                $note->setTitulo($dados['nome_do_cliente'] . " avaliou seu perfil!");
-                $note->setDescricao("confira a sua avaliação no app.");
-                $note->setImagem($dados['imagem_do_cliente']);
-                $note->setUrl(HOME . "cliente/" . $dados['cliente']);
-                $note->setUsuarios($read->getResult()[0]['usuarios_id']);
-                $note->enviar();
-            }
-
             /**
              * Obtém o total de avaliações
              */
@@ -31,9 +17,9 @@ if (!empty($dados)) {
             /**
              * Aplica aumento nos Valores avaliados
              */
-            $at = ($dados['atendimento'] * 10000000);
-            $ql = ($dados['qualidade'] * 10000000);
-            $pj = ($dados['preco_justo'] * 10000000);
+            $at = $dados['atendimento'];
+            $ql = $dados['qualidade'];
+            $pj = $dados['preco_justo'];
 
             /**
              * Atualiza valores de avaliação no profissional
@@ -48,8 +34,6 @@ if (!empty($dados)) {
              */
             $up = new \Conn\Update();
             $up->exeUpdate("clientes", ["perfil_profissional" => json_encode([$profissional])], "WHERE id=:id", "id={$dados['profissional']}");
-        } else {
-
         }
     }
 }

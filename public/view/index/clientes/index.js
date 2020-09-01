@@ -20,56 +20,55 @@ function destruct() {
 
 function btnPrimary() {
     let $btn = $("#serviceMensagem");
-    if(window.getComputedStyle($("#serviceMensagem")[0],':before').content.replace('"', "").replace('"', "").trim() === "VER MAIS") {
+    if (window.getComputedStyle($("#serviceMensagem")[0], ':before').content.replace('"', "").replace('"', "").trim() === "VER PERFIL") {
         touchOpenPerfil();
     } else {
-        if(!isNumberPositive($btn.data("rel")))
+        if (!isNumberPositive($btn.data("rel")))
             toast("Usuário inválido", 1400, "toast-infor");
         else
             pageTransition("message/" + $btn.data("rel"));
     }
 }
 
-function readSubCategoriesMenu(categoria, selected) {
+async function readSubCategoriesMenu(categoria, selected) {
     let $sub = $("#subcategorias");
-    db.exeRead("categorias_sub").then(cat => {
-        let sub = cat.filter(c => c.categoria == categoria);
-        $sub.htmlTemplate('subcategoriasMenu', {subcategorias: sub}).then(() => {
+    let cat = await db.exeRead("categorias_sub");
+    let tpl = await getTemplates();
+    let sub = cat.filter(c => c.categoria == categoria);
+    await $sub.html(Mustache.render(tpl.subcategoriasMenu, {subcategorias: sub}));
 
-            if ($sub.hasClass("owl-loaded"))
-                $sub.trigger('destroy.owl.carousel');
+    if ($sub.hasClass("owl-loaded"))
+        $sub.trigger('destroy.owl.carousel');
 
-            $sub.owlCarousel({
-                loop: false,
-                margin: 10,
-                dots: false,
-                nav: false,
-                responsive: {
-                    0: {
-                        items: 4,
-                        startPosition: 0
-                    }
-                }
-            });
-
-            if(!isEmpty(sub)) {
-                touchElements.setDistanciaStart(window.innerHeight - 122 - $sub.innerHeight() - (USER.setor === 0 ? 0 : 50));
-                $("#subcategorias, #profissionais").removeClass("hideCategorie");
-            } else {
-                touchElements.setDistanciaStart(window.innerHeight - 125 - (USER.setor === 0 ? 0 : 50));
-                $("#subcategorias, #profissionais").addClass("hideCategorie");
+    $sub.owlCarousel({
+        loop: false,
+        margin: 10,
+        dots: false,
+        nav: false,
+        responsive: {
+            0: {
+                items: 4,
+                startPosition: 0
             }
-
-            if (isNumberPositive(selected)) {
-                $(".serviceAtuacao[rel='" + selected + "']").trigger("click");
-            } else if(typeof selected === "object" && selected !== null && selected.constructor === Array) {
-                for(let i in selected) {
-                    if (isNumberPositive(selected[i]))
-                        $(".serviceAtuacao[rel='" + selected[i] + "']").trigger("click");
-                }
-            }
-        });
+        }
     });
+
+    if (!isEmpty(sub)) {
+        touchElements.setDistanciaStart(window.innerHeight - 122 - $sub.innerHeight() - (USER.setor === 0 ? 0 : 50));
+        $("#subcategorias, #profissionais").removeClass("hideCategorie");
+    } else {
+        touchElements.setDistanciaStart(window.innerHeight - 125 - (USER.setor === 0 ? 0 : 50));
+        $("#subcategorias, #profissionais").addClass("hideCategorie");
+    }
+
+    if (isNumberPositive(selected)) {
+        $(".serviceAtuacao[rel='" + selected + "']").trigger("click");
+    } else if (typeof selected === "object" && selected !== null && selected.constructor === Array) {
+        for (let i in selected) {
+            if (isNumberPositive(selected[i]))
+                $(".serviceAtuacao[rel='" + selected[i] + "']").trigger("click");
+        }
+    }
 }
 
 function showCategoryAndSubcategory() {
@@ -77,6 +76,7 @@ function showCategoryAndSubcategory() {
     $("#subcategorias, #profissionais").removeClass("hideCategorie");
     touchElements.setDistanciaStart(window.innerHeight - 122 - $("#subcategorias").innerHeight() - (USER.setor === 0 ? 0 : 50));
 }
+
 db.exeRead("categorias");
 
 function changeSwipeToSearch() {
@@ -89,7 +89,7 @@ function changeSwipeToSearch() {
         // resetMap();
         touchElements.setDistanciaTarget(87);
 
-        if(isNumberPositive(filtrosProfissionais.categoria)) {
+        if (isNumberPositive(filtrosProfissionais.categoria)) {
             showCategoryAndSubcategory();
         } else {
             touchElements.setDistanciaStart(window.innerHeight - 125 - (USER.setor === 0 ? 0 : 50));
@@ -105,7 +105,7 @@ function changeSwipeToSearch() {
             $(".swipe-zone-body").htmlTemplate('serviceFilterSearch', categorias).then(() => {
                 readServices();
 
-                if(isNumberPositive(filtrosProfissionais.categoria))
+                if (isNumberPositive(filtrosProfissionais.categoria))
                     showCategoryAndSubcategory();
 
                 $('#categorias').owlCarousel({
@@ -133,11 +133,9 @@ async function changeSwipeToService(data) {
 
     await $(".swipe-zone-body").removeClass("filter").htmlTemplate('servicePerfil', data);
 
-    console.log('ok');
-
     setTimeout(function () {
-         $(".swipe-zone-body").removeClass("filter").htmlTemplate('servicePerfil', data);
-    },500);
+        $(".swipe-zone-body").removeClass("filter").htmlTemplate('servicePerfil', data);
+    }, 500);
 
     /**
      * Read avaliações
@@ -163,7 +161,7 @@ async function changeSwipeToService(data) {
             $("#section-avaliacoes-title").html("Avaliações");
         }
 
-        if(!isEmpty(feedbacks))
+        if (!isEmpty(feedbacks))
             $("#section-avaliacoes").htmlTemplate('avaliacoes', feedbacks);
         else
             $("#section-avaliacoes").html('');
@@ -182,8 +180,14 @@ function backHomeService() {
             break;
         }
     }
+
     if (pass) {
-        touchElements.moveToStart();
+        if(touchElements.$el.hasClass("touchOpen")) {
+            touchElements.moveToStart();
+        } else {
+            touchElements.setDistanciaStart(window.innerHeight - 125 - (USER.setor === 0 ? 0 : 50));
+            changeSwipeToSearch();
+        }
     } else {
         changeSwipeToSearch();
         touchElements.moveToTarget();
@@ -239,8 +243,8 @@ function profissionaisFiltrado(data) {
 
 function getAllServiceOnMap() {
     let $imgs = [];
-    $("#mapa-home").find(".gm-style-pbc").next().find("img").each(function(i, e) {
-        if(/i=service/i.test($(e).attr("src")))
+    $("#mapa-home").find(".gm-style-pbc").next().find("img").each(function (i, e) {
+        if (/i=service/i.test($(e).attr("src")))
             $imgs.push($(e));
     });
     return $imgs;
@@ -262,7 +266,7 @@ function setAllServicesOnMap(data) {
      * Add all data to map as markers
      */
     for (let i = 0; i < data.length; i++) {
-        if(data[i].perfil_profissional?.ativo == 1)
+        if (data[i].perfil_profissional?.ativo == 1)
             addMarker(data[i], 2, parseFloat(data[i].latitude), parseFloat(data[i].longitude));
     }
 }
@@ -325,7 +329,7 @@ function updateRealPosition() {
                             service.longitude = result.longitude;
                             service.data_de_atualizacao = result.data_de_atualizacao;
                             service.distancia = getLatLngDistance(service.latitude, service.longitude, minhaLatlng.lat(), minhaLatlng.lng());
-                            if(isNumberPositive(service.distancia_de_atendimento_km) && service.distancia_de_atendimento_km < service.distancia)
+                            if (isNumberPositive(service.distancia_de_atendimento_km) && service.distancia_de_atendimento_km < service.distancia)
                                 service.ativo = !1;
 
                             /**
@@ -457,18 +461,16 @@ $(function () {
         $("#procura").one("blur", function () {
             readServices();
             let search = $(this).val();
-            setTimeout(function () {
-                $(".swipe-zone-body").removeClass("hideFilter");
-                $(".titulo-result").html("Profissionais");
-                if (search.length) {
-                    $("#procura").val("");
-                }
-            }, 100);
+            $(".swipe-zone-body").removeClass("hideFilter");
+            $(".titulo-result").html("Profissionais");
+            if (search.length) {
+                $("#procura").val("");
+            }
 
-        }).off("keyup").on("keyup", function (e) {
+        }).off("keyup").on("keyup", async function (e) {
             let search = $(this).val().toLowerCase();
 
-            if(e.keyCode === 13) {
+            if (e.keyCode === 13) {
                 $("#services").find(".cardList").first().trigger("click");
                 $("#procura").trigger("blur");
             } else {
@@ -481,23 +483,21 @@ $(function () {
                     results.push(service);
                 }
 
-                db.exeRead("categorias").then(cat => {
-                    for (let c in cat) {
-                        cat[c].isService = !1;
-                        cat[c].isSubCategory = !1;
-                        results.push(cat[c]);
-                    }
+                let cat = await db.exeRead("categorias");
+                for (let c in cat) {
+                    cat[c].isService = !1;
+                    cat[c].isSubCategory = !1;
+                    results.push(cat[c]);
+                }
 
-                    db.exeRead("categorias_sub").then(subCat => {
-                        for (let c in subCat) {
-                            subCat[c].isService = !1;
-                            subCat[c].isSubCategory = !0;
-                            results.push(subCat[c]);
-                        }
-
-                        $("#services").htmlTemplate("resultSearch", {results: results.filter(s => s.nome.toLowerCase().indexOf(search) > -1)}, ['serviceCard', 'serviceCategoryCard']);
-                    });
-                });
+                let subCat = await db.exeRead("categorias_sub");
+                for (let c in subCat) {
+                    subCat[c].isService = !1;
+                    subCat[c].isSubCategory = !0;
+                    results.push(subCat[c]);
+                }
+                let tpl = await getTemplates();
+                $("#services").html(Mustache.render(tpl.resultSearch, {results: results.filter(s => s.nome.toLowerCase().indexOf(search) > -1)}, tpl));
             }
 
         })
@@ -511,7 +511,7 @@ $(function () {
             filtrosProfissionais.subcategoria = removeItemArray(filtrosProfissionais.subcategoria, id);
             $(this).removeClass("selecionado");
         } else {
-            if(filtrosProfissionais.subcategoria.indexOf(id) === -1)
+            if (filtrosProfissionais.subcategoria.indexOf(id) === -1)
                 filtrosProfissionais.subcategoria.push(id);
 
             $(this).addClass("selecionado");
@@ -524,12 +524,14 @@ $(function () {
 
     }).off("click", ".serviceCategoryResult").on("click", ".serviceCategoryResult", function () {
         selectCategory($(this).attr('rel'), 999999999);
+        touchElements.moveToStart();
 
     }).off("click", ".serviceSubCategoryResult").on("click", ".serviceSubCategoryResult", function () {
         let id = $(this).attr("rel");
         db.exeRead("categorias_sub", id).then(sub => {
             selectCategory(sub.categoria, id);
         });
+        touchElements.moveToStart();
     }).off("click", ".contato").on("click", ".contato", function () {
         post("site-maocheia", "descontaMoeda", {profissional: $(this).data("id"), canal: $(this).data("canal")});
     });
@@ -539,7 +541,7 @@ function selectCategory(category, subcategory) {
     category = parseInt(category);
     filtrosProfissionais.subcategoria = [];
     if (filtrosProfissionais.categoria === category) {
-        if(!isNumberPositive(subcategory)) {
+        if (!isNumberPositive(subcategory)) {
             touchElements.setDistanciaStart(window.innerHeight - 125 - (USER.setor === 0 ? 0 : 50));
             filtrosProfissionais.categoria = "";
             $(".serviceProfissao").removeClass("selecionado");

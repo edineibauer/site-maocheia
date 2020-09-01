@@ -3,5 +3,6 @@
     "css": ["bootstrap", "core/_base"],
     "js": ["homeMap", "core/_base"],
     "navbar": true,
-    "header": false
+    "header": false,
+    "template": ["empty"]
 }

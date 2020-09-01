@@ -21,7 +21,7 @@
 
         </div>
         <div class="row justify-content-center">
-            <div class="col-7 col-md-5 col-lg-4 mt-3">
+            <div class="col-8 col-md-5 col-lg-4 mt-3">
                 <div class="botao float-left mr-3">
                     <a href="#back" class="btn btn-outline-primary pl-3 pr-3">voltar</a>
                 </div>
