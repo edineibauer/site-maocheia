@@ -6,8 +6,7 @@ $(async function () {
      */
     if(parseInt($("#profissional").val())) {
         let feedbacks = [];
-        let cliente = await db.exeRead("clientes", {usuarios_id: URL[0]});
-        let avaliacoes = await db.exeRead("avaliacao_prof", {profissional: cliente[0].id});
+        let avaliacoes = await db.exeRead("avaliacao_prof", {profissional: $("#cliente").val()});
         if (!isEmpty(avaliacoes)) {
             if (avaliacoes.length > 5)
                 $("#section-avaliacoes-more").removeClass("hide");

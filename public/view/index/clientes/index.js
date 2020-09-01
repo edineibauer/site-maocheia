@@ -122,64 +122,69 @@ function changeSwipeToSearch() {
     }
 }
 
-function changeSwipeToService(data) {
+async function changeSwipeToService(data) {
     openService = data;
     $(".menu-swipe-class").addClass("servicePerfil").removeClass("serviceFilterSearch buildPerfil");
 
     touchElements.setDistanciaTarget(0).setDistanciaStart(window.innerHeight - 255 - (USER.setor === 0 ? 0 : 50));
 
-    $(".swipe-zone-body").removeClass("filter").htmlTemplate('servicePerfil', data).then(() => {
+    await $(".swipe-zone-body").removeClass("filter").htmlTemplate('servicePerfil', data);
 
-        /**
-         * Read avaliações
-         */
-        getJSON(HOME + "app/find/avaliacao/profissional/" + data.id).then(avaliacoes => {
-            let feedbacks = [];
-            if (avaliacoes.response === 1 && !isEmpty(avaliacoes.data) && !isEmpty(avaliacoes.data.avaliacao)) {
+    console.log('ok');
 
-                if (avaliacoes.data.avaliacao.length > 5)
-                    $("#section-avaliacoes-more").removeClass("hide");
+    setTimeout(function () {
+         $(".swipe-zone-body").removeClass("filter").htmlTemplate('servicePerfil', data);
+    },500);
 
-                for (let aval of avaliacoes.data.avaliacao.slice(0, 5)) {
-                    // aval.imagens = (!isEmpty(aval.imagens) ? JSON.parse(aval.imagens) : []);
-                    aval.data = moment(aval.data).format("DD/MM/YYYY");
-                    aval.imagem_do_cliente = (!isEmpty(aval.imagem_do_cliente) ? aval.imagem_do_cliente : HOME + "assetsPublic/img/favicon.png?v=" + VERSION);
-                    aval.avaliacao_geral = (((!isEmpty(aval.atendimento) ? parseInt(aval.atendimento) : 10000000) + (!isEmpty(aval.qualidade) ? parseInt(aval.qualidade) : 10000000)) / 2);
-                    aval.star = getProfissionalStar(aval.avaliacao_geral);
-                    feedbacks.push(aval);
-                }
-                if (avaliacoes.data.avaliacao.length > 5)
-                    $("#section-avaliacoes-more").removeClass("hide");
+    /**
+     * Read avaliações
+     */
+    getJSON(HOME + "app/find/avaliacao/profissional/" + data.id).then(avaliacoes => {
+        let feedbacks = [];
+        if (avaliacoes.response === 1 && !isEmpty(avaliacoes.data) && !isEmpty(avaliacoes.data.avaliacao)) {
 
-                $("#section-avaliacoes-title").html("Avaliações");
+            if (avaliacoes.data.avaliacao.length > 5)
+                $("#section-avaliacoes-more").removeClass("hide");
+
+            for (let aval of avaliacoes.data.avaliacao.slice(0, 5)) {
+                // aval.imagens = (!isEmpty(aval.imagens) ? JSON.parse(aval.imagens) : []);
+                aval.data = moment(aval.data).format("DD/MM/YYYY");
+                aval.imagem_do_cliente = (!isEmpty(aval.imagem_do_cliente) ? aval.imagem_do_cliente : HOME + "assetsPublic/img/favicon.png?v=" + VERSION);
+                aval.avaliacao_geral = (((!isEmpty(aval.atendimento) ? parseInt(aval.atendimento) : 10000000) + (!isEmpty(aval.qualidade) ? parseInt(aval.qualidade) : 10000000)) / 2);
+                aval.star = getProfissionalStar(aval.avaliacao_geral);
+                feedbacks.push(aval);
             }
+            if (avaliacoes.data.avaliacao.length > 5)
+                $("#section-avaliacoes-more").removeClass("hide");
 
-            if(!isEmpty(feedbacks))
-                $("#section-avaliacoes").htmlTemplate('avaliacoes', feedbacks);
-            else
-                $("#section-avaliacoes").html('');
-        });
+            $("#section-avaliacoes-title").html("Avaliações");
+        }
 
-        $("#arrowback-perfil").off("click").on("click", function () {
-            let pass = !1;
-            for (let i in markers) {
-                if (/serviceSelected$/.test(markers[i].icon.url)) {
-                    pass = !0;
-                    break;
-                }
-            }
-            if (pass) {
-                touchElements.moveToStart();
-            } else {
-                changeSwipeToSearch();
-                touchElements.moveToTarget();
-            }
-        });
-
-        $("#imagem-perfil, h2.nome").off("click").on("click", function () {
-            touchOpenPerfil();
-        });
+        if(!isEmpty(feedbacks))
+            $("#section-avaliacoes").htmlTemplate('avaliacoes', feedbacks);
+        else
+            $("#section-avaliacoes").html('');
     });
+
+    $("#imagem-perfil, h2.nome").off("click").on("click", function () {
+        touchOpenPerfil();
+    });
+}
+
+function backHomeService() {
+    let pass = !1;
+    for (let i in markers) {
+        if (/serviceSelected$/.test(markers[i].icon.url)) {
+            pass = !0;
+            break;
+        }
+    }
+    if (pass) {
+        touchElements.moveToStart();
+    } else {
+        changeSwipeToSearch();
+        touchElements.moveToTarget();
+    }
 }
 
 /*function getLogradouroFromEndereco(endereco) {

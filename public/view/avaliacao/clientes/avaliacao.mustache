@@ -9,16 +9,22 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <h2 class="titulo mb-4" id="avaliacao-title">avaliação</h2>
+                {{#0}}
+                    <h2 class="titulo mb-2 mt-1" id="avaliacao-title">{{0.relationData.profissional.nome}}</h2>
+                {{/0}}
+                {{^0}}
+                    <h2 class="titulo mb-2 mt-1" id="avaliacao-title" data-db="clientes"
+                        data-id="{{URL.0}}">{{0.nome}}</h2>
+                {{/0}}
             </div>
         </div>
         <div class="row sua-avaliacao mt-2">
             <div class="col-4">
-                <div class="atendimento">Atendimento</div>
+                <div class="atendimento mt-2">Atendimento</div>
             </div>
             <div class="col-8">
                 <div class="estrelas">
-                    <input type="radio" id="at-cm-star-empty" name="at" value="" checked/>
+                    <input type="radio" id="at-cm-star-" name="at" value="" checked/>
 
                     <label for="at-cm-star-1">
                         <i class="material-icons">star</i>
@@ -46,11 +52,11 @@
         </div>
         <div class="row sua-avaliacao">
             <div class="col-4 mt-1">
-                <div class="atendimento">Qualidade</div>
+                <div class="atendimento mt-1">Qualidade</div>
             </div>
             <div class="col-8">
                 <div class="estrelas">
-                    <input type="radio" id="ql-cm-star-empty" name="ql" value="" checked/>
+                    <input type="radio" id="ql-cm-star-" name="ql" value="" checked/>
                     <label for="ql-cm-star-1">
                         <i class="material-icons">star</i>
                     </label>
@@ -81,7 +87,7 @@
             </div>
             <div class="col-8">
                 <div class="estrelas">
-                    <input type="radio" id="pj-cm-star-empty" name="pj" value="" checked/>
+                    <input type="radio" id="pj-cm-star-" name="pj" value="" checked/>
                     <label for="pj-cm-star-1">
                         <i class="material-icons">star</i>
                     </label>
@@ -106,42 +112,35 @@
 
             </div>
         </div>
-        <!--<div class="row">
-            <div class="col-4 mt-4">
-                <div class="atendimento">Enviar imagem</div>
-                <div>
-                    <div class="Neon Neon-theme-dragdropbox">
-                        <input name="files[]" id="filer_input2" multiple="multiple" type="file">
-                        <div class="Neon-input-dragDrop">
-                            <div class="Neon-input-inner">
-                                <div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
-                                <div class="Neon-input-text">
-                                    <h3><i class="material-icons">attach_file</i></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>-->
         <div class="row">
             <div class="col-12 mt-4">
                 <div id="avaliacao-atendimento">
                     <div class="row justify-content-center">
                         <div class="form-group col-12 col-lg-12">
-                            <label class="avalicao-atendimento" for="comentario">deixe um comentário</label>
+                            <label class="avalicao-atendimento" for="comentario">como foi sua experiência?</label>
                             <textarea class="form-control" id="comentario" rows="6"
-                                      name="feedbackTeste">{{comentario}}</textarea>
+                                      name="feedbackTeste">{{0.comentario}}</textarea>
                         </div>
                     </div>
                     <div class="row justify-content-center">
                         <div class="form-group col-12 col-lg-6">
-                            <button id="enviar" type="submit" class="btn btn-primary">Enviar</button>
+                            <button id="enviar" type="submit" onclick="enviar()" class="btn btn-primary">Enviar{{#0}}
+                                Revisão{{/0}}</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <script>
+                {{#0}}
+                    {{#atendimento}}
+                    setTimeout(function () {
+                        $("#at-cm-star-" + ( {{atendimento}} / 10000000)).prop("checked", !0);
+                        $("#ql-cm-star-" + ( {{qualidade}} / 10000000)).prop("checked", !0);
+                        $("#pj-cm-star-" + ( {{preco_justo}} / 10000000)).prop("checked", !0);
+                    }, 100);
+                    {{/atendimento}}
+                {{/0}}
+        </script>
     </div>
 </section>

@@ -243,7 +243,7 @@ function startMap() {
     });
     markerCluster = new MarkerClusterer(map, [], {
         gridSize: 5,
-        imagePath: HOME + VENDOR + 'site-maocheia/public/assets/maps/m'
+        imagePath: HOME + 'public/assets/maps/m'
     });
 
     map.addListener('zoom_changed', function () {

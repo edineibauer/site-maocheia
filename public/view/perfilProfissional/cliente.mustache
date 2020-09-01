@@ -1,21 +1,46 @@
 <section id="perfil-cliente">
-    <div class="container" data-db="usuarios" data-id="{{URL.0}}">
+    <div class="container" data-db="usuarios" data-function="usuarioFuncao" data-id="{{URL.0}}">
         <div class="row">
             <a href="#back" data-animation="back" class="col-3 volta">
                 <i class="material-icons">arrow_back</i>
             </a>
         </div>
-        <div class="row">
+        <div class="row mb-1">
             <div class="col-12 text-center">
                 <div id="clienteImagem" style="background-image: url('{{#0.relationData.clientes.perfil_profissional}}{{imagem_de_perfil.0.urls.medium}}{{/0.relationData.clientes.perfil_profissional}}{{^0.relationData.clientes.perfil_profissional}}{{#0.imagem}}{{urls.medium}}{{/0.imagem}}{{^0.imagem}}{{home}}{{vendor}}site-maocheia/public/assets/svg/account.svg{{/0.imagem}}{{/0.relationData.clientes.perfil_profissional}}')"></div>
                 <h2 class="nome" id="clienteNome">{{0.nome}}</h2>
-                <input type="hidden" id="cliente" value="{{0.relationData.clientes.id}}" />
-                <input type="hidden" id="profissional" value="{{#0.relationData.clientes.perfil_profissional}}1{{/0.relationData.clientes.perfil_profissional}}{{^0.relationData.clientes.perfil_profissional}}0{{/0.relationData.clientes.perfil_profissional}}" />
                 <div class="col-12 align-center avaliacao-perfil avaliacao-card">
-                    <ul class="horizontal-list" id="avaliacaop" data-rel="{{0.avaliacao}}"></ul>
+                    <ul class="horizontal-list" id="avaliacaop">{{0.notaFinal}}</ul>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-4 text-center pr-0">
+                <div class="card">
+                    <h6 class="col-12 card-nota pt-3 pr-1 pl-1 font-weight-bold">Qualidade</h6>
+                    <p class="col-12 align-center card-value">
+                        {{0.relationData.clientes.perfil_profissional.0.qualidade}}
+                    </p>
+                </div>
+            </div>
+            <div class="col-4 text-center pr-2 pl-2">
+                <div class="card">
+                    <h6 class="col-12 card-nota pt-3 pr-1 pl-1 font-weight-bold">Preço</h6>
+                    <p class="col-12 align-center card-value">
+                        {{0.relationData.clientes.perfil_profissional.0.preco_justo}}
+                    </p>
+                </div>
+            </div>
+            <div class="col-4 text-center pl-0">
+                <div class="card">
+                    <h6 class="col-12 card-nota pt-3 pr-1 pl-1 font-weight-bold">Atendimento</h6>
+                    <p class="col-12 align-center card-value">
+                        {{0.relationData.clientes.perfil_profissional.0.atendimento}}
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <!--<div class="row">
             <div class="col-12">
                 <div class="pedido-concluido">
@@ -27,11 +52,11 @@
             <div class="col-12 pb-4">
                 <div class="row">
                     <div class="col-12">
-                        <h5 class="titulo-endereco text-center" id="section-avaliacoes-title">Avaliações</h5>
+                        <h5 class="titulo-endereco" id="section-avaliacoes-title">avaliações</h5>
                     </div>
                 </div>
 
-                <div id="section-avaliacoes" data-db="avaliacoes_prof" data-id='{"profissional": "{{0.relationData.clientes.id}}"}'>
+                <div id="section-avaliacoes" data-db="avaliacao_prof" data-realtime-db="avaliacoesFuncao" data-id='{"profissional": "{{0.relationData.clientes.id}}"}'>
                     {{#.}}
                         <div class="row no-gutters card-avaliacao">
                             <div class="avaliacoes" style="background-image: url({{imagem_do_cliente}});"></div>

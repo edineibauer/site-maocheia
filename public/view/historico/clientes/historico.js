@@ -7,21 +7,11 @@ async function closeHistory(id) {
     await db.exeDelete("historico", id);
 }
 
-$(function () {
-    if (Notification.permission !== "default")
-        $(".btn-notify").remove();
+function historicoFuncao(data) {
+    for(let historico of data) {
+        historico.imagem = (!isEmpty(historico.perfil_profissional) && !isEmpty(historico.perfil_profissional.imagem_de_perfil) ? historico.perfil_profissional.imagem_de_perfil[0] : (!isEmpty(historico.imagem) ? JSON.parse(historico.imagem)[0] : ""));
+        historico.data = moment(historico.data).calendar().toLowerCase();
+    }
 
-    (async () => {
-        let myHistorico = await get("event/historico");
-        if (isEmpty(myHistorico)) {
-            $("#notificacoes").htmlTemplate('empty', {text: "Você não possui histórico"});
-        } else {
-            for(let historico of myHistorico) {
-                historico.imagem = (!isEmpty(historico.perfil_profissional) && !isEmpty(historico.perfil_profissional.imagem_de_perfil) ? historico.perfil_profissional.imagem_de_perfil[0] : (!isEmpty(historico.imagem) ? JSON.parse(historico.imagem)[0] : ""));
-                historico.data = moment(historico.data).calendar().toLowerCase();
-            }
-            console.log(myHistorico);
-            $("#notificacoes").htmlTemplate('historico', myHistorico);
-        }
-    })();
-});
+    return data;
+}
