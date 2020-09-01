@@ -285,7 +285,7 @@ function startMap() {
                             readAllServices();
                         },
                         () => {
-                            toast("Erro ao obter localização", 2000, "toast-warning");
+                            // toast("Erro ao obter localização", 2000, "toast-warning");
                             readAllServices(1);
                         }, {
                             enableHighAccuracy: true,

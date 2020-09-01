@@ -55,7 +55,6 @@ $(function() {
             db.exeCreate("clientes", user).then(async result => {
                 loginFree = !0;
 
-                console.log(result);
                 if(result.response === 1) {
                     let g = await AJAX.post('login',  {email: result.data.nome.toLowerCase(), pass: user.senha});
 
@@ -66,7 +65,9 @@ $(function() {
                     } else {
                         toast("Ok, avançando...", 1500, "toast-success");
                         setCookieUser(g).then(() => {
-                            pageTransition("perfil_profissional_cadastro");
+                            setTimeout(function () {
+                                pageTransition("perfil_profissional_cadastro");
+                            }, 500);
                         });
                     }
                 } else {

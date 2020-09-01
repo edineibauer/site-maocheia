@@ -13,36 +13,31 @@ $(function() {
             email: $('#emailc').val(),
             senha: $('#senhac').val(),
             ativo: 1
-        }).then(result => {
-            loginFree = !0;
-            if(typeof result.db_errorback !== "undefined" && result.db_errorback === 1) {
-                dbLocal.clear("clientes");
-                delete(result.db_errorback);
-                navigator.vibrate(100);
+        }).then(async result => {
+            if(result.response === 1) {
+                let g = await AJAX.post('login',  {email: result.data.nome.toLowerCase(), pass: $('#senhac').val()});
 
-                for(let i in result) {
-                    toast(i + ": " + result[i], 2000, "toast-warning");
-                    $("#" + i).css("border-bottom-color", "red").siblings("label").css("color", "red");
+                if (typeof g === "string") {
+                    navigator.vibrate(100);
+                    if (g !== "no-network")
+                        toast(g, 3000, "toast-warning");
+                } else {
+                    toast("Seja Bem-vindo " + result.data.nome, 1500, "toast-success");
+                    setCookieUser(g).then(() => {
+                        setTimeout(function () {
+                            pageTransition("index");
+                        }, 500);
+                    });
                 }
 
-            } else if(result.db_errorback === 0) {
-                post('login', 'login', {email: result.nome, pass: $('#senhac').val()}, function (g) {
-                    if (typeof g === "string") {
-                        navigator.vibrate(100);
-                        if (g !== "no-network")
-                            toast(g, 3000, "toast-warning")
-                    } else {
-                        toast("Seja bem-vindo, entrando...", 1500, "toast-success");
-                        setCookieUser(g).then(() => {
-                            let destino = "index";
-                            if(getCookie("redirectOnLogin") !== ""){
-                                destino = getCookie("redirectOnLogin");
-                                setCookie("redirectOnLogin", 1 ,-1);
-                            }
-                            location.href = destino;
-                        })
-                    }
-                });
+            } else {
+                dbLocal.clear("clientes");
+                navigator.vibrate(100);
+
+                for(let i in result.data.clientes) {
+                    toast(i + ": " + result.data.clientes[i]);
+                    $("#" + i + "c").css("border-bottom-color", "red").siblings("label").css("color", "red");
+                }
             }
         });
     });

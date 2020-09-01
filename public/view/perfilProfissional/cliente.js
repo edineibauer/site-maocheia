@@ -34,9 +34,9 @@ async function avaliacoesFuncao(data) {
 }
 
 async function usuarioFuncao(data) {
-    data[0].relationData.clientes.perfil_profissional[0].qualidade = parseFloat(data[0].relationData.clientes.perfil_profissional[0].qualidade / 10000000).toFixed(1).replace(".", ",");
-    data[0].relationData.clientes.perfil_profissional[0].atendimento = parseFloat(data[0].relationData.clientes.perfil_profissional[0].atendimento / 10000000).toFixed(1).replace(".", ",");
-    data[0].relationData.clientes.perfil_profissional[0].preco_justo = parseFloat(data[0].relationData.clientes.perfil_profissional[0].preco_justo / 10000000).toFixed(1).replace(".", ",");
+    data[0].relationData.clientes.perfil_profissional[0].qualidade = (isNumberPositive(data[0].relationData.clientes.perfil_profissional[0].qualidade) ? parseFloat(data[0].relationData.clientes.perfil_profissional[0].qualidade / 10000000).toFixed(1).replace(".", ",") : "0,0");
+    data[0].relationData.clientes.perfil_profissional[0].atendimento = (isNumberPositive(data[0].relationData.clientes.perfil_profissional[0].atendimento) ? parseFloat(data[0].relationData.clientes.perfil_profissional[0].atendimento / 10000000).toFixed(1).replace(".", ",") : "0,0");
+    data[0].relationData.clientes.perfil_profissional[0].preco_justo = (isNumberPositive(data[0].relationData.clientes.perfil_profissional[0].preco_justo) ? parseFloat(data[0].relationData.clientes.perfil_profissional[0].preco_justo / 10000000).toFixed(1).replace(".", ",") : "0,0");
 
     return data;
 }

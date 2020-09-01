@@ -7,7 +7,7 @@
         </div>
         <div class="row">
             <div class="col-12 text-center">
-                <div id="clienteImagem" style="background-image: url('{{#0.relationData.clientes.perfil_profissional}}{{imagem_de_perfil.0.urls.medium}}{{/0.relationData.clientes.perfil_profissional}}{{^0.relationData.clientes.perfil_profissional}}{{#0.imagem}}{{urls.medium}}{{/0.imagem}}{{^0.imagem}}{{home}}{{vendor}}site-maocheia/public/assets/svg/account.svg{{/0.imagem}}{{/0.relationData.clientes.perfil_profissional}}')"></div>
+                <div id="clienteImagem" style="background-image: url('{{#0.relationData.clientes.perfil_profissional}}{{imagem_de_perfil.0.urls.medium}}{{/0.relationData.clientes.perfil_profissional}}{{^0.relationData.clientes.perfil_profissional}}{{#0.imagem}}{{urls.medium}}{{/0.imagem}}{{^0.imagem}}{{home}}public/assets/svg/account.svg{{/0.imagem}}{{/0.relationData.clientes.perfil_profissional}}')"></div>
                 <h2 class="nome" id="clienteNome">{{0.nome}}</h2>
                 <input type="hidden" id="cliente" value="{{0.relationData.clientes.id}}" />
                 <input type="hidden" id="profissional" value="{{#0.relationData.clientes.perfil_profissional}}1{{/0.relationData.clientes.perfil_profissional}}{{^0.relationData.clientes.perfil_profissional}}0{{/0.relationData.clientes.perfil_profissional}}" />

@@ -24,7 +24,8 @@ async function sendMessage(mensagem) {
 
                 AJAX.post("messages/sendMessage", {
                     id: history.state.param.relationData.mensagens.id,
-                    mensagem: JSON.stringify(message)
+                    mensagem: JSON.stringify(message),
+                    usuario: history.state.param.usuario
                 });
 
                 /**
@@ -51,22 +52,30 @@ async function sendMessage(mensagem) {
                 mensagens: messages
             });
 
-            if(responseMessages.response === 1) {
-                db.exeCreate("messages_user", {
-                    mensagens: responseMessages.data.id,
-                    usuario: URL[0],
-                    ultima_vez_online: dateTimeFormat(),
-                    data_ultima_mensagem: dateTimeFormat(),
-                    ultima_mensagem: mensagem.trim(),
-                });
-            }
-
             /**
              * DOM control
              */
             $('<li class="skeletonmessage" rel="' + URL[0] + '"><p>' + mensagem + '<i class="material-icons h6 received mb-0 float-right pl-1" rel="0">done</i><small>' + moment().calendar() + '</small></p></li>').appendTo($('.messages ul'));
             $(".messages")[0].scrollTop = $(".messages")[0].scrollHeight;
             $("#message-text").val('');
+
+            if(responseMessages.response === 1) {
+                await db.exeCreate("messages_user", {
+                    mensagens: responseMessages.data.id,
+                    usuario: URL[0],
+                    ultima_vez_online: dateTimeFormat(),
+                    data_ultima_mensagem: dateTimeFormat(),
+                    ultima_mensagem: mensagem.trim(),
+                });
+
+                let messages = await db.exeRead("messages_user", {usuario: URL[0]});
+                if (!isEmpty(messages)) {
+                    messages[0].ultima_vez_online = moment(messages[0].ultima_vez_online).calendar();
+                    history.state.param = messages[0];
+                    history.replaceState(history.state, null, HOME + (HOME === "" && HOME !== SERVER ? "index.html?url=" : "") + app.route);
+                    window.location.reload();
+                }
+            }
         }
     }
 }
@@ -83,7 +92,7 @@ function receiveNewMessages(messages) {
         /**
          * Get date from the last message received
          */
-        let lastMessage = dateTimeFormat();
+        let lastMessage = "";
         for(let um of history.state.param.relationData.mensagens.mensagens.reverse()) {
             if(um.usuario == USER.id) {
                 lastMessage = um.data;
@@ -103,7 +112,7 @@ function receiveNewMessages(messages) {
                 /**
                  * Message for me
                  */
-                if(m.data > lastMessage) {
+                if(lastMessage === "" || m.data > lastMessage) {
                     haveChanges = !0;
                     m.lido = 1;
                     history.state.param.relationData.mensagens.mensagens.push(m);
@@ -145,6 +154,14 @@ function receiveNewMessages(messages) {
 
 $(async function () {
     if (typeof history.state.param.id === "undefined") {
+        $(".message-input").removeClass("hide");
+        $(".message-input-buy").remove();
+
+        if(!isNumberPositive(URL[0])) {
+            toast("Usuário inválido", 2000, "toast-infor");
+            history.back();
+        }
+
         let messages = await db.exeRead("messages_user", {usuario: URL[0]});
         if (isEmpty(messages)) {
             /**
@@ -163,18 +180,10 @@ $(async function () {
                 $("#perfil-name").html(user.nome);
             }
         } else {
-            /**
-             * Coloca messages_user on history.state.param
-             */
+            messages[0].ultima_vez_online = moment(messages[0].ultima_vez_online).calendar();
             history.state.param = messages[0];
-            for(let m of history.state.param.relationData.mensagens.mensagens)
-                $('<li class="skeletonmessage" rel="' + m.usuario + '"><p>' + m.mensagem + (m.usuario == URL[0] ? '<i class="material-icons h6 received mb-0 float-right pl-1" rel="0">done</i>' : '') + '<small>' + moment(m.data).calendar() + '</small></p></li>').appendTo($('.messages ul'));
-
-            $(".messages")[0].scrollTop = $(".messages")[0].scrollHeight;
-
             history.replaceState(history.state, null, HOME + (HOME === "" && HOME !== SERVER ? "index.html?url=" : "") + app.route);
-            $("#perfil-image").attr("src", (!isEmpty(history.state.param.relationData.usuario.relationData.clientes.perfil_profissional) ? history.state.param.relationData.usuario.relationData.clientes.perfil_profissional[0].imagem_de_perfil[0].urls.thumb : (!isEmpty(history.state.param.relationData.usuario.relationData.clientes.imagem) ? history.state.param.relationData.usuario.relationData.clientes.imagem[0].urls.thumb : (!isEmpty(history.state.param.relationData.usuario.relationData.clientes.imagem_url) ? history.state.param.relationData.usuario.relationData.clientes.imagem_url : HOME + "assetsPublic/img/img.png"))));
-            $("#perfil-name").html(history.state.param.relationData.usuario.nome);
+            window.location.reload();
         }
     } else {
         /**

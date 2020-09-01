@@ -23,7 +23,10 @@ function btnPrimary() {
     if(window.getComputedStyle($("#serviceMensagem")[0],':before').content.replace('"', "").replace('"', "").trim() === "VER MAIS") {
         touchOpenPerfil();
     } else {
-        pageTransition("message/" + $btn.data("rel"));
+        if(!isNumberPositive($btn.data("rel")))
+            toast("Usuário inválido", 1400, "toast-infor");
+        else
+            pageTransition("message/" + $btn.data("rel"));
     }
 }
 
@@ -373,7 +376,7 @@ function getRealPosition() {
                             readAllServices();
                         },
                         () => {
-                            toast("Erro ao obter localização", 2000, "toast-warning");
+                            // toast("Erro ao obter localização", 2000, "toast-warning");
                             readAllServices(1);
                         }, {
                             enableHighAccuracy: true,

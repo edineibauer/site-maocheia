@@ -6,7 +6,7 @@ if (!empty($dados) && $dados['usuario'] != $_SESSION['userlogin']['id']) {
      * Force Start values
      */
     $up = new \Conn\Update();
-    $up->exeUpdate("messages_user", ["aceito" => 0, "bloqueado" => 0, "silenciado" => 0, "nao_lidas" => 0, "ultima_mensagem_lido" => 1, "recebido" => 1], "WHERE id = :id", "id={$dados['id']}");
+    $up->exeUpdate("messages_user", ["aceito" => 1, "bloqueado" => 0, "silenciado" => 0, "nao_lidas" => 0, "ultima_mensagem_lido" => 1, "recebido" => 1], "WHERE id = :id", "id={$dados['id']}");
 
     /**
      * Create chat to user too

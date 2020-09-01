@@ -1,35 +1,25 @@
 <?php
 
 $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+$data['data'] = 1;
 
-$read = new \Conn\Read();
-$read->exeRead("clientes", "WHERE id = :pid && ativo = 1", "pid={$_SESSION['userlogin']['setorData']['id']}");
-if ($read->getResult()) {
-    $prof = $read->getResult()[0];
-    if (!empty($prof['moedas']) && is_numeric($prof['moedas']) && $prof['moedas'] > 1) {
-        $up = new \Conn\Update();
-        $_SESSION['userlogin']['setorData']['moedas'] = ($prof['moedas'] - 1);
+if (!empty($_SESSION['userlogin']['setorData']) && !empty($_SESSION['userlogin']['setorData']['moedas']) && is_numeric($_SESSION['userlogin']['setorData']['moedas']) && $_SESSION['userlogin']['setorData']['moedas'] > 1) {
+    $up = new \Conn\Update();
 
-        $up->exeUpdate("clientes", ["moedas" => $_SESSION['userlogin']['setorData']['moedas']], "WHERE id = :id", "id={$_SESSION['userlogin']['setorData']['id']}");
-        $up->exeUpdate("messages_user", ["aceito" => 1], "WHERE usuario = :u", "u={$id}");
+    /**
+     * Desconta moeda
+     */
+    $up->exeUpdate("clientes", ["moedas" => ($_SESSION['userlogin']['setorData']['moedas'] - 1)], "WHERE id = :id", "id={$_SESSION['userlogin']['setorData']['id']}");
 
-        $f = fopen(PATH_HOME . "_cdn/userPerfil/" . $_SESSION['userlogin']['id'] . ".json", "w+");
-        fwrite($f, json_encode($_SESSION['userlogin']));
-        fclose($f);
+    /**
+     * Muda status para aceito
+     */
+    $up->exeUpdate("messages_user", ["aceito" => 1], "WHERE ownerpub = :me AND usuario = :u", "me={$_SESSION['userlogin']['id']}&u={$id}");
 
-        $data['data'] = 1;
-
-    } else {
-        $data = [
-            "response" => 3,
-            "data" => HOME . "comprar_moedas",
-            "error" => ""
-        ];
-    }
 } else {
     $data = [
-        "response" => 2,
-        "data" => "",
-        "error" => "Profissional não encontrado, faça login antes"
+        "response" => 3,
+        "data" => HOME . "comprar_moedas",
+        "error" => ""
     ];
 }

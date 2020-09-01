@@ -1,9 +1,9 @@
 <section id="topo">
     <div class="container float-left">
-        <a href="perfilUsuario/{{USER.id}}" class="float-left perfil-link" id="perfil-image"
-           style="background-image: url('{{#USER.setorData.perfil_profissional}}{{imagem_de_perfil.0.urls.medium}}{{/USER.setorData.perfil_profissional}}{{^USER.setorData.perfil_profissional}}{{#USER.setorData.imagem}}{{urls.medium}}{{/USER.setorData.imagem}}{{^USER.setorData.imagem}}{{home}}{{vendor}}site-maocheia/public/assets/svg/account.svg{{/USER.setorData.imagem}}{{/USER.setorData.perfil_profissional}}')"></a>
+        <a href="perfil{{#USER.setorData.perfil_profissional}}Profissional{{/USER.setorData.perfil_profissional}}{{^USER.setorData.perfil_profissional}}Usuario{{/USER.setorData.perfil_profissional}}/{{USER.id}}" class="float-left perfil-link" id="perfil-image"
+           style="background-image: url('{{#USER.setorData.perfil_profissional}}{{imagem_de_perfil.0.urls.thumb}}{{/USER.setorData.perfil_profissional}}{{^USER.setorData.perfil_profissional}}{{#USER.setorData.imagem}}{{urls.thumb}}{{/USER.setorData.imagem}}{{^USER.setorData.imagem}}{{#USER.setorData.imagem_url}}{{.}}{{/USER.setorData.imagem_url}}{{^USER.setorData.imagem_url}}{{home}}public/assets/svg/account.svg{{/USER.setorData.imagem_url}}{{/USER.setorData.imagem}}{{/USER.setorData.perfil_profissional}}')"></a>
         <div id="perfil-nome-block" class="pl-2">
-            <a href="perfilUsuario/{{USER.id}}" class="pl-2 perfil-link float-left">
+            <a href="perfil{{#USER.setorData.perfil_profissional}}Profissional{{/USER.setorData.perfil_profissional}}{{^USER.setorData.perfil_profissional}}Usuario{{/USER.setorData.perfil_profissional}}/{{USER.id}}" class="pl-2 perfil-link float-left">
                 <h5 id="nome-user" data-realtime-html>{{USER.setorData.nome}}</h5>
                 <div id="avaliacao-perfil-profissional"></div>
                 <div id="preco-perfil-profissional"></div>
