@@ -12,7 +12,7 @@
         {{#USER.setorData.perfil_profissional}}
             <div id="saldoProfissional">
                 <div class="saldo">
-                    <div class="row no-gutters">
+                    <a href="comprar-moedas" class="row no-gutters" style="font-weight: 800;color: #8b8b8b;">
                         <div class="moeda">
                             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21">
                                 <g transform="translate(0 0.373)">
@@ -43,7 +43,7 @@
                         </div>
                         <div class="valor" id="moedas" data-realtime-html>{{USER.setorData.moedas}}</div>
                         <div class="mais">+</div>
-                    </div>
+                    </a>
                 </div>
             </div>
         {{/USER.setorData.perfil_profissional}}
