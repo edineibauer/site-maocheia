@@ -39,10 +39,10 @@ function getValoresCampos() {
         "galeria": galeria,
         "inicio": $("#inicio").val(),
         "termino": $("#termino").val(),
-        "whatsapp": $("#whatsapp").val(),
-        "telefone": $("#telefone").val(),
-        "email": $("#email").val(),
-        "site": $("#site").val(),
+        // "whatsapp": $("#whatsapp").val(),
+        // "telefone": $("#telefone").val(),
+        // "email": $("#email").val(),
+        // "site": $("#site").val(),
         "dias": JSON.stringify(dias),
         "distancia_de_atendimento_km": parseInt($("#distancia").val() || 0),
         "ativo": !0,
@@ -129,13 +129,13 @@ $(async function () {
         if (typeof e.target.files[0] !== "undefined") {
             let images = await AJAX.uploadFile(e.target.files);
             for(let image of images) {
-                $("#galeria_preview > label[for='galeria']").after("<img src='" + image.url + "' data-id='" + image.name + "' alt='" + image.nome + "' />");
+                $("#galeria_preview > label[for='galeria']").after("<img src='" + image.url + "' class='galone' data-id='" + image.name + "' alt='" + image.nome + "' />");
                 galeria.push(image);
             }
         }
     });
 
-    $("#app").off("click", "#galeria_preview>img").on("click", "#galeria_preview>img", function () {
+    $("#app").off("click", "#galeria_preview > .galone").on("click", "#galeria_preview > .galone", function () {
         let $this = $(this);
         let id = $this.data("id");
         if(confirm("remover imagem?")) {
@@ -146,7 +146,7 @@ $(async function () {
         }
     });
 
-    $("#update-profissional").off("click").on("click", function () {
+    $("#update-profissional").off("click").on("click", async function () {
         let p = getValoresCampos();
 
 
@@ -162,15 +162,18 @@ $(async function () {
             showErro($("#termino"), "Informe a hora que termina de trabalhar");
         } else if (isEmpty(p.sobre)) {
             showErro($("#sobre"), "Descreva seu trabalho");
-        } else if (isEmpty(p.whatsapp) || p.whatsapp.length < 10) {
-            showErro($("#whatsapp"), "Informe seu Whatsapp");
+        // } else if (isEmpty(p.whatsapp) || p.whatsapp.length < 10) {
+        //     showErro($("#whatsapp"), "Informe seu Whatsapp");
         } else {
-            db.exeCreate("clientes", {id: USER.setorData.id, perfil_profissional: [p]}).then(r => {
-                if (r.response === 1) {
-                    toast("Perfil Profissional Salvo!", 1400, "toast-success");
-                    pageTransition("perfil", "route", "back");
-                }
-            });
+            let result = await setUserData("perfil_profissional", [p]);
+            if(isNumberPositive(result)) {
+                toast("Perfil Profissional Salvo!", 1400, "toast-success");
+                pageTransition("perfil", "route", "back");
+            } else if(!isEmpty(result.clientes)) {
+                navigator.vibrate(100);
+                for(let i in result.clientes)
+                    showErro($("#" + i), i + ": " + result.clientes[i]);
+            }
         }
     });
 

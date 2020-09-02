@@ -48,7 +48,7 @@ $(function () {
     $("#app").off("keyup change", ".form-control").on("keyup change", ".form-control", function () {
         $(this).css("border-bottom-color", "#CECECE").siblings("label").css("color", "#707070");
 
-    }).off("click", "#galeria_preview>img").on("click", "#galeria_preview>img", function () {
+    }).off("click", "#galeria_preview > .galone").on("click", "#galeria_preview > .galone", function () {
         let $this = $(this);
         let id = $this.data("id");
         if(confirm("remover imagem?")) {
@@ -83,13 +83,13 @@ $(function () {
         if (typeof e.target.files[0] !== "undefined") {
             let images = await AJAX.uploadFile(e.target.files);
             for(let image of images) {
-                $("#galeria_preview > label[for='galeria']").after("<img src='" + image.url + "' data-id='" + image.name + "' alt='" + image.nome + "' />");
+                $("#galeria_preview > label[for='galeria']").after("<img src='" + image.url + "' class='galone' data-id='" + image.name + "' alt='" + image.nome + "' />");
                 galeria.push(image);
             }
         }
     });
 
-    $("#create-profissional").off("click").on("click", function () {
+    $("#create-profissional").off("click").on("click", async function () {
 
         toast("Enviando dados...", 13000, "toast-infor");
         let subcategorias = [];
@@ -114,10 +114,10 @@ $(function () {
             "inicio": $("#inicio").val(),
             "termino": $("#termino").val(),
             "dias": JSON.stringify(dias),
-            "whatsapp": $("#whatsapp").val(),
-            "telefone": $("#telefone").val(),
-            "email": $("#email").val(),
-            "site": $("#site").val(),
+            // "whatsapp": $("#whatsapp").val(),
+            // "telefone": $("#telefone").val(),
+            // "email": $("#email").val(),
+            // "site": $("#site").val(),
             "distancia_de_atendimento_km": parseInt($("#distancia").val() || 0),
             "ativo": !0,
         };
@@ -134,8 +134,8 @@ $(function () {
             showErro($("#termino"), "Informe a hora que termina de trabalhar");
         } else if (isEmpty(profissional.sobre)) {
             showErro($("#sobre"), "Descreva seu trabalho");
-        } else if (isEmpty(profissional.whatsapp) || profissional.whatsapp.length < 10) {
-            showErro($("#whatsapp"), "Informe seu Whatsapp");
+        // } else if (isEmpty(profissional.whatsapp) || profissional.whatsapp.length < 10) {
+        //     showErro($("#whatsapp"), "Informe seu Whatsapp");
         } else {
 
             profissional.id = Date.now() + Math.floor((Math.random() * 1000) + 1);
@@ -145,18 +145,17 @@ $(function () {
             profissional.columnRelation = "profissional";
             profissional.columnStatus = {column: "", have: "false", value: "false"};
 
-            db.exeCreate("clientes", {id: USER.setorData.id, perfil_profissional: [profissional]}).then(r => {
-                if(r.response === 1) {
-                    toast("Parabéns! Perfil profissional criado", 2000, "toast-success");
-                    setTimeout(function () {
-                        pageTransition("howitwork");
-                    }, 1000);
-                } else {
-                    navigator.vibrate(100);
-                    for(let i in r.data.clientes)
-                        showErro($("#" + i), i + ": " + r.data.clientes[i]);
-                }
-            });
+            let result = await setUserData("perfil_profissional", [profissional]);
+            if(isNumberPositive(result)) {
+                toast("Parabéns! Perfil profissional criado", 2000, "toast-success");
+                setTimeout(function () {
+                    pageTransition("howitwork");
+                }, 1000);
+            } else if(!isEmpty(result.clientes)) {
+                navigator.vibrate(100);
+                for(let i in result.clientes)
+                    showErro($("#" + i), i + ": " + result.clientes[i]);
+            }
         }
     });
 });

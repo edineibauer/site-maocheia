@@ -65,9 +65,7 @@ $(function() {
                     } else {
                         toast("Ok, avançando...", 1500, "toast-success");
                         setCookieUser(g).then(() => {
-                            setTimeout(function () {
-                                pageTransition("perfil_profissional_cadastro");
-                            }, 500);
+                            pageTransition("perfil_profissional_cadastro");
                         });
                     }
                 } else {

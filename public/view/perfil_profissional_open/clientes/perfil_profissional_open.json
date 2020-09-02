@@ -2,6 +2,6 @@
   "title": "Perfil Profissional - {{sitename}}",
   "css": ["bootstrap", "core/_base"],
   "js": ["homeMap", "core/_base"],
-  "navbar": true,
+  "navbar": false,
   "header": false
 }
