@@ -9,35 +9,32 @@ function showWriting() {
 }
 
 async function sendMessage(mensagem) {
-    if (typeof mensagem === "string" && mensagem.trim().length) {
+    if (history.state.param.bloqueado) {
+        toast("Você bloqueou este contato", 1500, "toast-warning");
+    } else if (typeof mensagem === "string" && mensagem.trim().length) {
         if (typeof history.state.param.id !== "undefined") {
-            if (!history.state.param.bloqueado) {
-                let message = {
-                    usuario: history.state.param.usuario,
-                    mensagem: mensagem.trim(),
-                    data: dateTimeFormat(),
-                    lido: 0
-                };
+            let message = {
+                usuario: history.state.param.usuario,
+                mensagem: mensagem.trim(),
+                data: dateTimeFormat(),
+                lido: 0
+            };
 
-                history.state.param.relationData.mensagens.mensagens.push(message);
-                history.replaceState(history.state, null, HOME + (HOME === "" && HOME !== SERVER ? "index.html?url=" : "") + app.route);
+            history.state.param.relationData.mensagens.mensagens.push(message);
+            history.replaceState(history.state, null, HOME + (HOME === "" && HOME !== SERVER ? "index.html?url=" : "") + app.route);
 
-                AJAX.post("messages/sendMessage", {
-                    id: history.state.param.relationData.mensagens.id,
-                    mensagem: JSON.stringify(message),
-                    usuario: history.state.param.usuario
-                });
+            AJAX.post("messages/sendMessage", {
+                id: history.state.param.relationData.mensagens.id,
+                mensagem: JSON.stringify(message),
+                usuario: history.state.param.usuario
+            });
 
-                /**
-                 * DOM control
-                 */
-                $('<li class="skeletonmessage" rel="' + message.usuario + '"><p>' + mensagem + '<i class="material-icons h6 received mb-0 float-right pl-1" rel="0">done</i><small>' + moment().calendar() + '</small></p></li>').appendTo($('.messages ul'));
-                $(".messages")[0].scrollTop = $(".messages")[0].scrollHeight;
-                $("#message-text").val('');
-
-            } else {
-                toast("Usuário bloqueado", 1500, "toast-error");
-            }
+            /**
+             * DOM control
+             */
+            $('<li class="skeletonmessage" rel="' + message.usuario + '"><p>' + mensagem + '<i class="material-icons h6 received mb-0 float-right pl-1" rel="0">done</i><small>' + moment().calendar() + '</small></p></li>').appendTo($('.messages ul'));
+            $(".messages")[0].scrollTop = $(".messages")[0].scrollHeight;
+            $("#message-text").val('');
         } else {
             let message = {
                 usuario: URL[0],
@@ -199,21 +196,23 @@ $(async function () {
      * Receive writing information
      */
     sseAdd("writing", function (data) {
-        if (!isEmpty(data.writing)) {
-            for (let id in data.writing) {
-                if (id == URL[0] && (parseInt((parseInt(data.writing[id]) + 5).toString() + "000") > Date.now()))
-                    showWriting();
+        if ($("#blo").attr("rel") == 0) {
+            if (!isEmpty(data.writing)) {
+                for (let id in data.writing) {
+                    if (id == URL[0] && (parseInt((parseInt(data.writing[id]) + 5).toString() + "000") > Date.now()))
+                        showWriting();
+                }
             }
-        }
 
-        /**
-         * Update last time online
-         */
-        if(!isEmpty(data.status)) {
-            for(let id in data.status) {
-                if (id == URL[0]) {
-                    $("#lastonline").html(data.status[id]);
-                    break;
+            /**
+             * Update last time online
+             */
+            if (!isEmpty(data.status)) {
+                for (let id in data.status) {
+                    if (id == URL[0]) {
+                        $("#lastonline").html(data.status[id]);
+                        break;
+                    }
                 }
             }
         }
@@ -253,9 +252,9 @@ $(async function () {
 
         $("#silenciar > li").html(history.state.param.silenciado ? "Não silenciar" : "Silenciar");
         if (history.state.param.silenciado)
-            $("#sil").removeClass("hide");
+            $("#sil").removeClass("hide").attr("rel", 1);
         else
-            $("#sil").addClass("hide");
+            $("#sil").addClass("hide").attr("rel", 0);
 
         $("#menu-chat").removeClass("active");
         $("body").off("mouseup");
@@ -267,9 +266,9 @@ $(async function () {
 
         $("#bloquear > li").html(history.state.param.bloqueado ? "Desbloquear" : "Bloquear");
         if (history.state.param.bloqueado)
-            $("#blo").removeClass("hide");
+            $("#blo").removeClass("hide").attr("rel", 1);
         else
-            $("#blo").addClass("hide");
+            $("#blo").addClass("hide").attr("rel", 0);
 
         $("#menu-chat").removeClass("active");
         $("body").off("mouseup");
@@ -294,7 +293,7 @@ $(async function () {
                     sendMessage(Mustache.render(templates.anexoCard, file));
             }
         } else {
-            toast("Usuário bloqueado", 1500, "toast-error");
+            toast("Você bloqueou este contato", 1500, "toast-warning");
         }
     });
 

@@ -11,11 +11,22 @@ $read->exeRead("messages_user", "WHERE usuario = :u", "u={$usuario}");
  * Se não tiver o chat ainda ou se já tiver aceito
  */
 if(!$read->getResult() || $read->getResult()[0]['aceito'] == 1) {
-    $read->exeRead("messages", "WHERE id = :id", "id={$id}");
-    if ($read->getResult()) {
-        $allMessages = json_decode($read->getResult()[0]['mensagens'], !0);
-        $allMessages[] = json_decode($mensagem, !0);
-        $up = new \Conn\Update();
-        $up->exeUpdate("messages", ["mensagens" => json_encode($allMessages)], "WHERE id = :id", "id={$id}");
+
+    /**
+     * Se tiver desbloqueado
+     */
+    $read->exeRead("messages_user", "WHERE ownerpub = :u AND usuario = :me AND bloqueado = 1", "u={$usuario}&me={$_SESSION['userlogin']['id']}", !0);
+    if(!$read->getResult()) {
+
+        /**
+         * Obtém as mensagens para adicionar mais essa
+         */
+        $read->exeRead("messages", "WHERE id = :id", "id={$id}");
+        if ($read->getResult()) {
+            $allMessages = json_decode($read->getResult()[0]['mensagens'], !0);
+            $allMessages[] = json_decode($mensagem, !0);
+            $up = new \Conn\Update();
+            $up->exeUpdate("messages", ["mensagens" => json_encode($allMessages)], "WHERE id = :id", "id={$id}");
+        }
     }
 }

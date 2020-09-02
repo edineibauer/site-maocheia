@@ -18,8 +18,8 @@
                                         {{relationData.usuario.nome}}
                                     </div>
                                     <small class="col pl-0 pb-1 float-left message-card-date">
-                                        <i class='material-icons blocked{{^bloqueado}} hide{{/bloqueado}}'>block</i>
-                                        <i class='material-icons{{^silenciado}} hide{{/silenciado}}' style="padding-top: 1px">volume_off</i>
+                                        <i id="blo-{{relationData.usuario.id}}" rel="{{bloqueado}}" class='material-icons blocked{{^bloqueado}} hide{{/bloqueado}}'>block</i>
+                                        <i id="sil-{{relationData.usuario.id}}" rel="{{silenciado}}" class='material-icons{{^silenciado}} hide{{/silenciado}}' style="padding-top: 1px">volume_off</i>
                                         <div data-realtime-html class="lastonline float-left" id="lastonline-{{relationData.usuario.id}}"
                                              style="padding-top: 2px">
                                             {{ultima_vez_online}}

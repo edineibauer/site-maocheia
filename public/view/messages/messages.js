@@ -25,7 +25,7 @@ function showWriting(data) {
             /**
              * Check if the writing time is now
              */
-            if ((parseInt((parseInt(data.writing[user]) + 5).toString() + "000") > Date.now())) {
+            if ($("#blo-" + user).attr("rel") == 0 && (parseInt((parseInt(data.writing[user]) + 5).toString() + "000") > Date.now())) {
                 let $userChat = $(".message-card-message[rel='" + user + "']");
 
                 if ("digitando..." !== $userChat.text().trim())
@@ -45,7 +45,8 @@ function showWriting(data) {
      */
     if(!isEmpty(data.status)) {
         for(let i in data.status) {
-            $("#lastonline-" + i).html(data.status[i]);
+            if($("#blo-" + i).attr("rel") == 0)
+                $("#lastonline-" + i).html(data.status[i]);
         }
     }
 }

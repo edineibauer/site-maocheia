@@ -10,8 +10,8 @@
                     <div id="perfil-info">
                         <h6 id="perfil-name" class="float-left pl-3 mb-0">{{PAGE.relationData.usuario.nome}}</h6>
                         <span id="perfil-status" class="float-left pl-3">
-                            <i id="blo" class='material-icons blocked{{^PAGE.bloqueado}} hide{{/PAGE.bloqueado}}'>block</i>
-                            <i id="sil" class='material-icons{{^PAGE.silenciado}} hide{{/PAGE.silenciado}}'>volume_off</i>
+                            <i id="blo" rel="{{PAGE.bloqueado}}" class='material-icons blocked{{^PAGE.bloqueado}} hide{{/PAGE.bloqueado}}'>block</i>
+                            <i id="sil" rel="{{PAGE.silenciado}}" class='material-icons{{^PAGE.silenciado}} hide{{/PAGE.silenciado}}'>volume_off</i>
                             <div class="lasto" id="lastonline">{{{PAGE.ultima_vez_online}}}</div>
                         </span>
                     </div>
