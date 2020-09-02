@@ -6,5 +6,6 @@
     "header": false,
     "setor": "clientes",
     "redirect": "login",
-    "templates": ["avaliacoes"]
+    "templates": ["avaliacoes"],
+    "offline": true
 }

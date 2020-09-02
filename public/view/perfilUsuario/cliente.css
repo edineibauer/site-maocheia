@@ -3,6 +3,17 @@ body {
     background: #F1F0F5;
 }
 
+.card-nota {
+    color: #999;
+    font-size: 12px;
+}
+
+.card-value {
+    font-size: 30px;
+    font-weight: 900;
+    color: #ff1967;
+}
+
 #clienteImagem {
     background-repeat: no-repeat;
     background-size: cover;

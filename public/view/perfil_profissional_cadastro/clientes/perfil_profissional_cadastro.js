@@ -145,7 +145,7 @@ $(function () {
             profissional.columnRelation = "profissional";
             profissional.columnStatus = {column: "", have: "false", value: "false"};
 
-            db.exeCreate("clientes", {id: USER.setorData.id, nome: USER.setorData.nome, perfil_profissional: [profissional]}).then(r => {
+            db.exeCreate("clientes", {id: USER.setorData.id, perfil_profissional: [profissional]}).then(r => {
                 if(r.response === 1) {
                     toast("Parabéns! Perfil criado!", 3000, "toast-success");
                     pageTransition("perfil");

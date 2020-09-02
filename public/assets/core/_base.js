@@ -1,6 +1,6 @@
 sseAdd("messagesBadge", function (data) {
     if (USER.setor !== 0) {
-        if (data !== "0") {
+        if (data != "0") {
             /**
              * Adiciona badge notification apenas no navbar mobile e se tiver a aba de notificações
              */
@@ -11,6 +11,8 @@ sseAdd("messagesBadge", function (data) {
         } else {
             $("#badge-message").remove();
         }
+    } else {
+        $("#badge-message").remove();
     }
 });
 

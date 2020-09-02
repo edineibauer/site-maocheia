@@ -100,7 +100,7 @@ body {
 label {
     display: inline-block;
     margin-bottom: 0 !important;
-    color: #707070 !important;
+    color: #707070;
     font-size: 12px !important;
     font-weight: 400 !important;
     padding-bottom: 7px;

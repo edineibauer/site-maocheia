@@ -529,7 +529,8 @@ $(function () {
     }).off("click", ".serviceSubCategoryResult").on("click", ".serviceSubCategoryResult", function () {
         let id = $(this).attr("rel");
         db.exeRead("categorias_sub", id).then(sub => {
-            selectCategory(sub.categoria, id);
+            if(!isEmpty(sub))
+                selectCategory(sub[0].categoria, id);
         });
         touchElements.moveToStart();
     }).off("click", ".contato").on("click", ".contato", function () {

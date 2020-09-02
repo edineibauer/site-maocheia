@@ -165,7 +165,7 @@ $(async function () {
         } else if (isEmpty(p.whatsapp) || p.whatsapp.length < 10) {
             showErro($("#whatsapp"), "Informe seu Whatsapp");
         } else {
-            db.exeCreate("clientes", {id: USER.setorData.id, nome: USER.setorData.nome, perfil_profissional: [p]}).then(r => {
+            db.exeCreate("clientes", {id: USER.setorData.id, perfil_profissional: [p]}).then(r => {
                 if (r.response === 1) {
                     toast("Perfil Profissional Salvo!", 1400, "toast-success");
                     pageTransition("perfil", "route", "back");

@@ -9,6 +9,15 @@ function setProfissionalForm(profissional) {
     $("#imagem_de_perfil_preview").addClass("image").html("<img src='" + (isEmpty(imagem_de_perfil) ? HOME + "public/assets/svg/account.svg" : imagem_de_perfil[0].url) + "' alt='" + USER.nome + "' />");
 }
 
+function showErro($element, mensagem) {
+    $('html,body').animate({ scrollTop: $element.offset().top - 100}, 'slow');
+    toast(mensagem, 2500, "toast-warning");
+    $element.css("border-bottom-color", "red").siblings("label").css("color", "red");
+    setTimeout(function () {
+        $element.css("border-bottom-color", "#CECECE").siblings("label").css("color", "#707070");
+    }, 2000);
+}
+
 $(function () {
     setProfissionalForm(USER.setorData);
 
@@ -26,8 +35,8 @@ $(function () {
         }
     });
 
-    $("#salvar").click(function () {
-        setUserData({
+    $("#salvar").click(async function () {
+        let result = await setUserData({
             "nome": $("#nome").val(),
             "email": $("#email").val(),
             "cpf": $("#cpf").val(),
@@ -35,7 +44,13 @@ $(function () {
             "imagem": imagem_de_perfil,
             "senha": $("#senha").val()
         });
-        toast("salvo com sucesso", 1500, "toast-success");
-        history.back();
+
+        if(isNumberPositive(result)) {
+            toast("salvo com sucesso", 1500, "toast-success");
+            history.back();
+        } else if(!isEmpty(result.clientes)) {
+            for(let i in result.clientes)
+                showErro($("#" + i), i + ": " + result.clientes[i]);
+        }
     });
 });
