@@ -1,8 +1,8 @@
-var chatWriting = !1;
+var chatWriting = {}, before = {};
 
 async function filterMessages(data) {
     dados = [];
-    if(!isEmpty(data)) {
+    if (!isEmpty(data)) {
         data = orderBy(data, 'data_ultima_mensagem');
         for (let d of data) {
             d.ultima_vez_online = moment(d.ultima_vez_online).calendar();
@@ -18,18 +18,36 @@ function readMessages(id) {
     pageTransition("message/" + id, "route", "forward", "#core-content", user);
 }
 
-var before = "";
 function showWriting(data) {
-    let user = Object.keys(data)[0];
-    let $userChat = $(".message-card-message[rel='" + user + "']");
-    if("digitando..." !== $userChat.text().trim())
-        before = $userChat.html();
+    if (!isEmpty(data.writing)) {
+        for (let user in data.writing) {
 
-    $(".message-card-message").html("<div style='color: seagreen'>digitando...</div>");
-    clearTimeout(chatWriting);
-    chatWriting = setTimeout(function () {
-        $userChat.html(before);
-    }, 1500);
+            /**
+             * Check if the writing time is now
+             */
+            if ((parseInt((parseInt(data.writing[user]) + 5).toString() + "000") > Date.now())) {
+                let $userChat = $(".message-card-message[rel='" + user + "']");
+
+                if ("digitando..." !== $userChat.text().trim())
+                    before[user] = $userChat.html();
+
+                $(".message-card-message").html("<div style='color: seagreen'>digitando...</div>");
+                clearTimeout(chatWriting[user]);
+                chatWriting[user] = setTimeout(function () {
+                    $userChat.html(before[user]);
+                }, 1500);
+            }
+        }
+    }
+
+    /**
+     * Update last time online
+     */
+    if(!isEmpty(data.status)) {
+        for(let i in data.status) {
+            $("#lastonline-" + i).html(data.status[i]);
+        }
+    }
 }
 
 $(function () {
@@ -38,11 +56,5 @@ $(function () {
     /**
      * Receive writing information
      */
-    let firstIgnore = !0;
-    sseAdd("writing", function(data) {
-        if(firstIgnore)
-            firstIgnore = !1;
-        else
-            showWriting(data);
-    });
+    sseAdd("writing", showWriting);
 })

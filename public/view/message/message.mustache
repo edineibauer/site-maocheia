@@ -5,14 +5,14 @@
                 <div class="contact-profile">
                     <a href="#back" data-animation="back">
                         <i class="material-icons" id="arrowback">arrow_back</i>
-                        <img src="{{#PAGE.relationData.usuario.relationData.clientes.perfil_profissional}}{{imagem_de_perfil.0.urls.thumb}}{{/PAGE.relationData.usuario.relationData.clientes.perfil_profissional}}{{^PAGE.relationData.usuario.relationData.clientes.perfil_profissional}}{{#PAGE.relationData.usuario.imagem}}{{urls.thumb}}{{/PAGE.relationData.usuario.imagem}}{{^PAGE.relationData.usuario.imagem}}{{home}}assetsPublic/img/loading.png{{/PAGE.relationData.usuario.imagem}}{{/PAGE.relationData.usuario.relationData.clientes.perfil_profissional}}" id="perfil-image" height="40" width="40" class="float-left mt-2" />
+                        <img src="{{#PAGE.relationData.usuario.relationData.clientes.perfil_profissional}}{{imagem_de_perfil.0.urls.thumb}}{{/PAGE.relationData.usuario.relationData.clientes.perfil_profissional}}{{^PAGE.relationData.usuario.relationData.clientes.perfil_profissional}}{{#PAGE.relationData.usuario.imagem}}{{urls.thumb}}{{/PAGE.relationData.usuario.imagem}}{{^PAGE.relationData.usuario.imagem}}{{home}}public/assets/svg/account.svg{{/PAGE.relationData.usuario.imagem}}{{/PAGE.relationData.usuario.relationData.clientes.perfil_profissional}}" id="perfil-image" height="40" width="40" class="float-left mt-2" />
                     </a>
                     <div id="perfil-info">
                         <h6 id="perfil-name" class="float-left pl-3 mb-0">{{PAGE.relationData.usuario.nome}}</h6>
                         <span id="perfil-status" class="float-left pl-3">
                             <i id="blo" class='material-icons blocked{{^PAGE.bloqueado}} hide{{/PAGE.bloqueado}}'>block</i>
                             <i id="sil" class='material-icons{{^PAGE.silenciado}} hide{{/PAGE.silenciado}}'>volume_off</i>
-                            {{{PAGE.ultima_vez_online}}}
+                            <div class="lasto" id="lastonline">{{{PAGE.ultima_vez_online}}}</div>
                         </span>
                     </div>
                     <div class="social-media">
@@ -63,7 +63,7 @@
     </div>
     {{#PAGE.id}}
         {{^PAGE.aceito}}
-            <div class="message-input-buy hide">
+            <div class="message-input-buy">
                 <div class="pb-2 float-left col p-0">
                     <div class="theme btn-buy" onclick="chatUser()">
                         <div class="btn-buy-txt">responder</div>

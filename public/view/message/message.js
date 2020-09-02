@@ -59,7 +59,7 @@ async function sendMessage(mensagem) {
             $(".messages")[0].scrollTop = $(".messages")[0].scrollHeight;
             $("#message-text").val('');
 
-            if(responseMessages.response === 1) {
+            if (responseMessages.response === 1) {
                 await db.exeCreate("messages_user", {
                     mensagens: responseMessages.data.id,
                     usuario: URL[0],
@@ -81,20 +81,20 @@ async function sendMessage(mensagem) {
 }
 
 function showLastOnline() {
-    $("#perfil-status").html((history.state.param.bloqueado ? "<i class='material-icons blocked'>block</i>" : "") + (history.state.param.silenciado ? "<i class='material-icons'>volume_off</i>" : "") + history.state.param.ultima_vez_online);
+    $("#perfil-status").html((history.state.param.bloqueado ? "<i id='blo' class='material-icons blocked'>block</i>" : "") + (history.state.param.silenciado ? "<i id='sil' class='material-icons'>volume_off</i>" : "") + "<div class='lasto' id='lastonline'>online</div>");
 }
 
 function receiveNewMessages(messages) {
     let haveChanges = !1;
     let listIndices = [];
-    if(typeof history.state.param.id !== "undefined") {
+    if (typeof history.state.param.id !== "undefined") {
 
         /**
          * Get date from the last message received
          */
         let lastMessage = "";
-        for(let um of history.state.param.relationData.mensagens.mensagens.reverse()) {
-            if(um.usuario == USER.id) {
+        for (let um of history.state.param.relationData.mensagens.mensagens.reverse()) {
+            if (um.usuario == USER.id) {
                 lastMessage = um.data;
                 break;
             }
@@ -108,11 +108,11 @@ function receiveNewMessages(messages) {
         for (let i in messages[0].mensagens) {
             let m = messages[0].mensagens[i];
 
-            if(m.usuario == USER.id) {
+            if (m.usuario == USER.id) {
                 /**
                  * Message for me
                  */
-                if(lastMessage === "" || m.data > lastMessage) {
+                if (lastMessage === "" || m.data > lastMessage) {
                     haveChanges = !0;
                     m.lido = 1;
                     history.state.param.relationData.mensagens.mensagens.push(m);
@@ -157,7 +157,7 @@ $(async function () {
         $(".message-input").removeClass("hide");
         $(".message-input-buy").remove();
 
-        if(!isNumberPositive(URL[0])) {
+        if (!isNumberPositive(URL[0])) {
             toast("Usuário inválido", 2000, "toast-infor");
             history.back();
         }
@@ -190,7 +190,7 @@ $(async function () {
          * Set messages as readed
          */
         AJAX.get("messages/readed/" + history.state.param.usuario);
-        $(".datamessage").each(function(i, e) {
+        $(".datamessage").each(function (i, e) {
             $(e).html(moment($(e).html()).calendar());
         });
     }
@@ -198,10 +198,24 @@ $(async function () {
     /**
      * Receive writing information
      */
-    sseAdd("writing", function(data) {
-        for(let id in data) {
-            if(id == URL[0] && (parseInt((parseInt(data[id]) + 5).toString() + "000") > Date.now()))
-                showWriting();
+    sseAdd("writing", function (data) {
+        if (!isEmpty(data.writing)) {
+            for (let id in data.writing) {
+                if (id == URL[0] && (parseInt((parseInt(data.writing[id]) + 5).toString() + "000") > Date.now()))
+                    showWriting();
+            }
+        }
+
+        /**
+         * Update last time online
+         */
+        if(!isEmpty(data.status)) {
+            for(let id in data.status) {
+                if (id == URL[0]) {
+                    $("#lastonline").html(data.status[id]);
+                    break;
+                }
+            }
         }
     });
 
