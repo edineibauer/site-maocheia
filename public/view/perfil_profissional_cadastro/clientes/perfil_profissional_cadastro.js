@@ -147,8 +147,10 @@ $(function () {
 
             db.exeCreate("clientes", {id: USER.setorData.id, perfil_profissional: [profissional]}).then(r => {
                 if(r.response === 1) {
-                    toast("Parabéns! Perfil criado!", 3000, "toast-success");
-                    pageTransition("perfil");
+                    toast("Parabéns! Perfil profissional criado", 2000, "toast-success");
+                    setTimeout(function () {
+                        pageTransition("howitwork");
+                    }, 1000);
                 } else {
                     navigator.vibrate(100);
                     for(let i in r.data.clientes)
