@@ -1,44 +1,55 @@
 function openMapPopup(marker) {
     if (marker.type === 2) {
-        getTemplates().then(tpl => {
-            //open popup
-            /*
 
-            //Centraliza mapa entre o target e a posição atual
-            let bounds = new google.maps.LatLngBounds();
-            let latlng = new google.maps.LatLng(marker.latitude, marker.longitude);
-            let latlngMy = new google.maps.LatLng(myMarker.latitude, myMarker.longitude);
+        for (let i in markers) {
+            if (markers[i].type > 1) {
+                if (/serviceSelected$/.test(markers[i].icon.url))
+                    markers[i].setIcon({
+                        url: markers[i].service.perfil_profissional.categoriaImage + "?i=service" + (markers[i].service.perfil_profissional.online ? "Online" : ""),
+                        scaledSize: new google.maps.Size(32, 32),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(16, 16)
+                    });
+            }
+        }
 
-            bounds.extend(latlng);
-            bounds.extend(latlngMy);
-            map.fitBounds(bounds, {top: 60, right: 50, left: 50, bottom: 230});*/
+        //open popup
+        /*
 
-            marker.setAnimation(4);
-            marker.setIcon({
-                url: marker.service.perfil_profissional.categoriaImage + "?i=serviceSelected",
-                scaledSize: new google.maps.Size(32, 32),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(16, 16)
-            });
+        //Centraliza mapa entre o target e a posição atual
+        let bounds = new google.maps.LatLngBounds();
+        let latlng = new google.maps.LatLng(marker.latitude, marker.longitude);
+        let latlngMy = new google.maps.LatLng(myMarker.latitude, myMarker.longitude);
 
-            /*var request = {
-                origin: latlngMy,
-                destination: latlng,
-                travelMode: google.maps.TravelMode.DRIVING
-            };
+        bounds.extend(latlng);
+        bounds.extend(latlngMy);
+        map.fitBounds(bounds, {top: 60, right: 50, left: 50, bottom: 230});*/
 
-            var directionsDisplay = new google.maps.DirectionsRenderer();
-            directionsDisplay.setMap(map);
-            var directionsService = new google.maps.DirectionsService();
-            directionsService.route(request, function (response, status) {
-                if (status == google.maps.DirectionsStatus.OK) {
-                    directionsDisplay.setDirections(response);
-                    directionsDisplay.setMap(map);
-                } else {
-                    alert("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) + " failed: " + status);
-                }
-            });*/
+        marker.setAnimation(4);
+        marker.setIcon({
+            url: marker.service.perfil_profissional.categoriaImage + "?i=serviceSelected",
+            scaledSize: new google.maps.Size(32, 32),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(16, 16)
         });
+
+        /*var request = {
+            origin: latlngMy,
+            destination: latlng,
+            travelMode: google.maps.TravelMode.DRIVING
+        };
+
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        directionsDisplay.setMap(map);
+        var directionsService = new google.maps.DirectionsService();
+        directionsService.route(request, function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+                directionsDisplay.setMap(map);
+            } else {
+                alert("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) + " failed: " + status);
+            }
+        });*/
     }
 }
 

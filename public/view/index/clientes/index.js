@@ -79,7 +79,7 @@ function showCategoryAndSubcategory() {
 
 db.exeRead("categorias");
 
-function changeSwipeToSearch() {
+async function changeSwipeToSearch() {
 
     openService = {};
     let $menu = $(".menu-swipe-class");
@@ -97,30 +97,29 @@ function changeSwipeToSearch() {
 
         $(".swipe-zone-body").addClass("filter");
         closeMapPopup();
-        db.exeRead("categorias").then(categorias => {
+        let categorias = await db.exeRead("categorias");
 
-            for (let c in categorias)
-                categorias[c].selected = (!isEmpty(filtrosProfissionais.categoria) && categorias[c].id === filtrosProfissionais.categoria);
+        for (let c in categorias)
+            categorias[c].selected = (!isEmpty(filtrosProfissionais.categoria) && categorias[c].id === filtrosProfissionais.categoria);
 
-            $(".swipe-zone-body").htmlTemplate('serviceFilterSearch', categorias).then(() => {
-                readServices();
+        let tpl = await getTemplates();
+        $(".swipe-zone-body").html(Mustache.render(tpl.serviceFilterSearch, categorias));
+        readServices();
 
-                if (isNumberPositive(filtrosProfissionais.categoria))
-                    showCategoryAndSubcategory();
+        if (isNumberPositive(filtrosProfissionais.categoria))
+            showCategoryAndSubcategory();
 
-                $('#categorias').owlCarousel({
-                    loop: false,
-                    margin: 10,
-                    dots: false,
-                    nav: false,
-                    responsive: {
-                        0: {
-                            items: 5,
-                            startPosition: 0
-                        }
-                    }
-                });
-            });
+        $('#categorias').owlCarousel({
+            loop: false,
+            margin: 10,
+            dots: false,
+            nav: false,
+            responsive: {
+                0: {
+                    items: 5,
+                    startPosition: 0
+                }
+            }
         });
     }
 }
@@ -131,11 +130,8 @@ async function changeSwipeToService(data) {
 
     touchElements.setDistanciaTarget(0).setDistanciaStart(window.innerHeight - 255 - (USER.setor === 0 ? 0 : 50));
 
-    await $(".swipe-zone-body").removeClass("filter").htmlTemplate('servicePerfil', data);
-
-    setTimeout(function () {
-        $(".swipe-zone-body").removeClass("filter").htmlTemplate('servicePerfil', data);
-    }, 500);
+    let tpl = await getTemplates();
+    await $(".swipe-zone-body").removeClass("filter").html(Mustache.render(tpl.servicePerfil, data));
 
     /**
      * Read avaliações
@@ -162,7 +158,7 @@ async function changeSwipeToService(data) {
         }
 
         if (!isEmpty(feedbacks))
-            $("#section-avaliacoes").htmlTemplate('avaliacoes', feedbacks);
+            $("#section-avaliacoes").html(Mustache.render(tpl.avaliacoes, feedbacks));
         else
             $("#section-avaliacoes").html('');
     });
@@ -271,8 +267,9 @@ function setAllServicesOnMap(data) {
     }
 }
 
-function updateListService(data) {
-    $("#services").htmlTemplate('serviceCards', {profissionais: data}, ["serviceCard"]);
+async function updateListService(data) {
+    let tpl = await getTemplates();
+    $("#services").html(Mustache.render(tpl.serviceCards, {profissionais: data}, tpl));
 }
 
 /**
