@@ -32,7 +32,7 @@ body {
     margin-top: 25px;
 }
 
-a.btn {
+button.btn {
     position: fixed;
     bottom: 30px;
     right: 30px;

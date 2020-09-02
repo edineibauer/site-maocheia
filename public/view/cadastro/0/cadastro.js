@@ -25,7 +25,7 @@ $(function() {
                     toast("Seja Bem-vindo " + result.data.nome, 1500, "toast-success");
                     setCookieUser(g).then(() => {
                         setTimeout(function () {
-                            pageTransition("index");
+                            window.location.href = HOME;
                         }, 500);
                     });
                 }
