@@ -11,9 +11,11 @@ body{
 .mdi-arrow-left {
     font-size: 32px;
 }
+
 .figure-logo {
     display: block;
     text-align: center;
+    margin-top: -25px;
 }
 
 #cadastro .btn-primary {

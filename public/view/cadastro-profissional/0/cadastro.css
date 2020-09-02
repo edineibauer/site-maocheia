@@ -16,6 +16,7 @@ body {
 .figure-logo {
     display: block;
     text-align: center;
+    margin-top: -25px;
 }
 
 #cadastro .btn-primary {
