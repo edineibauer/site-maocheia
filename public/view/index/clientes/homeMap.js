@@ -102,7 +102,7 @@ function addMarker(service, type, latitude, longitude) {
 
     if (type === 1) {
         image = {
-            url: HOME + VENDOR + 'site-maocheia/public/assets/svg/circulo.svg?i=ignore',
+            url: HOME + 'public/assets/svg/circulo.svg?i=ignore',
             size: new google.maps.Size(20, 20),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(10, 10)
@@ -118,7 +118,7 @@ function addMarker(service, type, latitude, longitude) {
 
     let marker = new google.maps.Marker({
         position: {lat: latitude, lng: longitude},
-        zIndex: (type === 1 ? 1 : service.distancia),
+        zIndex: (type === 1 ? 100000 : service.distancia*100),
         map: map,
         draggable: !1,
         type: type,

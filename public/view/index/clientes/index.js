@@ -161,7 +161,7 @@ function backHomeService() {
     }
 
     if (pass) {
-        if(touchElements.$el.hasClass("touchOpen")) {
+        if (touchElements.$el.hasClass("touchOpen")) {
             touchElements.moveToStart();
         } else {
             touchElements.setDistanciaStart(window.innerHeight - 125 - (USER.setor === 0 ? 0 : 50));
@@ -237,11 +237,17 @@ async function updateListService() {
 /**
  * Atualiza lista e mapa com os serviços dentro da distância e dos filtros selecionados
  */
-function showServices() {
+var showingServices = !1;
+
+async function showServices() {
+    while (showingServices)
+        await sleep(50);
+
     /**
      * @array servicos => Lista com novos serviços no mapa
      * @array servicesOnMap => Lista com antigos serviços no mapa
      */
+    showingServices = !0;
     let servicos = getServicesFiltered();
 
     if (!isEmpty(servicos)) {
@@ -259,14 +265,14 @@ function showServices() {
          */
         if (!isEmpty(servicesOnMap)) {
             for (let i in servicesOnMap.reverse()) {
-                if(!servicos.find(e => e.id == servicesOnMap[i].id))
+                if (!servicos.find(e => e.id == servicesOnMap[i].id))
                     removeService(i, servicesOnMap[i].id);
             }
         }
 
         servicesOnMap = servicos;
 
-    } else if(!isEmpty(servicesOnMap)) {
+    } else if (!isEmpty(servicesOnMap)) {
         /**
          * Remove all services from map
          */
@@ -277,8 +283,10 @@ function showServices() {
         servicesOnMap = [];
     }
 
-    if(!$("#procura").is(":focus"))
-        updateListService();
+    if (!$("#procura").is(":focus"))
+        await updateListService();
+
+    showingServices = !1;
 }
 
 $(function () {
@@ -410,7 +418,7 @@ $(function () {
     }).off("click", ".serviceSubCategoryResult").on("click", ".serviceSubCategoryResult", function () {
         let id = $(this).attr("rel");
         db.exeRead("categorias_sub", id).then(sub => {
-            if(!isEmpty(sub))
+            if (!isEmpty(sub))
                 selectCategory(sub[0].categoria, id);
         });
         touchElements.moveToStart();

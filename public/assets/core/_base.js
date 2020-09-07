@@ -25,8 +25,8 @@ if(typeof ScreenOrientation.lock === "function")
 
 function getProfissionalMustache(profissional, cat, subcategorias) {
     profissional = Object.assign({}, profissional);
-    profissional.perfil_profissional.imagem_de_perfil = !isEmpty(profissional.perfil_profissional.imagem_de_perfil) ? profissional.perfil_profissional.imagem_de_perfil[0].urls.medium : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg";
-    profissional.perfil_profissional.imagem_de_fundo = !isEmpty(profissional.perfil_profissional.imagem_de_fundo) ? profissional.perfil_profissional.imagem_de_fundo[0].urls.medium : "";
+    profissional.perfil_profissional.imagem_de_perfil = !isEmpty(profissional.perfil_profissional.imagem_de_perfil) ? profissional.perfil_profissional.imagem_de_perfil[0].urls.medium : HOME + "public/assets/svg/account.svg";
+    profissional.perfil_profissional.imagem_de_fundo = !isEmpty(profissional.perfil_profissional.imagem_de_fundo) ? profissional.perfil_profissional.imagem_de_fundo[0].urls.thumb : "";
 
     // profissional.endereco = (!isEmpty(profissional.endereco) ? getLogradouroFromEndereco(profissional.endereco[0]) : "");
 
@@ -60,7 +60,7 @@ function getProfissionalMustache(profissional, cat, subcategorias) {
     profissional.perfil_profissional.dias = (!isEmpty(profissional.perfil_profissional.dias) ? (isJson(profissional.perfil_profissional.dias) ? JSON.parse(profissional.perfil_profissional.dias) : profissional.perfil_profissional.dias) : "");
     profissional.perfil_profissional.online = profissional.perfil_profissional.inicio < hora && profissional.perfil_profissional.termino > hora && !isEmpty(profissional.perfil_profissional.dias) && profissional.perfil_profissional.dias.indexOf(week) > -1;
     profissional.perfil_profissional.categoriaNome = cat.nome || "";
-    profissional.perfil_profissional.categoriaImage = (!isEmpty(cat.imagem) ? cat.imagem[0].urls.thumb : HOME + VENDOR + "site-maocheia/public/assets/svg/account.svg");
+    profissional.perfil_profissional.categoriaImage = (!isEmpty(cat.imagem) ? cat.imagem[0].urls.thumb : HOME + "public/assets/svg/account.svg");
 
     profissional.perfil_profissional.subcategoriasData = [];
     if(!isEmpty(profissional.perfil_profissional.subcategorias)) {
