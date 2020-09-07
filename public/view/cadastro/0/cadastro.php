@@ -59,6 +59,8 @@
                 </div>
             </div>
         </div>
+        <?php \Login\Social::googleLogin() ?>
+        <?php \Login\Social::facebookLogin() ?>
 
     </div>
 </section>

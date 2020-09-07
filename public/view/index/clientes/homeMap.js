@@ -5,7 +5,7 @@ function openMapPopup(marker) {
             if (markers[i].type > 1) {
                 if (/serviceSelected$/.test(markers[i].icon.url))
                     markers[i].setIcon({
-                        url: markers[i].service.perfil_profissional.categoriaImage + "?i=service" + (markers[i].service.perfil_profissional.online ? "Online" : ""),
+                        url: markers[i].service.perfil_profissional.categoriaImage + "?i=service" + (markers[i].service.online ? "Online" : ""),
                         scaledSize: new google.maps.Size(32, 32),
                         origin: new google.maps.Point(0, 0),
                         anchor: new google.maps.Point(16, 16)
@@ -58,7 +58,7 @@ function closeMapPopup() {
         if (markers[i].type > 1) {
             if (/serviceSelected$/.test(markers[i].icon.url))
                 markers[i].setIcon({
-                    url: markers[i].service.perfil_profissional.categoriaImage + "?i=service" + (markers[i].service.perfil_profissional.online ? "Online" : ""),
+                    url: markers[i].service.perfil_profissional.categoriaImage + "?i=service" + (markers[i].service.online ? "Online" : ""),
                     scaledSize: new google.maps.Size(32, 32),
                     origin: new google.maps.Point(0, 0),
                     anchor: new google.maps.Point(16, 16)
@@ -97,40 +97,19 @@ function moveToLocation(lat, lng) {
     centerMap();
 }
 
-function setCoordenadas() {
-    if (!isEmpty(USER.setorData?.perfil_profissional) && navigator.geolocation) {
-        navigator.permissions.query({name: 'geolocation'}).then(permissionGeo => {
-            if (permissionGeo.state === "granted") {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                        AJAX.post("set/coordenadas", {
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude
-                        });
-                    },
-                    function (error) {
-                    }, {
-                        enableHighAccuracy: true,
-                        timeout: 5000,
-                        maximumAge: 0
-                    });
-            }
-        });
-    }
-}
-
 function addMarker(service, type, latitude, longitude) {
     let image = null;
 
     if (type === 1) {
         image = {
             url: HOME + VENDOR + 'site-maocheia/public/assets/svg/circulo.svg?i=ignore',
-            size: new google.maps.Size(28, 28),
+            size: new google.maps.Size(20, 20),
             origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(14, 14)
+            anchor: new google.maps.Point(10, 10)
         };
     } else {
         image = {
-            url: service.perfil_profissional.categoriaImage + "?i=service" + (service.perfil_profissional.online ? "Online" : ""),
+            url: service.perfil_profissional.categoriaImage + "?i=service" + (service.online ? "Online" : ""),
             scaledSize: new google.maps.Size(32, 32),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(16, 16)
@@ -139,6 +118,7 @@ function addMarker(service, type, latitude, longitude) {
 
     let marker = new google.maps.Marker({
         position: {lat: latitude, lng: longitude},
+        zIndex: (type === 1 ? 1 : service.distancia),
         map: map,
         draggable: !1,
         type: type,
@@ -155,7 +135,7 @@ function addMarker(service, type, latitude, longitude) {
 
     if (type > 1) {
         marker.addListener('click', toogleServicePerfil);
-        markerCluster.addMarker(marker);
+        // markerCluster.addMarker(marker);
         markers.push(marker);
     }
 
@@ -211,17 +191,78 @@ function getZoomToKm(zoom) {
     }
 }
 
-function startMap() {
+function updateMyPosition(lat, lng) {
+    myMarker.setPosition(new google.maps.LatLng(lat, lng));
+    moveToLocation(lat, lng);
+}
+
+/**
+ * Return a position lat, lng from the user
+ */
+function getPosition() {
+    return [(!isEmpty(USER.setorData.latitude) ? parseFloat(USER.setorData.latitude) : -28.679831), (!isEmpty(USER.setorData.longitude) ? parseFloat(USER.setorData.longitude) : -49.350881)];
+}
+
+async function addService(data) {
+    servicesOnMap.push(data);
+
+    /**
+     * Add on map
+     */
+    addMarker(data, 2, parseFloat(data.latitude), parseFloat(data.longitude));
+}
+
+async function updateService(service, data) {
+    service = data;
+
+    for(let m in markers) {
+        if(typeof markers[m] === "object" && markers[m].service.id == service.id) {
+            markers[m].service = service;
+            markers[m].setPosition(new google.maps.LatLng(service.latitude, service.longitude));
+            break;
+        }
+    }
+}
+
+function removeService(i, id) {
+    servicesOnMap.splice(i, 1);
+    /**
+     * Remove from map
+     */
+    for(let m in markers) {
+        if(typeof markers[m] === "object" && markers[m].service.id == id) {
+            markers[m].setMap(null);
+            delete (markers[m]);
+        }
+    }
+}
+
+async function updateViewReal(data) {
+    services = [];
+
+    if(!isEmpty(data)) {
+        let categories = await db.exeRead("categorias");
+        let subcategorias = await db.exeRead("categorias_sub");
+        let minhaLatlng = map.getCenter();
+
+        for(let d of data) {
+            d.distancia = getLatLngDistance(d.latitude, d.longitude, minhaLatlng.lat(), minhaLatlng.lng());
+            services.push(getProfissionalMustache(d, categories.find(s => s.id == d.perfil_profissional.categoria), subcategorias));
+        }
+    }
+
+    showServices();
+}
+
+async function startMap() {
+    let myPosition = getPosition();
+    let haveMapStartedBefore = !!map;
 
     /**
      * Minha posição
      */
-    let latitude = -28.679831;
-    let longitude = -49.350881;
-    let myLatLng = {lat: latitude, lng: longitude};
-
     map = new google.maps.Map(document.getElementById('mapa-home'), {
-        center: myLatLng,
+        center: {lat: myPosition[0], lng: myPosition[1]},
         zoom: 12,
         gestureHandling: "greedy",
         styles: [
@@ -252,79 +293,54 @@ function startMap() {
         ],
         disableDefaultUI: true
     });
-    markerCluster = new MarkerClusterer(map, [], {
-        gridSize: 5,
-        imagePath: HOME + 'public/assets/maps/m'
-    });
+    // markerCluster = new MarkerClusterer(map, [], {
+    //     gridSize: 5,
+    //     imagePath: HOME + 'public/assets/maps/m'
+    // });
 
     map.addListener('zoom_changed', function () {
         $("#procura").blur();
         touchElements.moveToStart();
-        // readServices();
     });
     map.addListener('click', function () {
         $("#procura").blur();
         changeSwipeToSearch();
     });
 
+    map.addListener('drag', function () {
+        $("#procura").blur();
+        changeSwipeToSearch();
+    });
+
     map.addListener('mousedown', function () {
         touchElements.moveToStart();
-        if($("#location-box").hasClass("active"))
+        if ($("#location-box").hasClass("active"))
             $("#location-btn").trigger("click");
     });
 
-    map.addListener('drag', function () {
-        // clearTimeout(mapMoveTrack);
-        // mapMoveTrack = setTimeout(function () {
-        //     readServices();
-        // }, 200);
-    });
-
     /**
-     * Minha posição atual
+     * Seta meu marker no mapa
      */
-    myMarker = addMarker({}, 1, latitude, longitude);
-    moveToLocation(latitude, longitude);
+    myMarker = addMarker({}, 1, myPosition[0], myPosition[1]);
+    moveToLocation(myPosition[0], myPosition[1]);
 
-    if (navigator.geolocation) {
-        navigator.permissions.query({name: 'geolocation'}).then(permissionGeo => {
-            switch (permissionGeo.state) {
-                case "granted":
-                    navigator.geolocation.getCurrentPosition(position => {
-                            myMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-                            moveToLocation(position.coords.latitude, position.coords.longitude);
-                            readAllServices();
-                        },
-                        () => {
-                            // toast("Erro ao obter localização", 2000, "toast-warning");
-                            readAllServices(1);
-                        }, {
-                            enableHighAccuracy: true,
-                            timeout: 5000,
-                            maximumAge: 0
-                        });
-                    break;
-                default:
-                    //não aceitou mostrar a localização
-                    readAllServices(1);
-            }
-        });
-    } else {
-        readAllServices(1);
-        toast("Seu endereço precisa ser informado manualmente, pois o aparelho não tem suporte para localização.", 3000, "toast-warning");
+    if(!haveMapStartedBefore) {
+        sseAdd("realTimeInfo", updateViewReal);
+    } else if(!isEmpty(services)) {
+        servicesOnMap = [];
+        showServices();
     }
 
-    clearInterval(intervalPosition);
-    intervalPosition = setInterval(function () {
-        setCoordenadas();
-    }, 4000);
-
+    /**
+     * Ações de arrate do menu
+     * @type {TouchUp}
+     */
     touchElements = new TouchUp($(".menu-swipe-class"), 450, 100, null, null, ["#profissionais", "#service-perfil-body", "#serviceMensagem", "#categorias", "#subcategorias", "#arrowback-perfil"]);
     touchElements.setFuncaoToStart(function (touch, $div) {
         $div.animate({
             scrollTop: 0
         }, 100);
     });
+
     changeSwipeToSearch();
-    getRealPosition();
 }

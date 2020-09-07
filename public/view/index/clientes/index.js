@@ -1,32 +1,15 @@
-var
-    filtrosProfissionais = {
-        categoria: "",
-        subcategoria: []
-    },
-    servicesOnMapUpdate = null,
-    services = [],
-    servicesFiltered = [],
-    openService = {},
-    myMarker,
-    markers = [],
-    markerCluster = null,
-    map,
-    intervalPosition,
-    touchElements;
-
-function destruct() {
-    clearInterval(servicesOnMapUpdate);
-}
-
-function btnPrimary() {
+async function btnPrimary() {
     let $btn = $("#serviceMensagem");
     if (window.getComputedStyle($("#serviceMensagem")[0], ':before').content.replace('"', "").replace('"', "").trim() === "VER PERFIL") {
         touchOpenPerfil();
     } else {
-        if (!isNumberPositive($btn.data("rel")))
+        if (!isNumberPositive($btn.data("rel"))) {
             toast("Usuário inválido", 1400, "toast-infor");
-        else
-            pageTransition("message/" + $btn.data("rel"));
+        } else {
+            let id = $btn.data("rel");
+            let messages = await db.exeRead("messages_user", {usuario: id});
+            pageTransition("message/" + id, "route", "forward", null, (!isEmpty(messages) ? messages[0] : []));
+        }
     }
 }
 
@@ -80,6 +63,7 @@ function showCategoryAndSubcategory() {
 db.exeRead("categorias");
 
 async function changeSwipeToSearch() {
+    updateListService();
 
     openService = {};
     let $menu = $(".menu-swipe-class");
@@ -104,7 +88,6 @@ async function changeSwipeToSearch() {
 
         let tpl = await getTemplates();
         $(".swipe-zone-body").html(Mustache.render(tpl.serviceFilterSearch, categorias));
-        readServices();
 
         if (isNumberPositive(filtrosProfissionais.categoria))
             showCategoryAndSubcategory();
@@ -219,9 +202,9 @@ function toogleServicePerfil() {
     openMapPopup(this);
 }
 
-function profissionaisFiltrado(data) {
+function getServicesFiltered() {
     let list = [];
-    for (let p of data) {
+    for (let p of services) {
         let pass = !0;
         for (let c in filtrosProfissionais) {
             if (c === "categoria" && !isEmpty(filtrosProfissionais[c]) && filtrosProfissionais[c] !== parseInt(p.perfil_profissional.categoria))
@@ -246,164 +229,66 @@ function getAllServiceOnMap() {
     return $imgs;
 }
 
-function setAllServicesOnMap(data) {
-    /**
-     * Remove all markers and clusters
-     */
-    for (let e in markers) {
-        markerCluster.removeMarker(markers[e]);
-        markers[e].setMap(null);
-        delete (markers[e]);
-    }
-
-    data = data || services;
-
-    /**
-     * Add all data to map as markers
-     */
-    for (let i = 0; i < data.length; i++) {
-        if (data[i].perfil_profissional?.ativo == 1)
-            addMarker(data[i], 2, parseFloat(data[i].latitude), parseFloat(data[i].longitude));
-    }
-}
-
-async function updateListService(data) {
+async function updateListService() {
     let tpl = await getTemplates();
-    $("#services").html(Mustache.render(tpl.serviceCards, {profissionais: data}, tpl));
-}
-
-/**
- * Lê todos os serviços em um raio de 200km
- */
-function readAllServices(localizationAnonimo) {
-    let latlng = map.getCenter();
-    get("event/nearbyServices/" + latlng.lat() + "/" + latlng.lng() + "/" + (typeof localizationAnonimo !== "undefined" ? 2000 : 200)).then(result => {
-
-        db.exeRead("categorias").then(categories => {
-            db.exeRead("categorias_sub").then(subcategorias => {
-                services = [];
-                for (let i in result)
-                    services.push(getProfissionalMustache(result[i], categories.find(s => s.id == result[i].perfil_profissional.categoria), subcategorias));
-
-                readServices();
-                setAllServicesOnMap(servicesFiltered);
-
-                if (navigator.onLine && USER.setor !== 0) {
-                    clearInterval(servicesOnMapUpdate);
-                    servicesOnMapUpdate = setInterval(function () {
-                        updateRealPosition();
-                    }, 4000);
-                }
-            });
-        });
-    });
-}
-
-/**
- * Busca atualizações das posições dos profissionais
- */
-function updateRealPosition() {
-    if (!navigator.onLine || USER.setor === 0) {
-        clearInterval(servicesOnMapUpdate);
-
-    } else {
-        get("event/realtimePositionServices").then(results => {
-            if (!isEmpty(results)) {
-                let minhaLatlng = map.getCenter();
-
-                /**
-                 * Para cada resultado retornado
-                 * atualiza posição no mapa e distância da minha posição
-                 */
-                for (let result of results) {
-                    for (let service of services) {
-                        if (service.id === result.cliente) {
-                            /**
-                             * Atualiza lat, e lng
-                             * Atualiza distancia também
-                             */
-                            service.latitude = result.latitude;
-                            service.longitude = result.longitude;
-                            service.data_de_atualizacao = result.data_de_atualizacao;
-                            service.distancia = getLatLngDistance(service.latitude, service.longitude, minhaLatlng.lat(), minhaLatlng.lng());
-                            if (isNumberPositive(service.distancia_de_atendimento_km) && service.distancia_de_atendimento_km < service.distancia)
-                                service.ativo = !1;
-
-                            /**
-                             * Atualiza posição dos markers no mapa
-                             */
-                            if (!isEmpty(markers)) {
-                                for (let m of markers) {
-                                    if (m?.id === service?.id) {
-                                        m.setPosition(new google.maps.LatLng(parseFloat(service.latitude), parseFloat(service.longitude)));
-                                        break;
-                                    }
-                                }
-                            }
-
-                            break;
-                        }
-                    }
-                }
-            }
-        });
-    }
+    $("#services").html(Mustache.render(tpl.serviceCards, {profissionais: servicesOnMap}, tpl));
 }
 
 /**
  * Atualiza lista e mapa com os serviços dentro da distância e dos filtros selecionados
  */
-function readServices() {
+function showServices() {
     /**
-     * Aplica filtro aos resultados que serão mostrados no mapa
+     * @array servicos => Lista com novos serviços no mapa
+     * @array servicesOnMap => Lista com antigos serviços no mapa
      */
-    servicesFiltered = profissionaisFiltrado(services);
-    updateListService(servicesFiltered);
-}
+    let servicos = getServicesFiltered();
 
-function initAutocomplete() {
-    startMap();
-}
+    if (!isEmpty(servicos)) {
+        for (let i in servicos) {
+            let service = servicesOnMap.find(e => e.id == servicos[i].id);
 
-function getRealPosition() {
-    if (navigator.geolocation) {
-        navigator.permissions.query({name: 'geolocation'}).then(permissionGeo => {
-            switch (permissionGeo.state) {
-                case "granted":
-                case "prompt":
-                    navigator.geolocation.getCurrentPosition(position => {
-                            myMarker.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-                            moveToLocation(position.coords.latitude, position.coords.longitude);
-                            readAllServices();
-                        },
-                        () => {
-                            // toast("Erro ao obter localização", 2000, "toast-warning");
-                            readAllServices(1);
-                        }, {
-                            enableHighAccuracy: true,
-                            timeout: 5000,
-                            maximumAge: 0
-                        });
-                    break;
-                //exibe popup pedindo permissão para pegar localização
-                default:
-                    //não aceitou mostrar a localização
-                    toast("desinstale o app ou limpe os dados para poder localizar o GPS", 5000, "toast-warning");
+            if (service)
+                updateService(service, servicos[i]);
+            else
+                addService(servicos[i]);
+        }
+
+        /**
+         * Remove services from the list
+         */
+        if (!isEmpty(servicesOnMap)) {
+            for (let i in servicesOnMap.reverse()) {
+                if(!servicos.find(e => e.id == servicesOnMap[i].id))
+                    removeService(i, servicesOnMap[i].id);
             }
-        });
-    } else {
-        toast("dispositivo sem suporte", 1500, "toast-warning");
+        }
+
+        servicesOnMap = servicos;
+
+    } else if(!isEmpty(servicesOnMap)) {
+        /**
+         * Remove all services from map
+         */
+        for (let e in markers) {
+            markers[e].setMap(null);
+            delete (markers[e]);
+        }
+        servicesOnMap = [];
     }
+
+    if(!$("#procura").is(":focus"))
+        updateListService();
 }
 
 $(function () {
     /**
      * Primeiro carregamento do mapa
      */
-    if (navigator.onLine)
-        $.cachedScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyDOHzDqP5Obg3nqWwu-QwztEyhD8XENPGE&libraries=places,directions&callback=initAutocomplete&language=pt-br");
+    if (!map)
+        $.cachedScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyDOHzDqP5Obg3nqWwu-QwztEyhD8XENPGE&libraries=places,directions&callback=startMap&language=pt-br");
     else
-        initAutocomplete();
+        startMap();
 
     $("body").off("click", "#location-btn").on("click", "#location-btn", function () {
 
@@ -429,7 +314,7 @@ $(function () {
         }
     }).off("click", "#my-location-btn").on("click", "#my-location-btn", function () {
         $("#location-btn").trigger("click");
-        getRealPosition();
+        moveToLocation(USER.setorData.latitude, USER.setorData.longitude);
 
     }).off("click", ".profissional").on("click", ".profissional", function () {
         for (let i in services) {
@@ -456,7 +341,7 @@ $(function () {
         touchElements.moveToTarget();
 
         $("#procura").one("blur", function () {
-            readServices();
+            showServices();
             let search = $(this).val();
             $(".swipe-zone-body").removeClass("hideFilter");
             $(".titulo-result").html("Profissionais");
@@ -513,8 +398,7 @@ $(function () {
 
             $(this).addClass("selecionado");
         }
-        readServices();
-        setAllServicesOnMap(servicesFiltered);
+        showServices();
 
     }).off("click", ".serviceProfissao").on("click", ".serviceProfissao", function () {
         selectCategory($(this).attr('rel'));
@@ -553,7 +437,6 @@ function selectCategory(category, subcategory) {
 
     readSubCategoriesMenu(filtrosProfissionais.categoria, subcategory);
     setTimeout(function () {
-        readServices();
-        setAllServicesOnMap(servicesFiltered);
+        showServices();
     }, 150);
 }

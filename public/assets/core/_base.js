@@ -135,22 +135,33 @@ function degrees_to_radians(degrees) {
     return degrees * (Math.PI / 180);
 }
 
-/**
- * Verifica se tem mensagens pendentes
- * @returns {Promise<void>}
- */
-/*async function checkMensagens() {
-    let pendentes = 0;
-    let mensagens = await db.exeRead("mensagens");
-    if(!isEmpty(mensagens)) {
-        for(let i in mensagens) {
-            if(mensagens[i].pendente === 1)
-                pendentes++
-        }
+function setMyPosition() {
+    if (navigator.onLine && navigator.geolocation && USER.setorData.localizacao) {
+        navigator.permissions.query({name: 'geolocation'}).then(permissionGeo => {
+            if (permissionGeo.state === "granted") {
+                navigator.geolocation.watchPosition(position => {
+                    setUserData({"latitude": position.coords.latitude, "longitude": position.coords.longitude});
+                });
+            }
+        });
     }
-    if(pendentes !== 0)
-        $("#core-header-nav-bottom").find("a[href='mensagem']").append("<div class='badge-notification'>" + pendentes + "</div>");
-}*/
+}
+
+if(typeof services === "undefined") {
+    var services = [],
+        servicesOnMap = [],
+        openService = {},
+        myMarker,
+        map,
+        markers = [],
+        filtrosProfissionais = {
+            categoria: "",
+            subcategoria: []
+        },
+        markerCluster = null,
+        intervalPosition,
+        touchElements;
+}
 
 $(function ($) {
     $.fn.profissionalStar = function (avaliacao) {
@@ -167,8 +178,5 @@ $(function ($) {
         return this
     };
 
-    // clearInterval(intervalPosition);
-    // intervalPosition = setInterval(function () {
-    //     checkMensagens();
-    // }, 4000);
+    setMyPosition();
 });
