@@ -266,7 +266,19 @@ async function showServices() {
         if (!isEmpty(servicesOnMap)) {
             for (let i in servicesOnMap.reverse()) {
                 if (!servicos.find(e => e.id == servicesOnMap[i].id))
-                    removeService(i, servicesOnMap[i].id);
+                    servicesOnMap.splice(i, 1);
+            }
+        }
+
+        /**
+         * Remove all markers not on servicesOnMap
+         */
+        if (!isEmpty(markers)) {
+            for (let i in markers) {
+                if (typeof markers[i] === "object" && !servicos.find(e => e.id == markers[i].service.id)) {
+                    markers[i].setMap(null);
+                    delete (markers[i]);
+                }
             }
         }
 

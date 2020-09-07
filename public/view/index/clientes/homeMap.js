@@ -118,7 +118,7 @@ function addMarker(service, type, latitude, longitude) {
 
     let marker = new google.maps.Marker({
         position: {lat: latitude, lng: longitude},
-        zIndex: (type === 1 ? 100000 : service.distancia*100),
+        zIndex: (type === 1 ? 100000 : parseInt(service.distancia*100)),
         map: map,
         draggable: !1,
         type: type,
@@ -207,6 +207,16 @@ async function addService(data) {
     servicesOnMap.push(data);
 
     /**
+     * If have on map this service, so delete before create again
+     * @type {number}
+     */
+    let m = markers.findIndex(e => typeof e === "object" && e.service.id == data.id);
+    if(m > -1) {
+        markers[m].setMap(null);
+        delete markers[m];
+    }
+
+    /**
      * Add on map
      */
     addMarker(data, 2, parseFloat(data.latitude), parseFloat(data.longitude));
@@ -230,21 +240,7 @@ async function updateService(service, data) {
     }
 }
 
-function removeService(i, id) {
-    servicesOnMap.splice(i, 1);
-    /**
-     * Remove from map
-     */
-    for(let m in markers) {
-        if(typeof markers[m] === "object" && markers[m].service.id == id) {
-            markers[m].setMap(null);
-            delete (markers[m]);
-        }
-    }
-}
-
 async function updateViewReal(data) {
-
     services = [];
     if(!isEmpty(data)) {
         let categories = await db.exeRead("categorias");
@@ -257,7 +253,7 @@ async function updateViewReal(data) {
         }
     }
 
-    showServices();
+    await showServices();
 }
 
 async function startMap() {
@@ -331,6 +327,7 @@ async function startMap() {
     moveToLocation(myPosition[0], myPosition[1]);
 
     if(!haveMapStartedBefore) {
+        await updateViewReal(await AJAX.get("read/realTimeInfo"));
         sseAdd("realTimeInfo", updateViewReal);
     } else if(!isEmpty(services)) {
         servicesOnMap = [];
