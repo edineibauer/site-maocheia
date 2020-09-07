@@ -38,7 +38,7 @@ if (!empty($_SESSION['userlogin']) && !empty($_SESSION['userlogin']['setorData']
                      */
                     if($lastDay !== "") {
                         $a = json_decode(file_get_contents(PATH_HOME . "_cdn/userActivity/" . $item['usuarios_id'] . "/" . $lastDay . ".json"), !0);
-                        $item['online'] = (strtotime($a[count($a) -1]) + 15) > strtotime(date("H:i:s"));
+                        $item['online'] = (strtotime($a[count($a) -1]) + 10) > strtotime(date("H:i:s"));
                     }
                 }
 

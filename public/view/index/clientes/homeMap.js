@@ -219,6 +219,12 @@ async function updateService(service, data) {
         if(typeof markers[m] === "object" && markers[m].service.id == service.id) {
             markers[m].service = service;
             markers[m].setPosition(new google.maps.LatLng(service.latitude, service.longitude));
+            markers[m].setIcon({
+                url: markers[m].service.perfil_profissional.categoriaImage + "?i=service" + (markers[m].service.online ? "Online" : ""),
+                scaledSize: new google.maps.Size(32, 32),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(16, 16)
+            });
             break;
         }
     }
@@ -238,8 +244,8 @@ function removeService(i, id) {
 }
 
 async function updateViewReal(data) {
-    services = [];
 
+    services = [];
     if(!isEmpty(data)) {
         let categories = await db.exeRead("categorias");
         let subcategorias = await db.exeRead("categorias_sub");
