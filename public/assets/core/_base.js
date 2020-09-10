@@ -16,13 +16,6 @@ sseAdd("messagesBadge", function (data) {
     }
 });
 
-// var intervalPosition;
-if(window.screen.lockOrientation)
-    window.screen.orientation.lock("portrait");
-
-if(typeof ScreenOrientation.lock === "function")
-    ScreenOrientation.lock("portrait");
-
 function getProfissionalMustache(profissional, cat, subcategorias) {
     profissional = Object.assign({}, profissional);
     profissional.perfil_profissional.imagem_de_perfil = !isEmpty(profissional.perfil_profissional.imagem_de_perfil) ? profissional.perfil_profissional.imagem_de_perfil[0].urls.medium : HOME + "public/assets/svg/account.svg";
@@ -136,13 +129,10 @@ function degrees_to_radians(degrees) {
 }
 
 function setMyPosition() {
-    if (navigator.onLine && navigator.geolocation && USER.setorData.localizacao) {
-        navigator.permissions.query({name: 'geolocation'}).then(permissionGeo => {
-            if (permissionGeo.state === "granted") {
-                navigator.geolocation.watchPosition(position => {
-                    setUserData({"latitude": position.coords.latitude, "longitude": position.coords.longitude});
-                });
-            }
+    if (navigator.onLine && navigator.geolocation) {
+        navigator.geolocation.watchPosition(position => {
+            console.log(position.coords);
+            setUserData({"latitude": position.coords.latitude, "longitude": position.coords.longitude});
         });
     }
 }

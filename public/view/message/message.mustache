@@ -1,23 +1,21 @@
 <div id="frame">
     <div class="content">
         <section class="message">
-            <div id="mensagemHeader">
-                <div class="contact-profile">
-                    <a href="#back" data-animation="back">
-                        <i class="material-icons" id="arrowback">arrow_back</i>
-                        <img src="{{#PAGE.relationData.usuario.relationData.clientes.perfil_profissional}}{{imagem_de_perfil.0.urls.thumb}}{{/PAGE.relationData.usuario.relationData.clientes.perfil_profissional}}{{^PAGE.relationData.usuario.relationData.clientes.perfil_profissional}}{{#PAGE.relationData.usuario.imagem}}{{urls.thumb}}{{/PAGE.relationData.usuario.imagem}}{{^PAGE.relationData.usuario.imagem}}{{home}}public/assets/svg/account.svg{{/PAGE.relationData.usuario.imagem}}{{/PAGE.relationData.usuario.relationData.clientes.perfil_profissional}}" id="perfil-image" height="40" width="40" class="float-left mt-2" />
-                    </a>
-                    <div id="perfil-info">
-                        <h6 id="perfil-name" class="float-left pl-3 mb-0">{{PAGE.relationData.usuario.nome}}</h6>
-                        <span id="perfil-status" class="float-left pl-3">
-                            <i id="blo" rel="{{PAGE.bloqueado}}" class='material-icons blocked{{^PAGE.bloqueado}} hide{{/PAGE.bloqueado}}'>block</i>
-                            <i id="sil" rel="{{PAGE.silenciado}}" class='material-icons{{^PAGE.silenciado}} hide{{/PAGE.silenciado}}'>volume_off</i>
-                            <div class="lasto" id="lastonline">{{{PAGE.ultima_vez_online}}}</div>
-                        </span>
-                    </div>
-                    <div class="social-media">
-                        <i class="material-icons">more_vert</i>
-                    </div>
+            <div class="contact-profile">
+                <a href="#back" data-animation="back">
+                    <i class="material-icons" id="arrowback">arrow_back</i>
+                    <img src="{{#PAGE.relationData.usuario.relationData.clientes.perfil_profissional}}{{imagem_de_perfil.0.urls.thumb}}{{/PAGE.relationData.usuario.relationData.clientes.perfil_profissional}}{{^PAGE.relationData.usuario.relationData.clientes.perfil_profissional}}{{#PAGE.relationData.usuario.imagem}}{{urls.thumb}}{{/PAGE.relationData.usuario.imagem}}{{^PAGE.relationData.usuario.imagem}}{{home}}public/assets/svg/account.svg{{/PAGE.relationData.usuario.imagem}}{{/PAGE.relationData.usuario.relationData.clientes.perfil_profissional}}" id="perfil-image" height="40" width="40" class="float-left mt-2" />
+                </a>
+                <div id="perfil-info">
+                    <h6 id="perfil-name" class="float-left pl-3 mb-0">{{PAGE.relationData.usuario.nome}}</h6>
+                    <span id="perfil-status" class="float-left pl-3">
+                        <i id="blo" rel="{{PAGE.bloqueado}}" class='material-icons blocked{{^PAGE.bloqueado}} hide{{/PAGE.bloqueado}}'>block</i>
+                        <i id="sil" rel="{{PAGE.silenciado}}" class='material-icons{{^PAGE.silenciado}} hide{{/PAGE.silenciado}}'>volume_off</i>
+                        <div class="lasto" id="lastonline">{{{PAGE.ultima_vez_online}}}</div>
+                    </span>
+                </div>
+                <div class="social-media">
+                    <i class="material-icons">more_vert</i>
                 </div>
             </div>
             <div id="menu-chat">

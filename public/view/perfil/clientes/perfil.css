@@ -41,7 +41,9 @@ h6, h4 {
 #topo {
     margin-bottom: 16px;
     box-shadow: 0 2px 5px #00000029;
-    padding: 20px 0;
+    margin-top: calc(0px - env(safe-area-inset-top));
+    padding-bottom: 20px;
+    padding-top: calc(20px + env(safe-area-inset-top));
     border-bottom: 1px solid #00000029;
     background: #FFFFFF;
     float: left;
@@ -84,13 +86,13 @@ h6, h4 {
 }
 
 .sair-app i {
-    float: left;
-    margin: -2px -4px 0 0;
+    margin: 0 6px 0 0;
+    transform: translateY(7px);
 }
 
 #sair-aplicativo {
     position: absolute;
-    bottom: 25px;
+    bottom: calc(25px + env(safe-area-inset-top));
     width: 100%;
     left: 0;
 }

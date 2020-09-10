@@ -20,3 +20,7 @@ body {
     text-align: center;
     margin-bottom: 14px;
 }
+
+#criar-conta {
+    padding-bottom: env(safe-area-inset-bottom);
+}

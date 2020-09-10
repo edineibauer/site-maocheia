@@ -7,6 +7,10 @@ body {
     margin-left: -4px;
 }
 
+#cadastro-profissional {
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
 #cadastro-profissional .titulo {
     font-size: 24px;
     font-weight: bold;

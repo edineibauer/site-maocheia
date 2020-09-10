@@ -58,6 +58,10 @@ body {
     width: 100%;
 }
 
+#cadastro-profissional {
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
 #cadastro-profissional .btn-primary {
     color: #fff;
     background-color: #2D7AFF !important;

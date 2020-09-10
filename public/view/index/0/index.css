@@ -25,7 +25,7 @@ body {
 #apresentacao .owl-dots {
     position: absolute;
     left: 20px !important;
-    bottom: 30px !important;
+    bottom: calc(30px + env(safe-area-inset-bottom) + env(safe-area-inset-top)) !important;
     z-index: 150 !important;
     text-align: left !important;
 }
@@ -47,7 +47,7 @@ body {
 
 .btn-proximo {
     position: absolute;
-    bottom: 15px;
+    bottom: calc(15px + env(safe-area-inset-bottom) + env(safe-area-inset-top));
     right: 15px;
     width: 130px;
     border-radius: 50px;
