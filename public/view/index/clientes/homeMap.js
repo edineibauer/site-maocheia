@@ -200,7 +200,7 @@ function updateMyPosition(lat, lng) {
  * Return a position lat, lng from the user
  */
 function getPosition() {
-    return [(!isEmpty(USER.setorData.latitude) ? parseFloat(USER.setorData.latitude) : -28.679831), (!isEmpty(USER.setorData.longitude) ? parseFloat(USER.setorData.longitude) : -49.350881)];
+    return [(!isEmpty(USER.setorData.latitude) ? parseFloat(USER.setorData.latitude) : -28.675195), (!isEmpty(USER.setorData.longitude) ? parseFloat(USER.setorData.longitude) : -49.368593)];
 }
 
 async function addService(data) {

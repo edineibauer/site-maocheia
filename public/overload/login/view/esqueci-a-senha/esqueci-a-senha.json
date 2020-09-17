@@ -1,0 +1,12 @@
+{
+  "title": "Esqueci a Senha",
+  "subtitle": "restauração da senha",
+  "type": "page",
+  "setor": "0",
+  "redirect": "index",
+  "css": ["bootstrap", "libs/materialdesignicons.min", "libs/owl.carousel.min"],
+  "js": ["libs/owl.carousel.min"],
+  "templates": ["wavesBottom"],
+  "header": false,
+  "navbar": false
+}

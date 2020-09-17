@@ -31,7 +31,7 @@ function showWriting(data) {
                 if ("digitando..." !== $userChat.text().trim())
                     before[user] = $userChat.html();
 
-                $(".message-card-message").html("<div style='color: seagreen'>digitando...</div>");
+                $userChat.html("<div style='color: seagreen'>digitando...</div>");
                 clearTimeout(chatWriting[user]);
                 chatWriting[user] = setTimeout(function () {
                     $userChat.html(before[user]);

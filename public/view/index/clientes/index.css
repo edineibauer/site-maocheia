@@ -692,6 +692,10 @@ body {
     height: 5px;
 }
 
+.touchOpen .swipe-line {
+    top: calc(0px + env(safe-area-inset-top));
+}
+
 .swipe-line::before {
     content: '';
     top: 4px;
@@ -752,6 +756,10 @@ body {
     padding: 5px;
 }
 
+.touchOpen #arrowback-perfil {
+    top: calc(-5px + env(safe-area-inset-top));
+}
+
 #background-perfil.hiden-background {
     opacity: 0;
 }
@@ -780,7 +788,7 @@ body {
 }
 
 .touchOpen #background-perfil, .touchOpen #background-perfil-div {
-    height: 150px;
+    height: calc(150px + env(safe-area-inset-bottom));
 }
 
 #serviceMensagem {

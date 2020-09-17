@@ -133,6 +133,9 @@ function setMyPosition() {
         navigator.geolocation.watchPosition(position => {
             console.log(position.coords);
             setUserData({"latitude": position.coords.latitude, "longitude": position.coords.longitude});
+        }, erro => {
+            console.log(erro);
+            setUserData({"latitude": -28.675195, "longitude": -49.368593});
         });
     }
 }

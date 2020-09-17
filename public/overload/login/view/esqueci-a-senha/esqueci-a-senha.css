@@ -3,7 +3,11 @@ body {
     background: #ffffff;
 }
 
-.facebook-login {
+#bt {
+    margin-top: 20px;
+}
+
+.fb-login-button {
     width: 100%!important;
 }
 
@@ -11,24 +15,15 @@ body {
     max-width: 400px;
     margin: auto;
     float: initial;
-    max-height: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
-}
-
-.owl-carousel {
-    height: 100vh;
-}
-
-.owl-item {
-    padding-top: 27vh;
-    padding-bottom: 100vh;
 }
 
 #apresentacao .owl-dots {
     position: absolute;
-    left: 20px !important;
-    bottom: calc(30px + env(safe-area-inset-bottom) + env(safe-area-inset-top)) !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: -30px !important;
     z-index: 150 !important;
-    text-align: left !important;
+    text-align: center !important;
 }
 
 #apresentacao .owl-dots .owl-dot {
@@ -46,38 +41,15 @@ body {
     background: #2666FF !important;
 }
 
-.btn-proximo {
-    position: absolute;
-    bottom: calc(15px + env(safe-area-inset-bottom));
-    right: 15px;
-    width: 130px;
-    border-radius: 50px;
-    box-shadow: 0 2px 10px #00000033;
+#apresentacao .btn-proximo {
+    box-shadow:0 2px 10px #00000033;
+    border-radius: 4px;
+    font-size: 22px;
+    font-weight: bold;
+    width: 96%;
+    margin-top: 42px;
     font-family: 'Roboto', sans-serif;
     padding: 9px 0 9px 0;
-    text-transform: capitalize;
-    font-size: 16px;
-    font-weight: 500 ;
-    margin-top: 5px;
-    z-index: 99999;
-}
-
-.btn-start {
-    padding: 15px 30px;
-    color: #ffffff;
-    width: 250px;
-}
-
-.btn-start:active, .btn-start:hover {
-    color: #ffffff;
-}
-
-.btn.prestador {
-    background: #FF1967;
-}
-
-.btn.login {
-    background: {{theme}};
 }
 
 #apresentacao .texto {
@@ -85,10 +57,9 @@ body {
     font-size: 14px;
     text-align: center;
     min-width: 210px;
-    margin: 0 auto;
+    margin: 0 auto 30px;
     max-height: 66px;
     min-height: 66px;
-    padding: 0 20px;
 }
 
 #apresentacao figure {
@@ -116,18 +87,12 @@ body {
 }
 
 #center-banner {
-    position: absolute;
-    top: calc(0px + env(safe-area-inset-top));
-    height: 100vh;
-    width: 100%;
+    margin-top: 44px;
 }
 
 .figure-logo {
-    position: absolute;
-    top: calc(30px + env(safe-area-inset-top));
-    z-index: 999;
-    width: 100%;
-    left: 0;
+    display: block;
+    text-align: center;
 }
 
 .form-control {
@@ -157,6 +122,15 @@ body {
     margin-bottom: 0;
     width: 100%;
     float: left;
+}
+
+.btn-primary {
+    text-transform: uppercase;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+    width: 100%;
+    padding: 9px !important;
+    margin-top: 5px;
 }
 
 #login .conta {
@@ -214,6 +188,7 @@ span[id^=not_signed_]:before, span[id^=connected]:before {
     margin-left: -26px;
     font-size: 13px;
 }
+
 @media (min-width: 600px) {
     body {
         background: #f9f9f9;
@@ -228,6 +203,5 @@ span[id^=not_signed_]:before, span[id^=connected]:before {
         left: 0;
         right: 0;
         background: #ffffff;
-        max-height: 680px;
     }
 }

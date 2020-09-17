@@ -38,11 +38,13 @@ async function usuarioFuncao(data) {
     /**
      * Read the cliente to apply the avaliation make now
      */
-    let c = await db.exeRead("clientes", data[0].relationData.clientes.id);
-    if(!isEmpty(c)) {
-        data[0].relationData.clientes.perfil_profissional[0].qualidade = (isNumberPositive(c[0].perfil_profissional[0].qualidade) ? parseFloat(c[0].perfil_profissional[0].qualidade / 10000000).toFixed(1).replace(".", ",") : "0,0");
-        data[0].relationData.clientes.perfil_profissional[0].atendimento = (isNumberPositive(c[0].perfil_profissional[0].atendimento) ? parseFloat(c[0].perfil_profissional[0].atendimento / 10000000).toFixed(1).replace(".", ",") : "0,0");
-        data[0].relationData.clientes.perfil_profissional[0].preco_justo = (isNumberPositive(c[0].perfil_profissional[0].preco_justo) ? parseFloat(c[0].perfil_profissional[0].preco_justo / 10000000).toFixed(1).replace(".", ",") : "0,0");
+    if(!isEmpty(data)) {
+        let c = await db.exeRead("clientes", data[0].relationData.clientes.id);
+        if (!isEmpty(c)) {
+            data[0].relationData.clientes.perfil_profissional[0].qualidade = (isNumberPositive(c[0].perfil_profissional[0].qualidade) ? parseFloat(c[0].perfil_profissional[0].qualidade / 10000000).toFixed(1).replace(".", ",") : "0,0");
+            data[0].relationData.clientes.perfil_profissional[0].atendimento = (isNumberPositive(c[0].perfil_profissional[0].atendimento) ? parseFloat(c[0].perfil_profissional[0].atendimento / 10000000).toFixed(1).replace(".", ",") : "0,0");
+            data[0].relationData.clientes.perfil_profissional[0].preco_justo = (isNumberPositive(c[0].perfil_profissional[0].preco_justo) ? parseFloat(c[0].perfil_profissional[0].preco_justo / 10000000).toFixed(1).replace(".", ",") : "0,0");
+        }
     }
 
     return data;

@@ -71,7 +71,7 @@ async function changeSwipeToSearch() {
         $menu.addClass("serviceFilterSearch").removeClass("servicePerfil buildPerfil");
 
         // resetMap();
-        touchElements.setDistanciaTarget(87);
+        touchElements.setDistanciaTarget(87 + parseInt($(":root").css("--sat")) + parseInt($(":root").css("--sab")));
 
         if (isNumberPositive(filtrosProfissionais.categoria)) {
             showCategoryAndSubcategory();
@@ -111,7 +111,7 @@ async function changeSwipeToService(data) {
     openService = data;
     $(".menu-swipe-class").addClass("servicePerfil").removeClass("serviceFilterSearch buildPerfil");
 
-    touchElements.setDistanciaTarget(0).setDistanciaStart(window.innerHeight - 255 - (USER.setor === 0 ? 0 : 50));
+    touchElements.setDistanciaTarget(0 + parseInt($(":root").css("--sab"))).setDistanciaStart(window.innerHeight - 255 - (USER.setor === 0 ? 0 : 50));
 
     let tpl = await getTemplates();
     await $(".swipe-zone-body").removeClass("filter").html(Mustache.render(tpl.servicePerfil, data));
