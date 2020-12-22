@@ -1,0 +1,20 @@
+{
+  "title": "{{sitename}}",
+  "css": [
+    "libs/materialdesignicons.min",
+    "libs/owl.carousel.min"
+  ],
+  "js": [
+    "libs/isotope.pkgd.min",
+    "libs/owl.carousel.min",
+    "libs/markerclustererplus.min"
+  ],
+  "navbar": true,
+  "header": false,
+  "offline": true,
+  "templates": [
+    "avaliacoes",
+    "subcategorias"
+  ],
+  "cache": true
+}

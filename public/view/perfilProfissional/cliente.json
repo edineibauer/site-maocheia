@@ -1,11 +1,9 @@
 {
     "title": "Cliente {{sitename}}",
-    "css": ["bootstrap", "core/_base"],
-    "js": ["bootstrap", "homeMap", "core/_base"],
+    "css": "bootstrap",
     "navbar": true,
     "header": false,
     "setor": "clientes",
     "redirect": "login",
-    "templates": ["avaliacoes"],
-    "offline": true
+    "templates": ["avaliacoes"]
 }

@@ -1,7 +1,6 @@
 {
     "title": "Feedback - {{sitename}}",
-    "css": ["bootstrap", "core/_base"],
-    "js": ["homeMap", "core/_base"],
+    "css": "bootstrap",
     "navbar": true,
     "header": false
 }

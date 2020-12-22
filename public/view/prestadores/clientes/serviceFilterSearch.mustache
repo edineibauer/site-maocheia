@@ -1,0 +1,47 @@
+<section id="pesquisa">
+    <div class="col p-0">
+        <div class="container">
+            <div class="titulo">De que tipo de serviço você precisa?</div>
+        </div>
+        <div class="owl-carousel container owl-theme" id="categorias">
+            {{#.}}
+                {{#ativo}}
+                    <div class="item serviceProfissao serviceCategory{{#selected}} selecionado{{/selected}}" rel="{{id}}">
+                        <figure>
+                            <img src="{{imagem.0.urls.thumb}}" alt="{{nome}}">
+                        </figure>
+                        <h4 class="servico">{{nome}}</h4>
+                    </div>
+                {{/ativo}}
+            {{/.}}
+        </div>
+        <div class="owl-carousel container owl-theme pt-2 pb-1 hideCategorie" id="subcategorias"></div>
+    </div>
+</section>
+<section id="profissionais" class="hideCategorie">
+    <div class="container pt-3">
+        <h6 class="titulo titulo-result">Profissionais</h6>
+    </div>
+    <div class="container">
+        <!--<div class="owl-carousel carousel-filters button-group filters-button-group">
+            &lt;!&ndash;<div class="item">
+                <button class="button is-checked" data-filter="*" style="padding: 8px 15px 3px;">
+                    <i class="material-icons" style="text-shadow: none;">tune</i>
+                </button>
+            </div>&ndash;&gt;
+            <div class="item">
+                <button class="button" data-filter=".valor">Valor</button>
+            </div>
+            <div class="item">
+                <button class="button" data-filter=".distancia">Distância</button>
+            </div>
+            <div class="item">
+                <button class="button" data-filter=".avaliacao">Avaliação</button>
+            </div>
+            <div class="item">
+                <button class="button" data-filter=":not(.transition)">online</button>
+            </div>
+        </div>-->
+    </div>
+    <div id="services" class="pb-5"></div>
+</section>

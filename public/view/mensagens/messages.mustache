@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row justify-content-around">
+        <h3 class="titulo col-12 float-left mb-3">Mensagens</h3>
+        <div class="col-12" data-get="mensagem" data-realtime-get>
+            <div id="notificacoes" data-realtime-html>
+                {{#.}}
+                    <a href="mensagem/{{usuarios_id}}" rel="{{usuarios_id}}" class="col mb-1 pb-0 py-2 mensagens-card card shadow">
+                        <div class="col-12 float-left py-2 pr-0 pl-0">
+                            <div class="float-left imagem-perfil-mensagem"
+                                 style="background-image: url('{{imagem}}')"></div>
+                            <div class="float-left message-card-body">
+                                <h6 class="float-left col mb-0">
+                                    <div class="col p-0 float-left message-card-name font-weight-bold theme-text-d">
+                                        {{nome}}
+                                    </div>
+                                    <small class="col pl-0 pb-1 float-left message-card-date">
+                                        <i id="blo-{{usuarios_id}}" rel="{{bloqueado}}"
+                                           class='material-icons blocked{{^bloqueado}} hide{{/bloqueado}}'>block</i>
+                                        <i id="sil-{{usuarios_id}}" rel="{{silenciado}}"
+                                           class='material-icons{{^silenciado}} hide{{/silenciado}}'
+                                           style="padding-top: 1px">volume_off</i>
+                                        <div class="lastonline float-left"
+                                             id="lastonline-{{usuarios_id}}"
+                                             style="padding-top: 2px">
+                                            {{data_ultima_mensagem}}
+                                        </div>
+                                    </small>
+                                </h6>
+                                <div class="col float-left message-card-message" rel="{{usuarios_id}}">
+                                    <i class='material-icons h6 received mb-0 float-left pr-1{{#recebido}} active{{/recebido}}' rel="{{recebido}}">done{{#recebido}}_all{{/recebido}}</i>
+                                    {{{ultima_mensagem}}}
+                                </div>
+                            </div>
+                            <div class="pendente float-left theme{{^isPendente}} hide{{/isPendente}}">
+                                {{nao_lidas}}
+                            </div>
+                        </div>
+                    </a>
+                {{/.}}
+            </div>
+        </div>
+    </div>
+</div>

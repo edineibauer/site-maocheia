@@ -1,0 +1,10 @@
+{
+    "title": "Início {{sitename}}",
+    "jsPre": ["@webcomponents/webcomponentsjs/webcomponents-bundle"],
+    "navbar": true,
+    "css": "bootstrap",
+    "header": false,
+    "setor": "clientes",
+    "redirect": "login",
+    "templates": ["cardProfissional"]
+}

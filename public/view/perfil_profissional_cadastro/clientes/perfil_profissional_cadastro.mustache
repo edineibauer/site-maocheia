@@ -1,108 +1,39 @@
 <section id="cadastro-profissional">
     <div class="container">
         <div class="row">
-            <div class="col-12">
-                <a href="#back" class="volta">
-                    <i class="material-icons">arrow_back</i>
-                </a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <h2 class="titulo">Criar conta profissional</h2>
-            </div>
+            <a href="perfil" data-animation="back" class="col-12 volta">
+                <i class="material-icons float-left pr-2">arrow_back</i>
+                <h5 class="float-left py-3 mt-2" style="font-weight: 600">Criar contra Profissional</h5>
+            </a>
         </div>
         <div class="row">
             <div class="col-12">
 
-                <div class="form-group mb-5">
+                <div class="form-group mb-2">
                     <div>
                         <input class="carregar-foto" id="imagem_de_perfil" accept="image/bmp, image/gig, image/jpg, image/jpeg, image/png" type="file">
-                        <input class="carregar-foto" id="imagem_de_fundo" accept="image/bmp, image/gig, image/jpg, image/jpeg, image/png" type="file">
-
                         <div class="Neon Neon-theme-dragdropbox">
                             <label for="imagem_de_perfil" class="bordas" id="imagem_de_perfil_preview">
                                 <i class="material-icons" style="margin-top: -15px">image</i>
                                 <div>perfil</div>
                             </label>
-
-                            <label for="imagem_de_fundo" class="bordas-fundos" id="imagem_de_fundo_preview">
-                                <i class="material-icons">image</i>
-                                <div>Imagem de fundo</div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="categoria" class="pb-1">Profissão *</label>
-                    <select class="form-control" id="categoria">
-                        <option>Selecione...</option>
-                    </select>
-                </div>
-                <div class="form-group hide" id="areasatuacao">
-                    <label for="categoria">Áreas de atuação</label>
-                    <div class="pt-1 row pl-3 pr-3 pb-3" id="subcategorias"></div>
-                </div>
-
-                <div class="row mt-2">
-                    <div class="col s6">
-                        <label for="inicio" class="pb-1">Hora de início *</label>
-                        <input type="time" class="form-control" id="inicio"/>
-                    </div>
-                    <div class="col s6">
-                        <label for="termino" class="pb-1">Hora de término *</label>
-                        <input type="time" class="form-control" id="termino"/>
-                    </div>
-                </div>
-
-                <span class="row pb-1 mt-3 pl-3" style="font-size: 13px; color:#999999">Dias de Trabalho</span>
-                <div class="col container mt-1 mb-2">
-                    <div class="row">
-                        <div class="custom-control custom-checkbox col col-4">
-                            <input type="checkbox" class="dias custom-control-input" id="segunda">
-                            <label class="custom-control-label pt-1" for="segunda">Segunda</label>
-                        </div>
-                        <div class="custom-control custom-checkbox col col-4">
-                            <input type="checkbox" class="dias custom-control-input" id="terca">
-                            <label class="custom-control-label pt-1" for="terca">Terça</label>
-                        </div>
-                        <div class="custom-control custom-checkbox col col-4">
-                            <input type="checkbox" class="dias custom-control-input" id="quarta">
-                            <label class="custom-control-label pt-1" for="quarta">Quarta</label>
-                        </div>
-                        <div class="custom-control custom-checkbox col col-4">
-                            <input type="checkbox" class="dias custom-control-input" id="quinta">
-                            <label class="custom-control-label pt-1" for="quinta">Quinta</label>
-                        </div>
-                        <div class="custom-control custom-checkbox col col-4">
-                            <input type="checkbox" class="dias custom-control-input" id="sexta">
-                            <label class="custom-control-label pt-1" for="sexta">Sexta</label>
-                        </div>
-                        <div class="custom-control custom-checkbox col col-4">
-                            <input type="checkbox" class="dias custom-control-input" id="sabado">
-                            <label class="custom-control-label pt-1" for="sabado">Sábado</label>
-                        </div>
-                        <div class="custom-control custom-checkbox col col-4">
-                            <input type="checkbox" class="dias custom-control-input" id="domingo">
-                            <label class="custom-control-label pt-1" for="domingo">Domingo</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group pt-3">
-                    <label for="sobre" class="pb-1">Distância de atendimento em KM</label>
-                    <input type="number" min="0" max="10000000000" class="form-control" id="distancia" />
+                    <label for="sobre" class="pb-1">Seu nome Profissional</label>
+                    <input type="text" class="form-control" id="nome" rows="3" />
                 </div>
 
                 <div class="form-group pt-3">
-                    <label for="sobre" class="pb-1">Descrição do seu trabalho *</label>
+                    <label for="sobre" class="pb-1">Descreva seu trabalho</label>
                     <textarea class="form-control" id="sobre" rows="3"></textarea>
                 </div>
 
                 <div class="form-group mb-3">
                     <div class="input-group-prepend">
-                        <label class="pt-2">Galeria de imagens</label>
+                        <label class="pt-2">Suas imagens promocionais</label>
                     </div>
                     <div>
                         <input class="carregar-foto" id="galeria" type="file" accept="image/bmp, image/gig, image/jpg, image/jpeg, image/png" multiple>
@@ -116,6 +47,11 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="form-group pt-3">
+                    <label for="sobre" class="pb-1">Distância máxima de atendimento em KM</label>
+                    <input type="number" min="0" max="10000000000" class="form-control" id="distancia" />
                 </div>
 
                 <!--<div class="col container mt-1 mb-0">

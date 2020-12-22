@@ -1,0 +1,13 @@
+.volta {
+    color: #222!important;
+}
+
+.volta > i {
+    font-size: 40px;
+    padding: 15px 0;
+}
+
+.r-network {
+    background: #F1F0F5!important;
+    font-family: 'Roboto', sans-serif !important;
+}

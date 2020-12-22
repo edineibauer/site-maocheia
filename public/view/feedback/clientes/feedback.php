@@ -1,15 +1,9 @@
 <section class="container">
     <div class="row">
-        <div class="col-12">
-            <a href="#back" class="volta">
-                <i class="material-icons">arrow_back</i>
-            </a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <h2 class="titulo">Feedback do aplicativo</h2>
-        </div>
+        <a href="#back" data-animation="back" class="col-12 volta">
+            <i class="material-icons float-left pl-2 pr-2">arrow_back</i>
+            <h5 class="float-left py-3 mt-2 font-weight-bold">feedback do app</h5>
+        </a>
     </div>
     <div class="row">
         <div class="col-12">

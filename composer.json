@@ -10,11 +10,7 @@
     ],
     "require": {
         "ueb/dashboard": "*",
-        "ueb/chat": "^1.0"
-    },
-    "autoload": {
-        "psr-0": {
-            "Chat": "public/src/"
-        }
+        "ueb/notification": "^1.0",
+        "ueb/config": "dev-master"
     }
 }

@@ -1,17 +1,13 @@
 <section id="criar-conta">
+    <div class="row">
+        <a href="#back" data-animation="back" class="col-12 volta">
+            <i class="material-icons float-left pl-2 pr-2">arrow_back</i>
+            <h4 class="float-left py-3 mt-1 font-weight-bold">Termos de Uso</h4>
+        </a>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <a href="#back" class="volta">
-                    <i class="material-icons">arrow_back</i>
-                </a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div>
-                    <h3 class="titulo">Termos de Uso</h3>
-                </div>
                 <div class="texto mb-4 mt-2 float-left text-justify">
                     MÃOCHEIA ANÚNCIOS DE INTERNET LTDA, pessoa jurídica de direito privado, inscrita no CNPJ/MF sob o nº xxx, é uma empresa que presta serviços de anúncios de serviços gerais via internet, através do aplicativo “MÃOCHEIA”, disponível para os sistemas Android e iOS, com o objetivo única e exclusivamente de aproximar e facilitar a comunicação entre dois segmentos de usuários da plataforma, denominados para efeito do presente Termo, “USUÁRIO CLIENTE” e “USUÁRIO PRESTADOR DE SERVIÇOS”.
                     <br><br>O presente Termo regula as condições de uso da plataforma MÃOCHEIA pelo USUÁRIO CLIENTE e pelo USUÁRIO PRESTADOR DE SERVIÇOS, sendo que estes, ao concordarem com os Termos aqui apresentados, se submetem a todas as condições de uso da plataforma.

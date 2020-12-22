@@ -2878,3 +2878,7 @@ a.view-details-link:hover span {
     transform: translateX(3px);
     margin-left: 6px;
 }
+
+a.btn:hover {
+	color:#ffffff!important
+}

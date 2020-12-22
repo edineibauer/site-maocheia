@@ -1,0 +1,8 @@
+{
+    "title": "Início {{sitename}}",
+    "navbar": true,
+    "css": "bootstrap",
+    "header": false,
+    "setor": "clientes",
+    "redirect": "login"
+}

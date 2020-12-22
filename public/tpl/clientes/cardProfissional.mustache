@@ -1,0 +1,65 @@
+<div class="row my-1 shadow rounded pl-3 pr-3 py-2">
+    <div class="col-7">
+        <div class="row">
+            <div class="float-left" style="font-weight: 500">{{nome}}</div>
+        </div>
+        <div class="row">
+
+            <div class="avaliacao-card float-left">
+                <ul class="horizontal-list p-0">
+                    <li>
+                        <i class="material-icons{{#avaliacao_star1}} active{{/avaliacao_star1}}">{{#avaliacao_star1_half}}
+                            star_half{{/avaliacao_star1_half}}{{^avaliacao_star1_half}}
+                            star{{/avaliacao_star1_half}}</i>
+                    </li>
+                    <li>
+                        <i class="material-icons{{#avaliacao_star2}} active{{/avaliacao_star2}}">{{#avaliacao_star2_half}}
+                            star_half{{/avaliacao_star2_half}}{{^avaliacao_star2_half}}
+                            star{{/avaliacao_star2_half}}</i>
+                    </li>
+                    <li>
+                        <i class="material-icons{{#avaliacao_star3}} active{{/avaliacao_star3}}">{{#avaliacao_star3_half}}
+                            star_half{{/avaliacao_star3_half}}{{^avaliacao_star3_half}}
+                            star{{/avaliacao_star3_half}}</i>
+                    </li>
+                    <li>
+                        <i class="material-icons{{#avaliacao_star4}} active{{/avaliacao_star4}}">{{#avaliacao_star4_half}}
+                            star_half{{/avaliacao_star4_half}}{{^avaliacao_star4_half}}
+                            star{{/avaliacao_star4_half}}</i>
+                    </li>
+                    <li>
+                        <i class="material-icons{{#avaliacao_star5}} active{{/avaliacao_star5}}">{{#avaliacao_star5_half}}
+                            star_half{{/avaliacao_star5_half}}{{^avaliacao_star5_half}}
+                            star{{/avaliacao_star5_half}}</i>
+                    </li>
+                </ul>
+            </div>
+            <div class="profissional-subtitulo float-left" style="margin-top: -9px;">
+                <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: -7px"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     fill="{{#preco_star1}}#FF1967{{/preco_star1}}{{^preco_star1}}#bbbbbb{{/preco_star1}}"
+                     version="1.1" width="11" height="11" viewBox="2 2 20 20">
+                    <path d="M7,15H9C9,16.08 10.37,17 12,17C13.63,17 15,16.08 15,15C15,13.9 13.96,13.5 11.76,12.97C9.64,12.44 7,11.78 7,9C7,7.21 8.47,5.69 10.5,5.18V3H13.5V5.18C15.53,5.69 17,7.21 17,9H15C15,7.92 13.63,7 12,7C10.37,7 9,7.92 9,9C9,10.1 10.04,10.5 12.24,11.03C14.36,11.56 17,12.22 17,15C17,16.79 15.53,18.31 13.5,18.82V21H10.5V18.82C8.47,18.31 7,16.79 7,15Z"/>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: -7px"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     fill="{{#preco_star2}}#FF1967{{/preco_star2}}{{^preco_star2}}#bbbbbb{{/preco_star2}}"
+                     version="1.1" width="11" height="11" viewBox="2 2 20 20">
+                    <path d="M7,15H9C9,16.08 10.37,17 12,17C13.63,17 15,16.08 15,15C15,13.9 13.96,13.5 11.76,12.97C9.64,12.44 7,11.78 7,9C7,7.21 8.47,5.69 10.5,5.18V3H13.5V5.18C15.53,5.69 17,7.21 17,9H15C15,7.92 13.63,7 12,7C10.37,7 9,7.92 9,9C9,10.1 10.04,10.5 12.24,11.03C14.36,11.56 17,12.22 17,15C17,16.79 15.53,18.31 13.5,18.82V21H10.5V18.82C8.47,18.31 7,16.79 7,15Z"/>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     fill="{{#preco_star3}}#FF1967{{/preco_star3}}{{^preco_star3}}#bbbbbb{{/preco_star3}}"
+                     version="1.1" width="11" height="11" viewBox="2 2 20 20">
+                    <path d="M7,15H9C9,16.08 10.37,17 12,17C13.63,17 15,16.08 15,15C15,13.9 13.96,13.5 11.76,12.97C9.64,12.44 7,11.78 7,9C7,7.21 8.47,5.69 10.5,5.18V3H13.5V5.18C15.53,5.69 17,7.21 17,9H15C15,7.92 13.63,7 12,7C10.37,7 9,7.92 9,9C9,10.1 10.04,10.5 12.24,11.03C14.36,11.56 17,12.22 17,15C17,16.79 15.53,18.31 13.5,18.82V21H10.5V18.82C8.47,18.31 7,16.79 7,15Z"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="col-5 p-0">
+        <a target="_blank" href="//api.whatsapp.com/send?phone=55{{telefone}}" class="btn rounded float-right theme" style="width: 127px">
+            <i class="material-icons float-left pr-2">chat_bubble</i>
+            <div class="float-left">whatsapp</div>
+        </a>
+    </div>
+</div>

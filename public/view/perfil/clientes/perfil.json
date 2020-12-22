@@ -1,10 +1,8 @@
 {
     "title": "Perfil {{sitename}}",
-    "css": ["bootstrap", "core/_base"],
-    "js": ["core/_base", "homeMap"],
+    "css": "bootstrap",
     "navbar": true,
     "header": false,
     "setor": "clientes",
-    "redirect": "login",
-    "offline": true
+    "redirect": "login"
 }

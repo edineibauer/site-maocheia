@@ -1,0 +1,16 @@
+#search {
+    font-size: 21px;
+    border-radius: 5px;
+    outline: none;
+    background-color: #ffffff;
+    border: solid 1px #dddddd;
+    width: 100%;
+    padding-right: 60px!important;
+}
+
+#searchBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 56px;
+}

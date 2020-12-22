@@ -1,7 +1,7 @@
 {
     "title": "Histórico {{sitename}}",
-    "css": ["bootstrap", "core/_base"],
-    "js": ["homeMap", "core/_base", "moment"],
+    "css": "bootstrap",
+    "jsPre": "moment",
     "navbar": true,
     "header": false,
     "setor": "clientes",

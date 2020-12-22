@@ -1,0 +1,10 @@
+{
+  "title": "Mensagens {{sitename}}",
+  "css": "bootstrap",
+  "jsPre": "moment",
+  "navbar": true,
+  "header": false,
+  "setor": "clientes",
+  "redirect": "login",
+  "templates": ["empty"]
+}

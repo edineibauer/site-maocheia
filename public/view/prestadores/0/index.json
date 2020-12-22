@@ -1,0 +1,8 @@
+{
+    "title": "{{sitename}}",
+    "css": ["libs/materialdesignicons.min", "libs/owl.carousel.min"],
+    "js": ["libs/owl.carousel.min"],
+    "navbar": false,
+    "header": false,
+    "offline": true
+}

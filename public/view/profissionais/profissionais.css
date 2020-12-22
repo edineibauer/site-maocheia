@@ -1,0 +1,29 @@
+{
+background: #f9f9f9;
+}
+
+lottie-player {
+    height: 140px;
+}
+
+.profissional-subtitulo {
+    display: inline;
+    float: left;
+    padding: 1px 5px 0 0;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+ul.horizontal-list > li > .material-icons {
+    font-size: 14px !important;
+}
+
+ul.horizontal-list > li {
+    float: left;
+    color: #cccccc;
+    font-size: 9px;
+}
+
+ul.horizontal-list > li > .material-icons.active {
+    color: #FF1967;
+}

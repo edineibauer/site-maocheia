@@ -1,0 +1,22 @@
+<div class="row" style="padding: 1px 15px;">
+    <div class="col-12">
+        <div class="col-12 {{#isSubCategory}} serviceSubCategoryResult{{/isSubCategory}}{{^isSubCategory}} serviceCategoryResult{{/isSubCategory}} cardList" rel="{{id}}">
+            <div class="row">
+                <div class="col-3" style="padding: 0">
+                    <div id="card-service-imagem"
+                         style="background-size: 60%;background-image: url('{{imagem.0.urls.thumb}}')"></div>
+                </div>
+                <div class="col-9" style="padding: 0 10px">
+                    <div>
+                        <h6 class="nome">
+                            {{nome}}
+                        </h6>
+                    </div>
+                    <div style="font-size:11px; color:#777777; padding-top: 5px;height: 37px;overflow: hidden;">
+                        {{descricao}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

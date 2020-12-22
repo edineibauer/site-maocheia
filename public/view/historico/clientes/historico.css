@@ -95,17 +95,12 @@
     float: left;
 }
 
-
-body {
-    font-family: 'Roboto', sans-serif !important;
-    background: #F1F0F5;
-}
-
 .titulo {
     font-size: 24px;
     font-weight: bold;
     margin-top: 25px;
     margin-bottom: 30px;
+    margin-left: 20px;
 }
 
 .history-time {

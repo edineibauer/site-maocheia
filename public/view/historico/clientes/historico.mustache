@@ -1,38 +1,33 @@
-<section id="mensagem">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="col p-0">
-                    <h3 class="titulo float-left">Histórico</h3>
-                </div>
-                <div id="notificacoes" data-get="event/historico" data-realtime-get="historicoFuncao">
-                    {{#.}}
+<div class="container">
+    <div class="row">
+        <h3 class="titulo col-12 float-left pl-0 mb-3">Histórico</h3>
+        <div class="col-12">
+            <div id="notificacoes" data-get="historico" data-realtime-get="historicoFuncao">
+                {{#.}}
                     <div class="notification-item" rel="{{id}}">
                         <div class="notification-card{{#recebeu}} readed{{/recebeu}} no-select">
-                            <a href="perfil{{#perfil_profissional}}Profissional{{/perfil_profissional}}{{^perfil_profissional}}Usuario{{/perfil_profissional}}/{{usuarios_id}}" class="notification-content-left">
-                                <img src="{{imagem.urls.medium}}" width="50" height="50" class="imagem-notificacao"/>
-                            </a>
-                            <a href="perfil{{#perfil_profissional}}Profissional{{/perfil_profissional}}{{^perfil_profissional}}Usuario{{/perfil_profissional}}/{{usuarios_id}}" class="notification-content-right">
-                                <div class="notification-content notification-title font-weight-bold h6 mb-0">
-                                    {{nome}}
+                            <a href="perfilProfissional" class="notification-content-right">
+                                <div class="pl-0 notification-content notification-title font-weight-bold h6 mb-0">
+                                    {{problema}}
                                 </div>
-                                <div class="history-time mb-1 font-weight-bold pl-3">{{data}}</div>
-                                <div class="notification-content notification-desc" style="color:#000">
-                                    {{canal}}
-                                </div>
+                                <div class="pl-0 history-time mb-1 font-weight-bold">{{data}}</div>
                             </a>
-                            {{^avaliou}}
-                            <a href="avaliacao/{{^isProfissional}}{{cliente}}{{/isProfissional}}{{#isProfissional}}{{profissional}}{{/isProfissional}}" class="btn theme historico-btn">avaliar</a>
-                            {{/avaliou}}
+                            {{#atendido}}
+                                <div class="badge theme historico-btn py-2">atendido</div>
+                            {{/atendido}}
+                            {{^atendido}}
+                                <div class="badge historico-btn py-2" style="background: coral;color:#FFFFFF">não
+                                    atendido
+                                </div>
+                            {{/atendido}}
                         </div>
                         <i class="material-icons" onclick="closeHistory({{id}})">delete</i>
                     </div>
-                    {{/.}}
-                    <script>
-                        new TouchLeft($(".notification-card"), -70, 50, 0);
-                    </script>
-                </div>
+                {{/.}}
+                <script>
+                    new TouchLeft($(".notification-card"), -70, 50, 0);
+                </script>
             </div>
         </div>
     </div>
-</section>
+</div>

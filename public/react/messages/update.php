@@ -1,71 +1,17 @@
 <?php
 
-if (!empty($dadosOld) && !empty($dados)) {
-    $messageOldCount = count(json_decode($dadosOld['mensagens'], !0));
-    $allMessages = json_decode($dados['mensagens'], !0);
+/**
+ * User is not silence and not online
+ * so send notification
+ */
+$sql = new \Conn\SqlCommand(!0);
+$sql->exeCommand("SELECT c.imagem, c.perfil_profissional, mu.ownerpub, mu.silenciado FROM " . PRE . "messages_user as mu JOIN " . PRE . "clientes as c ON c.usuarios_id = mu.ownerpub WHERE mu.mensagens = {$dados['id']} AND usuario = {$_SESSION['userlogin']['id']}");
+if($sql->getResult() && $sql->getResult()[0]['silenciado'] == 0) {
+    $item = $sql->getResult()[0];
+    $item['perfil_profissional'] = !empty($item['perfil_profissional']) ? json_decode($item['perfil_profissional'], !0) : [];
+    $imagem = (!empty($item['perfil_profissional']) && !empty($item['perfil_profissional']['imagem_de_perfil']) ? $item['perfil_profissional']['imagem_de_perfil'][0]['urls']['thumb'] : (!empty($item['imagem']) ? json_decode($item['imagem'], !0)[0]['urls']['thumb'] : HOME . "public/assets/svg/account.svg"));
 
-    if ($messageOldCount !== count($allMessages)) {
+    $lastMessage = json_decode($dados['mensagens'], !0);
 
-        $read = new \Conn\Read();
-        $read->exeRead("messages_user", "WHERE mensagens = :id AND usuario = :user", "id={$dados['id']}&user={$_SESSION['userlogin']['id']}", !0);
-        if ($read->getResult()) {
-            $messages = $read->getResult()[0];
-            $lastMessage = $allMessages[count($allMessages) - 1];
-            $up = new \Conn\Update();
-
-            /**
-             * Update my last message
-             */
-            $up->exeUpdate("messages_user", [
-                "ultima_mensagem" => $lastMessage['mensagem'],
-                "data_ultima_mensagem" => $lastMessage['data'],
-                "ultima_mensagem_lido" => 1,
-                "recebido" => 1
-            ], "WHERE mensagens = :id AND ownerpub = :user", "id={$dados['id']}&user={$_SESSION['userlogin']['id']}");
-
-            /**
-             * Check if the user is bloqued
-             */
-            if ($messages['bloqueado'] != 1) {
-
-                /**
-                 * Check if user need to receive the push (if is offline on app)
-                 */
-                $dia = date("Y-m-d");
-                $isUserOffline = !file_exists(PATH_HOME . "_cdn/userActivity/" . $messages['ownerpub'] . "/{$dia}.json");
-                if (!$isUserOffline) {
-                    $day = json_decode(file_get_contents(PATH_HOME . "_cdn/userActivity/" . $messages['ownerpub'] . "/{$dia}.json"), !0);
-                    $isUserOffline = (strtotime($dia . ' ' . $day[count($day) - 1]) < strtotime('now') - 10);
-                }
-
-                $userView = "";
-                if(file_exists(PATH_HOME . "_cdn/userLastView/" . $messages['ownerpub'] . ".txt"))
-                    $userView = file_get_contents(PATH_HOME . "_cdn/userLastView/" .$messages['ownerpub'] . ".txt");
-
-                /**
-                 * Update user chat last message
-                 */
-                $up->exeUpdate("messages_user", [
-                    "nao_lidas" => (empty($messages['nao_lidas']) ? 1 : ($messages['nao_lidas'] + 1)),
-                    "ultima_mensagem" => $lastMessage['mensagem'],
-                    "data_ultima_mensagem" => $lastMessage['data'],
-                    "ultima_mensagem_lido" => 0,
-                    "recebido" => $userView !== "messages" && $userView !== "message" && $messages['silenciado'] == 0 ? 0 : 1
-                ], "WHERE id = :idm", "idm={$messages['id']}");
-
-                /**
-                 * Notify the user
-                 */
-                if ($messages['silenciado'] == 0) {
-
-                    /**
-                     * User is not silence and not online
-                     * so send notification
-                     */
-                    if ($isUserOffline)
-                        \Dashboard\Notification::create($_SESSION['userlogin']['nome'], $lastMessage['mensagem'], $messages['ownerpub']);
-                }
-            }
-        }
-    }
+    \Notification\Notification::push($_SESSION['userlogin']['setorData']['nome'], end($lastMessage)['mensagem'], $item['ownerpub'], $imagem);
 }

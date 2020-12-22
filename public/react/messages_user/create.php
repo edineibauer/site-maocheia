@@ -1,34 +1,15 @@
 <?php
 
-if (!empty($dados) && $dados['usuario'] != $_SESSION['userlogin']['id']) {
+/**
+ * User is not silence and not online
+ * so send notification
+ */
+$sql = new \Conn\SqlCommand();
+$sql->exeCommand("SELECT c.imagem, c.perfil_profissional FROM " . PRE . "clientes as c WHERE c.usuarios_id = {$dados['usuario']}");
+if($sql->getResult()) {
+    $item = $sql->getResult()[0];
+    $item['perfil_profissional'] = !empty($item['perfil_profissional']) ? json_decode($item['perfil_profissional'], !0) : [];
+    $imagem = (!empty($item['perfil_profissional']) && !empty($item['perfil_profissional']['imagem_de_perfil']) ? $item['perfil_profissional']['imagem_de_perfil'][0]['urls']['thumb'] : (!empty($item['imagem']) ? json_decode($item['imagem'], !0)[0]['urls']['thumb'] : HOME . "public/assets/svg/account.svg"));
 
-    /**
-     * Force Start values
-     */
-    $up = new \Conn\Update();
-    $up->exeUpdate("messages_user", ["aceito" => 1, "bloqueado" => 0, "silenciado" => 0, "nao_lidas" => 0, "ultima_mensagem_lido" => 1, "recebido" => 1], "WHERE id = :id", "id={$dados['id']}");
-
-    /**
-     * Create chat to user too
-     */
-    $create = new \Conn\Create();
-    $create->exeCreate("messages_user", ["ownerpub" => $dados['usuario'], "usuario" => $_SESSION['userlogin']['id'], "mensagens" => $dados['mensagens'],  "ultima_vez_online" => $dados["ultima_vez_online"],
-                    "data_ultima_mensagem" => $dados["data_ultima_mensagem"], "ultima_mensagem" => $dados["ultima_mensagem"], "aceito" => 0, "bloqueado" => 0, "silenciado" => 0, "nao_lidas" => 1, "ultima_mensagem_lido" => 0, "recebido" => 0]);
-
-    /**
-     * Check if user need to receive the push (if is offline on app)
-     */
-    $dia = date("Y-m-d");
-    $isUserOffline = !file_exists(PATH_HOME . "_cdn/userActivity/" . $dados['usuario'] . "/{$dia}.json");
-    if(!$isUserOffline) {
-        $day = json_decode(file_get_contents(PATH_HOME . "_cdn/userActivity/" . $dados['usuario'] . "/{$dia}.json"), !0);
-        $isUserOffline = (strtotime($dia . ' ' . $day[count($day) - 1]) < strtotime('now') - 5);
-    }
-
-    /**
-     * User is not silence and not online
-     * so send notification
-     */
-    if($isUserOffline)
-        \Dashboard\Notification::create($_SESSION['userlogin']['nome'], $dados["ultima_mensagem"], $dados['usuario']);
+    \Notification\Notification::push($_SESSION['userlogin']['setorData']['nome'], $dados["ultima_mensagem"], $dados['usuario'], $imagem);
 }

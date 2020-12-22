@@ -1,7 +1,6 @@
 {
     "title": "Comprar moedas {{sitename}}",
-    "css": ["bootstrap", "core/_base"],
-    "js": ["core/_base"],
+    "css": "bootstrap",
     "navbar": false,
     "header": false,
     "setor": "clientes",

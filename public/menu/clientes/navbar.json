@@ -5,19 +5,14 @@
     "html": "<i class='material-icons left'>map</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>início</div>"
   },
   {
+    "href": "mensagens",
+    "class": "theme-text-aux",
+    "html": "<i class='material-icons left'>message</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>mensagens</div>"
+  },
+  {
     "href": "historico",
     "class": "theme-text-aux",
     "html": "<i class='material-icons left'>history</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>histórico</div>"
-  },
-  {
-    "href": "messages",
-    "class": "theme-text-aux",
-    "html": "<i class='material-icons left'>chat_bubble</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>mensagens</div>"
-  },
-  {
-    "href": "notificacoes",
-    "class": "theme-text-aux",
-    "html": "<i class='material-icons left'>notifications</i><div style='margin-top: -7px;color: gray;font-size: 10px;text-align: center;'>notificações</div>"
   },
   {
     "href": "perfil",

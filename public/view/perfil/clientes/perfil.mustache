@@ -1,12 +1,10 @@
 <section id="topo">
     <div class="container float-left">
-        <a href="perfil{{#USER.setorData.perfil_profissional}}Profissional{{/USER.setorData.perfil_profissional}}{{^USER.setorData.perfil_profissional}}Usuario{{/USER.setorData.perfil_profissional}}/{{USER.id}}" class="float-left perfil-link" id="perfil-image"
-           style="background-image: url('{{#USER.setorData.perfil_profissional}}{{imagem_de_perfil.0.urls.medium}}{{/USER.setorData.perfil_profissional}}{{^USER.setorData.perfil_profissional}}{{#USER.setorData.imagem}}{{urls.medium}}{{/USER.setorData.imagem}}{{^USER.setorData.imagem}}{{#USER.setorData.imagem_url}}{{.}}{{/USER.setorData.imagem_url}}{{^USER.setorData.imagem_url}}{{home}}public/assets/svg/account.svg{{/USER.setorData.imagem_url}}{{/USER.setorData.imagem}}{{/USER.setorData.perfil_profissional}}')"></a>
+        <a href="perfilProfissional/{{USER.setorData.id}}" class="float-left perfil-link" id="perfil-image" data-realtime-attr
+           style="background-image: url('{{#USER.setorData.imagem}}{{urls.medium}}{{/USER.setorData.imagem}}{{^USER.setorData.imagem}}{{home}}public/assets/svg/account.svg{{/USER.setorData.imagem}}')"></a>
         <div id="perfil-nome-block" class="pl-2">
-            <a href="perfil{{#USER.setorData.perfil_profissional}}Profissional{{/USER.setorData.perfil_profissional}}{{^USER.setorData.perfil_profissional}}Usuario{{/USER.setorData.perfil_profissional}}/{{USER.id}}" class="pl-2 perfil-link float-left">
-                <h5 id="nome-user" data-realtime-html>{{USER.setorData.nome}}</h5>
-                <div id="avaliacao-perfil-profissional"></div>
-                <div id="preco-perfil-profissional"></div>
+            <a href="perfilProfissional/{{USER.setorData.id}}" class="pl-2 perfil-link float-left">
+                <h5 id="nome-user" data-realtime-html>{{USER.nome}}</h5>
             </a>
         </div>
         {{#USER.setorData.perfil_profissional}}
@@ -55,7 +53,7 @@
         <a href="conta" class="row borda-row">
             <div class="col-8 col-lg-8">
                 <div class="titulo-h6">Configurações da conta</div>
-                <div class="informacao-div">Perfil pessoal</div>
+                <div class="informacao-div">Perfil Pessoal</div>
             </div>
             <div class="col-4 col-lg-4 mt-3 text-right">
                 <i class="material-icons">person</i>
@@ -66,7 +64,7 @@
             <a href="perfil_profissional_editar" id="editprofissional" class="row borda-row">
                 <div class="col-8 col-lg-8">
                     <div class="titulo-h6">Configurações Profissionais</div>
-                    <div class="informacao-div">Perfil profissional</div>
+                    <div class="informacao-div">Perfil Profissional</div>
                 </div>
                 <div class="col-4 col-lg-4 mt-3 text-right">
                     <i class="material-icons">description</i>
@@ -78,7 +76,7 @@
             <a href="perfil_profissional_open" id="openprofissional" class="row borda-row">
                 <div class="col-8 col-lg-8">
                     <div class="titulo-h6">Configurações Profissionais</div>
-                    <div class="informacao-div">Abrir perfil profissional</div>
+                    <div class="informacao-div">Quero ser um prestador</div>
                 </div>
                 <div class="col-4 col-lg-4 mt-3 text-right">
                     <i class="material-icons">business</i>
